@@ -1,26 +1,43 @@
 // jungle_groove_script.js
 console.log("jungle_groove_script.js parsing started. Waiting for YouTube API...");
 
+let elementsJG = {}; // Ensure elementsJG is declared early
+let appStateJG = {}; // Declare appStateJG early for onYouTubeIframeAPIReady if needed before full init
+
 // ==========================================================================
-// YouTube Player API Ready Callback (MUST BE GLOBAL)
+// YouTube Player API Ready Callback (MUST BE GLOBAL and named onYouTubeIframeAPIReady)
 // ==========================================================================
-function onYouTubeIframeAPIReadyJG() {
-    console.log("GLOBAL onYouTubeIframeAPIReadyJG CALLED BY YOUTUBE API SCRIPT!");
-    if (!elementsJG.youtubePlayerContainer) {
-        console.error("onYouTubeIframeAPIReadyJG: elementsJG.youtubePlayerContainer is not yet initialized or found! Ensure initializeElementsJG runs before this or DOM is ready.");
-        if (Object.keys(elementsJG).length === 0) {
-            console.log("onYouTubeIframeAPIReadyJG: Attempting to initialize elements as they were not ready.");
-            initializeElementsJG();
-        }
-        if (!elementsJG.youtubePlayerContainer) {
-             console.error("onYouTubeIframeAPIReadyJG: Still no youtubePlayerContainer after re-check. Player cannot be created.");
-             return;
-        }
+function onYouTubeIframeAPIReady() {
+    console.log("GLOBAL onYouTubeIframeAPIReady CALLED BY YOUTUBE API SCRIPT!");
+
+    // Ensure elements are initialized, especially youtubePlayerContainer.
+    // This might be called before DOMContentLoaded, so elementsJG might be empty.
+    // initializeElementsJG() will be called again on DOMContentLoaded to ensure all elements are captured.
+    if (Object.keys(elementsJG).length === 0 || !elementsJG.youtubePlayerContainer) {
+        console.warn("onYouTubeIframeAPIReady: elementsJG not fully initialized or youtubePlayerContainer missing. Initializing elements now for player creation.");
+        initializeElementsJG(); // Attempt to initialize elements if not done.
     }
-    console.log("onYouTubeIframeAPIReadyJG: youtubePlayerContainer found:", elementsJG.youtubePlayerContainer);
+
+    if (!elementsJG.youtubePlayerContainer) {
+         console.error("onYouTubeIframeAPIReady: Still no youtubePlayerContainer after trying to initialize. Player cannot be created. Make sure a div with id 'youtube-player-container-jg' exists or is created by initializeElementsJG.");
+         showSnackbarJG("プレイヤー表示領域が見つかりません。", "error"); // showSnackbarJG might not be defined yet if this runs too early
+         return;
+    }
+    console.log("onYouTubeIframeAPIReady: youtubePlayerContainer found:", elementsJG.youtubePlayerContainer, "with ID:", elementsJG.youtubePlayerContainer.id);
 
     try {
-        appStateJG.player = new YT.Player(elementsJG.youtubePlayerContainer.id, {
+        // Initialize appStateJG here if it's not fully defined yet,
+        // especially properties needed by the player or its event handlers.
+        // This is a basic re-init; complex state should be handled carefully.
+        if (Object.keys(appStateJG).length < 5) { // Heuristic: if not many keys, it's not fully initialized
+            console.warn("onYouTubeIframeAPIReady: appStateJG seems partially initialized, re-setting basic player state.");
+            appStateJG.player = null;
+            appStateJG.isPlayerReady = false;
+            appStateJG.volume = appStateJG.volume || 75; // Keep existing volume if set
+        }
+
+
+        appStateJG.player = new YT.Player(elementsJG.youtubePlayerContainer.id, { // Make sure this ID is correct
             height: '1',
             width: '1',
             playerVars: {
@@ -30,21 +47,29 @@ function onYouTubeIframeAPIReadyJG() {
                 'origin': window.location.origin
             },
             events: {
-                'onReady': onPlayerReadyJG,
-                'onStateChange': onPlayerStateChangeJG,
-                'onError': onPlayerErrorJG
+                'onReady': onPlayerReadyJG,       // Ensure this is the correct function name
+                'onStateChange': onPlayerStateChangeJG, // Ensure this is the correct function name
+                'onError': onPlayerErrorJG         // Ensure this is the correct function name
             }
         });
-        console.log("onYouTubeIframeAPIReadyJG: YT.Player instance creation attempted.");
+        console.log("onYouTubeIframeAPIReady: YT.Player instance creation attempted.");
         if (appStateJG.player) {
-            console.log("onYouTubeIframeAPIReadyJG: YT.Player instance seems created.");
+            console.log("onYouTubeIframeAPIReady: YT.Player instance created successfully.");
+        } else {
+            console.error("onYouTubeIframeAPIReady: YT.Player instance creation failed (player object is null/undefined).");
         }
     } catch (e) {
-        console.error("onYouTubeIframeAPIReadyJG: Error creating YT.Player instance:", e);
-        showSnackbarJG("YouTubeプレイヤーの作成に失敗しました。", "error");
+        console.error("onYouTubeIframeAPIReady: Error creating YT.Player instance:", e);
+        // showSnackbarJG might not be available if script order is an issue, fallback to alert
+        const message = "YouTubeプレイヤーの作成中にエラー: " + e.message;
+        if (typeof showSnackbarJG === 'function') {
+            showSnackbarJG(message, "error");
+        } else {
+            alert(message);
+        }
     }
 }
-window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReadyJG;
+// No need for window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady; if the function is named onYouTubeIframeAPIReady globally.
 
 // ==========================================================================
 // Constants & State
@@ -61,31 +86,29 @@ const LS_KEYS_JG = {
     QUEUE: 'jungleGrooveQueue'
 };
 
-const appStateJG = {
-    player: null,
-    songs: [],
-    filteredSongs: [],
-    currentSongIndex: -1,
-    isPlaying: false,
-    isShuffle: false,
-    loopMode: 'none', // 'none', 'one', 'all'
-    currentPanel: 'log-library',
-    volume: 75,
-    progressInterval: null,
-    history: [],
-    favorites: [],
-    userPlaylists: [],
-    queue: [],
-    currentQueueIndex: -1,
-    playMode: 'library',
-    isPlayerReady: false,
-    snackbarTimeoutId: null,
-    activeModalId: null,
-    currentTheme: 'dark',
-};
+// appStateJG is declared at the top, now fully initialize it
+appStateJG.player = null;
+appStateJG.songs = [];
+appStateJG.filteredSongs = [];
+appStateJG.currentSongIndex = -1;
+appStateJG.isPlaying = false;
+appStateJG.isShuffle = false;
+appStateJG.loopMode = 'none';
+appStateJG.currentPanel = 'log-library';
+appStateJG.volume = 75;
+appStateJG.progressInterval = null;
+appStateJG.history = [];
+appStateJG.favorites = [];
+appStateJG.userPlaylists = [];
+appStateJG.queue = [];
+appStateJG.currentQueueIndex = -1;
+appStateJG.playMode = 'library';
+appStateJG.isPlayerReady = false;
+appStateJG.snackbarTimeoutId = null;
+appStateJG.activeModalId = null;
+appStateJG.currentTheme = 'dark';
 
-let elementsJG = {};
-
+// elementsJG is declared at the top
 // ==========================================================================
 // Element Initialization
 // ==========================================================================
@@ -141,7 +164,7 @@ function initializeElementsJG() {
 // YouTube API & Song Loading
 // ==========================================================================
 const youtubeAPI_JG = {
-    apiKey: 'AIzaSyCbzvjP9vFa5I8N1qLI5H9LUpYim0nkQS4',
+    apiKey: 'AIzaSyCbzvjP9vFa5I8N1qLI5H9LUpYim0nkQS4', // API Key set
     channelId: 'UCYAuSEKhuk3v4ZKzm5Lqb1Q',
 
     async getLatestVideos(maxResults = 15) {
@@ -187,14 +210,19 @@ const youtubeAPI_JG = {
     async getVideoDetails(videoIds) {
         console.log("getVideoDetails - START. Fetching for IDs:", videoIds);
         if (!videoIds || videoIds.length === 0) return {};
+        // Ensure API key is valid before making a call
+        if (!this.apiKey || this.apiKey === 'YOUR_YOUTUBE_API_KEY_HERE' || this.apiKey.includes('_PLACEHOLDER')) {
+            console.error("youtubeAPI_JG.getVideoDetails: YouTube API Key is not properly set!", this.apiKey);
+            return {};
+        }
         try {
             const response = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=${videoIds.join(',')}&key=${this.apiKey}`);
             if (!response.ok) throw new Error(`YouTube Video Details API error: ${response.status}`);
             const data = await response.json();
             const details = {};
-            if (data.items) { // Check if items exist
+            if (data.items) {
                 data.items.forEach(item => {
-                    if (item.contentDetails) { // Check if contentDetails exist
+                    if (item.contentDetails) {
                        details[item.id] = this.convertDuration(item.contentDetails.duration);
                     } else {
                        details[item.id] = "--:--";
@@ -208,7 +236,7 @@ const youtubeAPI_JG = {
             return {};
         }
     },
-    convertDuration(isoDuration) {
+    convertDuration(isoDuration) { // Keep this function as is
         if (!isoDuration) return '--:--';
         const regex = /PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/;
         const matches = isoDuration.match(regex);
@@ -240,7 +268,7 @@ async function loadInitialSongsJG() {
         console.error("loadInitialSongsJG: Error occurred while calling getLatestVideos:", error);
         appStateJG.songs = [];
         appStateJG.filteredSongs = [];
-        if (elementsJG.libraryPanel) { // Ensure panel exists before rendering
+        if (elementsJG.libraryPanel) {
             renderSongListJG(elementsJG.libraryPanel, [], 'library');
             showLoadingInPanelJG(elementsJG.libraryPanel, false);
             showEmptyMessageInPanelJG(elementsJG.libraryPanel, "読み込み失敗", "曲の取得中にエラーが発生しました。");
@@ -273,10 +301,11 @@ async function loadInitialSongsJG() {
         showLoadingInPanelJG(elementsJG.libraryPanel, false);
     }
 
-
     if ((!songs || songs.length === 0)) {
-        if (elementsJG.libraryPanel) { // Ensure panel exists
-            if (!youtubeAPI_JG.apiKey || youtubeAPI_JG.apiKey === 'YOUR_YOUTUBE_API_KEY_HERE' || youtubeAPI_JG.apiKey.includes('_PLACEHOLDER')) {
+        if (elementsJG.libraryPanel) {
+            // Check if API key was the issue based on a flag or if it's still the placeholder
+            const apiKey = youtubeAPI_JG.apiKey;
+            if (!apiKey || apiKey === 'YOUR_YOUTUBE_API_KEY_HERE' || apiKey.includes('_PLACEHOLDER')) {
                  showEmptyMessageInPanelJG(elementsJG.libraryPanel, "APIキーが必要です", "曲をロードするにはAPIキーを設定してください。");
             } else {
                 showEmptyMessageInPanelJG(elementsJG.libraryPanel, "まだ曲がありません", "新しい冒険が始まるのを待とう！");
@@ -284,7 +313,6 @@ async function loadInitialSongsJG() {
         }
     }
 }
-
 // ==========================================================================
 // UI Rendering
 // ==========================================================================
@@ -553,8 +581,11 @@ function updateProgressJG() {
 // ==========================================================================
 // YouTube Player Event Handlers (Already included updated logs from previous step)
 // ==========================================================================
+// ==========================================================================
+// YouTube Player Event Handlers
+// ==========================================================================
 function onPlayerReadyJG(event) {
-    console.log("Jungle Groove Player Ready! (onPlayerReadyJG called). Player object:", event.target);
+    console.log("Jungle Groove Player Ready! (onPlayerReadyJG called). Player object available:", !!event.target);
     appStateJG.isPlayerReady = true;
     if (event.target && typeof event.target.setVolume === 'function') {
         try {
@@ -564,26 +595,25 @@ function onPlayerReadyJG(event) {
             console.warn("onPlayerReadyJG: Could not set volume on ready", e);
         }
     } else {
-        console.warn("onPlayerReadyJG: event.target or setVolume not available.");
+        console.warn("onPlayerReadyJG: event.target or setVolume not available for volume setting.");
     }
 
     const apiKey = youtubeAPI_JG.apiKey;
-    if (apiKey && apiKey !== 'YOUR_YOUTUBE_API_KEY_HERE' && apiKey !== 'AIzaSyCbzvjP9vFa5I8N1qLI5H9LUpYim0nkQS4_PLACEHOLDER_IF_YOU_USED_ONE') {
-        console.log("onPlayerReadyJG: API Key seems to be set. Calling loadInitialSongsJG...");
+    // Check for placeholder again, ensure it's a real key
+    if (apiKey && apiKey !== 'YOUR_YOUTUBE_API_KEY_HERE' && !apiKey.includes('_PLACEHOLDER_') && apiKey.length > 10) { // Basic length check
+        console.log("onPlayerReadyJG: API Key seems to be set correctly. Calling loadInitialSongsJG...");
         loadInitialSongsJG();
     } else {
-        console.error("onPlayerReadyJG: API Key is missing or still a placeholder! API Key found:", apiKey);
+        console.error("onPlayerReadyJG: API Key is missing, still a placeholder, or too short! API Key found:", `"${apiKey}"`);
         showSnackbarJG("APIキーが正しく設定されていません。曲をロードできません。", "error");
         if (elementsJG.libraryPanel) {
             showEmptyMessageInPanelJG(elementsJG.libraryPanel, "APIキー未設定", "曲をロードするには、スクリプト内のAPIキーを有効なものに置き換えてください。");
-        } else {
-            console.error("onPlayerReadyJG: Library panel not found to display API key error message.");
         }
     }
 }
 
 function onPlayerStateChangeJG(event) {
-    console.log("onPlayerStateChangeJG - Player state:", event.data);
+    console.log("onPlayerStateChangeJG - Player state:", event.data, "(Playing:", YT.PlayerState.PLAYING, "Paused:", YT.PlayerState.PAUSED, "Ended:", YT.PlayerState.ENDED, ")");
     const playerState = event.data;
     const previouslyPlaying = appStateJG.isPlaying;
     appStateJG.isPlaying = (playerState === YT.PlayerState.PLAYING);
@@ -595,11 +625,11 @@ function onPlayerStateChangeJG(event) {
     if (appStateJG.isPlaying) {
         if (appStateJG.progressInterval) clearInterval(appStateJG.progressInterval);
         appStateJG.progressInterval = setInterval(updateProgressJG, 250);
-        updateProgressJG();
+        updateProgressJG(); // Initial update when play starts
     } else {
         clearInterval(appStateJG.progressInterval);
-        if (playerState === YT.PlayerState.PAUSED || playerState === YT.PlayerState.BUFFERING) {
-            updateProgressJG();
+        if (playerState === YT.PlayerState.PAUSED || playerState === YT.PlayerState.BUFFERING || playerState === YT.PlayerState.ENDED) {
+            updateProgressJG(); // Update progress one last time
         }
     }
 
@@ -610,14 +640,15 @@ function onPlayerStateChangeJG(event) {
 
 function onPlayerErrorJG(event) {
     console.error("onPlayerErrorJG - Error code:", event.data);
-    let msg = "動画の再生エラー";
-    if (event.data === 2) msg = "無効な動画IDです。";
-    if (event.data === 5) msg = "HTML5プレイヤーエラー。";
-    if (event.data === 100) msg = "動画が見つかりません。";
-    if (event.data === 101 || event.data === 150) msg = "埋め込み再生が許可されていません。";
+    let msg = `動画の再生エラー (コード: ${event.data})`;
+    if (event.data === 2) msg = "無効な動画ID、またはリクエストに問題があります。";
+    if (event.data === 5) msg = "HTML5プレイヤーで内部エラーが発生しました。";
+    if (event.data === 100) msg = "要求された動画が見つかりませんでした。";
+    if (event.data === 101 || event.data === 150) msg = "この動画の埋め込み再生は、所有者によって許可されていません。";
     showSnackbarJG(msg, "error");
     appStateJG.isPlaying = false;
     updatePlayPauseButtonJG();
+    // Optionally, try to play the next song or reset UI further
 }
 // ==========================================================================
 // Event Listeners Setup
@@ -870,7 +901,7 @@ function showSnackbarJG(message, type = 'info', duration = 3000) {
 // Initialization on DOM Load & YouTube API Ready
 // ==========================================================================
 function loadInitialDataJG() {
-    console.log("loadInitialDataJG - START");
+    console.log("loadInitialDataJG - START: Loading data from localStorage and setting theme.");
     appStateJG.history = loadFromLocalStorageJG(LS_KEYS_JG.HISTORY) || [];
     appStateJG.favorites = loadFromLocalStorageJG(LS_KEYS_JG.FAVORITES) || [];
     appStateJG.queue = loadFromLocalStorageJG(LS_KEYS_JG.QUEUE) || [];
@@ -888,15 +919,22 @@ function loadInitialDataJG() {
         console.warn("loadInitialDataJG: Body or themeToggle element not found for theme setup.");
     }
 
+    // Render lists that depend on localStorage (songs are loaded after player is ready)
     if (elementsJG.favoritesPanel) renderSongListJG(elementsJG.favoritesPanel, appStateJG.favorites, 'favorites');
     else console.warn("loadInitialDataJG: favoritesPanel not found for initial render.");
 
     if (elementsJG.historyPanel) renderHistoryListJG();
     else console.warn("loadInitialDataJG: historyPanel not found for initial render.");
 
-    if (elementsJG.queuePanel) renderSongListJG(elementsJG.queuePanel, appStateJG.queue.map(id => findSongByIdJG(id)).filter(s => s), 'queue');
-    else console.warn("loadInitialDataJG: queuePanel not found for initial render.");
-
+    // For queue, we need appStateJG.songs to be populated to find song details.
+    // So, render queue might need to be called again after songs are loaded, or just show IDs/placeholders.
+    // For now, let's try to render it with what we have.
+    if (elementsJG.queuePanel) {
+        const queueSongs = appStateJG.queue.map(id => findSongByIdJG(id)).filter(s => s); // findSongByIdJG will return undefined if songs not loaded
+        renderSongListJG(elementsJG.queuePanel, queueSongs, 'queue');
+    } else {
+        console.warn("loadInitialDataJG: queuePanel not found for initial render.");
+    }
     updateQueueCountBadgeJG();
     console.log("loadInitialDataJG - END");
 }
@@ -915,4 +953,14 @@ document.addEventListener('DOMContentLoaded', () => {
     setupEventListenersJG();
     console.log("DOMContentLoaded - END. Event listeners set up.");
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    console.log("DOMContentLoaded - START. Initializing safari...");
+    initializeElementsJG(); // Initialize DOM elements first
+    loadInitialDataJG();    // Load preferences, history, favorites from localStorage
+    setupEventListenersJG();
+    console.log("DOMContentLoaded - END. Event listeners set up. Waiting for YouTube API to call onYouTubeIframeAPIReady.");
+    // Song loading (loadInitialSongsJG) is now triggered by onPlayerReadyJG
+});
+
 // window.onYouTubeIframeAPIReady is already set at the top
