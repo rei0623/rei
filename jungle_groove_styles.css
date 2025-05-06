@@ -14,8 +14,16 @@
     --jg-shadow-heavy: rgba(0,0,0,0.4);
     --jg-shadow-light: rgba(0,0,0,0.2);
 
-    --font-display-jg: 'Kalam', cursive; /* Playful, handwritten feel for titles */
-    --font-body-jg: 'Montserrat', sans-serif; /* Clean sans-serif for readability */
+    --font-display-jg: 'Kalam', cursive;
+    --font-body-jg: 'Montserrat', sans-serif;
+
+    /* Helper RGB values for rgba() */
+    --jg-surface-bark-rgb: 120, 92, 74;
+    --jg-surface-leaf-rgb: 92, 130, 77;
+    --jg-bg-forest-floor-rgb: 74, 59, 49;
+    --jg-accent-canopy-rgb: 76, 175, 80;
+
+    --jg-placeholder-bg: var(--jg-surface-bark); /* Placeholder background color */
 }
 
 body.jungle-theme {
@@ -28,31 +36,34 @@ body.jungle-theme {
     position: relative;
 }
 
-/* Background Layers */
+/* Background Layers - Image references commented out */
 .jungle-background-layers { position: fixed; inset: 0; z-index: -1; }
 .jungle-background-layers .layer {
     position: absolute; inset: 0;
-    background-size: cover;
-    background-repeat: no-repeat;
+    /* background-size: cover; */
+    /* background-repeat: no-repeat; */
     transition: transform 0.5s ease-out, opacity 0.5s ease;
 }
-.layer-1 { /* Sky, distant silhouette */
-    background-image: linear-gradient(to bottom, #3A506B, #1C2541 70%), url('path/to/distant_trees_silhouette.png');
-    background-blend-mode: multiply;
+.layer-1 {
+    /* background-image: linear-gradient(to bottom, #3A506B, #1C2541 70%), url('path/to/distant_trees_silhouette.png'); */
+    background: linear-gradient(to bottom, #3A506B, #1C2541 70%);
+    /* background-blend-mode: multiply; */
     opacity: 0.8;
 }
-.layer-2 { /* Mid-ground foliage, slightly blurred */
-    background-image: url('path/to/mid_foliage_texture.png');
+.layer-2 {
+    /* background-image: url('path/to/mid_foliage_texture.png'); */
+    background-color: rgba(var(--jg-surface-leaf-rgb), 0.15); /* Slightly more visible placeholder */
     opacity: 0.4;
-    transform: scale(1.05); /* Parallax effect */
+    transform: scale(1.05);
 }
-.layer-3 { /* Foreground vines, leaves (can be partially transparent PNGs) */
-    background-image: url('path/to/foreground_vines.png');
-    background-position: bottom left;
+.layer-3 {
+    /* background-image: url('path/to/foreground_vines.png'); */
+    /* background-position: bottom left; */
+    /* You could add a subtle repeating pattern or a very dark overlay here if desired */
+    /* background-color: rgba(var(--jg-bg-forest-floor-rgb), 0.1); */
     opacity: 0.6;
     transform: scale(1.1);
 }
-/* JS might subtly animate these layers on mouse move or periodically */
 
 .app-safari-hut {
     width: 95vw;
@@ -60,16 +71,16 @@ body.jungle-theme {
     max-width: 1500px;
     max-height: 850px;
     margin: 2.5vh auto;
-    background-color: rgba(40, 30, 20, 0.6); /* Semi-transparent hut bg */
+    background-color: rgba(40, 30, 20, 0.65); /* Slightly increased opacity */
     backdrop-filter: blur(15px) saturate(120%);
     -webkit-backdrop-filter: blur(15px) saturate(120%);
     border: 3px solid var(--jg-surface-bark);
-    border-radius: 25px; /* Rounded hut corners */
+    border-radius: 25px;
     box-shadow: 0 10px 40px var(--jg-shadow-heavy);
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    position: relative; /* For absolute positioned elements inside */
+    position: relative;
 }
 
 .safari-map-bar {
@@ -77,7 +88,7 @@ body.jungle-theme {
     align-items: center;
     justify-content: space-between;
     padding: 1rem 1.5rem;
-    background-color: rgba(var(--jg-surface-bark-rgb, 120, 92, 74), 0.8); /* Bark color with alpha */
+    background-color: rgba(var(--jg-surface-bark-rgb), 0.85); /* Slightly more opaque */
     border-bottom: 2px solid var(--jg-border-vine);
     box-shadow: 0 4px 10px var(--jg-shadow-light);
 }
@@ -93,7 +104,7 @@ body.jungle-theme {
 .search-outpost {
     display: flex;
     align-items: center;
-    background-color: rgba(var(--jg-bg-forest-floor-rgb, 74, 59, 49), 0.7);
+    background-color: rgba(var(--jg-bg-forest-floor-rgb), 0.75); /* Slightly more opaque */
     padding: 0.5rem 1rem;
     border-radius: 30px;
     border: 1px solid var(--jg-border-vine);
@@ -103,7 +114,7 @@ body.jungle-theme {
     background: transparent; border: none; outline: none;
     color: var(--jg-text-light); font-size: 0.9rem; width: 250px;
 }
-#animal-tracker::placeholder { color: var(--jg-text-shadow); }
+#animal-tracker::placeholder { color: var(--jg-text-shadow); opacity: 0.8; }
 
 .safari-tools { display: flex; align-items: center; gap: 0.75rem; }
 .tool-btn-jg {
@@ -122,7 +133,10 @@ body.jungle-theme {
     color: var(--jg-bg-deep-jungle);
     transform: scale(1.1);
 }
-.tool-btn-jg.profile img { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; }
+.tool-btn-jg.profile .profile-avatar-placeholder { /* Referencing the class from HTML */
+    width: 30px; height: 30px; border-radius: 50%; object-fit: cover;
+    background-color: var(--jg-text-shadow); /* Placeholder color */
+}
 
 .safari-zone {
     flex-grow: 1;
@@ -133,9 +147,10 @@ body.jungle-theme {
 }
 
 .watering-hole-player {
-    flex: 3; /* Takes more space */
-    background: linear-gradient(135deg, rgba(var(--jg-surface-leaf-rgb,92,130,77),0.7), rgba(var(--jg-surface-bark-rgb,120,92,74),0.5)), url('path/to/jungle_texture_dense.png');
-    background-size: cover, cover;
+    flex: 3;
+    /* background: linear-gradient(135deg, rgba(var(--jg-surface-leaf-rgb),0.7), rgba(var(--jg-surface-bark-rgb),0.5)), url('path/to/jungle_texture_dense.png'); */
+    background: linear-gradient(135deg, rgba(var(--jg-surface-leaf-rgb),0.7), rgba(var(--jg-surface-bark-rgb),0.5));
+    /* background-size: cover, cover; */ /* Not needed for gradient only */
     border-radius: 20px;
     padding: 2rem;
     display: flex;
@@ -145,22 +160,33 @@ body.jungle-theme {
     border: 2px solid var(--jg-border-vine);
 }
 .album-canopy {
-    width: 280px; height: 280px; /* Or make responsive */
+    width: 280px; height: 280px;
     border-radius: 15px;
     margin-bottom: 1.5rem;
     position: relative;
     box-shadow: 0 8px 25px var(--jg-shadow-heavy);
     overflow: hidden;
+    background-color: var(--jg-bg-forest-floor); /* Darker placeholder for contrast */
 }
-#main-album-art-jg {
+#main-album-art-jg.album-art-placeholder { /* From HTML */
     width: 100%; height: 100%; object-fit: cover; border-radius: 15px;
     border: 4px solid var(--jg-surface-bark);
+    background-color: var(--jg-text-shadow);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3rem; color: var(--jg-bg-deep-jungle);
 }
-.leaf-overlay { /* Subtle leaf pattern overlay on album art */
+/* Optional: Placeholder icon for main album art */
+#main-album-art-jg.album-art-placeholder::before {
+    /* content: "\f1c7"; file-audio icon example */
+    /* font-family: "Font Awesome 5 Free"; font-weight: 900; */
+}
+
+.leaf-overlay {
     position: absolute; inset: 0;
-    background-image: url('path/to/leaf_pattern_transparent.png');
-    background-size: 50%;
-    opacity: 0.1;
+    /* background-image: url('path/to/leaf_pattern_transparent.png'); */
+    /* background-size: 50%; */
+    /* border: 1px dashed rgba(var(--jg-accent-canopy-rgb), 0.3); /* Visual guide for the overlay */
+    opacity: 0.1; /* Keep low if no image */
     pointer-events: none;
 }
 .track-details-jg { text-align: center; margin-bottom: 1.5rem; }
@@ -168,14 +194,18 @@ body.jungle-theme {
     font-family: var(--font-display-jg);
     font-size: 2.5rem; font-weight: 700;
     color: var(--jg-text-light); margin-bottom: 0.25rem;
+    min-height: 1.2em; /* Prevent layout shift if text is empty */
 }
-#artist-name-jg { font-size: 1.1rem; color: var(--jg-text-earth); }
+#artist-name-jg {
+    font-size: 1.1rem; color: var(--jg-text-earth);
+    min-height: 1.2em; /* Prevent layout shift */
+}
 
 .player-controls-jg { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
 .control-rock {
-    background-image: url('path/to/rock_texture.png'); /* Rock texture */
-    background-size: cover;
-    border: 2px solid #5C4033; /* Dark brown rock border */
+    /* background-image: url('path/to/rock_texture.png'); */
+    background-color: var(--jg-surface-bark); /* Main rock color */
+    border: 2px solid #5C4033;
     color: var(--jg-text-earth);
     border-radius: 50%;
     width: 60px; height: 60px;
@@ -190,29 +220,34 @@ body.jungle-theme {
 .control-rock.small { width: 45px; height: 45px; font-size: 1rem; }
 .control-rock.play {
     width: 75px; height: 75px; font-size: 2rem;
-    background-image: url('path/to/mossy_rock_texture.png');
+    /* background-image: url('path/to/mossy_rock_texture.png'); */
+    background-color: var(--jg-accent-canopy); /* Play button color */
     border-color: var(--jg-accent-canopy);
     color: var(--jg-text-light);
 }
-.control-rock.play i.fa-paw { font-size: 2.2rem; } /* Example specific icon style */
+.control-rock.play.active-control i.fa-pause { /* If you add active-control class for state */
+    /* color: var(--jg-accent-sunburst); */ /* Example of pause icon color change */
+}
+
 
 .progress-liana-jg { display: flex; align-items: center; gap: 0.75rem; width: 100%; max-width: 400px; margin-bottom: 1rem; }
 .progress-liana-jg span { font-size: 0.8rem; color: var(--jg-text-shadow); }
 .liana-slider {
     -webkit-appearance: none; appearance: none; flex-grow: 1; height: 8px;
-    background-image: url('path/to/vine_texture.png'); /* Vine texture for track */
-    background-size: contain;
+    /* background-image: url('path/to/vine_texture.png'); */
+    background-color: var(--jg-border-vine); /* Vine color */
     border-radius: 4px; cursor: pointer;
 }
 .liana-slider::-webkit-slider-thumb {
     -webkit-appearance: none; appearance: none;
     width: 18px; height: 18px;
-    background-image: url('path/to/leaf_thumb.png'); /* Leaf as thumb */
-    background-size: contain; background-color: transparent;
+    /* background-image: url('path/to/leaf_thumb.png'); */
+    background-color: var(--jg-accent-canopy); /* Leaf color */
+    background-size: contain;
     border: none;
-    transform: rotate(15deg); /* Slightly angled leaf */
+    border-radius: 50%; /* Simple circle thumb for now */
+    /* transform: rotate(15deg); */
 }
-/* Firefox thumb would need similar styling */
 
 .volume-fruit-jg { display: flex; align-items: center; gap: 0.5rem; }
 .animal-icon { font-size: 1.2rem; color: var(--jg-text-shadow); }
@@ -226,10 +261,9 @@ body.jungle-theme {
     border-radius: 50%; border: 1px solid #D47500; /* Darker orange border */
 }
 
-
 .explorers-log {
     flex: 2;
-    background-color: rgba(var(--jg-surface-bark-rgb, 120, 92, 74), 0.6);
+    background-color: rgba(var(--jg-surface-bark-rgb), 0.65); /* Slightly more opaque */
     border-radius: 15px;
     border: 2px solid var(--jg-border-vine);
     padding: 1rem;
@@ -254,42 +288,57 @@ body.jungle-theme {
     background-color: var(--jg-accent-sunburst); border-radius: 1.5px;
 }
 .log-tab-jg i { margin-right: 0.4rem; }
-#queue-count-jg { /* Badge for queue */
+#queue-count-jg {
     background: var(--jg-accent-waterfall); color: white; font-size: 0.7rem;
     padding: 1px 5px; border-radius: 8px; margin-left: 0.3rem;
-    font-family: var(--font-body-jg); /* Use body font for badge */
+    font-family: var(--font-body-jg);
 }
 
 .log-content-jg { flex-grow: 1; overflow-y: auto; }
-.log-panel-jg { display: none; }
+.log-panel-jg { display: none; padding-top: 0.5rem; /* Add padding if needed */ }
 .log-panel-jg.active { display: block; animation: revealPanel 0.4s ease-in-out; }
 @keyframes revealPanel { from { opacity:0; transform:scale(0.98); } to { opacity:1; transform:scale(1); } }
 
 .log-entry-jg {
     display: flex; align-items: center; padding: 0.75rem;
     margin-bottom: 0.5rem; border-radius: 10px;
-    background-color: rgba(var(--jg-bg-forest-floor-rgb, 74, 59, 49), 0.5);
+    background-color: rgba(var(--jg-bg-forest-floor-rgb), 0.55); /* Slightly more opaque */
     transition: background-color 0.2s, transform 0.2s;
     cursor: pointer;
 }
 .log-entry-jg:hover {
-    background-color: rgba(var(--jg-surface-leaf-rgb,92,130,77),0.5);
+    background-color: rgba(var(--jg-surface-leaf-rgb),0.5);
     transform: translateX(5px);
 }
-.log-entry-jg.active-song { /* Currently playing/selected in list */
-    background-color: rgba(var(--jg-accent-canopy-rgb,76,175,80),0.4);
+.log-entry-jg.active-song {
+    background-color: rgba(var(--jg-accent-canopy-rgb),0.4);
     border-left: 4px solid var(--jg-accent-canopy);
-    padding-left: calc(0.75rem - 4px);
+    padding-left: calc(0.75rem - 4px); /* Adjust for border */
 }
-.log-entry-jg img { width: 40px; height: 40px; border-radius: 6px; margin-right: 0.75rem; object-fit: cover; }
+.log-entry-jg .img-placeholder.list-thumb-placeholder { /* From HTML */
+    width: 40px; height: 40px; border-radius: 6px; margin-right: 0.75rem;
+    background-color: var(--jg-text-shadow);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; color: var(--jg-bg-forest-floor);
+}
+/* Optional: Placeholder icon for list thumbs */
+.log-entry-jg .img-placeholder.list-thumb-placeholder::before {
+    /* content: "\f001"; /* Font Awesome music icon */
+    /* font-family: "Font Awesome 5 Free"; font-weight: 900; */
+}
+
 .log-entry-jg > div { flex-grow: 1; overflow:hidden; }
 .log-entry-jg .title { display: block; font-weight: 600; color: var(--jg-text-light); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .log-entry-jg .artist { display: block; font-size: 0.85rem; color: var(--jg-text-earth); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .log-entry-jg .duration { font-size: 0.85rem; color: var(--jg-text-shadow); margin-left: auto; padding-left:0.5rem; }
-.log-entry-jg > i { /* Action icon or favorite icon */
-    font-size: 1rem; color: var(--jg-text-shadow); margin-left: 0.75rem; transition: color 0.2s;
+.log-entry-jg > button.song-item-action-jg i {
+    font-size: 1rem; color: var(--jg-text-shadow); transition: color 0.2s;
 }
-.log-entry-jg:hover > i { color: var(--jg-accent-sunburst); }
+.log-entry-jg:hover > button.song-item-action-jg i { color: var(--jg-accent-sunburst); }
+.log-entry-jg.active-song > button.song-item-action-jg i.fa-heart { /* Ensure active favorite is styled */
+    /* color: var(--jg-accent-sunburst); */ /* Already handled if class is applied */
+}
+
 
 .log-actions-jg {
     padding-top: 1rem; border-top: 1px solid var(--jg-border-vine);
@@ -306,20 +355,73 @@ body.jungle-theme {
 }
 .log-actions-jg button i { margin-right: 0.4rem; }
 
-/* Mobile (very basic example, needs fleshing out) */
+/* Active control state for shuffle/loop buttons */
+.control-rock.active-control {
+    color: var(--jg-accent-sunburst) !important; /* Use important if needed to override */
+    border-color: var(--jg-accent-sunburst);
+    box-shadow: 0 0 10px var(--jg-accent-sunburst), inset 1px 1px 3px rgba(255,255,255,0.1);
+}
+.loop-indicator-jg { /* For the '1' in loop one mode */
+    position: absolute;
+    top: 0px;
+    right: 5px;
+    font-size: 0.6rem;
+    font-weight: bold;
+    background-color: var(--jg-accent-sunburst);
+    color: var(--jg-bg-deep-jungle);
+    border-radius: 50%;
+    width: 12px;
+    height: 12px;
+    line-height: 12px;
+    text-align: center;
+    font-family: var(--font-body-jg);
+}
+
+
+/* Mobile responsiveness (basic example, needs fleshing out) */
 @media (max-width: 1024px) {
     .app-safari-hut { width: 100vw; height: 100vh; margin: 0; border-radius: 0; }
     .safari-zone { flex-direction: column; padding: 0.75rem; }
-    .watering-hole-player { flex: 1; padding: 1rem; min-height: 350px; } /* Ensure min height */
+    .watering-hole-player { flex: 1; padding: 1rem; min-height: 350px; }
     .album-canopy { width: 180px; height: 180px; }
     #song-title-jg { font-size: 1.8rem; }
-    .explorers-log { flex: 1; } /* Allow it to take up available space */
+    .explorers-log { flex: 1; }
+    #animal-tracker { width: 150px; } /* Adjust search bar width on mobile */
+}
+@media (max-width: 767px) { /* Even smaller screens */
+    .safari-map-bar { padding: 0.75rem 1rem; }
+    .compass-logo { font-size: 1.2rem;}
+    .search-outpost { padding: 0.4rem 0.8rem;}
+    #animal-tracker { width: 120px; font-size: 0.8rem;}
+    .tool-btn-jg { width: 36px; height: 36px; font-size: 1rem; }
+    .watering-hole-player { padding: 0.75rem; }
+    .album-canopy { width: 150px; height: 150px; margin-bottom: 1rem; }
+    #song-title-jg { font-size: 1.5rem; }
+    #artist-name-jg { font-size: 0.9rem; }
+    .player-controls-jg { gap: 0.75rem; margin-bottom: 1rem; }
+    .control-rock { width: 50px; height: 50px; font-size: 1rem; }
+    .control-rock.small { width: 40px; height: 40px; font-size: 0.9rem; }
+    .control-rock.play { width: 65px; height: 65px; font-size: 1.8rem; }
+    .log-tabs-jg { margin-bottom: 0.75rem; }
+    .log-tab-jg { font-size: 0.95rem; padding: 0.6rem 0.3rem; }
+    .log-entry-jg { padding: 0.6rem; }
+    .log-entry-jg img.list-thumb-placeholder { width: 35px; height: 35px; margin-right: 0.5rem;}
+    .log-entry-jg .title { font-size: 0.9rem;}
+    .log-entry-jg .artist { font-size: 0.75rem;}
 }
 
-/* Helper for RGB values for rgba() */
-:root {
-    --jg-surface-bark-rgb: 120, 92, 74;
-    --jg-surface-leaf-rgb: 92, 130, 77;
-    --jg-bg-forest-floor-rgb: 74, 59, 49;
-    --jg-accent-canopy-rgb: 76, 175, 80;
+/* HTML placeholder image styling */
+.img-placeholder {
+    display: inline-block;
+    background-color: var(--jg-placeholder-bg);
+    /* border: 1px dashed var(--jg-text-muted); */ /* Optional: to see bounds */
+    object-fit: cover; /* If you set a real src later */
 }
+.profile-avatar-placeholder {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: var(--jg-text-shadow); /* Distinct placeholder for avatar */
+}
+/* Album art placeholder uses #main-album-art-jg.album-art-placeholder */
+/* List thumb placeholder uses .log-entry-jg img.list-thumb-placeholder */
