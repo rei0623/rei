@@ -1198,13 +1198,49 @@
         function updateQueueCountBadgeJG() { /* ... (same as before) ... */
              if (elementsJG.queueCountBadge) { elementsJG.queueCountBadge.textContent = appStateJG.queue.length; elementsJG.queueCountBadge.style.display = appStateJG.queue.length > 0 ? 'inline-block' : 'none'; }
         }
-        function findSongByIdJG(id) { return appStateJG.songs?.find(s => s?.id === id) || null; }
-        function formatTimeJG(s) { if(isNaN(s)||s<0)return"0:00";const m=Math.floor(s/60);const sec=Math.floor(s%60);return`${m}:${sec.toString().padStart(2,'0')}`; }
-        function escapeHTMLJG(str){if(typeof str!=='string'||!str)return'';const map={'&':'&','<':'<','>':'>','"':'"',"'":'''};return str.replace(/[&<>"']/g,m=>map[m]);}
-        function saveToLocalStorageJG(key, data) { try { localStorage.setItem(key, JSON.stringify(data)); } catch (e) { console.error("localStorage save error:", e); showSnackbarJG("設定保存失敗。", "error"); } }
-        function loadFromLocalStorageJG(key) { try { const d = localStorage.getItem(key); return d ? JSON.parse(d) : null; } catch (e) { console.error("localStorage load error:", e); return null; } }
+        function findSongByIdJG(id) {
+            return appStateJG.songs?.find(s => s?.id === id) || null;
+        }
 
-        function showSnackbarJG(message, type = 'info', duration = 3000) { /* ... (same as before, ensure styles are from CSS) ... */
+        function formatTimeJG(s) {
+            if (isNaN(s) || s < 0) return "0:00";
+            const m = Math.floor(s / 60);
+            const sec = Math.floor(s % 60);
+            return `${m}:${sec.toString().padStart(2, '0')}`;
+        }
+
+        function escapeHTMLJG(str) {
+            if (typeof str !== 'string' || !str) return '';
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#39;'
+            };
+            return str.replace(/[&<>"']/g, m => map[m]);
+        }
+
+        function saveToLocalStorageJG(key, data) {
+            try {
+                localStorage.setItem(key, JSON.stringify(data));
+            } catch (e) {
+                console.error("localStorage save error:", e);
+                showSnackbarJG("設定保存失敗。", "error");
+            }
+        }
+
+        function loadFromLocalStorageJG(key) {
+            try {
+                const d = localStorage.getItem(key);
+                return d ? JSON.parse(d) : null;
+            } catch (e) {
+                console.error("localStorage load error:", e);
+                return null;
+            }
+        }
+
+        function showSnackbarJG(message, type = 'info', duration = 3000) {
             const snackbarId = 'snackbar-jg-dynamic'; let snackbar = document.getElementById(snackbarId);
             if (!snackbar) { snackbar = document.createElement('div'); snackbar.id = snackbarId;
                 // Basic styles here, detailed styling in CSS if a class is added
