@@ -12,14 +12,13 @@
 <body class="jungle-theme">
 
     <div class="jungle-background-layers">
-        <div class="layer layer-1"></div> <!-- Distant trees, sky -->
-        <div class="layer layer-2"></div> <!-- Mid-ground foliage -->
-        <div class="layer layer-3"></div> <!-- Foreground elements, vines -->
+        <div class="layer layer-1"></div>
+        <div class="layer layer-2"></div>
+        <div class="layer layer-3"></div>
     </div>
 
     <div class="app-safari-hut">
 
-        <!-- Header / Map Bar -->
         <header class="safari-map-bar">
             <div class="compass-logo">
                 <i class="fas fa-compass"></i>
@@ -30,20 +29,19 @@
                 <input type="text" id="animal-tracker" placeholder="Track your tunes...">
             </div>
             <div class="safari-tools">
-                <button id="weather-toggle" class="tool-btn-jg" title="Toggle Ambience (Theme)"><i class="fas fa-sun"></i></button> <!-- Sun/Moon -->
+                <button id="weather-toggle" class="tool-btn-jg" title="Toggle Ambience (Theme)"><i class="fas fa-sun"></i></button>
                 <button id="profile-ranger" class="tool-btn-jg profile">
-                    <img src="rei_kikuchi_profile.jpg" alt="Ranger">
+                    <!-- <img src="rei_kikuchi_profile.jpg" alt="Ranger"> -->
+                    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Ranger Profile" class="img-placeholder profile-avatar-placeholder">
                 </button>
             </div>
         </header>
 
-        <!-- Main Content Area -->
         <main class="safari-zone">
-
-            <!-- Left: Player "Watering Hole" -->
             <section class="watering-hole-player">
                 <div class="album-canopy">
-                    <img src="placeholder_jungle_album.png" alt="Album Art" id="main-album-art-jg">
+                    <!-- <img src="placeholder_jungle_album.png" alt="Album Art" id="main-album-art-jg"> -->
+                    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Album Art" id="main-album-art-jg" class="img-placeholder album-art-placeholder">
                     <div class="leaf-overlay"></div>
                 </div>
                 <div class="track-details-jg">
@@ -54,10 +52,10 @@
                     <button class="control-rock small" id="btn-shuffle-jg"><i class="fas fa-random"></i></button>
                     <button class="control-rock" id="btn-prev-jg"><i class="fas fa-step-backward"></i></button>
                     <button class="control-rock play" id="btn-play-jg">
-                        <i class="fas fa-play"></i> <!-- Paw print icon: fas fa-paw -->
+                        <i class="fas fa-play"></i>
                     </button>
                     <button class="control-rock" id="btn-next-jg"><i class="fas fa-step-forward"></i></button>
-                    <button class="control-rock small" id="btn-loop-jg"><i class="fas fa-redo-alt"></i></button> <!-- Loop/redo icon -->
+                    <button class="control-rock small" id="btn-loop-jg"><i class="fas fa-redo-alt"></i></button>
                 </div>
                 <div class="progress-liana-jg">
                     <span id="current-time-jg">0:00</span>
@@ -65,13 +63,12 @@
                     <span id="total-time-jg">0:00</span>
                 </div>
                 <div class="volume-fruit-jg">
-                    <i class="fas fa-volume-mute animal-icon monkey"></i> <!-- e.g., monkey for mute -->
+                    <i class="fas fa-volume-mute animal-icon monkey"></i>
                     <input type="range" id="volume-slider-jg" class="fruit-slider" value="75">
-                    <i class="fas fa-volume-up animal-icon parrot"></i> <!-- e.g., parrot for max volume -->
+                    <i class="fas fa-volume-up animal-icon parrot"></i>
                 </div>
             </section>
 
-            <!-- Right: "Explorer's Log" - Library, Playlists etc. -->
             <aside class="explorers-log">
                 <div class="log-tabs-jg">
                     <button class="log-tab-jg active" data-panel="log-library"><i class="fas fa-tree"></i> Library</button>
@@ -81,14 +78,17 @@
                 </div>
                 <div class="log-content-jg">
                     <div id="log-library" class="log-panel-jg active">
-                        <!-- Library items -->
+                        <!-- Library items will be dynamically inserted here -->
+                        <!-- Example static items (remove when JS populates) -->
                         <div class="log-entry-jg">
-                            <img src="thumb_lion.png" alt="Song">
+                            <!-- <img src="thumb_lion.png" alt="Song"> -->
+                            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Song Thumbnail" class="img-placeholder list-thumb-placeholder">
                             <div><span class="title">King of the Beats</span><span class="artist">Leo Roars</span></div>
                             <span class="duration">3:15</span> <i class="fas fa-feather-alt"></i>
                         </div>
                         <div class="log-entry-jg active-song">
-                             <img src="thumb_monkey.png" alt="Song">
+                             <!-- <img src="thumb_monkey.png" alt="Song"> -->
+                             <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Song Thumbnail" class="img-placeholder list-thumb-placeholder">
                             <div><span class="title">Monkey Business Funk</span><span class="artist">Primate Groove</span></div>
                             <span class="duration">2:50</span> <i class="fas fa-play-circle text-accent-jg-secondary"></i>
                         </div>
