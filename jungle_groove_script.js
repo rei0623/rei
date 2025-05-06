@@ -828,8 +828,8 @@ function escapeHTMLJG(str) { // CORRECTED VERSION
         '&': '&',
         '<': '<',
         '>': '>',
-        '"': '"',
-        "'": '''
+        '"': '&quot;',
+        "'": '&apos;'
     };
     return str.replace(/[&<>"']/g, function(m) { return map[m]; });
 }
