@@ -1,5 +1,51 @@
 // jungle_groove_script.js
 
+// jungle_groove_script.js
+console.log("jungle_groove_script.js parsing started. Waiting for YouTube API...");
+
+// ==========================================================================
+// YouTube Player API Ready Callback (MUST BE GLOBAL)
+// ==========================================================================
+function onYouTubeIframeAPIReadyJG() {
+    console.log("GLOBAL onYouTubeIframeAPIReadyJG CALLED BY YOUTUBE API SCRIPT!");
+    if (!elementsJG.youtubePlayerContainer) {
+        console.error("onYouTubeIframeAPIReadyJG: elementsJG.youtubePlayerContainer is not yet initialized or found! Ensure initializeElementsJG runs before this or DOM is ready.");
+        // Attempt to initialize elements if not done, though ideally DOMContentLoaded handles this.
+        if (Object.keys(elementsJG).length === 0) { // Check if elementsJG is empty
+            initializeElementsJG();
+        }
+        if (!elementsJG.youtubePlayerContainer) { // Re-check after potential init
+             console.error("onYouTubeIframeAPIReadyJG: Still no youtubePlayerContainer after re-check. Player cannot be created.");
+             return;
+        }
+    }
+    console.log("onYouTubeIframeAPIReadyJG: youtubePlayerContainer found:", elementsJG.youtubePlayerContainer);
+
+    try {
+        appStateJG.player = new YT.Player(elementsJG.youtubePlayerContainer.id, {
+            height: '1',
+            width: '1',
+            playerVars: {
+                'autoplay': 0,
+                'controls': 0,
+                'playsinline': 1,
+                'origin': window.location.origin // Important for security with postMessage API
+            },
+            events: {
+                'onReady': onPlayerReadyJG,
+                'onStateChange': onPlayerStateChangeJG,
+                'onError': onPlayerErrorJG
+            }
+        });
+        console.log("onYouTubeIframeAPIReadyJG: YT.Player instance creation attempted.");
+    } catch (e) {
+        console.error("onYouTubeIframeAPIReadyJG: Error creating YT.Player instance:", e);
+        showSnackbarJG("YouTubeプレイヤーの作成に失敗しました。", "error");
+    }
+}
+// Make sure this function is globally accessible
+window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReadyJG;
+
 // ==========================================================================
 // Constants & State
 // ==========================================================================
@@ -480,20 +526,41 @@ function onYouTubeIframeAPIReadyJG() {
     }
 }
 
-function onPlayerReadyJG(event) {
-    console.log("Jungle Groove Player Ready!");
-    appStateJG.isPlayerReady = true;
-    try {
-      event.target.setVolume(appStateJG.volume);
-    } catch(e){ console.warn("Could not set volume on ready", e); }
+// ==========================================================================
+// YouTube Player Event Handlers
+// ==========================================================================
+// ... (onYouTubeIframeAPIReadyJG is now at the top of the file) ...
 
-    if (youtubeAPI_JG.apiKey && youtubeAPI_JG.apiKey !== 'YOUR_YOUTUBE_API_KEY_HERE_PLACEHOLDER') { // Use a placeholder that's unlikely to be a real key
+function onPlayerReadyJG(event) {
+    console.log("Jungle Groove Player Ready! (onPlayerReadyJG called). Player object:", event.target);
+    appStateJG.isPlayerReady = true;
+    if (event.target && typeof event.target.setVolume === 'function') {
+        try {
+            event.target.setVolume(appStateJG.volume);
+            console.log("onPlayerReadyJG: Volume set to", appStateJG.volume);
+        } catch(e){
+            console.warn("onPlayerReadyJG: Could not set volume on ready", e);
+        }
+    } else {
+        console.warn("onPlayerReadyJG: event.target or setVolume not available.");
+    }
+
+    // APIキーのチェックをここでも行う
+    const apiKey = youtubeAPI_JG.apiKey; // Get it once
+    if (apiKey && apiKey !== 'YOUR_YOUTUBE_API_KEY_HERE' && apiKey !== 'AIzaSyCbzvjP9vFa5I8N1qLI5H9LUpYim0nkQS4_PLACEHOLDER_IF_YOU_USED_ONE') { // Add any other placeholders you might have used
+        console.log("onPlayerReadyJG: API Key seems to be set. Calling loadInitialSongsJG...");
         loadInitialSongsJG();
     } else {
-        showSnackbarJG("APIキーを設定してください。", "warning");
-        showEmptyMessageInPanelJG(elementsJG.libraryPanel, "APIキー未設定", "曲をロードするには、スクリプト内のAPIキーを有効なものに置き換えてください。");
+        console.error("onPlayerReadyJG: API Key is missing or still a placeholder! API Key found:", apiKey);
+        showSnackbarJG("APIキーが正しく設定されていません。曲をロードできません。", "error");
+        if (elementsJG.libraryPanel) { // Check if panel exists before showing message
+            showEmptyMessageInPanelJG(elementsJG.libraryPanel, "APIキー未設定", "曲をロードするには、スクリプト内のAPIキーを有効なものに置き換えてください。");
+        } else {
+            console.error("onPlayerReadyJG: Library panel not found to display API key error message.");
+        }
     }
 }
+
 
 function onPlayerStateChangeJG(event) {
     const playerState = event.data;
