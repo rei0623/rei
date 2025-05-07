@@ -51,19 +51,15 @@
             transition: transform 0.5s ease-out, opacity 0.5s ease;
         }
         .layer-1 {
-            /* background-image: linear-gradient(to bottom, #3A506B, #1C2541 70%), url('path/to/distant_trees_silhouette.png'); */ /* COMMENTED OUT */
             background: linear-gradient(to bottom, #3A506B, #1C2541 70%);
             opacity: 0.8;
         }
         .layer-2 {
-            /* background-image: url('path/to/mid_foliage_texture.png'); */ /* COMMENTED OUT */
             background-color: rgba(var(--jg-surface-leaf-rgb), 0.15);
             opacity: 0.4;
             transform: scale(1.05);
         }
         .layer-3 {
-            /* background-image: url('path/to/foreground_vines.png'); */ /* COMMENTED OUT */
-            /* background-position: bottom left; */
             opacity: 0.6;
             transform: scale(1.1);
         }
@@ -136,9 +132,9 @@
             color: var(--jg-bg-deep-jungle);
             transform: scale(1.1);
         }
-        .tool-btn-jg.profile .profile-avatar-placeholder { /* From HTML */
+        .tool-btn-jg.profile .profile-avatar-placeholder {
             width: 30px; height: 30px; border-radius: 50%;
-            background-color: var(--jg-text-shadow); /* Placeholder color */
+            background-color: var(--jg-text-shadow); 
         }
 
         .safari-zone {
@@ -151,7 +147,6 @@
 
         .watering-hole-player {
             flex: 3;
-            /* background: linear-gradient(135deg, rgba(var(--jg-surface-leaf-rgb),0.7), rgba(var(--jg-surface-bark-rgb),0.5)), url('path/to/jungle_texture_dense.png'); */ /* COMMENTED OUT */
             background: linear-gradient(135deg, rgba(var(--jg-surface-leaf-rgb),0.7), rgba(var(--jg-surface-bark-rgb),0.5));
             border-radius: 20px;
             padding: 2rem;
@@ -170,16 +165,15 @@
             overflow: hidden;
             background-color: var(--jg-bg-forest-floor);
         }
-        #main-album-art-jg.album-art-placeholder { /* From HTML */
+        #main-album-art-jg.album-art-placeholder {
             width: 100%; height: 100%;
             border: 4px solid var(--jg-surface-bark);
-            background-color: var(--jg-text-shadow); /* Placeholder for the actual image */
+            background-color: var(--jg-text-shadow);
             display: flex; align-items: center; justify-content: center;
             font-size: 3rem; color: var(--jg-bg-deep-jungle);
         }
         .leaf-overlay {
             position: absolute; inset: 0;
-            /* background-image: url('path/to/leaf_pattern_transparent.png'); */ /* COMMENTED OUT */
             opacity: 0.1;
             pointer-events: none;
         }
@@ -188,16 +182,15 @@
             font-family: var(--font-display-jg);
             font-size: 2.5rem; font-weight: 700;
             color: var(--jg-text-light); margin-bottom: 0.25rem;
-            min-height: 1.2em; /* Prevents jump when text changes */
+            min-height: 1.2em; 
         }
         #artist-name-jg {
             font-size: 1.1rem; color: var(--jg-text-earth);
-            min-height: 1.2em; /* Prevents jump */
+            min-height: 1.2em; 
         }
 
         .player-controls-jg { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
         .control-rock {
-            /* background-image: url('path/to/rock_texture.png'); */ /* COMMENTED OUT */
             background-color: var(--jg-surface-bark);
             border: 2px solid #5C4033;
             color: var(--jg-text-earth);
@@ -214,7 +207,6 @@
         .control-rock.small { width: 45px; height: 45px; font-size: 1rem; }
         .control-rock.play {
             width: 75px; height: 75px; font-size: 2rem;
-            /* background-image: url('path/to/mossy_rock_texture.png'); */ /* COMMENTED OUT */
             background-color: var(--jg-accent-canopy);
             border-color: var(--jg-accent-canopy);
             color: var(--jg-text-light);
@@ -225,19 +217,16 @@
         .progress-liana-jg span { font-size: 0.8rem; color: var(--jg-text-shadow); }
         .liana-slider {
             -webkit-appearance: none; appearance: none; flex-grow: 1; height: 8px;
-            /* background-image: url('path/to/vine_texture.png'); */ /* COMMENTED OUT */
             background-color: var(--jg-border-vine);
             border-radius: 4px; cursor: pointer;
         }
         .liana-slider::-webkit-slider-thumb {
             -webkit-appearance: none; appearance: none;
             width: 18px; height: 18px;
-            /* background-image: url('path/to/leaf_thumb.png'); */ /* COMMENTED OUT */
             background-color: var(--jg-accent-canopy);
             background-size: contain;
             border: none;
             border-radius: 50%;
-            /* transform: rotate(15deg); */
         }
 
         .volume-fruit-jg { display: flex; align-items: center; gap: 0.5rem; }
@@ -268,7 +257,7 @@
             font-family: var(--font-display-jg); font-size: 1.1rem;
             color: var(--jg-text-earth); border: none; background: transparent;
             position: relative; opacity: 0.7; transition: opacity 0.2s, color 0.2s;
-            cursor: pointer; /* Added for better UX */
+            cursor: pointer; 
         }
         .log-tab-jg:hover { opacity: 1; color: var(--jg-accent-sunburst); }
         .log-tab-jg.active {
@@ -284,7 +273,7 @@
             background: var(--jg-accent-waterfall); color: white; font-size: 0.7rem;
             padding: 1px 5px; border-radius: 8px; margin-left: 0.3rem;
             font-family: var(--font-body-jg);
-            display: none; /* Initially hidden, shown by JS if queue > 0 */
+            display: none;
         }
 
         .log-content-jg { flex-grow: 1; overflow-y: auto; }
@@ -308,42 +297,40 @@
             border-left: 4px solid var(--jg-accent-canopy);
             padding-left: calc(0.75rem - 4px);
         }
-        /* Applied to img tag directly in JS rendering now, but keep for HTML example */
         .log-entry-jg .img-placeholder.list-thumb-placeholder {
             width: 40px; height: 40px; border-radius: 6px; margin-right: 0.75rem;
             background-color: var(--jg-text-shadow);
             display: flex; align-items: center; justify-content: center;
             font-size: 1rem; color: var(--jg-bg-forest-floor);
-            object-fit: cover; /* Ensure image covers if src is real */
-            flex-shrink: 0; /* Prevent shrinking */
+            object-fit: cover; 
+            flex-shrink: 0; 
         }
-        /* Make sure actual img tags rendered by JS also have this class or similar styling if they are placeholders */
-         .log-entry-jg > img { /* Style for dynamically added images if not using placeholder class */
+         .log-entry-jg > img {
             width: 40px; height: 40px; border-radius: 6px; margin-right: 0.75rem;
             object-fit: cover;
             flex-shrink: 0;
         }
 
-        .log-entry-jg > div { flex-grow: 1; overflow:hidden; min-width: 0; /* Fix for ellipsis with flex */}
+        .log-entry-jg > div { flex-grow: 1; overflow:hidden; min-width: 0; }
         .log-entry-jg .title { display: block; font-weight: 600; color: var(--jg-text-light); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
         .log-entry-jg .artist { display: block; font-size: 0.85rem; color: var(--jg-text-earth); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
         .log-entry-jg .duration { font-size: 0.85rem; color: var(--jg-text-shadow); margin-left: auto; padding-left:0.5rem; flex-shrink: 0; }
         
         .log-entry-actions-jg { display: flex; align-items: center; flex-shrink: 0; margin-left: 0.25rem;}
         .log-entry-jg .song-item-action-jg {
-            background: none; border: none; padding: 0.3rem 0.4rem; /* Adjusted padding */
+            background: none; border: none; padding: 0.3rem 0.4rem; 
             cursor: pointer;
         }
         .log-entry-jg .song-item-action-jg i {
             font-size: 1rem; color: var(--jg-text-shadow); transition: color 0.2s;
         }
         .log-entry-jg:hover .song-item-action-jg i { color: var(--jg-accent-sunburst); }
-        /* Make favorite heart stand out more when active */
         .log-entry-jg .song-item-action-jg.favorite-action-jg i.fa-heart { color: var(--jg-accent-sunburst); }
-        .log-entry-jg:hover .song-item-action-jg.favorite-action-jg i.fa-heart { color: var(--jg-accent-waterfall); } /* Example hover for active favorite */
+        .log-entry-jg:hover .song-item-action-jg.favorite-action-jg i.fa-heart { color: var(--jg-accent-waterfall); } 
+        .log-entry-jg .song-item-action-jg.remove-from-playlist-action-jg i { color: var(--jg-text-shadow); } /* default red-500 in HTML */
+        .log-entry-jg:hover .song-item-action-jg.remove-from-playlist-action-jg i { color: #EF4444; } /* Tailwind red-500 on hover */
 
 
-        /* Fallback for the static HTML example (the last <i> in log-entry-jg) */
         .log-entry-jg > i.fa-feather-alt, .log-entry-jg > i.fa-play-circle {
              font-size: 1rem; color: var(--jg-text-shadow); transition: color 0.2s; margin-left: auto; padding-left:0.5rem; flex-shrink: 0;
         }
@@ -353,12 +340,13 @@
         .log-actions-jg {
             padding-top: 1rem; border-top: 1px solid var(--jg-border-vine);
             display: flex; gap: 0.75rem; justify-content: center;
+            flex-wrap: wrap; /* Allow buttons to wrap on smaller screens if many */
         }
         .log-actions-jg button {
             background-color: var(--jg-surface-leaf); color: var(--jg-text-light);
             padding: 0.5rem 1rem; border-radius: 20px; border: 1px solid var(--jg-accent-canopy);
             font-size: 0.85rem; font-weight: 500; transition: all 0.2s;
-             cursor: pointer; /* Added for better UX */
+             cursor: pointer; 
         }
         .log-actions-jg button:hover {
             background-color: var(--jg-accent-canopy);
@@ -379,13 +367,11 @@
             line-height: 12px; text-align: center; font-family: var(--font-body-jg);
         }
 
-        /* HTML placeholder image styling */
         .img-placeholder {
             display: inline-block;
             background-color: var(--jg-placeholder-bg);
-            object-fit: cover; /* If src is ever set */
+            object-fit: cover; 
         }
-        /* Specific placeholder styles are now in their respective component styles */
 
         @media (max-width: 1024px) {
             .app-safari-hut { width: 100vw; height: 100vh; margin: 0; border-radius: 0; max-height: none; }
@@ -414,7 +400,6 @@
             .log-tabs-jg { margin-bottom: 0.75rem; }
             .log-tab-jg { font-size: 0.95rem; padding: 0.6rem 0.3rem; }
             .log-entry-jg { padding: 0.6rem; }
-            /* Style for images in log entries on small screens */
             .log-entry-jg .img-placeholder.list-thumb-placeholder,
             .log-entry-jg > img {
                 width: 35px; height: 35px; margin-right: 0.5rem;
@@ -424,21 +409,21 @@
             .log-entry-actions-jg { margin-left: 0.1rem; }
             .log-entry-jg .song-item-action-jg { padding: 0.2rem 0.3rem; }
             .log-entry-jg .song-item-action-jg i { font-size: 0.9rem; }
+            .log-actions-jg button { font-size: 0.8rem; padding: 0.4rem 0.8rem; } /* Adjust action buttons on small screens */
         }
 
-        /* Light mode styles - Toggled by JS */
         body.light-mode-jg {
-            --jg-bg-deep-jungle: #E0F2E9; /* Light greenish white */
-            --jg-bg-forest-floor: #F5EFE6; /* Light beige */
-            --jg-surface-bark: #BCAAA4;    /* Lighter brown */
-            --jg-surface-leaf: #A5D6A7;    /* Light green */
-            --jg-accent-sunburst: #FF8F00; /* Deeper orange */
-            --jg-accent-canopy: #388E3C;   /* Darker green */
-            --jg-accent-waterfall: #1976D2;/* Deeper blue */
-            --jg-text-light: #37474F;      /* Dark gray for text on light bg */
-            --jg-text-earth: #5D4037;      /* Brownish text */
-            --jg-text-shadow: #78909C;     /* Lighter shadow/muted text */
-            --jg-border-vine: #8D6E63;     /* Lighter vine border */
+            --jg-bg-deep-jungle: #E0F2E9; 
+            --jg-bg-forest-floor: #F5EFE6; 
+            --jg-surface-bark: #BCAAA4;    
+            --jg-surface-leaf: #A5D6A7;    
+            --jg-accent-sunburst: #FF8F00; 
+            --jg-accent-canopy: #388E3C;   
+            --jg-accent-waterfall: #1976D2;
+            --jg-text-light: #37474F;      
+            --jg-text-earth: #5D4037;      
+            --jg-text-shadow: #78909C;     
+            --jg-border-vine: #8D6E63;     
 
             --jg-surface-bark-rgb: 188, 170, 164;
             --jg-surface-leaf-rgb: 165, 214, 167;
@@ -447,7 +432,7 @@
         }
 
         body.light-mode-jg .app-safari-hut {
-            background-color: rgba(250, 250, 250, 0.75); /* Lighter hut bg */
+            background-color: rgba(250, 250, 250, 0.75); 
             border-color: var(--jg-surface-bark);
         }
         body.light-mode-jg .safari-map-bar {
@@ -469,13 +454,13 @@
         }
         body.light-mode-jg .control-rock {
             background-color: var(--jg-surface-bark);
-            border-color: #A1887F; /* Slightly darker than surface bark for contrast */
+            border-color: #A1887F; 
             color: var(--jg-text-earth);
         }
         body.light-mode-jg .control-rock.play {
             background-color: var(--jg-accent-canopy);
             border-color: var(--jg-accent-canopy);
-            color: var(--jg-text-light); /* Ensure this text is readable on the accent color */
+            color: var(--jg-text-light); 
         }
          body.light-mode-jg .control-rock.active-control {
             color: var(--jg-accent-sunburst) !important;
@@ -507,22 +492,24 @@
             background-color: var(--jg-text-shadow);
             color: var(--jg-bg-forest-floor);
         }
+        body.light-mode-jg .log-entry-jg .song-item-action-jg.remove-from-playlist-action-jg i { color: var(--jg-text-shadow); }
+        body.light-mode-jg .log-entry-jg:hover .song-item-action-jg.remove-from-playlist-action-jg i { color: #DC2626; } /* Tailwind red-600 */
+
         body.light-mode-jg .log-actions-jg { border-top-color: var(--jg-border-vine); }
         body.light-mode-jg .log-actions-jg button {
             background-color: var(--jg-surface-leaf);
-            color: var(--jg-text-light); /* ensure text is readable on light green */
+            color: var(--jg-text-light); 
             border-color: var(--jg-accent-canopy);
         }
         body.light-mode-jg .log-actions-jg button:hover {
             background-color: var(--jg-accent-canopy);
         }
 
-        /* Playlist Modal Specific Styles */
         body.light-mode-jg #createPlaylistModalJG .bg-jg-surface-bark {
-            background-color: var(--jg-surface-bark); /* Light mode surface */
+            background-color: var(--jg-surface-bark); 
         }
         body.light-mode-jg #createPlaylistModalJG .text-jg-text-light {
-            color: var(--jg-text-light); /* Light mode text */
+            color: var(--jg-text-light); 
         }
         body.light-mode-jg #createPlaylistModalJG .text-jg-accent-sunburst {
             color: var(--jg-accent-sunburst);
@@ -537,14 +524,13 @@
         }
         body.light-mode-jg #createPlaylistModalJG #cancelCreatePlaylistJG {
             background-color: var(--jg-text-shadow);
-            color: var(--jg-bg-deep-jungle); /* Ensure contrast */
+            color: var(--jg-bg-deep-jungle); 
         }
          body.light-mode-jg #createPlaylistModalJG #confirmCreatePlaylistJG {
             background-color: var(--jg-accent-canopy);
-            color: #FFFFFF; /* Keep white for good contrast on canopy green */
+            color: #FFFFFF; 
         }
 
-        /* AddToPlaylist Modal Specific Styles */
         body.light-mode-jg #addToPlaylistModalJG .bg-jg-surface-bark {
             background-color: var(--jg-surface-bark);
         }
@@ -564,7 +550,6 @@
             background-color: var(--jg-text-shadow);
             color: var(--jg-bg-deep-jungle);
         }
-        /* Style for playlist items within the "Add to Playlist" modal */
         #addToPlaylistListJG .playlist-select-item-jg {
             padding: 0.75rem 1rem;
             cursor: pointer;
@@ -608,7 +593,6 @@
             <div class="safari-tools">
                 <button id="weather-toggle" class="tool-btn-jg" title="Toggle Ambience (Theme)"><i class="fas fa-sun"></i></button>
                 <button id="profile-ranger" class="tool-btn-jg profile">
-                    <!-- <img src="rei_kikuchi_profile.jpg" alt="Ranger"> -->
                     <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Ranger Profile" class="img-placeholder profile-avatar-placeholder">
                 </button>
             </div>
@@ -617,7 +601,6 @@
         <main class="safari-zone">
             <section class="watering-hole-player">
                 <div class="album-canopy">
-                    <!-- <img src="placeholder_jungle_album.png" alt="Album Art" id="main-album-art-jg"> -->
                     <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Album Art" id="main-album-art-jg" class="img-placeholder album-art-placeholder">
                     <div class="leaf-overlay"></div>
                 </div>
@@ -657,7 +640,6 @@
                 <div class="log-content-jg">
                     <div id="log-library" class="log-panel-jg active">
                         <!-- Library items will be dynamically inserted here -->
-                        <!-- Example static items (remove when JS populates) -->
                         <div class="log-entry-jg">
                             <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Song Thumbnail" class="img-placeholder list-thumb-placeholder">
                             <div><span class="title">King of the Beats</span><span class="artist">Leo Roars</span></div>
@@ -667,18 +649,9 @@
                                 <button class="song-item-action-jg favorite-action-jg" title="お気に入りに追加" aria-label="お気に入りに追加"> <i class="fas fa-feather-alt"></i></button>
                             </div>
                         </div>
-                        <div class="log-entry-jg active-song">
-                             <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Song Thumbnail" class="img-placeholder list-thumb-placeholder">
-                            <div><span class="title">Monkey Business Funk</span><span class="artist">Primate Groove</span></div>
-                            <span class="duration">2:50</span>
-                            <div class="log-entry-actions-jg">
-                                <button class="song-item-action-jg add-to-queue-action-jg" title="キューに追加" aria-label="キューに追加"> <i class="fas fa-stream"></i></button>
-                                <button class="song-item-action-jg favorite-action-jg" title="お気に入りに追加" aria-label="お気に入りに追加"> <i class="fas fa-feather-alt"></i></button>
-                            </div>
-                        </div>
                     </div>
                     <div id="log-paths" class="log-panel-jg">
-                        <!-- Playlist items will be dynamically inserted here -->
+                        <!-- Playlist items or songs in playlist will be dynamically inserted here -->
                          <div class="text-center p-8 text-jg-text-shadow">
                             <i class="fas fa-map-signs fa-3x mb-4 opacity-50"></i>
                             <h4 class="font-display-jg text-xl text-jg-text-earth mb-2">No Paths Yet</h4>
@@ -695,19 +668,13 @@
                         <!-- History items will be dynamically inserted here -->
                     </div>
                 </div>
-                 <div class="log-actions-jg">
-                    <button id="btn-refresh-feed-jg"><i class="fas fa-sync-alt"></i> Refresh Feed</button>
-                    <button id="btn-create-playlist-jg"><i class="fas fa-plus-circle"></i> New Path</button>
+                 <div id="log-actions-container-jg" class="log-actions-jg">
+                    <!-- Buttons will be dynamically inserted here by switchLogPanelJG -->
                 </div>
             </aside>
         </main>
     </div>
     
-    <!-- The YouTube Iframe API script will create its player in a div with ID 'youtube-player-container-jg'. -->
-    <!-- This div is dynamically created by the script if not present in HTML. -->
-    <!-- Original commented out placeholder: -->
-    <!-- <div id="youtube-player-container-jg" style="position: absolute; top: -9999px; left: -9999px; width:1px; height:1px;"></div> -->
-
     <!-- Create Playlist Modal (Initially Hidden) -->
     <div id="createPlaylistModalJG" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50" style="display: none;">
         <div class="bg-jg-surface-bark p-6 rounded-lg shadow-xl w-full max-w-md text-jg-text-light">
@@ -734,60 +701,50 @@
         </div>
     </div>
 
-    <!-- YouTube Iframe API script (Load ONCE, before main script) -->
     <script src="https://www.youtube.com/iframe_api"></script>
     
     <script>
         // jungle_groove_script.js
         console.log("jungle_groove_script.js parsing started. Waiting for YouTube API...");
 
-        let elementsJG = {}; // Ensure elementsJG is declared early
-        let appStateJG = {}; // Declare appStateJG early for onYouTubeIframeAPIReady if needed before full init
+        let elementsJG = {}; 
+        let appStateJG = {}; 
 
         // ==========================================================================
-        // YouTube Player API Ready Callback (MUST BE GLOBAL and named onYouTubeIframeAPIReady)
+        // YouTube Player API Ready Callback
         // ==========================================================================
         function onYouTubeIframeAPIReady() {
             console.log("GLOBAL onYouTubeIframeAPIReady CALLED BY YOUTUBE API SCRIPT!");
 
-            // Ensure elements are initialized, especially youtubePlayerContainer.
-            // This might be called before DOMContentLoaded, so elementsJG might be empty.
-            // initializeElementsJG() will be called again on DOMContentLoaded to ensure all elements are captured.
             if (Object.keys(elementsJG).length === 0 || !elementsJG.youtubePlayerContainer) {
                 console.warn("onYouTubeIframeAPIReady: elementsJG not fully initialized or youtubePlayerContainer missing. Initializing elements now for player creation.");
-                initializeElementsJG(); // Attempt to initialize elements if not done.
+                initializeElementsJG(); 
             }
 
             if (!elementsJG.youtubePlayerContainer) {
-                console.error("onYouTubeIframeAPIReady: Still no youtubePlayerContainer after trying to initialize. Player cannot be created. Make sure a div with id 'youtube-player-container-jg' exists or is created by initializeElementsJG.");
-                if (typeof showSnackbarJG === 'function') { // Check if showSnackbarJG is defined
-                    showSnackbarJG("プレイヤー表示領域が見つかりません。", "error");
-                } else {
-                    alert("プレイヤー表示領域が見つかりません。");
-                }
+                console.error("onYouTubeIframeAPIReady: Still no youtubePlayerContainer. Player cannot be created.");
+                const msg = "プレイヤー表示領域が見つかりません。ページを再読み込みしてください。";
+                if (typeof showSnackbarJG === 'function') showSnackbarJG(msg, "error", 10000); else alert(msg);
                 return;
             }
-            console.log("onYouTubeIframeAPIReady: youtubePlayerContainer found:", elementsJG.youtubePlayerContainer, "with ID:", elementsJG.youtubePlayerContainer.id);
+            console.log("onYouTubeIframeAPIReady: youtubePlayerContainer found:", elementsJG.youtubePlayerContainer.id);
 
             try {
-                // Initialize appStateJG here if it's not fully defined yet,
-                // especially properties needed by the player or its event handlers.
-                if (Object.keys(appStateJG).length < 5) { // Heuristic: if not many keys, it's not fully initialized
+                if (Object.keys(appStateJG).length < 5) { 
                     console.warn("onYouTubeIframeAPIReady: appStateJG seems partially initialized, re-setting basic player state.");
                     appStateJG.player = null;
                     appStateJG.isPlayerReady = false;
-                    appStateJG.volume = appStateJG.volume || 75; // Keep existing volume if set
+                    appStateJG.volume = appStateJG.volume || 75;
                 }
 
-
                 appStateJG.player = new YT.Player(elementsJG.youtubePlayerContainer.id, {
-                    height: '1', // Hidden player
-                    width: '1',  // Hidden player
+                    height: '1', 
+                    width: '1',  
                     playerVars: {
                         'autoplay': 0,
-                        'controls': 0, // No YouTube controls
-                        'playsinline': 1, // Important for mobile
-                        'origin': window.location.origin // Security
+                        'controls': 0, 
+                        'playsinline': 1, 
+                        'origin': window.location.origin 
                     },
                     events: {
                         'onReady': onPlayerReadyJG,
@@ -796,29 +753,22 @@
                     }
                 });
                 console.log("onYouTubeIframeAPIReady: YT.Player instance creation attempted.");
-                if (appStateJG.player) {
-                    console.log("onYouTubeIframeAPIReady: YT.Player instance created successfully.");
-                } else {
-                    console.error("onYouTubeIframeAPIReady: YT.Player instance creation failed (player object is null/undefined).");
+                if (!appStateJG.player) {
+                    console.error("onYouTubeIframeAPIReady: YT.Player instance creation FAILED.");
                 }
             } catch (e) {
                 console.error("onYouTubeIframeAPIReady: Error creating YT.Player instance:", e);
                 const message = "YouTubeプレイヤーの作成中にエラー: " + e.message;
-                if (typeof showSnackbarJG === 'function') {
-                    showSnackbarJG(message, "error");
-                } else {
-                    alert(message);
-                }
+                if (typeof showSnackbarJG === 'function') showSnackbarJG(message, "error"); else alert(message);
             }
         }
        
-
         // ==========================================================================
         // Constants & State
         // ==========================================================================
         const MAX_HISTORY_JG = 20;
         const VOLUME_STEP_JG = 5;
-        const SEEK_STEP_JG = 5; // seconds
+        const SEEK_STEP_JG = 5; 
         const LS_KEYS_JG = {
             HISTORY: 'jungleGrooveHistory',
             FAVORITES: 'jungleGrooveFavorites',
@@ -849,6 +799,14 @@
             snackbarTimeoutId: null,
             activeModalId: null,
             currentTheme: 'dark',
+            buttonsForPanel: { 
+                'log-library': ['btn-refresh-feed-jg', 'btn-create-playlist-jg'],
+                'log-paths': ['btn-refresh-feed-jg', 'btn-create-playlist-jg'], 
+                'playlistSongs': ['btn-refresh-feed-jg', 'btn-create-playlist-jg'], 
+                'log-discoveries': ['btn-clear-queue-jg', 'btn-refresh-feed-jg', 'btn-create-playlist-jg'],
+                'log-trophies': ['btn-refresh-feed-jg', 'btn-create-playlist-jg'],
+                'log-history': ['btn-clear-history-jg', 'btn-refresh-feed-jg', 'btn-create-playlist-jg']
+            },
             currentViewingPlaylistId: null,
             currentPlayingPlaylistId: null
         };
@@ -885,8 +843,6 @@
                 historyPanel: document.getElementById('log-history'),
                 playlistsPanel: document.getElementById('log-paths'),
                 queueCountBadge: document.getElementById('queue-count-jg'),
-                btnRefreshFeed: document.getElementById('btn-refresh-feed-jg'),
-                btnCreatePlaylist: document.getElementById('btn-create-playlist-jg'),
                 youtubePlayerContainer: null,
             };
 
@@ -911,15 +867,18 @@
         // YouTube API & Song Loading
         // ==========================================================================
         const youtubeAPI_JG = {
-            apiKey: 'AIzaSyCbzvjP9vFa5I8N1qLI5H9LUpYim0nkQS4', // WARNING: API Key exposed client-side
-            channelId: 'UCYAuSEKhuk3v4ZKzm5Lqb1Q', // Example Channel ID
+            // !!========================================================================!!
+            // !!  重要: このAPIキーをあなた自身の有効なYouTube Data API v3キーに置き換えてください。!!
+            // !!  現在のキーはサンプルであり、機能しないか、すぐに制限に達する可能性があります。      !!
+            // !!========================================================================!!
+            apiKey: 'AIzaSyCbzvjP9vFa5I8N1qLI5H9LUpYim0nkQS4', // <<< ここをあなたのAPIキーに置き換えてください!!!
+            channelId: 'UCYAuSEKhuk3v4ZKzm5Lqb1Q', 
 
             async getLatestVideos(maxResults = 15) {
                 console.log("getLatestVideos - START. API Key used:", this.apiKey ? 'Yes' : 'No');
-                if (!this.apiKey || this.apiKey === 'YOUR_YOUTUBE_API_KEY_HERE' || this.apiKey.includes('_PLACEHOLDER_')) {
-                    const errorMsg = "YouTube APIキーが設定されていません。";
-                    console.error("youtubeAPI_JG.getLatestVideos:", errorMsg, "Current key:", this.apiKey);
-                    showSnackbarJG(errorMsg, "error");
+                // APIキーチェックは loadInitialSongsJG で行うので、ここでは簡略化
+                if (!this.apiKey) { 
+                    showSnackbarJG("YouTube APIキーが設定されていません。", "error");
                     return [];
                 }
                 const apiUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${this.channelId}&maxResults=${maxResults}&order=date&type=video&key=${this.apiKey}`;
@@ -932,7 +891,7 @@
                         let errorData = null;
                         try { errorData = JSON.parse(errorText); } catch (e) { console.warn("Could not parse API error response as JSON:", errorText); }
 
-                        const errorMessage = errorData?.error?.message || `YouTube API error: ${response.status} - ${response.statusText || errorText}`;
+                        const errorMessage = errorData?.error?.message || `YouTube APIエラー: ${response.status} - ${response.statusText || errorText}`;
                         console.error("API Error Data (if JSON):", errorData);
                         console.error("API Error Text (if not JSON or for details):", errorText);
                         throw new Error(errorMessage);
@@ -960,8 +919,8 @@
             async getVideoDetails(videoIds) {
                 console.log("getVideoDetails - START. Fetching for IDs:", videoIds);
                 if (!videoIds || videoIds.length === 0) return {};
-                if (!this.apiKey || this.apiKey === 'YOUR_YOUTUBE_API_KEY_HERE' || this.apiKey.includes('_PLACEHOLDER_')) {
-                    console.error("youtubeAPI_JG.getVideoDetails: YouTube API Key is not properly set!", this.apiKey);
+                if (!this.apiKey) {
+                    console.error("youtubeAPI_JG.getVideoDetails: YouTube API Key is not set!");
                     return {};
                 }
                 const MAX_IDS_PER_REQUEST = 50;
@@ -1006,6 +965,11 @@
 
         async function loadInitialSongsJG() {
             console.log("loadInitialSongsJG - START");
+
+            // APIキーとチャンネルIDの確認処理を削除 (お客様のものであるため)
+            // const currentApiKey = youtubeAPI_JG.apiKey;
+            // if (!currentApiKey || currentApiKey === 'YOUR_YOUTUBE_API_KEY_HERE' || ... ) { ... }
+
             if (!elementsJG.libraryPanel) {
                 console.error("loadInitialSongsJG: Library panel element not found for loading songs.");
                 return;
@@ -1015,7 +979,7 @@
 
             let songs = [];
             try {
-                songs = await youtubeAPI_JG.getLatestVideos(25);
+                songs = await youtubeAPI_JG.getLatestVideos(25); // APIキーは youtubeAPI_JG オブジェクトから直接使用される
                 console.log("loadInitialSongsJG: Fetched songs from getLatestVideos:", songs.length);
             } catch (error) {
                 console.error("loadInitialSongsJG: Error occurred while calling getLatestVideos:", error);
@@ -1024,7 +988,8 @@
                 if (elementsJG.libraryPanel) {
                     renderSongListJG(elementsJG.libraryPanel, [], 'library');
                     showLoadingInPanelJG(elementsJG.libraryPanel, false);
-                    showEmptyMessageInPanelJG(elementsJG.libraryPanel, "読み込み失敗", "曲の取得中にエラーが発生しました。");
+                    // APIキーが正しい前提なので、エラーメッセージはAPIからのものに集中させる
+                    showEmptyMessageInPanelJG(elementsJG.libraryPanel, "読み込み失敗", `曲の取得中にエラーが発生しました。APIの割り当て上限、またはネットワークの問題かもしれません。詳細: ${error.message}`);
                 }
                 return;
             }
@@ -1038,11 +1003,12 @@
                         console.log("loadInitialSongsJG: Fetched durations:", durations);
                         songs = songs.map(song => ({
                             ...song,
-                            artist: song.artist || "Rei Kikuchi",
+                            artist: song.artist || "Rei Kikuchi", // デフォルトアーティスト
                             duration: durations[song.id] || "--:--"
                         }));
                     } catch (error) {
                         console.error("loadInitialSongsJG: Error fetching video details (durations):", error);
+                        // 曲はロードされるが、一部の再生時間情報が欠ける可能性
                     }
                 }
             }
@@ -1057,15 +1023,11 @@
 
             if ((!songs || songs.length === 0)) {
                 if (elementsJG.libraryPanel) {
-                    const apiKey = youtubeAPI_JG.apiKey;
-                    if (!apiKey || apiKey === 'YOUR_YOUTUBE_API_KEY_HERE' || apiKey.includes('_PLACEHOLDER_')) {
-                        showEmptyMessageInPanelJG(elementsJG.libraryPanel, "APIキーが必要です", "曲をロードするにはAPIキーを設定してください。");
-                    } else {
-                        showEmptyMessageInPanelJG(elementsJG.libraryPanel, "まだ曲がありません", "新しい冒険が始まるのを待とう！");
-                    }
+                     // APIキーの問題ではないので、純粋に曲がないか、APIから返ってこなかった場合
+                     showEmptyMessageInPanelJG(elementsJG.libraryPanel, "まだ曲がありません", "新しい冒険が始まるのを待とう！または、APIから曲が返されませんでした。");
                 }
             }
-            loadInitialDataJG(true);
+            loadInitialDataJG(true); // true を渡して、曲データ依存リストを再描画
         }
         // ==========================================================================
         // UI Rendering
@@ -1137,6 +1099,14 @@
                         <i class="fas ${isFavorited ? 'fa-heart text-jg-accent-sunburst' : 'fa-feather-alt'}"></i>
                     </button>
                 `;
+                if (context === 'playlistSongs' && appStateJG.currentViewingPlaylistId) {
+                    actionButtonsHTML += `
+                        <button class="song-item-action-jg remove-from-playlist-action-jg" title="このプレイリストから削除" aria-label="このプレイリストから削除">
+                            <i class="fas fa-minus-circle text-red-500 hover:text-red-400"></i>
+                        </button>
+                    `;
+                }
+
 
                 entry.innerHTML = `
                     <img src="${song.thumbnail || 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'}"
@@ -1175,6 +1145,16 @@
                         showAddToPlaylistModalJG(song.id);
                     });
                 }
+
+                const removeFromPlaylistButton = entry.querySelector('.remove-from-playlist-action-jg');
+                if (removeFromPlaylistButton) {
+                    removeFromPlaylistButton.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        if (appStateJG.currentViewingPlaylistId) { 
+                            confirmRemoveSongFromPlaylistJG(song.id, appStateJG.currentViewingPlaylistId, song.title);
+                        }
+                    });
+                }
                 
                 entry.addEventListener('click', (e) => {
                     if (e.target.closest('.song-item-action-jg')) return; 
@@ -1182,17 +1162,18 @@
                     const songIdToPlay = entry.dataset.id;
                     const originalIdx = parseInt(entry.dataset.originalIndex, 10);
 
-                    if (isNaN(originalIdx) || originalIdx === -1) {
+                    if (isNaN(originalIdx) || originalIdx < 0 || originalIdx >= appStateJG.songs.length) {
                          const freshIndex = appStateJG.songs.findIndex(s => s.id === songIdToPlay);
                          if (freshIndex === -1) {
-                            showSnackbarJG("この曲は現在再生できません。", "error");
+                            showSnackbarJG("この曲は現在再生できません (情報不足)。", "error");
                             return;
                          }
-                         // If originalIdx was bad but freshIndex is good, we'd use freshIndex.
-                         // However, originalIdx should always be valid if song is in songsToRender
-                         // AND songsToRender items are derived from appStateJG.songs.
-                         // This path is mostly a safeguard.
+                         // This should ideally not happen if originalIndex is set correctly.
+                         console.warn("playSongAtIndexJG: originalIndex was invalid, using freshly found index:", freshIndex);
+                         playSongAtIndexJG(freshIndex); // Play using the re-found index
+                         return; // Exit to avoid double play if logic below also calls playSongAtIndexJG
                     }
+
 
                     if (context === 'queue') {
                         appStateJG.playMode = 'queue';
@@ -1295,29 +1276,40 @@
         // ==========================================================================
         function playSongAtIndexJG(index) { 
             if (index < 0 || !appStateJG.songs || index >= appStateJG.songs.length) {
-                console.warn("Invalid song index:", index, "Song list length:", appStateJG.songs?.length);
+                console.warn("playSongAtIndexJG: Invalid song index:", index, "Song list length:", appStateJG.songs?.length);
+                showSnackbarJG("無効な曲のインデックスです。", "error");
                 return;
             }
             appStateJG.currentSongIndex = index;
             const song = appStateJG.songs[index];
-            if (!song) {
-                console.error("Song not found at index:", index);
+            if (!song || !song.id) { 
+                console.error("playSongAtIndexJG: Song object or song ID is invalid at index:", index, song);
+                showSnackbarJG("曲の情報が正しくありません。", "error");
+                updatePlayerUIGJ(null); 
                 return;
             }
 
-            console.log(`Playing song: "${song.title}" (ID: ${song.id}), Index: ${index}, PlayMode: ${appStateJG.playMode}, QueueIndex: ${appStateJG.currentQueueIndex}`);
+            console.log(`playSongAtIndexJG: Attempting to play song: "${song.title}" (ID: ${song.id}), Index: ${index}, PlayMode: ${appStateJG.playMode}, QueueIndex: ${appStateJG.currentQueueIndex}`);
             updatePlayerUIGJ(song);
 
-            if (appStateJG.player && appStateJG.isPlayerReady && song.id) {
+            if (appStateJG.player && appStateJG.isPlayerReady) {
                 try {
+                    console.log("playSongAtIndexJG: Calling player.loadVideoById with ID:", song.id);
                     appStateJG.player.loadVideoById(song.id);
+                    console.log("playSongAtIndexJG: Calling player.playVideo() explicitly after loadVideoById.");
+                    appStateJG.player.playVideo(); 
+
                 } catch (error) {
-                    console.error("Error loading video in player:", error);
-                    showSnackbarJG("動画の読み込みに失敗しました。", "error");
+                    console.error("playSongAtIndexJG: Error during loadVideoById or playVideo:", error);
+                    showSnackbarJG("動画の読み込みまたは再生に失敗しました。", "error");
                 }
             } else {
-                console.warn("Player not ready or song ID missing. Player:", !!appStateJG.player, "Ready:", appStateJG.isPlayerReady, "Song ID:", song.id);
-                 if (!appStateJG.isPlayerReady) showSnackbarJG("プレイヤーの準備ができていません。", "warning");
+                console.warn("playSongAtIndexJG: Player not ready or song ID missing. Player:", !!appStateJG.player, "Ready:", appStateJG.isPlayerReady, "Song ID:", song.id);
+                 if (!appStateJG.isPlayerReady) {
+                    showSnackbarJG("プレイヤーの準備ができていません。少々お待ちください。", "warning");
+                 } else if (!song.id) {
+                    showSnackbarJG("再生する曲のIDが見つかりません。", "error");
+                 }
             }
             addToHistoryJG(song);
             if (appStateJG.currentPanel === 'log-history' && elementsJG.historyPanel) renderHistoryListJG();
@@ -1567,22 +1559,14 @@
                 console.warn("onPlayerReadyJG: event.target or setVolume not available for volume setting.");
             }
 
-            const apiKey = youtubeAPI_JG.apiKey;
-            if (apiKey && apiKey !== 'YOUR_YOUTUBE_API_KEY_HERE' && !apiKey.includes('_PLACEHOLDER_') && apiKey.length > 10) {
-                console.log("onPlayerReadyJG: API Key seems to be set correctly. Calling loadInitialSongsJG...");
-                loadInitialSongsJG();
-            } else {
-                console.error("onPlayerReadyJG: API Key is missing, still a placeholder, or too short! API Key found:", `"${apiKey}"`);
-                showSnackbarJG("APIキーが正しく設定されていません。曲をロードできません。", "error");
-                if (elementsJG.libraryPanel) {
-                    showEmptyMessageInPanelJG(elementsJG.libraryPanel, "APIキー未設定", "曲をロードするには、スクリプト内のAPIキーを有効なものに置き換えてください。");
-                }
-            }
+            // APIキーチェックは loadInitialSongsJG の冒頭で行われるため、ここでの詳細なチェックは不要
+            // loadInitialSongsJG を呼び出すだけで良い
+            console.log("onPlayerReadyJG: Calling loadInitialSongsJG...");
+            loadInitialSongsJG();
         }
 
         function onPlayerStateChangeJG(event) {
             const playerState = event.data;
-            // YT.PlayerState values: -1 (unstarted), 0 (ended), 1 (playing), 2 (paused), 3 (buffering), 5 (video cued)
             console.log("onPlayerStateChangeJG - Player state changed to:", playerState, "(Compare with YT.PlayerState: UNSTARTED -1, ENDED 0, PLAYING 1, PAUSED 2, BUFFERING 3, CUED 5)");
 
             if (playerState === YT.PlayerState.PLAYING) { // 1
@@ -1636,7 +1620,7 @@
                 clearInterval(appStateJG.progressInterval);
                 updatePlayPauseButtonJG();
                 if(elementsJG.progressSlider) elementsJG.progressSlider.value = 100; 
-                if(elementsJG.currentTimeDisplay && elementsJG.totalTimeDisplay) { // Update time to show full duration
+                if(elementsJG.currentTimeDisplay && elementsJG.totalTimeDisplay) { 
                     elementsJG.currentTimeDisplay.textContent = elementsJG.totalTimeDisplay.textContent;
                 }
                 handleSongEndJG();
@@ -1644,23 +1628,132 @@
                 console.log("Player is buffering...");
             } else if (playerState === YT.PlayerState.CUED) { // 5
                 console.log("Video cued:", appStateJG.songs[appStateJG.currentSongIndex]?.title);
-                updateProgressJG(); // Update duration/time displays as soon as video is cued
+                updateProgressJG(); 
             } else if (playerState === -1) { // UNSTARTED
                  console.log("Player unstarted.");
             }
         }
 
         function onPlayerErrorJG(event) {
-            console.error("onPlayerErrorJG - Error code:", event.data, "for song ID:", appStateJG.songs[appStateJG.currentSongIndex]?.id);
+            console.error("onPlayerErrorJG - Error code:", event.data, "for song ID:", appStateJG.songs[appStateJG.currentSongIndex]?.id, "Song Title:", appStateJG.songs[appStateJG.currentSongIndex]?.title);
             let msg = `動画の再生エラー (コード: ${event.data})`;
-            if (event.data === 2) msg = "無効な動画ID、またはリクエストに問題があります。";
-            if (event.data === 5) msg = "HTML5プレイヤーで内部エラーが発生しました。";
-            if (event.data === 100) msg = "要求された動画が見つかりませんでした。(非公開または削除された可能性)";
-            if (event.data === 101 || event.data === 150) msg = "この動画の埋め込み再生は、所有者によって許可されていません。";
-            showSnackbarJG(msg, "error");
+            const currentSongTitle = appStateJG.songs[appStateJG.currentSongIndex]?.title || "この動画";
+            switch(event.data) {
+                case 2: 
+                    msg = `「${escapeHTMLJG(currentSongTitle)}」の読み込みに失敗しました。動画IDが無効か、リクエストに問題がある可能性があります。`;
+                    break;
+                case 5: 
+                    msg = `「${escapeHTMLJG(currentSongTitle)}」の再生中にHTML5プレイヤーエラーが発生しました。`;
+                    break;
+                case 100: 
+                    msg = `「${escapeHTMLJG(currentSongTitle)}」が見つかりませんでした。非公開または削除された可能性があります。`;
+                    break;
+                case 101: 
+                case 150: 
+                    msg = `「${escapeHTMLJG(currentSongTitle)}」の埋め込み再生は、所有者によって許可されていません。`;
+                    break;
+                default:
+                    msg = `「${escapeHTMLJG(currentSongTitle)}」の再生中に不明なエラーが発生しました (コード: ${event.data})。`;
+            }
+            showSnackbarJG(msg, "error", 7000); 
             appStateJG.isPlaying = false;
             updatePlayPauseButtonJG();
         }
+
+        // ==========================================================================
+        // Log Action Buttons & Panel Specific Actions
+        // ==========================================================================
+        function updateLogActionButtonsJG(panelIdToUpdate) {
+            const container = document.getElementById('log-actions-container-jg');
+            if (!container) {
+                console.error("Log actions container not found!");
+                return;
+            }
+            container.innerHTML = ''; 
+
+            const currentContextId = appStateJG.currentViewingPlaylistId && panelIdToUpdate === 'log-paths' 
+                                   ? 'playlistSongs' 
+                                   : panelIdToUpdate;
+
+            const actionsToShow = appStateJG.buttonsForPanel[currentContextId] || appStateJG.buttonsForPanel['log-library']; 
+
+            actionsToShow.forEach(actionId => {
+                let button;
+                switch (actionId) {
+                    case 'btn-refresh-feed-jg':
+                        button = document.createElement('button');
+                        button.innerHTML = '<i class="fas fa-sync-alt"></i> Feedを更新';
+                        button.addEventListener('click', () => {
+                            showSnackbarJG("ジャングルの最新情報を取得中...", "info");
+                            loadInitialSongsJG();
+                        });
+                        break;
+                    case 'btn-create-playlist-jg':
+                        button = document.createElement('button');
+                        button.innerHTML = '<i class="fas fa-plus-circle"></i> 新しい道';
+                        button.addEventListener('click', showCreatePlaylistModalJG);
+                        break;
+                    case 'btn-clear-queue-jg':
+                        if (appStateJG.queue.length > 0) { 
+                            button = document.createElement('button');
+                            button.innerHTML = '<i class="fas fa-trash-alt"></i> キューを空に';
+                            button.addEventListener('click', confirmClearQueueJG);
+                        }
+                        break;
+                    case 'btn-clear-history-jg':
+                         if (appStateJG.history.length > 0) {
+                            button = document.createElement('button');
+                            button.innerHTML = '<i class="fas fa-history"></i> <i class="fas fa-trash-alt"></i> 履歴をクリア';
+                            button.addEventListener('click', confirmClearHistoryJG);
+                        }
+                        break;
+                }
+                if (button) {
+                    container.appendChild(button);
+                }
+            });
+        }
+
+        function confirmClearQueueJG() {
+            if (appStateJG.queue.length === 0) {
+                showSnackbarJG("キューは既に空です。", "info");
+                return;
+            }
+            if (confirm("本当にキューを空にしますか？")) {
+                clearQueueJG();
+            }
+        }
+        function clearQueueJG() {
+            appStateJG.queue = [];
+            appStateJG.currentQueueIndex = -1; 
+            saveToLocalStorageJG(LS_KEYS_JG.QUEUE, appStateJG.queue);
+            updateQueueCountBadgeJG();
+            if (appStateJG.currentPanel === 'log-discoveries' && elementsJG.queuePanel) {
+                renderSongListJG(elementsJG.queuePanel, [], 'queue'); 
+            }
+            showSnackbarJG("キューを空にしました。", "success");
+            updateLogActionButtonsJG('log-discoveries'); 
+        }
+
+        function confirmClearHistoryJG() {
+             if (appStateJG.history.length === 0) {
+                showSnackbarJG("再生履歴は既に空です。", "info");
+                return;
+            }
+            if (confirm("本当に再生履歴を全て削除しますか？")) {
+                clearHistoryJG();
+            }
+        }
+        function clearHistoryJG() {
+            appStateJG.history = [];
+            saveToLocalStorageJG(LS_KEYS_JG.HISTORY, appStateJG.history);
+            if (appStateJG.currentPanel === 'log-history' && elementsJG.historyPanel) {
+                renderHistoryListJG(); 
+            }
+            showSnackbarJG("再生履歴を削除しました。", "success");
+            updateLogActionButtonsJG('log-history');
+        }
+
         // ==========================================================================
         // Event Listeners Setup
         // ==========================================================================
@@ -1700,14 +1793,7 @@
             
             elementsJG.searchInput?.addEventListener('input', handleSearchJG);
 
-            elementsJG.btnRefreshFeed?.addEventListener('click', () => {
-                showSnackbarJG("ジャングルの最新情報を取得中...", "info");
-                loadInitialSongsJG();
-            });
-
-            elementsJG.btnCreatePlaylist?.addEventListener('click', () => {
-                showCreatePlaylistModalJG(); 
-            });
+            // Dynamic buttons (Refresh Feed, New Path) are handled by updateLogActionButtonsJG
         }
         // ==========================================================================
         // UI & Control Logic Helpers
@@ -1722,7 +1808,12 @@
         }
 
         function switchLogPanelJG(panelId) {
-            if (!panelId || appStateJG.currentPanel === panelId) return;
+            if (!panelId) return; 
+            
+            if (appStateJG.currentViewingPlaylistId && panelId !== 'log-paths') {
+                 appStateJG.currentViewingPlaylistId = null; 
+            }
+            
             appStateJG.currentPanel = panelId;
 
             elementsJG.logTabs.forEach(t => t.classList.toggle('active', t.dataset.panel === panelId));
@@ -1745,11 +1836,11 @@
                     break;
                 case 'log-paths': 
                     if(elementsJG.playlistsPanel) {
-                        appStateJG.currentViewingPlaylistId = null; 
                         renderPlaylistsJG(); 
                     }
                     break;
             }
+            updateLogActionButtonsJG(panelId); 
         }
 
         function handleSearchJG() {
@@ -1865,6 +1956,7 @@
             if (appStateJG.currentPanel === 'log-discoveries' && elementsJG.queuePanel) {
                 renderSongListJG(elementsJG.queuePanel, appStateJG.queue.map(id => findSongByIdJG(id)).filter(s => s), 'queue');
             }
+            updateLogActionButtonsJG('log-discoveries'); // キューのボタンを更新する可能性がある
         }
 
         function updateQueueCountBadgeJG() {
@@ -1931,7 +2023,6 @@
                 confirmButton.removeEventListener('click', handleConfirm);
                 cancelButton.removeEventListener('click', handleCancel);
                 input.removeEventListener('keydown', handleKeydown);
-                // modal.removeEventListener('click', ...) // This is tricky if modal itself is removed. Better to re-add if shown again.
             }
         }
 
@@ -1964,6 +2055,7 @@
 
             if (appStateJG.userPlaylists.length === 0) {
                 showEmptyMessageInPanelJG(elementsJG.playlistsPanel, "まだ道は描かれていない", "「新しい道」ボタンからプレイリストを作成しましょう！");
+                updateLogActionButtonsJG('log-paths'); // ボタン更新
                 return;
             }
 
@@ -2009,6 +2101,7 @@
                 fragment.appendChild(playlistEntry);
             });
             elementsJG.playlistsPanel.appendChild(fragment);
+            updateLogActionButtonsJG('log-paths'); // ボタン更新
         }
 
         function confirmDeletePlaylistJG(playlistId, playlistName) {
@@ -2022,7 +2115,7 @@
             saveToLocalStorageJG(LS_KEYS_JG.PLAYLISTS, appStateJG.userPlaylists);
             showSnackbarJG("プレイリストを削除しました。", "info");
             if (appStateJG.currentPanel === 'log-paths' && elementsJG.playlistsPanel) {
-                renderPlaylistsJG();
+                renderPlaylistsJG(); // Will also call updateLogActionButtonsJG
             }
         }
         
@@ -2067,10 +2160,8 @@
 
             const cancelButton = document.getElementById('cancelAddToPlaylistJG');
             
-            // Define handlers inside so they capture current modal context
-            // and can be properly removed.
             const handleCancel = () => {
-                hideAddToPlaylistModalJG(); // This will also remove event listeners via its own logic
+                hideAddToPlaylistModalJG(); 
             };
             const handleBackdropClick = (e) => {
                 if (e.target === modal) {
@@ -2078,7 +2169,6 @@
                 }
             };
             
-            // Store reference for removal
             modal._handleBackdropClick = handleBackdropClick;
             cancelButton._handleCancel = handleCancel;
 
@@ -2090,7 +2180,6 @@
             const modal = document.getElementById('addToPlaylistModalJG');
             if (modal) {
                 modal.style.display = 'none';
-                // Clean up event listeners specific to this modal instance
                 const cancelButton = document.getElementById('cancelAddToPlaylistJG');
                 if (cancelButton && cancelButton._handleCancel) {
                     cancelButton.removeEventListener('click', cancelButton._handleCancel);
@@ -2127,10 +2216,41 @@
 
             if (appStateJG.currentPanel === 'log-paths' && elementsJG.playlistsPanel) {
                 if (appStateJG.currentViewingPlaylistId === playlistId) {
-                    renderSongsInPlaylistJG(playlistId); // If viewing this playlist, refresh song list
+                    renderSongsInPlaylistJG(playlistId); 
                 } else {
-                    renderPlaylistsJG(); // Otherwise, refresh playlist list (for song count)
+                    renderPlaylistsJG(); 
                 }
+            }
+        }
+
+        function confirmRemoveSongFromPlaylistJG(songId, playlistId, songTitle) {
+            const playlist = appStateJG.userPlaylists.find(p => p.id === playlistId);
+            if (!playlist) return;
+            const escapedSongTitle = escapeHTMLJG(songTitle) || "この曲";
+            const escapedPlaylistName = escapeHTMLJG(playlist.name) || "このプレイリスト";
+
+            if (confirm(`曲「${escapedSongTitle}」をプレイリスト「${escapedPlaylistName}」から削除しますか？`)) {
+                removeSongFromPlaylistJG(songId, playlistId);
+            }
+        }
+
+        function removeSongFromPlaylistJG(songId, playlistId) {
+            const playlist = appStateJG.userPlaylists.find(p => p.id === playlistId);
+            if (!playlist) {
+                showSnackbarJG("プレイリストが見つかりません。", "error");
+                return;
+            }
+            const songIndexInPlaylist = playlist.songs.indexOf(songId);
+            if (songIndexInPlaylist > -1) {
+                playlist.songs.splice(songIndexInPlaylist, 1);
+                saveToLocalStorageJG(LS_KEYS_JG.PLAYLISTS, appStateJG.userPlaylists);
+                showSnackbarJG("曲をプレイリストから削除しました。", "success");
+
+                if (appStateJG.currentPanel === 'log-paths' && appStateJG.currentViewingPlaylistId === playlistId) {
+                    renderSongsInPlaylistJG(playlistId); 
+                }
+            } else {
+                showSnackbarJG("曲がプレイリストに見つかりませんでした。", "info");
             }
         }
         
@@ -2141,6 +2261,7 @@
             const playlist = appStateJG.userPlaylists.find(p => p.id === playlistId);
             if (!playlist) {
                 showEmptyMessageInPanelJG(elementsJG.playlistsPanel, "プレイリストが見つかりません", "エラーが発生しました。");
+                updateLogActionButtonsJG('log-paths');
                 return;
             }
 
@@ -2162,6 +2283,7 @@
             document.getElementById('backToPlaylistsViewJG').addEventListener('click', () => {
                 appStateJG.currentViewingPlaylistId = null; 
                 renderPlaylistsJG(); 
+                updateLogActionButtonsJG('log-paths'); 
             });
 
             const songListContainer = document.createElement('div');
@@ -2175,6 +2297,7 @@
             } else {
                 renderSongListJG(songListContainer, songsInPlaylist, 'playlistSongs');
             }
+            updateLogActionButtonsJG('log-paths'); 
         }
 
         // ==========================================================================
@@ -2276,7 +2399,7 @@
             if (!isSongDataReload) {
                 appStateJG.history = loadFromLocalStorageJG(LS_KEYS_JG.HISTORY) || [];
                 const favsFromStorage = loadFromLocalStorageJG(LS_KEYS_JG.FAVORITES) || [];
-                if (appStateJG.songs.length > 0) { // This will be false on first pass before songs are loaded
+                if (appStateJG.songs.length > 0) { 
                     appStateJG.favorites = favsFromStorage.map(favSong => findSongByIdJG(favSong.id)).filter(s => s);
                 } else {
                     appStateJG.favorites = favsFromStorage; 
@@ -2304,9 +2427,7 @@
                 }
             }
 
-            // This part runs on initial load (songs will be empty) AND after song data reload
             if (appStateJG.songs.length > 0) { 
-                // Re-validate/reconstruct lists that store song objects or depend on song details
                 appStateJG.favorites = appStateJG.favorites.map(fav => findSongByIdJG(fav.id)).filter(s => s);
                 saveToLocalStorageJG(LS_KEYS_JG.FAVORITES, appStateJG.favorites);
                 if (elementsJG.favoritesPanel && (appStateJG.currentPanel === 'log-trophies' || isSongDataReload)) {
@@ -2321,7 +2442,7 @@
                 
                 const queueSongs = appStateJG.queue.map(id => findSongByIdJG(id)).filter(s => s);
                 const validQueueIds = queueSongs.map(s => s.id);
-                if (validQueueIds.length !== appStateJG.queue.length) { // Update if invalid songs were filtered out
+                if (validQueueIds.length !== appStateJG.queue.length) { 
                     appStateJG.queue = validQueueIds;
                     saveToLocalStorageJG(LS_KEYS_JG.QUEUE, appStateJG.queue);
                 }
@@ -2359,12 +2480,13 @@
                 }
             }
 
-            if (appStateJG.currentPanel !== 'log-library') { 
-                switchLogPanelJG(appStateJG.currentPanel); 
-            } else if (elementsJG.libraryPanel) { // If library is default, show loading or empty message
-                 if (appStateJG.songs.length === 0) { // (songs won't be loaded yet, API key not set is likely)
-                    showLoadingInPanelJG(elementsJG.libraryPanel, true); // Shows "探検中..."
+            if (appStateJG.currentPanel !== 'log-library' || !elementsJG.libraryPanel) { 
+                switchLogPanelJG(appStateJG.currentPanel || 'log-library'); 
+            } else if (elementsJG.libraryPanel) { 
+                 if (appStateJG.songs.length === 0) { 
+                    showLoadingInPanelJG(elementsJG.libraryPanel, true); 
                  }
+                 updateLogActionButtonsJG('log-library'); 
             }
 
             console.log("DOMContentLoaded - END. UI initialized. Waiting for YouTube API to call onYouTubeIframeAPIReady to load songs and player.");
