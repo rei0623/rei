@@ -517,6 +517,38 @@
             background-color: var(--jg-accent-canopy);
         }
 
+                /* ... (existing CSS) ... */
+
+        /* Playlist Modal Specific Styles */
+        body.light-mode-jg #createPlaylistModalJG .bg-jg-surface-bark {
+            background-color: var(--jg-surface-bark); /* Light mode surface */
+        }
+        body.light-mode-jg #createPlaylistModalJG .text-jg-text-light {
+            color: var(--jg-text-light); /* Light mode text */
+        }
+        body.light-mode-jg #createPlaylistModalJG .text-jg-accent-sunburst {
+            color: var(--jg-accent-sunburst);
+        }
+        body.light-mode-jg #createPlaylistModalJG #newPlaylistNameJG {
+            background-color: var(--jg-bg-forest-floor);
+            border-color: var(--jg-border-vine);
+            color: var(--jg-text-light);
+        }
+        body.light-mode-jg #createPlaylistModalJG #newPlaylistNameJG::placeholder {
+            color: var(--jg-text-shadow);
+        }
+        body.light-mode-jg #createPlaylistModalJG #cancelCreatePlaylistJG {
+            background-color: var(--jg-text-shadow);
+            color: var(--jg-bg-deep-jungle); /* Ensure contrast */
+        }
+         body.light-mode-jg #createPlaylistModalJG #confirmCreatePlaylistJG {
+            background-color: var(--jg-accent-canopy);
+            color: #FFFFFF; /* Keep white for good contrast on canopy green */
+        }
+
+
+        /* ... (rest of your styles) ... */
+
     </style>
 </head>
 <body class="jungle-theme">
@@ -715,6 +747,8 @@
                 }
             }
         }
+       
+
         // ==========================================================================
         // Constants & State
         // ==========================================================================
@@ -724,7 +758,7 @@
         const LS_KEYS_JG = {
             HISTORY: 'jungleGrooveHistory',
             FAVORITES: 'jungleGrooveFavorites',
-            PLAYLISTS: 'jungleGroovePlaylists',
+            PLAYLISTS: 'jungleGroovePlaylists', // <<< ADD THIS
             USER: 'jungleGrooveUser',
             THEME: 'jungleGrooveTheme',
             QUEUE: 'jungleGrooveQueue'
@@ -735,24 +769,25 @@
             player: null,
             songs: [],
             filteredSongs: [],
-            currentSongIndex: -1, // Index in appStateJG.songs of the currently loaded/playing song
+            currentSongIndex: -1,
             isPlaying: false,
             isShuffle: false,
-            loopMode: 'none', // 'none', 'all', 'one'
+            loopMode: 'none', 
             currentPanel: 'log-library',
             volume: 75,
             progressInterval: null,
             history: [],
-            favorites: [], // Array of full song objects
-            userPlaylists: [],
-            queue: [], // Array of song IDs
-            currentQueueIndex: -1, // Index in appStateJG.queue when playMode is 'queue'
-            playMode: 'library', // 'library', 'queue'
+            favorites: [],
+            userPlaylists: [], // <<< ADD THIS: Array of playlist objects {id, name, songs: [songId1, ...]}
+            queue: [], 
+            currentQueueIndex: -1,
+            playMode: 'library', 
             isPlayerReady: false,
             snackbarTimeoutId: null,
             activeModalId: null,
-            currentTheme: 'dark' // 'dark' or 'light'
+            currentTheme: 'dark'
         };
+
 
         // elementsJG is declared at the top
         // ==========================================================================
@@ -1516,10 +1551,13 @@
                 loadInitialSongsJG();
             });
 
-            elementsJG.btnCreatePlaylist?.addEventListener('click', () => {
-                showSnackbarJG("新しい道の作成はまだ探検の途中...", "info");
-                // Placeholder for create playlist functionality
+                    // ... (inside setupEventListenersJG function) ...
+
+                    elementsJG.btnCreatePlaylist?.addEventListener('click', () => {
+                // showSnackbarJG("新しい道の作成はまだ探検の途中...", "info"); // OLD
+                showCreatePlaylistModalJG(); // <<< NEW: Call function to show modal
             });
+        // ... (rest of setupEventListenersJG) ...
         }
         // ==========================================================================
         // UI & Control Logic Helpers
@@ -1559,6 +1597,7 @@
                 case 'log-paths': // Playlists
                     if(elementsJG.playlistsPanel) {
                         showEmptyMessageInPanelJG(elementsJG.playlistsPanel, "まだ道は描かれていない", "自分だけの音楽の道を作ろう！");
+                        renderPlaylistsJG(); // <<< NEW
                     }
                     break;
             }
@@ -1691,6 +1730,172 @@
                 elementsJG.queueCountBadge.style.display = appStateJG.queue.length > 0 ? 'inline-block' : 'none';
             }
         }
+                // ... (existing script) ...
+
+        // ==========================================================================
+        // Playlist Management Functions
+        // ==========================================================================
+        function generateUniqueIdJG() {
+            return Date.now().toString(36) + Math.random().toString(36).substring(2);
+        }
+
+        function showCreatePlaylistModalJG() {
+            const modal = document.getElementById('createPlaylistModalJG');
+            const input = document.getElementById('newPlaylistNameJG');
+            if (!modal || !input) return;
+
+            input.value = ''; // Clear previous input
+            modal.style.display = 'flex';
+            appStateJG.activeModalId = 'createPlaylistModalJG'; // Track active modal
+            input.focus();
+
+            // Add event listeners for modal buttons (scoped to this function call)
+            const confirmButton = document.getElementById('confirmCreatePlaylistJG');
+            const cancelButton = document.getElementById('cancelCreatePlaylistJG');
+
+            const handleConfirm = () => {
+                const playlistName = input.value.trim();
+                if (playlistName) {
+                    createPlaylistJG(playlistName);
+                    hideCreatePlaylistModalJG();
+                } else {
+                    showSnackbarJG("プレイリスト名を入力してください。", "warning");
+                    input.focus();
+                }
+                cleanupListeners();
+            };
+
+            const handleCancel = () => {
+                hideCreatePlaylistModalJG();
+                cleanupListeners();
+            };
+            
+            const handleKeydown = (e) => {
+                if (e.key === 'Enter') {
+                    handleConfirm();
+                } else if (e.key === 'Escape') {
+                    handleCancel();
+                }
+            };
+
+            confirmButton.addEventListener('click', handleConfirm);
+            cancelButton.addEventListener('click', handleCancel);
+            input.addEventListener('keydown', handleKeydown); // Listen for Enter on input
+            modal.addEventListener('click', (e) => { // Close on backdrop click
+                if (e.target === modal) {
+                    handleCancel();
+                }
+            });
+
+
+            function cleanupListeners() {
+                confirmButton.removeEventListener('click', handleConfirm);
+                cancelButton.removeEventListener('click', handleCancel);
+                input.removeEventListener('keydown', handleKeydown);
+            }
+        }
+
+        function hideCreatePlaylistModalJG() {
+            const modal = document.getElementById('createPlaylistModalJG');
+            if (modal) {
+                modal.style.display = 'none';
+            }
+            appStateJG.activeModalId = null;
+        }
+
+        function createPlaylistJG(name) {
+            const newPlaylist = {
+                id: generateUniqueIdJG(),
+                name: name,
+                songs: [] // Initially empty
+            };
+            appStateJG.userPlaylists.push(newPlaylist);
+            saveToLocalStorageJG(LS_KEYS_JG.PLAYLISTS, appStateJG.userPlaylists);
+            showSnackbarJG(`プレイリスト「${escapeHTMLJG(name)}」を作成しました！`, "success");
+
+            // If playlist panel is active, re-render it
+            if (appStateJG.currentPanel === 'log-paths' && elementsJG.playlistsPanel) {
+                renderPlaylistsJG();
+            }
+        }
+        
+        function renderPlaylistsJG() {
+            if (!elementsJG.playlistsPanel) return;
+            elementsJG.playlistsPanel.innerHTML = ''; // Clear existing
+
+            if (appStateJG.userPlaylists.length === 0) {
+                showEmptyMessageInPanelJG(elementsJG.playlistsPanel, "まだ道は描かれていない", "「新しい道」ボタンからプレイリストを作成しましょう！");
+                return;
+            }
+
+            const fragment = document.createDocumentFragment();
+            appStateJG.userPlaylists.forEach(playlist => {
+                const playlistEntry = document.createElement('div');
+                playlistEntry.className = 'log-entry-jg playlist-item-jg'; // Add a specific class for styling if needed
+                playlistEntry.dataset.playlistId = playlist.id;
+                // Simple display for now, can be enhanced later
+                playlistEntry.innerHTML = `
+                    <i class="fas fa-compact-disc fa-lg mr-3 text-jg-accent-waterfall" style="width: 40px; text-align: center;"></i>
+                    <div>
+                        <span class="title">${escapeHTMLJG(playlist.name)}</span>
+                        <span class="artist">${playlist.songs.length} 曲</span>
+                    </div>
+                    <div class="log-entry-actions-jg">
+                        <button class="song-item-action-jg rename-playlist-action-jg" title="名前を変更" aria-label="名前を変更">
+                            <i class="fas fa-pencil-alt"></i>
+                        </button>
+                        <button class="song-item-action-jg delete-playlist-action-jg" title="削除" aria-label="削除">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </div>
+                `;
+                // TODO: Add event listener to playlistEntry to show its songs
+                // TODO: Add event listeners for rename/delete buttons
+                
+                playlistEntry.addEventListener('click', (e) => {
+                    if (e.target.closest('.song-item-action-jg')) return; // Handled by button listeners
+                    
+                    // For now, just log. Later, this will show songs in the playlist.
+                    console.log("Clicked playlist:", playlist.name);
+                    showSnackbarJG(`プレイリスト「${escapeHTMLJG(playlist.name)}」の曲を表示する機能は準備中です。`, "info");
+                });
+
+                const renameBtn = playlistEntry.querySelector('.rename-playlist-action-jg');
+                renameBtn?.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    showSnackbarJG(`「${escapeHTMLJG(playlist.name)}」の名前変更機能は準備中です。`, "info");
+                    // TODO: Implement rename functionality
+                });
+                
+                const deleteBtn = playlistEntry.querySelector('.delete-playlist-action-jg');
+                deleteBtn?.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    confirmDeletePlaylistJG(playlist.id, playlist.name);
+                });
+
+                fragment.appendChild(playlistEntry);
+            });
+            elementsJG.playlistsPanel.appendChild(fragment);
+        }
+
+        function confirmDeletePlaylistJG(playlistId, playlistName) {
+            // A simple confirm dialog for now. Can be replaced with a custom modal later.
+            if (confirm(`プレイリスト「${escapeHTMLJG(playlistName)}」を本当に削除しますか？この操作は元に戻せません。`)) {
+                deletePlaylistJG(playlistId);
+            }
+        }
+
+        function deletePlaylistJG(playlistId) {
+            appStateJG.userPlaylists = appStateJG.userPlaylists.filter(p => p.id !== playlistId);
+            saveToLocalStorageJG(LS_KEYS_JG.PLAYLISTS, appStateJG.userPlaylists);
+            showSnackbarJG("プレイリストを削除しました。", "info");
+            if (appStateJG.currentPanel === 'log-paths' && elementsJG.playlistsPanel) {
+                renderPlaylistsJG();
+            }
+        }
+
+
+        // ... (rest of your script) ...
         // ==========================================================================
         // Utility Functions
         // ==========================================================================
@@ -1804,6 +2009,7 @@
                 }
 
                 appStateJG.queue = loadFromLocalStorageJG(LS_KEYS_JG.QUEUE) || [];
+                appStateJG.userPlaylists = loadFromLocalStorageJG(LS_KEYS_JG.PLAYLISTS) || []; // <<< ADD THIS
                 appStateJG.currentTheme = loadFromLocalStorageJG(LS_KEYS_JG.THEME) || 'dark';
 
                 if (elementsJG.body && elementsJG.themeToggle) {
@@ -1895,5 +2101,25 @@
             // Song loading (loadInitialSongsJG) is triggered by onPlayerReadyJG which is called by the YouTube API
         });
     </script>
+        <!-- ... (rest of your HTML) ... -->
+
+    <!-- Create Playlist Modal (Initially Hidden) -->
+    <div id="createPlaylistModalJG" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50" style="display: none;">
+        <div class="bg-jg-surface-bark p-6 rounded-lg shadow-xl w-full max-w-md text-jg-text-light">
+            <h3 class="font-display-jg text-2xl mb-4 text-jg-accent-sunburst">新しい道 (プレイリスト) を作成</h3>
+            <input type="text" id="newPlaylistNameJG" class="w-full p-2 rounded bg-jg-bg-forest-floor border border-jg-border-vine text-jg-text-light placeholder-jg-text-shadow focus:ring-2 focus:ring-jg-accent-canopy outline-none" placeholder="プレイリスト名を入力...">
+            <div class="mt-6 flex justify-end gap-3">
+                <button id="cancelCreatePlaylistJG" class="px-4 py-2 rounded bg-jg-text-shadow hover:bg-opacity-80 transition-colors">キャンセル</button>
+                <button id="confirmCreatePlaylistJG" class="px-4 py-2 rounded bg-jg-accent-canopy hover:bg-opacity-80 text-white transition-colors">作成</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script>
+        // ... (your existing script) ...
+    </script>
+</body>
+</html>
 </body>
 </html>
