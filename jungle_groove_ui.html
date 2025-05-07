@@ -42,8 +42,7 @@
             background-color: var(--jg-bg-deep-jungle);
             color: var(--jg-text-light);
             margin: 0;
-            height: 100vh; /* Fallback for browsers not supporting dvh */
-            height: 100dvh;
+            height: 100vh;
             overflow: hidden;
             position: relative;
             transition: background-color 0.3s, color 0.3s;
@@ -69,7 +68,7 @@
             box-shadow: 0 10px 40px var(--jg-shadow-heavy);
             display: flex; flex-direction: column;
             overflow: hidden; position: relative;
-            transition: background-color 0.3s, border-color 0.3s; /* Removed layout transitions */
+            transition: background-color 0.3s, border-color 0.3s;
         }
 
         .safari-map-bar {
@@ -79,7 +78,6 @@
             border-bottom: 2px solid var(--jg-border-vine);
             box-shadow: 0 4px 10px var(--jg-shadow-light);
             transition: background-color 0.3s, border-color 0.3s;
-            flex-shrink: 0; 
         }
         .compass-logo { font-family: var(--font-display-jg); font-size: 1.6rem; font-weight: 700; color: var(--jg-text-light); }
         .compass-logo i { color: var(--jg-accent-sunburst); margin-right: 0.5rem; transform: rotate(-15deg); }
@@ -115,7 +113,6 @@
             border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;
             font-size: 1.1rem; transition: all 0.2s ease;
             box-shadow: 0 2px 5px var(--jg-shadow-light);
-            flex-shrink: 0;
         }
         .tool-btn-jg:hover {
             background-color: var(--jg-accent-sunburst); color: var(--jg-bg-deep-jungle);
@@ -126,9 +123,7 @@
             background-color: var(--jg-text-shadow); 
         }
 
-        .safari-zone { 
-            flex-grow: 1; display: flex; padding: 1.5rem; gap: 1.5rem; overflow: hidden; 
-        }
+        .safari-zone { flex-grow: 1; display: flex; padding: 1.5rem; gap: 1.5rem; overflow: hidden; }
 
         .watering-hole-player {
             flex: 3;
@@ -138,15 +133,12 @@
             box-shadow: inset 0 0 15px var(--jg-shadow-light);
             border: 2px solid var(--jg-border-vine);
             transition: background 0.3s, border-color 0.3s;
-            overflow-y: auto; 
-            -webkit-overflow-scrolling: touch;
         }
         .album-canopy {
             width: 280px; height: 280px; border-radius: 15px; margin-bottom: 1.5rem;
             position: relative; box-shadow: 0 8px 25px var(--jg-shadow-heavy);
             overflow: hidden; background-color: var(--jg-bg-forest-floor);
             transition: background-color 0.3s;
-            flex-shrink: 0;
         }
         #main-album-art-jg.album-art-placeholder {
             width: 100%; height: 100%; border: 4px solid var(--jg-surface-bark);
@@ -169,7 +161,6 @@
             box-shadow: 2px 2px 5px var(--jg-shadow-light), inset 1px 1px 3px rgba(255,255,255,0.1);
             transition: all 0.15s ease-out;
             text-shadow: 1px 1px 2px var(--jg-shadow-heavy);
-            flex-shrink: 0;
         }
         .control-rock:hover { transform: translateY(-2px) scale(1.05); box-shadow: 4px 4px 8px var(--jg-shadow-light), inset 1px 1px 3px rgba(255,255,255,0.1); }
         .control-rock:active { transform: translateY(1px) scale(0.98); box-shadow: 1px 1px 3px var(--jg-shadow-light), inset 1px 1px 3px rgba(0,0,0,0.2); }
@@ -238,19 +229,13 @@
             border-radius: 15px; border: 2px solid var(--jg-border-vine);
             padding: 1rem; display: flex; flex-direction: column; overflow: hidden;
             transition: background-color 0.3s, border-color 0.3s;
-            min-height: 0; 
         }
-        .log-tabs-jg { 
-            display: flex; border-bottom: 2px solid var(--jg-border-vine); margin-bottom: 1rem; 
-            transition: border-color 0.3s;
-            flex-shrink: 0;
-        }
+        .log-tabs-jg { display: flex; border-bottom: 2px solid var(--jg-border-vine); margin-bottom: 1rem; transition: border-color 0.3s;}
         .log-tab-jg {
             flex-grow: 1; padding: 0.75rem 0.5rem; font-family: var(--font-display-jg); font-size: 1.1rem;
             color: var(--jg-text-earth); border: none; background: transparent;
             position: relative; opacity: 0.7; transition: opacity 0.2s, color 0.2s;
             cursor: pointer; 
-            white-space: nowrap; 
         }
         .log-tab-jg:hover { opacity: 1; color: var(--jg-accent-sunburst); }
         .log-tab-jg.active { opacity: 1; color: var(--jg-accent-sunburst); font-weight: 700; }
@@ -266,7 +251,7 @@
             font-family: var(--font-body-jg); display: none; 
         }
 
-        .log-content-jg { flex-grow: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+        .log-content-jg { flex-grow: 1; overflow-y: auto; }
         .log-panel-jg { display: none; padding-top: 0.5rem; }
         .log-panel-jg.active { display: block; animation: revealPanel 0.4s ease-in-out; }
         @keyframes revealPanel { from { opacity:0; transform:scale(0.98); } to { opacity:1; transform:scale(1); } }
@@ -277,7 +262,7 @@
             background-color: rgba(var(--jg-bg-forest-floor-rgb), 0.55);
             transition: background-color 0.2s, transform 0.2s, border-color 0.2s;
             cursor: pointer; 
-            border: 1px solid transparent; 
+            border: 1px solid transparent; /* For hover/active states */
         }
         .log-entry-jg:hover {
             background-color: rgba(var(--jg-surface-leaf-rgb),0.5);
@@ -286,7 +271,7 @@
         .log-entry-jg.active-song {
             background-color: rgba(var(--jg-accent-canopy-rgb),0.4);
             border-left: 4px solid var(--jg-accent-canopy);
-            padding-left: calc(0.75rem - 4px); 
+            padding-left: calc(0.75rem - 4px); /* Adjust padding for border */
         }
         .log-entry-jg.dragging-jg {
             opacity: 0.4; background-color: rgba(var(--jg-accent-sunburst-rgb), 0.3); 
@@ -325,7 +310,6 @@
             padding-top: 1rem; border-top: 1px solid var(--jg-border-vine);
             display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; 
             transition: border-color 0.3s;
-            flex-shrink: 0;
         }
         .log-actions-jg button {
             background-color: var(--jg-surface-leaf); color: var(--jg-text-light);
@@ -356,216 +340,13 @@
         #song-context-menu-jg ul { list-style: none; margin: 0; padding: 0; }
         #song-context-menu-jg li { padding: 0.5rem 1rem; color: var(--jg-text-light); cursor: pointer; font-size: 0.9rem; }
         #song-context-menu-jg li:hover { background-color: var(--jg-surface-leaf); }
-        
-        .modal-dialog-jg {
-            transition: padding 0.3s;
+
+        @media (max-width: 1024px) { /* ... (Responsive styles - no major theme-specific changes here) ... */ }
+        @media (max-width: 767px) { /* ... (Responsive styles - player controls wrap, PiP button placement) ... */
+            .player-controls-jg { flex-wrap: wrap; justify-content: center;}
+            .volume-and-extra-controls-jg { max-width: 100%; flex-direction: column; gap: 0.5rem; }
+            #btn-pip-jg { margin-left: 0; margin-top: 0.5rem; }
         }
-
-        @media (max-width: 1024px) { /* Tablet optimizations */
-            .app-safari-hut {
-                width: 98vw; height: 95vh; /* Fallback */
-                height: 95dvh;
-                margin: 1vh auto; /* Fallback */
-                margin: 1dvh auto;
-                border-radius: 20px;
-            }
-            .safari-map-bar {
-                padding: 0.75rem 1rem;
-            }
-            #animal-tracker {
-                width: 200px; 
-            }
-            .safari-zone {
-                padding: 1rem;
-                gap: 1rem;
-            }
-            .watering-hole-player {
-                padding: 1.5rem;
-            }
-            .album-canopy {
-                width: 240px; height: 240px;
-            }
-            #song-title-jg { font-size: 2rem; }
-            #artist-name-jg { font-size: 1rem; }
-            .explorers-log {
-                padding: 0.75rem;
-            }
-             .log-tab-jg {
-                font-size: 1rem;
-            }
-        }
-
-        @media (max-width: 767px) { /* Mobile optimizations */
-            .app-safari-hut {
-                width: 100vw; height: 100dvh; 
-                max-width: 100vw; max-height: 100dvh;
-                margin: 0;
-                border-radius: 0;
-                border: none;
-                box-shadow: none;
-                backdrop-filter: blur(10px) saturate(100%);
-                -webkit-backdrop-filter: blur(10px) saturate(100%);
-            }
-            .safari-map-bar {
-                flex-direction: column; 
-                align-items: stretch; 
-                gap: 0.5rem;
-                padding: 0.75rem;
-            }
-            .compass-logo {
-                font-size: 1.4rem;
-                align-self: flex-start; 
-            }
-            .search-outpost {
-                width: 100%; 
-                padding: 0.4rem 0.8rem;
-            }
-            #animal-tracker {
-                width: 100%; 
-                flex-grow: 1;
-                font-size: 0.85rem;
-            }
-            .safari-tools {
-                align-self: flex-end; 
-                gap: 0.5rem;
-            }
-            .tool-btn-jg {
-                width: 36px; height: 36px; font-size: 1rem;
-            }
-
-            .safari-zone {
-                flex-direction: column; 
-                padding: 0.5rem; /* Reduced padding for more content space */
-                gap: 0.5rem;
-                overflow: hidden; /* Important for flex children scrolling */
-            }
-            .watering-hole-player {
-                flex: 0 0 auto; 
-                padding: 0.75rem; /* Reduced padding */
-                border-radius: 15px;
-                max-height: calc(50dvh - 60px); /* Approx 50% of viewport, minus header est. */
-                overflow-y: auto;
-                 -webkit-overflow-scrolling: touch;
-            }
-            .album-canopy {
-                width: 150px; height: 150px; /* Smaller album art */
-                margin-bottom: 0.75rem;
-                border-radius: 10px;
-            }
-            #main-album-art-jg.album-art-placeholder {
-                font-size: 1.8rem;
-            }
-            .track-details-jg {
-                margin-bottom: 0.75rem;
-            }
-            #song-title-jg { font-size: 1.4rem; }
-            #artist-name-jg { font-size: 0.85rem; }
-
-            .player-controls-jg {
-                flex-wrap: wrap; 
-                justify-content: center;
-                gap: 0.5rem; margin-bottom: 0.75rem;
-            }
-            .control-rock {
-                width: 45px; height: 45px; font-size: 1rem;
-            }
-            .control-rock.play {
-                width: 55px; height: 55px; font-size: 1.3rem;
-            }
-            .control-rock.small {
-                width: 38px; height: 38px; font-size: 0.85rem;
-            }
-            #btn-playback-rate-jg {
-                width: 48px; height: 34px; font-size: 0.8rem;
-            }
-
-            .progress-liana-jg { max-width: 100%; margin-bottom: 0.75rem; gap: 0.5rem;}
-            .progress-liana-jg span { font-size: 0.75rem; }
-
-            .volume-and-extra-controls-jg { 
-                max-width: 100%; 
-                flex-direction: column; 
-                gap: 0.75rem; 
-                align-items: center;
-            }
-            #btn-pip-jg { 
-                margin-left: 0; margin-top: 0.5rem; 
-                width: 34px; height: 34px; font-size: 0.8rem;
-            }
-            .fruit-slider { width: clamp(100px, 40vw, 180px); } /* Responsive volume slider */
-            .animal-icon { font-size: 1rem; }
-
-            .explorers-log {
-                flex: 1 1 0; /* Take remaining space and allow shrinking/growing */
-                display: flex; /* Needed for min-height:0 to work on flex child */
-                flex-direction: column;
-                padding: 0.5rem;
-                border-radius: 15px;
-                min-height: 0; /* Crucial for scroll within flex item */
-                overflow: hidden; /* Container should hide overflow, child will scroll */
-            }
-            .log-tabs-jg {
-                margin-bottom: 0.5rem;
-                overflow-x: auto; 
-                white-space: nowrap;
-                -webkit-overflow-scrolling: touch;
-                scrollbar-width: none; 
-            }
-            .log-tabs-jg::-webkit-scrollbar { display: none; } 
-
-            .log-tab-jg {
-                flex-grow: 0; 
-                flex-shrink: 0; /* Prevent tabs from shrinking */
-                font-size: 0.9rem;
-                padding: 0.5rem 0.75rem; /* Adjust padding for touch */
-            }
-            .log-tab-jg.active::after {
-                height: 2px; bottom: -2px; 
-            }
-            .log-content-jg {
-                 /* flex-grow: 1 already set, overflow-y: auto also already set */
-            }
-            .log-entry-jg {
-                padding: 0.5rem;
-                margin-bottom: 0.3rem;
-                border-radius: 8px;
-            }
-            .log-entry-jg .title { font-size: 0.9rem; }
-            .log-entry-jg .artist { font-size: 0.75rem; }
-            .log-entry-jg .duration { font-size: 0.75rem; }
-             .log-entry-jg .img-placeholder.list-thumb-placeholder, .log-entry-jg > img {
-                width: 35px; height: 35px; margin-right: 0.5rem;
-            }
-            .log-entry-jg .song-item-action-jg i { font-size: 0.9rem; }
-
-            .log-actions-jg {
-                padding-top: 0.5rem;
-                gap: 0.5rem;
-            }
-            .log-actions-jg button {
-                padding: 0.4rem 0.8rem;
-                font-size: 0.8rem;
-            }
-            .modal-dialog-jg {
-                padding: 1rem; 
-                max-width: 90%;
-            }
-            #createPlaylistModalJG .font-display-jg, 
-            #addToPlaylistModalJG .font-display-jg,
-            #editSongModalJG .font-display-jg {
-                font-size: 1.5rem; 
-                margin-bottom: 0.75rem; 
-            }
-            .modal-input-jg, #newPlaylistNameJG, #editSongTitleJG, #editSongArtistJG {
-                font-size: 0.9rem;
-            }
-            /* Ensure snackbar is visible on mobile */
-            #snackbar-jg-dynamic {
-                bottom: 60px; /* Adjust if there's a bottom nav bar or controls */
-                max-width: calc(100% - 30px);
-            }
-        }
-
 
         /* --- THEME DEFINITIONS --- */
         /* Default Dark Theme (Applied by :root and body.theme-dark-jg) */
@@ -1100,7 +881,7 @@
         function showSnackbarJG(message,type='info',duration=3000){ /* ... (Same as previous) ... */ const sId='snackbar-jg-dynamic';let s=document.getElementById(sId);if(!s){s=document.createElement('div');s.id=sId;Object.assign(s.style,{position:'fixed',bottom:'20px',left:'50%',transform:'translateX(-50%) translateY(100px)',padding:'12px 25px',color:'#ecf0f1',borderRadius:'8px',boxShadow:'0 4px 15px rgba(0,0,0,0.3)',zIndex:'10001',opacity:'0',transition:'opacity 0.3s ease, transform 0.3s ease-out',fontSize:'0.9rem',fontFamily:'var(--font-body-jg,sans-serif)',textAlign:'center',minWidth:'280px',maxWidth:'90%'});document.body.appendChild(s);}s.textContent=message;let bgC='#34495e';if(type==='error')bgC='#c0392b';if(type==='success')bgC='#27ae60';if(type==='warning')bgC='#f39c12';s.style.backgroundColor=bgC;requestAnimationFrame(()=>{s.style.opacity='1';s.style.transform='translateX(-50%) translateY(0)';});if(appStateJG.snackbarTimeoutId)clearTimeout(appStateJG.snackbarTimeoutId);appStateJG.snackbarTimeoutId=setTimeout(()=>{s.style.opacity='0';s.style.transform='translateX(-50%) translateY(100px)';},duration);}
         function handleGlobalKeydownJG(event) { /* ... (Same as previous) ... */ const tTN=event.target.tagName.toLowerCase();if(tTN==='input'||tTN==='textarea'||event.target.isContentEditable){if(event.key==='Escape'&&appStateJG.activeModalId){if(appStateJG.activeModalId==='createPlaylistModalJG')hideCreatePlaylistModalJG();else if(appStateJG.activeModalId==='addToPlaylistModalJG')hideAddToPlaylistModalJG();else if(appStateJG.activeModalId==='editSongModalJG')hideEditSongModalJG();}return;}let pD=true;switch(event.key){case ' ':togglePlayPauseJG();break;case 'm':case 'M':toggleMuteJG();break;case 'ArrowRight':if(appStateJG.player&&appStateJG.isPlayerReady&&appStateJG.player.getCurrentTime){appStateJG.player.seekTo(appStateJG.player.getCurrentTime()+SEEK_STEP_JG,true);updateProgressJG();}break;case 'ArrowLeft':if(appStateJG.player&&appStateJG.isPlayerReady&&appStateJG.player.getCurrentTime){appStateJG.player.seekTo(Math.max(0,appStateJG.player.getCurrentTime()-SEEK_STEP_JG),true);updateProgressJG();}break;case 'ArrowUp':setVolumeJG(appStateJG.volume+VOLUME_STEP_JG);break;case 'ArrowDown':setVolumeJG(appStateJG.volume-VOLUME_STEP_JG);break;case 'n':case 'N':playNextJG();break;case 'p':case 'P':case 'b':case 'B':playPrevJG();break;case 's':case 'S':toggleShuffleJG();break;case 'l':case 'L':toggleLoopJG();break;case 'Escape':if(appStateJG.activeModalId){if(appStateJG.activeModalId==='createPlaylistModalJG')hideCreatePlaylistModalJG();else if(appStateJG.activeModalId==='addToPlaylistModalJG')hideAddToPlaylistModalJG();else if(appStateJG.activeModalId==='editSongModalJG')hideEditSongModalJG();}else pD=false;break;default:pD=false;break;}if(pD)event.preventDefault();}
         
-        function loadInitialDataJG(isSongDataReload = false) { /* ... (Same as previous) ... */ if (!isSongDataReload) { const storedThemeId = loadFromLocalStorageJG(LS_KEYS_JG.THEME) || AVAILABLE_THEMES_JG[0].id; const foundThemeIndex = AVAILABLE_THEMES_JG.findIndex(t => t.id === storedThemeId); currentThemeIndexJG = (foundThemeIndex !== -1) ? foundThemeIndex : 0; applyThemeJG(AVAILABLE_THEMES_JG[currentThemeIndexJG].id); const storedVolume = loadFromLocalStorageJG(LS_KEYS_JG.VOLUME); if (storedVolume !== null) { appStateJG.volume=parseInt(storedVolume,10);appStateJG.isMuted=(appStateJG.volume===0);appStateJG.previousVolumeBeforeMute=appStateJG.volume>0?appStateJG.volume:75;} if(elementsJG.volumeSlider) elementsJG.volumeSlider.value = appStateJG.volume; updateVolumeIconsJG(); const storedRate = loadFromLocalStorageJG(LS_KEYS_JG.PLAYBACK_RATE); if (storedRate !== null) { const rate = parseFloat(storedRate); if (PLAYBACK_RATES_JG.includes(rate)) { currentPlaybackRateIndexJG = PLAYBACK_RATES_JG.indexOf(rate); if (elementsJG.btnPlaybackRate) elementsJG.btnPlaybackRate.textContent = `${rate}x`; elementsJG.btnPlaybackRate?.classList.toggle('active-control', rate !== 1); } } songMetadataOverridesJG = loadFromLocalStorageJG(LS_KEYS_JG.METADATA_OVERRIDES) || {}; } appStateJG.history = (loadFromLocalStorageJG(LS_KEYS_JG.HISTORY) || []).map(hS => findSongByIdJG(hS.id) || hS).filter(s => s && s.id); appStateJG.favorites = (loadFromLocalStorageJG(LS_KEYS_JG.FAVORITES) || []).map(fS => findSongByIdJG(fS.id) || fS).filter(s => s && s.id); appStateJG.queue = (loadFromLocalStorageJG(LS_KEYS_JG.QUEUE) || []).filter(id => findSongByIdJG(id)); appStateJG.userPlaylists = (loadFromLocalStorageJG(LS_KEYS_JG.PLAYLISTS) || []).map(p => ({ ...p, songs: (p.songs || []).filter(id => findSongByIdJG(id)) })); saveToLocalStorageJG(LS_KEYS_JG.HISTORY, appStateJG.history); saveToLocalStorageJG(LS_KEYS_JG.FAVORITES, appStateJG.favorites); saveToLocalStorageJG(LS_KEYS_JG.QUEUE, appStateJG.queue); saveToLocalStorageJG(LS_KEYS_JG.PLAYLISTS, appStateJG.userPlaylists); if (elementsJG.favoritesPanel && (appStateJG.currentPanel === 'log-trophies' || isSongDataReload)) renderSongListJG(elementsJG.favoritesPanel, appStateJG.favorites, 'favorites'); if (elementsJG.historyPanel && (appStateJG.currentPanel === 'log-history' || isSongDataReload)) renderHistoryListJG(); if (elementsJG.queuePanel && (appStateJG.currentPanel === 'log-discoveries' || isSongDataReload)) renderSongListJG(elementsJG.queuePanel, appStateJG.queue.map(id => findSongByIdJG(id)).filter(s => s), 'queue'); if (elementsJG.playlistsPanel && (appStateJG.currentPanel === 'log-paths' || isSongDataReload)) { if (appStateJG.currentViewingPlaylistId) renderSongsInPlaylistJG(appStateJG.currentViewingPlaylistId); else renderPlaylistsJG(); } updateQueueCountBadgeJG(); }
+        function loadInitialDataJG(isSongDataReload = false) { /* ... (Same as previous) ... */ if (!isSongDataReload) { const storedThemeId = loadFromLocalStorageJG(LS_KEYS_JG.THEME) || AVAILABLE_THEMES_JG[0].id; const foundThemeIndex = AVAILABLE_THEMES_JG.findIndex(t => t.id === storedThemeId); currentThemeIndexJG = (foundThemeIndex !== -1) ? foundThemeIndex : 0; applyThemeJG(AVAILABLE_THEMES_JG[currentThemeIndexJG].id); const storedVolume = loadFromLocalStorageJG(LS_KEYS_JG.VOLUME); if (storedVolume !== null) { appStateJG.volume=parseInt(storedVolume,10);appStateJG.isMuted=(appStateJG.volume===0);appStateJG.previousVolumeBeforeMute=appStateJG.volume>0?appStateJG.volume:75;} if(elementsJG.volumeSlider) elementsJG.volumeSlider.value = appStateJG.volume; updateVolumeIconsJG(); const storedRate = loadFromLocalStorageJG(LS_KEYS_JG.PLAYBACK_RATE); if (storedRate !== null) { const rate = parseFloat(storedRate); if (PLAYBACK_RATES_JG.includes(rate)) { currentPlaybackRateIndexJG = PLAYBACK_RATES_JG.indexOf(rate); if (elementsJG.btnPlaybackRate) elementsJG.btnPlaybackRate.textContent = `${rate}x`; elementsJG.btnPlaybackRate?.classList.toggle('active-control', rate !== 1); } } songMetadataOverridesJG = loadFromLocalStorageJG(LS_KEYS_JG.METADATA_OVERRIDES) || {}; } appStateJG.history = (loadFromLocalStorageJG(LS_KEYS_JG.HISTORY) || []).map(hS => findSongByIdJG(hS.id) || hS).filter(s => s.id); appStateJG.favorites = (loadFromLocalStorageJG(LS_KEYS_JG.FAVORITES) || []).map(fS => findSongByIdJG(fS.id) || fS).filter(s => s.id); appStateJG.queue = (loadFromLocalStorageJG(LS_KEYS_JG.QUEUE) || []).filter(id => findSongByIdJG(id)); appStateJG.userPlaylists = (loadFromLocalStorageJG(LS_KEYS_JG.PLAYLISTS) || []).map(p => ({ ...p, songs: (p.songs || []).filter(id => findSongByIdJG(id)) })); saveToLocalStorageJG(LS_KEYS_JG.HISTORY, appStateJG.history); saveToLocalStorageJG(LS_KEYS_JG.FAVORITES, appStateJG.favorites); saveToLocalStorageJG(LS_KEYS_JG.QUEUE, appStateJG.queue); saveToLocalStorageJG(LS_KEYS_JG.PLAYLISTS, appStateJG.userPlaylists); if (elementsJG.favoritesPanel && (appStateJG.currentPanel === 'log-trophies' || isSongDataReload)) renderSongListJG(elementsJG.favoritesPanel, appStateJG.favorites, 'favorites'); if (elementsJG.historyPanel && (appStateJG.currentPanel === 'log-history' || isSongDataReload)) renderHistoryListJG(); if (elementsJG.queuePanel && (appStateJG.currentPanel === 'log-discoveries' || isSongDataReload)) renderSongListJG(elementsJG.queuePanel, appStateJG.queue.map(id => findSongByIdJG(id)).filter(s => s), 'queue'); if (elementsJG.playlistsPanel && (appStateJG.currentPanel === 'log-paths' || isSongDataReload)) { if (appStateJG.currentViewingPlaylistId) renderSongsInPlaylistJG(appStateJG.currentViewingPlaylistId); else renderPlaylistsJG(); } updateQueueCountBadgeJG(); }
 
         document.addEventListener('DOMContentLoaded', () => {
             initializeElementsJG();    
