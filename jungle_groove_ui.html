@@ -51,19 +51,15 @@
             transition: transform 0.5s ease-out, opacity 0.5s ease;
         }
         .layer-1 {
-            /* background-image: linear-gradient(to bottom, #3A506B, #1C2541 70%), url('path/to/distant_trees_silhouette.png'); */ /* COMMENTED OUT */
             background: linear-gradient(to bottom, #3A506B, #1C2541 70%);
             opacity: 0.8;
         }
         .layer-2 {
-            /* background-image: url('path/to/mid_foliage_texture.png'); */ /* COMMENTED OUT */
             background-color: rgba(var(--jg-surface-leaf-rgb), 0.15);
             opacity: 0.4;
             transform: scale(1.05);
         }
         .layer-3 {
-            /* background-image: url('path/to/foreground_vines.png'); */ /* COMMENTED OUT */
-            /* background-position: bottom left; */
             opacity: 0.6;
             transform: scale(1.1);
         }
@@ -136,9 +132,9 @@
             color: var(--jg-bg-deep-jungle);
             transform: scale(1.1);
         }
-        .tool-btn-jg.profile .profile-avatar-placeholder { /* From HTML */
+        .tool-btn-jg.profile .profile-avatar-placeholder {
             width: 30px; height: 30px; border-radius: 50%;
-            background-color: var(--jg-text-shadow); /* Placeholder color */
+            background-color: var(--jg-text-shadow);
         }
 
         .safari-zone {
@@ -151,7 +147,6 @@
 
         .watering-hole-player {
             flex: 3;
-            /* background: linear-gradient(135deg, rgba(var(--jg-surface-leaf-rgb),0.7), rgba(var(--jg-surface-bark-rgb),0.5)), url('path/to/jungle_texture_dense.png'); */ /* COMMENTED OUT */
             background: linear-gradient(135deg, rgba(var(--jg-surface-leaf-rgb),0.7), rgba(var(--jg-surface-bark-rgb),0.5));
             border-radius: 20px;
             padding: 2rem;
@@ -170,16 +165,15 @@
             overflow: hidden;
             background-color: var(--jg-bg-forest-floor);
         }
-        #main-album-art-jg.album-art-placeholder { /* From HTML */
+        #main-album-art-jg.album-art-placeholder {
             width: 100%; height: 100%;
             border: 4px solid var(--jg-surface-bark);
-            background-color: var(--jg-text-shadow); /* Placeholder for the actual image */
+            background-color: var(--jg-text-shadow);
             display: flex; align-items: center; justify-content: center;
             font-size: 3rem; color: var(--jg-bg-deep-jungle);
         }
         .leaf-overlay {
             position: absolute; inset: 0;
-            /* background-image: url('path/to/leaf_pattern_transparent.png'); */ /* COMMENTED OUT */
             opacity: 0.1;
             pointer-events: none;
         }
@@ -188,16 +182,15 @@
             font-family: var(--font-display-jg);
             font-size: 2.5rem; font-weight: 700;
             color: var(--jg-text-light); margin-bottom: 0.25rem;
-            min-height: 1.2em; /* Prevents jump when text changes */
+            min-height: 1.2em;
         }
         #artist-name-jg {
             font-size: 1.1rem; color: var(--jg-text-earth);
-            min-height: 1.2em; /* Prevents jump */
+            min-height: 1.2em;
         }
 
         .player-controls-jg { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
         .control-rock {
-            /* background-image: url('path/to/rock_texture.png'); */ /* COMMENTED OUT */
             background-color: var(--jg-surface-bark);
             border: 2px solid #5C4033;
             color: var(--jg-text-earth);
@@ -214,7 +207,6 @@
         .control-rock.small { width: 45px; height: 45px; font-size: 1rem; }
         .control-rock.play {
             width: 75px; height: 75px; font-size: 2rem;
-            /* background-image: url('path/to/mossy_rock_texture.png'); */ /* COMMENTED OUT */
             background-color: var(--jg-accent-canopy);
             border-color: var(--jg-accent-canopy);
             color: var(--jg-text-light);
@@ -225,19 +217,16 @@
         .progress-liana-jg span { font-size: 0.8rem; color: var(--jg-text-shadow); }
         .liana-slider {
             -webkit-appearance: none; appearance: none; flex-grow: 1; height: 8px;
-            /* background-image: url('path/to/vine_texture.png'); */ /* COMMENTED OUT */
             background-color: var(--jg-border-vine);
             border-radius: 4px; cursor: pointer;
         }
         .liana-slider::-webkit-slider-thumb {
             -webkit-appearance: none; appearance: none;
             width: 18px; height: 18px;
-            /* background-image: url('path/to/leaf_thumb.png'); */ /* COMMENTED OUT */
             background-color: var(--jg-accent-canopy);
             background-size: contain;
             border: none;
             border-radius: 50%;
-            /* transform: rotate(15deg); */
         }
 
         .volume-fruit-jg { display: flex; align-items: center; gap: 0.5rem; }
@@ -268,7 +257,7 @@
             font-family: var(--font-display-jg); font-size: 1.1rem;
             color: var(--jg-text-earth); border: none; background: transparent;
             position: relative; opacity: 0.7; transition: opacity 0.2s, color 0.2s;
-            cursor: pointer; /* Added for better UX */
+            cursor: pointer;
         }
         .log-tab-jg:hover { opacity: 1; color: var(--jg-accent-sunburst); }
         .log-tab-jg.active {
@@ -284,7 +273,7 @@
             background: var(--jg-accent-waterfall); color: white; font-size: 0.7rem;
             padding: 1px 5px; border-radius: 8px; margin-left: 0.3rem;
             font-family: var(--font-body-jg);
-            display: none; /* Initially hidden, shown by JS if queue > 0 */
+            display: none;
         }
 
         .log-content-jg { flex-grow: 1; overflow-y: auto; }
@@ -292,14 +281,14 @@
         .log-panel-jg.active { display: block; animation: revealPanel 0.4s ease-in-out; }
         @keyframes revealPanel { from { opacity:0; transform:scale(0.98); } to { opacity:1; transform:scale(1); } }
 
-        .log-entry-jg {
+        .log-entry-jg, .playlist-entry-jg {
             display: flex; align-items: center; padding: 0.75rem;
             margin-bottom: 0.5rem; border-radius: 10px;
             background-color: rgba(var(--jg-bg-forest-floor-rgb), 0.55);
             transition: background-color 0.2s, transform 0.2s;
             cursor: pointer;
         }
-        .log-entry-jg:hover {
+        .log-entry-jg:hover, .playlist-entry-jg:hover {
             background-color: rgba(var(--jg-surface-leaf-rgb),0.5);
             transform: translateX(5px);
         }
@@ -308,46 +297,48 @@
             border-left: 4px solid var(--jg-accent-canopy);
             padding-left: calc(0.75rem - 4px);
         }
-        /* Applied to img tag directly in JS rendering now, but keep for HTML example */
         .log-entry-jg .img-placeholder.list-thumb-placeholder {
             width: 40px; height: 40px; border-radius: 6px; margin-right: 0.75rem;
             background-color: var(--jg-text-shadow);
             display: flex; align-items: center; justify-content: center;
             font-size: 1rem; color: var(--jg-bg-forest-floor);
-            object-fit: cover; /* Ensure image covers if src is real */
-            flex-shrink: 0; /* Prevent shrinking */
+            object-fit: cover;
+            flex-shrink: 0;
         }
-        /* Make sure actual img tags rendered by JS also have this class or similar styling if they are placeholders */
-         .log-entry-jg > img { /* Style for dynamically added images if not using placeholder class */
+        .log-entry-jg > img {
             width: 40px; height: 40px; border-radius: 6px; margin-right: 0.75rem;
             object-fit: cover;
             flex-shrink: 0;
         }
 
-        .log-entry-jg > div { flex-grow: 1; overflow:hidden; min-width: 0; /* Fix for ellipsis with flex */}
-        .log-entry-jg .title { display: block; font-weight: 600; color: var(--jg-text-light); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+        .log-entry-jg > div, .playlist-entry-jg > div { flex-grow: 1; overflow:hidden; min-width: 0; }
+        .log-entry-jg .title, .playlist-entry-jg .title { display: block; font-weight: 600; color: var(--jg-text-light); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
         .log-entry-jg .artist { display: block; font-size: 0.85rem; color: var(--jg-text-earth); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
         .log-entry-jg .duration { font-size: 0.85rem; color: var(--jg-text-shadow); margin-left: auto; padding-left:0.5rem; flex-shrink: 0; }
         
         .log-entry-actions-jg { display: flex; align-items: center; flex-shrink: 0; margin-left: 0.25rem;}
         .log-entry-jg .song-item-action-jg {
-            background: none; border: none; padding: 0.3rem 0.4rem; /* Adjusted padding */
+            background: none; border: none; padding: 0.3rem 0.4rem;
             cursor: pointer;
         }
         .log-entry-jg .song-item-action-jg i {
             font-size: 1rem; color: var(--jg-text-shadow); transition: color 0.2s;
         }
         .log-entry-jg:hover .song-item-action-jg i { color: var(--jg-accent-sunburst); }
-        /* Make favorite heart stand out more when active */
         .log-entry-jg .song-item-action-jg.favorite-action-jg i.fa-heart { color: var(--jg-accent-sunburst); }
-        .log-entry-jg:hover .song-item-action-jg.favorite-action-jg i.fa-heart { color: var(--jg-accent-waterfall); } /* Example hover for active favorite */
+        .log-entry-jg:hover .song-item-action-jg.favorite-action-jg i.fa-heart { color: var(--jg-accent-waterfall); }
 
-
-        /* Fallback for the static HTML example (the last <i> in log-entry-jg) */
-        .log-entry-jg > i.fa-feather-alt, .log-entry-jg > i.fa-play-circle {
-             font-size: 1rem; color: var(--jg-text-shadow); transition: color 0.2s; margin-left: auto; padding-left:0.5rem; flex-shrink: 0;
+        .playlist-entry-jg .playlist-icon {
+            font-size: 1.5rem; color: var(--jg-accent-canopy); margin-right: 0.75rem; flex-shrink: 0;
         }
-        .log-entry-jg:hover > i.fa-feather-alt { color: var(--jg-accent-sunburst); }
+        .playlist-entry-jg .song-count {
+            font-size: 0.8rem; color: var(--jg-text-shadow); margin-left: auto; padding-left: 0.5rem; flex-shrink: 0;
+        }
+        .playlist-entry-jg .playlist-actions { margin-left: 0.5rem; flex-shrink: 0;}
+        .playlist-entry-jg .playlist-action-btn {
+            background: none; border: none; color: var(--jg-text-shadow); font-size:0.9rem; padding: 0.2rem;
+        }
+        .playlist-entry-jg:hover .playlist-action-btn { color: var(--jg-accent-sunburst); }
 
 
         .log-actions-jg {
@@ -358,7 +349,7 @@
             background-color: var(--jg-surface-leaf); color: var(--jg-text-light);
             padding: 0.5rem 1rem; border-radius: 20px; border: 1px solid var(--jg-accent-canopy);
             font-size: 0.85rem; font-weight: 500; transition: all 0.2s;
-             cursor: pointer; /* Added for better UX */
+             cursor: pointer;
         }
         .log-actions-jg button:hover {
             background-color: var(--jg-accent-canopy);
@@ -379,13 +370,11 @@
             line-height: 12px; text-align: center; font-family: var(--font-body-jg);
         }
 
-        /* HTML placeholder image styling */
         .img-placeholder {
             display: inline-block;
             background-color: var(--jg-placeholder-bg);
-            object-fit: cover; /* If src is ever set */
+            object-fit: cover;
         }
-        /* Specific placeholder styles are now in their respective component styles */
 
         @media (max-width: 1024px) {
             .app-safari-hut { width: 100vw; height: 100vh; margin: 0; border-radius: 0; max-height: none; }
@@ -413,41 +402,38 @@
             .control-rock.play { width: 65px; height: 65px; font-size: 1.8rem; }
             .log-tabs-jg { margin-bottom: 0.75rem; }
             .log-tab-jg { font-size: 0.95rem; padding: 0.6rem 0.3rem; }
-            .log-entry-jg { padding: 0.6rem; }
-            /* Style for images in log entries on small screens */
+            .log-entry-jg, .playlist-entry-jg { padding: 0.6rem; }
             .log-entry-jg .img-placeholder.list-thumb-placeholder,
             .log-entry-jg > img {
                 width: 35px; height: 35px; margin-right: 0.5rem;
             }
-            .log-entry-jg .title { font-size: 0.9rem;}
+            .log-entry-jg .title, .playlist-entry-jg .title { font-size: 0.9rem;}
             .log-entry-jg .artist { font-size: 0.75rem;}
             .log-entry-actions-jg { margin-left: 0.1rem; }
             .log-entry-jg .song-item-action-jg { padding: 0.2rem 0.3rem; }
             .log-entry-jg .song-item-action-jg i { font-size: 0.9rem; }
         }
 
-        /* Light mode styles - Toggled by JS */
         body.light-mode-jg {
-            --jg-bg-deep-jungle: #E0F2E9; /* Light greenish white */
-            --jg-bg-forest-floor: #F5EFE6; /* Light beige */
-            --jg-surface-bark: #BCAAA4;    /* Lighter brown */
-            --jg-surface-leaf: #A5D6A7;    /* Light green */
-            --jg-accent-sunburst: #FF8F00; /* Deeper orange */
-            --jg-accent-canopy: #388E3C;   /* Darker green */
-            --jg-accent-waterfall: #1976D2;/* Deeper blue */
-            --jg-text-light: #37474F;      /* Dark gray for text on light bg */
-            --jg-text-earth: #5D4037;      /* Brownish text */
-            --jg-text-shadow: #78909C;     /* Lighter shadow/muted text */
-            --jg-border-vine: #8D6E63;     /* Lighter vine border */
+            --jg-bg-deep-jungle: #E0F2E9;
+            --jg-bg-forest-floor: #F5EFE6;
+            --jg-surface-bark: #BCAAA4;
+            --jg-surface-leaf: #A5D6A7;
+            --jg-accent-sunburst: #FF8F00;
+            --jg-accent-canopy: #388E3C;
+            --jg-accent-waterfall: #1976D2;
+            --jg-text-light: #37474F;
+            --jg-text-earth: #5D4037;
+            --jg-text-shadow: #78909C;
+            --jg-border-vine: #8D6E63;
 
             --jg-surface-bark-rgb: 188, 170, 164;
             --jg-surface-leaf-rgb: 165, 214, 167;
             --jg-bg-forest-floor-rgb: 245, 239, 230;
             --jg-accent-canopy-rgb: 56, 142, 60;
         }
-
         body.light-mode-jg .app-safari-hut {
-            background-color: rgba(250, 250, 250, 0.75); /* Lighter hut bg */
+            background-color: rgba(250, 250, 250, 0.75);
             border-color: var(--jg-surface-bark);
         }
         body.light-mode-jg .safari-map-bar {
@@ -469,13 +455,13 @@
         }
         body.light-mode-jg .control-rock {
             background-color: var(--jg-surface-bark);
-            border-color: #A1887F; /* Slightly darker than surface bark for contrast */
+            border-color: #A1887F;
             color: var(--jg-text-earth);
         }
         body.light-mode-jg .control-rock.play {
             background-color: var(--jg-accent-canopy);
             border-color: var(--jg-accent-canopy);
-            color: var(--jg-text-light); /* Ensure this text is readable on the accent color */
+            color: var(--jg-text-light);
         }
          body.light-mode-jg .control-rock.active-control {
             color: var(--jg-accent-sunburst) !important;
@@ -497,8 +483,8 @@
         body.light-mode-jg .log-tab-jg.active { color: var(--jg-accent-sunburst); }
         body.light-mode-jg .log-tab-jg.active::after { background-color: var(--jg-accent-sunburst); }
 
-        body.light-mode-jg .log-entry-jg { background-color: rgba(var(--jg-bg-forest-floor-rgb), 0.7); }
-        body.light-mode-jg .log-entry-jg:hover { background-color: rgba(var(--jg-surface-leaf-rgb),0.6); }
+        body.light-mode-jg .log-entry-jg, body.light-mode-jg .playlist-entry-jg { background-color: rgba(var(--jg-bg-forest-floor-rgb), 0.7); }
+        body.light-mode-jg .log-entry-jg:hover, body.light-mode-jg .playlist-entry-jg:hover { background-color: rgba(var(--jg-surface-leaf-rgb),0.6); }
         body.light-mode-jg .log-entry-jg.active-song {
             background-color: rgba(var(--jg-accent-canopy-rgb),0.3);
             border-left-color: var(--jg-accent-canopy);
@@ -510,7 +496,7 @@
         body.light-mode-jg .log-actions-jg { border-top-color: var(--jg-border-vine); }
         body.light-mode-jg .log-actions-jg button {
             background-color: var(--jg-surface-leaf);
-            color: var(--jg-text-light); /* ensure text is readable on light green */
+            color: var(--jg-text-light);
             border-color: var(--jg-accent-canopy);
         }
         body.light-mode-jg .log-actions-jg button:hover {
@@ -541,7 +527,6 @@
             <div class="safari-tools">
                 <button id="weather-toggle" class="tool-btn-jg" title="Toggle Ambience (Theme)"><i class="fas fa-sun"></i></button>
                 <button id="profile-ranger" class="tool-btn-jg profile">
-                    <!-- <img src="rei_kikuchi_profile.jpg" alt="Ranger"> -->
                     <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Ranger Profile" class="img-placeholder profile-avatar-placeholder">
                 </button>
             </div>
@@ -550,7 +535,6 @@
         <main class="safari-zone">
             <section class="watering-hole-player">
                 <div class="album-canopy">
-                    <!-- <img src="placeholder_jungle_album.png" alt="Album Art" id="main-album-art-jg"> -->
                     <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Album Art" id="main-album-art-jg" class="img-placeholder album-art-placeholder">
                     <div class="leaf-overlay"></div>
                 </div>
@@ -590,7 +574,6 @@
                 <div class="log-content-jg">
                     <div id="log-library" class="log-panel-jg active">
                         <!-- Library items will be dynamically inserted here -->
-                        <!-- Example static items (remove when JS populates) -->
                         <div class="log-entry-jg">
                             <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Song Thumbnail" class="img-placeholder list-thumb-placeholder">
                             <div><span class="title">King of the Beats</span><span class="artist">Leo Roars</span></div>
@@ -600,23 +583,20 @@
                                 <button class="song-item-action-jg favorite-action-jg" title="お気に入りに追加" aria-label="お気に入りに追加"> <i class="fas fa-feather-alt"></i></button>
                             </div>
                         </div>
-                        <div class="log-entry-jg active-song">
-                             <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Song Thumbnail" class="img-placeholder list-thumb-placeholder">
-                            <div><span class="title">Monkey Business Funk</span><span class="artist">Primate Groove</span></div>
-                            <span class="duration">2:50</span>
-                            <div class="log-entry-actions-jg">
-                                <button class="song-item-action-jg add-to-queue-action-jg" title="キューに追加" aria-label="キューに追加"> <i class="fas fa-stream"></i></button>
-                                <button class="song-item-action-jg favorite-action-jg" title="お気に入りに追加" aria-label="お気に入りに追加"> <i class="fas fa-feather-alt"></i></button>
-                            </div>
-                        </div>
                     </div>
                     <div id="log-paths" class="log-panel-jg">
                         <!-- Playlist items will be dynamically inserted here -->
-                         <div class="text-center p-8 text-jg-text-shadow">
-                            <i class="fas fa-map-signs fa-3x mb-4 opacity-50"></i>
-                            <h4 class="font-display-jg text-xl text-jg-text-earth mb-2">No Paths Yet</h4>
-                            <p class="text-sm">Create playlists to map your musical journeys!</p>
+                        <!-- Example static structure (remove/replace by JS) -->
+                        <!--
+                        <div class="playlist-entry-jg" data-playlist-id="p1">
+                            <i class="fas fa-list-music playlist-icon"></i>
+                            <div><span class="title">Jungle Jams</span></div>
+                            <span class="song-count">5 songs</span>
+                             <div class="playlist-actions">
+                                <button class="playlist-action-btn" title="Delete Playlist"><i class="fas fa-trash-alt"></i></button>
+                            </div>
                         </div>
+                        -->
                     </div>
                     <div id="log-discoveries" class="log-panel-jg">
                         <!-- Queue items will be dynamically inserted here -->
@@ -636,135 +616,70 @@
         </main>
     </div>
     
-    <!-- The YouTube Iframe API script will create its player in a div with this ID -->
-    <!-- It will be dynamically created by the script if not present -->
-    <!-- <div id="youtube-player-container-jg" style="position: absolute; top: -9999px; left: -9999px; width:1px; height:1px;"></div> -->
-
     <script src="https://www.youtube.com/iframe_api"></script>
     <script>
         // jungle_groove_script.js
         console.log("jungle_groove_script.js parsing started. Waiting for YouTube API...");
 
-        let elementsJG = {}; // Ensure elementsJG is declared early
-        let appStateJG = {}; // Declare appStateJG early for onYouTubeIframeAPIReady if needed before full init
+        let elementsJG = {};
+        let appStateJG = {};
 
-        // ==========================================================================
-        // YouTube Player API Ready Callback (MUST BE GLOBAL and named onYouTubeIframeAPIReady)
-        // ==========================================================================
         function onYouTubeIframeAPIReady() {
             console.log("GLOBAL onYouTubeIframeAPIReady CALLED BY YOUTUBE API SCRIPT!");
-
-            // Ensure elements are initialized, especially youtubePlayerContainer.
-            // This might be called before DOMContentLoaded, so elementsJG might be empty.
-            // initializeElementsJG() will be called again on DOMContentLoaded to ensure all elements are captured.
             if (Object.keys(elementsJG).length === 0 || !elementsJG.youtubePlayerContainer) {
-                console.warn("onYouTubeIframeAPIReady: elementsJG not fully initialized or youtubePlayerContainer missing. Initializing elements now for player creation.");
-                initializeElementsJG(); // Attempt to initialize elements if not done.
+                initializeElementsJG();
             }
-
             if (!elementsJG.youtubePlayerContainer) {
-                console.error("onYouTubeIframeAPIReady: Still no youtubePlayerContainer after trying to initialize. Player cannot be created. Make sure a div with id 'youtube-player-container-jg' exists or is created by initializeElementsJG.");
-                if (typeof showSnackbarJG === 'function') { // Check if showSnackbarJG is defined
+                console.error("onYouTubeIframeAPIReady: Still no youtubePlayerContainer.");
+                if (typeof showSnackbarJG === 'function') {
                     showSnackbarJG("プレイヤー表示領域が見つかりません。", "error");
                 } else {
                     alert("プレイヤー表示領域が見つかりません。");
                 }
                 return;
             }
-            console.log("onYouTubeIframeAPIReady: youtubePlayerContainer found:", elementsJG.youtubePlayerContainer, "with ID:", elementsJG.youtubePlayerContainer.id);
-
             try {
-                // Initialize appStateJG here if it's not fully defined yet,
-                // especially properties needed by the player or its event handlers.
-                if (Object.keys(appStateJG).length < 5) { // Heuristic: if not many keys, it's not fully initialized
-                    console.warn("onYouTubeIframeAPIReady: appStateJG seems partially initialized, re-setting basic player state.");
+                if (Object.keys(appStateJG).length < 5) {
                     appStateJG.player = null;
                     appStateJG.isPlayerReady = false;
-                    appStateJG.volume = appStateJG.volume || 75; // Keep existing volume if set
+                    appStateJG.volume = appStateJG.volume || 75;
                 }
-
-
                 appStateJG.player = new YT.Player(elementsJG.youtubePlayerContainer.id, {
-                    height: '1', // Hidden player
-                    width: '1',  // Hidden player
-                    playerVars: {
-                        'autoplay': 0,
-                        'controls': 0, // No YouTube controls
-                        'playsinline': 1, // Important for mobile
-                        'origin': window.location.origin // Security
-                    },
-                    events: {
-                        'onReady': onPlayerReadyJG,
-                        'onStateChange': onPlayerStateChangeJG,
-                        'onError': onPlayerErrorJG
-                    }
+                    height: '1', width: '1',
+                    playerVars: { 'autoplay': 0, 'controls': 0, 'playsinline': 1, 'origin': window.location.origin },
+                    events: { 'onReady': onPlayerReadyJG, 'onStateChange': onPlayerStateChangeJG, 'onError': onPlayerErrorJG }
                 });
                 console.log("onYouTubeIframeAPIReady: YT.Player instance creation attempted.");
-                if (appStateJG.player) {
-                    console.log("onYouTubeIframeAPIReady: YT.Player instance created successfully.");
-                } else {
-                    console.error("onYouTubeIframeAPIReady: YT.Player instance creation failed (player object is null/undefined).");
-                }
             } catch (e) {
                 console.error("onYouTubeIframeAPIReady: Error creating YT.Player instance:", e);
                 const message = "YouTubeプレイヤーの作成中にエラー: " + e.message;
-                if (typeof showSnackbarJG === 'function') {
-                    showSnackbarJG(message, "error");
-                } else {
-                    alert(message);
-                }
+                if (typeof showSnackbarJG === 'function') showSnackbarJG(message, "error"); else alert(message);
             }
         }
-        // ==========================================================================
-        // Constants & State
-        // ==========================================================================
+        
         const MAX_HISTORY_JG = 20;
-        const VOLUME_STEP_JG = 5;
-        const SEEK_STEP_JG = 5; // seconds
         const LS_KEYS_JG = {
             HISTORY: 'jungleGrooveHistory',
             FAVORITES: 'jungleGrooveFavorites',
             PLAYLISTS: 'jungleGroovePlaylists',
-            USER: 'jungleGrooveUser',
             THEME: 'jungleGrooveTheme',
             QUEUE: 'jungleGrooveQueue'
         };
 
-        // appStateJG is declared at the top, now fully initialize it
         appStateJG = {
-            player: null,
-            songs: [],
-            filteredSongs: [],
-            currentSongIndex: -1, // Index in appStateJG.songs of the currently loaded/playing song
-            isPlaying: false,
-            isShuffle: false,
-            loopMode: 'none', // 'none', 'all', 'one'
-            currentPanel: 'log-library',
-            volume: 75,
-            progressInterval: null,
-            history: [],
-            favorites: [], // Array of full song objects
-            userPlaylists: [],
-            queue: [], // Array of song IDs
-            currentQueueIndex: -1, // Index in appStateJG.queue when playMode is 'queue'
-            playMode: 'library', // 'library', 'queue'
-            isPlayerReady: false,
-            snackbarTimeoutId: null,
-            activeModalId: null,
-            currentTheme: 'dark' // 'dark' or 'light'
+            player: null, songs: [], filteredSongs: [], currentSongIndex: -1,
+            isPlaying: false, isShuffle: false, loopMode: 'none',
+            currentPanel: 'log-library', volume: 75, progressInterval: null,
+            history: [], favorites: [], userPlaylists: [], queue: [],
+            currentQueueIndex: -1, playMode: 'library', isPlayerReady: false,
+            snackbarTimeoutId: null, currentTheme: 'dark'
         };
 
-        // elementsJG is declared at the top
-        // ==========================================================================
-        // Element Initialization
-        // ==========================================================================
         function initializeElementsJG() {
-            console.log("initializeElementsJG - START");
             elementsJG = {
                 body: document.body,
                 searchInput: document.getElementById('animal-tracker'),
                 themeToggle: document.getElementById('weather-toggle'),
-                profileButton: document.getElementById('profile-ranger'),
                 mainAlbumArt: document.getElementById('main-album-art-jg'),
                 songTitleDisplay: document.getElementById('song-title-jg'),
                 artistNameDisplay: document.getElementById('artist-name-jg'),
@@ -789,307 +704,137 @@
                 queueCountBadge: document.getElementById('queue-count-jg'),
                 btnRefreshFeed: document.getElementById('btn-refresh-feed-jg'),
                 btnCreatePlaylist: document.getElementById('btn-create-playlist-jg'),
-                youtubePlayerContainer: null, // Will be set below
+                youtubePlayerContainer: null,
             };
-
-            // Ensure YouTube player container exists or create it
             let ytContainer = document.getElementById('youtube-player-container-jg');
             if (!ytContainer) {
-                console.log("initializeElementsJG: youtube-player-container-jg not found, creating it.");
                 ytContainer = document.createElement('div');
                 ytContainer.id = 'youtube-player-container-jg';
-                // Make it invisible but available for the API
-                ytContainer.style.position = 'absolute';
-                ytContainer.style.top = '-9999px';
-                ytContainer.style.left = '-9999px';
-                ytContainer.style.width = '1px';
-                ytContainer.style.height = '1px';
+                Object.assign(ytContainer.style, { position: 'absolute', top: '-9999px', left: '-9999px', width: '1px', height: '1px' });
                 document.body.appendChild(ytContainer);
             }
             elementsJG.youtubePlayerContainer = ytContainer;
-
-            console.log("Jungle Groove Elements Initialized (from initializeElementsJG):", elementsJG);
+            console.log("Jungle Groove Elements Initialized.");
         }
 
-        // ==========================================================================
-        // YouTube API & Song Loading
-        // ==========================================================================
         const youtubeAPI_JG = {
-            apiKey: 'AIzaSyCbzvjP9vFa5I8N1qLI5H9LUpYim0nkQS4', // WARNING: API Key exposed client-side
-            channelId: 'UCYAuSEKhuk3v4ZKzm5Lqb1Q', // Example Channel ID
-
+            apiKey: 'AIzaSyCbzvjP9vFa5I8N1qLI5H9LUpYim0nkQS4',
+            channelId: 'UCYAuSEKhuk3v4ZKzm5Lqb1Q',
             async getLatestVideos(maxResults = 15) {
-                console.log("getLatestVideos - START. API Key used:", this.apiKey ? 'Yes' : 'No');
                 if (!this.apiKey || this.apiKey === 'YOUR_YOUTUBE_API_KEY_HERE' || this.apiKey.includes('_PLACEHOLDER_')) {
-                    const errorMsg = "YouTube APIキーが設定されていません。";
-                    console.error("youtubeAPI_JG.getLatestVideos:", errorMsg, "Current key:", this.apiKey);
-                    showSnackbarJG(errorMsg, "error");
-                    return [];
+                    showSnackbarJG("YouTube APIキーが設定されていません。", "error"); return [];
                 }
                 const apiUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${this.channelId}&maxResults=${maxResults}&order=date&type=video&key=${this.apiKey}`;
-                console.log("Fetching YouTube videos from:", apiUrl);
                 try {
                     const response = await fetch(apiUrl);
-                    console.log("YouTube API Response Status:", response.status, response.statusText);
                     if (!response.ok) {
                         const errorText = await response.text();
-                        let errorData = null;
-                        try { errorData = JSON.parse(errorText); } catch (e) { console.warn("Could not parse API error response as JSON:", errorText); }
-
-                        const errorMessage = errorData?.error?.message || `YouTube API error: ${response.status} - ${response.statusText || errorText}`;
-                        console.error("API Error Data (if JSON):", errorData);
-                        console.error("API Error Text (if not JSON or for details):", errorText);
-                        throw new Error(errorMessage);
+                        throw new Error(JSON.parse(errorText)?.error?.message || `YouTube API error: ${response.status}`);
                     }
                     const data = await response.json();
-                    console.log("YouTube API Response Data:", data);
-                    if (!data.items) {
-                        console.warn("No items found in YouTube API response. Full data:", data);
-                        return [];
-                    }
-                    return data.items.map(item => ({
-                        id: item.id.videoId,
-                        title: item.snippet.title,
-                        artist: item.snippet.channelTitle, // Or a default like "Rei Kikuchi" if needed
+                    return data.items?.map(item => ({
+                        id: item.id.videoId, title: item.snippet.title, artist: item.snippet.channelTitle,
                         thumbnail: item.snippet.thumbnails.high?.url || item.snippet.thumbnails.medium?.url || item.snippet.thumbnails.default?.url,
-                        duration: "--:--" // Will be fetched later
-                    }));
+                        duration: "--:--"
+                    })) || [];
                 } catch (error) {
-                    console.error('Error in getLatestVideos fetch operation:', error);
-                    showSnackbarJG(`曲の読み込み中にエラーが発生しました: ${error.message}`, "error");
-                    return [];
+                    showSnackbarJG(`曲の読み込み中にエラー: ${error.message}`, "error"); return [];
                 }
             },
-
             async getVideoDetails(videoIds) {
-                console.log("getVideoDetails - START. Fetching for IDs:", videoIds);
-                if (!videoIds || videoIds.length === 0) return {};
-                if (!this.apiKey || this.apiKey === 'YOUR_YOUTUBE_API_KEY_HERE' || this.apiKey.includes('_PLACEHOLDER_')) {
-                    console.error("youtubeAPI_JG.getVideoDetails: YouTube API Key is not properly set!", this.apiKey);
-                    return {};
-                }
-                const MAX_IDS_PER_REQUEST = 50; // YouTube API limit
+                if (!videoIds || videoIds.length === 0 || !this.apiKey || this.apiKey.includes('_PLACEHOLDER_')) return {};
                 const details = {};
-                for (let i = 0; i < videoIds.length; i += MAX_IDS_PER_REQUEST) {
-                    const chunkIds = videoIds.slice(i, i + MAX_IDS_PER_REQUEST);
+                for (let i = 0; i < videoIds.length; i += 50) {
+                    const chunkIds = videoIds.slice(i, i + 50);
                     try {
                         const response = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=${chunkIds.join(',')}&key=${this.apiKey}`);
                         if (!response.ok) throw new Error(`YouTube Video Details API error: ${response.status}`);
                         const data = await response.json();
-                        if (data.items) {
-                            data.items.forEach(item => {
-                                if (item.contentDetails) {
-                                details[item.id] = this.convertDuration(item.contentDetails.duration);
-                                } else {
-                                details[item.id] = "--:--";
-                                console.warn(`Video item ${item.id} missing contentDetails.`);
-                                }
-                            });
-                        }
-                    } catch (error) {
-                        console.error('Error fetching video details chunk:', error);
-                    }
+                        data.items?.forEach(item => {
+                            details[item.id] = item.contentDetails ? this.convertDuration(item.contentDetails.duration) : "--:--";
+                        });
+                    } catch (error) { console.error('Error fetching video details chunk:', error); }
                 }
                 return details;
             },
-
             convertDuration(isoDuration) {
                 if (!isoDuration) return '--:--';
-                const regex = /PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/;
-                const matches = isoDuration.match(regex);
+                const matches = isoDuration.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
                 if (!matches) return '--:--';
-                const hours = parseInt(matches[1] || 0);
-                const minutes = parseInt(matches[2] || 0);
-                const seconds = parseInt(matches[3] || 0);
-                if (hours > 0) {
-                    return `${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-                }
-                return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                const h = parseInt(matches[1] || 0), m = parseInt(matches[2] || 0), s = parseInt(matches[3] || 0);
+                return h > 0 ? `${h}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}` : `${m}:${s.toString().padStart(2,'0')}`;
             }
         };
 
         async function loadInitialSongsJG() {
-            console.log("loadInitialSongsJG - START");
-            if (!elementsJG.libraryPanel) {
-                console.error("loadInitialSongsJG: Library panel element not found for loading songs.");
-                return;
-            }
-            console.log("loadInitialSongsJG: Showing loading indicator.");
+            if (!elementsJG.libraryPanel) return;
             showLoadingInPanelJG(elementsJG.libraryPanel, true);
-
-            let songs = [];
-            try {
-                songs = await youtubeAPI_JG.getLatestVideos(25); // Fetch 25 songs
-                console.log("loadInitialSongsJG: Fetched songs from getLatestVideos:", songs.length);
-            } catch (error) {
-                console.error("loadInitialSongsJG: Error occurred while calling getLatestVideos:", error);
-                appStateJG.songs = [];
-                appStateJG.filteredSongs = [];
-                if (elementsJG.libraryPanel) {
-                    renderSongListJG(elementsJG.libraryPanel, [], 'library');
-                    showLoadingInPanelJG(elementsJG.libraryPanel, false);
-                    showEmptyMessageInPanelJG(elementsJG.libraryPanel, "読み込み失敗", "曲の取得中にエラーが発生しました。");
-                }
-                return;
-            }
-
-            if (songs && songs.length > 0) {
-                console.log("loadInitialSongsJG: Fetching durations for " + songs.length + " songs.");
-                const videoIds = songs.map(s => s.id).filter(id => id);
+            let songs = await youtubeAPI_JG.getLatestVideos(25);
+            if (songs.length > 0) {
+                const videoIds = songs.map(s => s.id).filter(Boolean);
                 if (videoIds.length > 0) {
-                    try {
-                        const durations = await youtubeAPI_JG.getVideoDetails(videoIds);
-                        console.log("loadInitialSongsJG: Fetched durations:", durations);
-                        songs = songs.map(song => ({
-                            ...song,
-                            artist: song.artist || "Rei Kikuchi", // Default artist if not provided by API
-                            duration: durations[song.id] || "--:--"
-                        }));
-                    } catch (error) {
-                        console.error("loadInitialSongsJG: Error fetching video details (durations):", error);
-                        // Songs will still be loaded, just without proper durations for some
-                    }
+                    const durations = await youtubeAPI_JG.getVideoDetails(videoIds);
+                    songs = songs.map(song => ({ ...song, artist: song.artist || "Rei Kikuchi", duration: durations[song.id] || "--:--" }));
                 }
             }
-
             appStateJG.songs = songs || [];
             appStateJG.filteredSongs = [...(songs || [])];
-            console.log("loadInitialSongsJG: Calling renderSongListJG for library with songs:", appStateJG.filteredSongs.length);
             if (elementsJG.libraryPanel) {
                 renderSongListJG(elementsJG.libraryPanel, appStateJG.filteredSongs, 'library');
                 showLoadingInPanelJG(elementsJG.libraryPanel, false);
             }
-
-            if ((!songs || songs.length === 0)) {
-                if (elementsJG.libraryPanel) {
-                    const apiKey = youtubeAPI_JG.apiKey;
-                    if (!apiKey || apiKey === 'YOUR_YOUTUBE_API_KEY_HERE' || apiKey.includes('_PLACEHOLDER_')) {
-                        showEmptyMessageInPanelJG(elementsJG.libraryPanel, "APIキーが必要です", "曲をロードするにはAPIキーを設定してください。");
-                    } else {
-                        showEmptyMessageInPanelJG(elementsJG.libraryPanel, "まだ曲がありません", "新しい冒険が始まるのを待とう！");
-                    }
-                }
+            if (songs.length === 0 && elementsJG.libraryPanel) {
+                const keyMsg = (!youtubeAPI_JG.apiKey || youtubeAPI_JG.apiKey.includes('_PLACEHOLDER_')) ? "APIキーが必要です" : "まだ曲がありません";
+                const detailMsg = keyMsg === "APIキーが必要です" ? "曲をロードするにはAPIキーを設定してください。" : "新しい冒険が始まるのを待とう！";
+                showEmptyMessageInPanelJG(elementsJG.libraryPanel, keyMsg, detailMsg);
             }
-             // After loading songs, re-render queue as it depends on song details from appStateJG.songs
-            // And other lists that might have stored IDs that need full song objects
-            loadInitialDataJG(true); // Call with a flag to re-render lists if songs are now available
+            loadInitialDataJG(true); // Re-render lists like favorites/queue that depend on song data
         }
-        // ==========================================================================
-        // UI Rendering
-        // ==========================================================================
+
         function renderSongListJG(panelElement, songsToRender, context) {
-            if (!panelElement) {
-                console.warn(`Panel element for context "${context}" not found.`);
-                return;
-            }
-            panelElement.innerHTML = ''; // Clear previous content
-
+            if (!panelElement) return;
+            panelElement.innerHTML = '';
             if (!songsToRender || songsToRender.length === 0) {
-                let emptyTitle = "何も見つからない...";
-                let emptyMessage = "このエリアにはまだ何もないようだ。";
-                if (context === 'library' && elementsJG.searchInput?.value) {
-                    emptyTitle = "検索結果なし";
-                    emptyMessage = `「${escapeHTMLJG(elementsJG.searchInput.value)}」に合う冒険は見つからなかった...`;
-                } else if (context === 'queue') {
-                    emptyTitle = "キューは空っぽ";
-                    emptyMessage = "次の冒険の準備をしよう！ライブラリから曲を追加できます。";
-                } else if (context === 'favorites') {
-                    emptyTitle = "お気に入りの宝物なし";
-                    emptyMessage = "まだお気に入りの発見がないようだ。曲の羽アイコンをクリック！";
-                } else if (context === 'history') {
-                    emptyTitle = "足跡なし";
-                    emptyMessage = "まだどの曲も探検していないようだ。";
-                }
-                showEmptyMessageInPanelJG(panelElement, emptyTitle, emptyMessage);
+                let title = "何も見つからない...", msg = "このエリアにはまだ何もないようだ。";
+                if (context === 'library' && elementsJG.searchInput?.value) { title="検索結果なし"; msg=`「${escapeHTMLJG(elementsJG.searchInput.value)}」に合う冒険は見つからなかった...`; }
+                else if (context === 'queue') { title="キューは空っぽ"; msg="次の冒険の準備をしよう！ライブラリから曲を追加できます。"; }
+                else if (context === 'favorites') { title="お気に入りの宝物なし"; msg="まだお気に入りの発見がないようだ。曲の羽アイコンをクリック！"; }
+                else if (context === 'history') { title="足跡なし"; msg="まだどの曲も探検していないようだ。"; }
+                showEmptyMessageInPanelJG(panelElement, title, msg);
                 return;
             }
-
             const fragment = document.createDocumentFragment();
-            songsToRender.forEach((song, listIndex) => { // listIndex is specific to songsToRender
-                if (!song || !song.id) {
-                    console.warn("Skipping invalid song object in renderSongListJG:", song);
-                    return;
-                }
+            songsToRender.forEach((song, listIndex) => {
+                if (!song || !song.id) return;
                 const originalSongIndex = appStateJG.songs.findIndex(s => s.id === song.id);
-                const currentPlayingSong = appStateJG.songs[appStateJG.currentSongIndex];
-                const isActive = currentPlayingSong && currentPlayingSong.id === song.id;
+                const isActive = appStateJG.songs[appStateJG.currentSongIndex]?.id === song.id;
                 const isFavorited = appStateJG.favorites.some(fav => fav.id === song.id);
-                const artistName = song.artist || "Rei Kikuchi";
-
                 const entry = document.createElement('div');
                 entry.className = `log-entry-jg ${isActive ? 'active-song' : ''}`;
                 entry.dataset.id = song.id;
-                entry.dataset.originalIndex = originalSongIndex; // Index in appStateJG.songs
-                if (context === 'queue') {
-                    entry.dataset.queueIndex = listIndex; // Index in the current queue rendering
-                }
-
+                entry.dataset.originalIndex = originalSongIndex;
+                if (context === 'queue') entry.dataset.queueIndex = listIndex;
                 entry.innerHTML = `
-                    <img src="${song.thumbnail || 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'}"
-                         alt="${escapeHTMLJG(song.title || '')}"
-                         class="${!song.thumbnail ? 'img-placeholder list-thumb-placeholder' : ''}">
-                    <div>
-                        <span class="title">${escapeHTMLJG(song.title || '不明なタイトル')}</span>
-                        <span class="artist">${escapeHTMLJG(artistName)}</span>
-                    </div>
+                    <img src="${song.thumbnail || 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'}" alt="${escapeHTMLJG(song.title || '')}" class="${!song.thumbnail ? 'img-placeholder list-thumb-placeholder' : ''}">
+                    <div><span class="title">${escapeHTMLJG(song.title || '不明なタイトル')}</span><span class="artist">${escapeHTMLJG(song.artist || "Rei Kikuchi")}</span></div>
                     <span class="duration">${song.duration || '--:--'}</span>
                     <div class="log-entry-actions-jg">
-                        ${context !== 'queue' ? `
-                            <button class="song-item-action-jg add-to-queue-action-jg" title="キューに追加" aria-label="キューに追加">
-                                <i class="fas fa-stream"></i>
-                            </button>
-                        ` : ''}
-                        <button class="song-item-action-jg favorite-action-jg" title="${isFavorited ? 'お気に入りから削除' : 'お気に入りに追加'}" aria-label="${isFavorited ? 'お気に入りから削除' : 'お気に入りに追加'}">
-                            <i class="fas ${isFavorited ? 'fa-heart text-jg-accent-sunburst' : 'fa-feather-alt'}"></i>
-                        </button>
-                    </div>
-                `;
-
-                const favButton = entry.querySelector('.favorite-action-jg');
-                if (favButton) {
-                    favButton.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        toggleFavoriteJG(song.id, favButton.querySelector('i'), favButton);
-                    });
-                }
-
-                const addToQueueButton = entry.querySelector('.add-to-queue-action-jg');
-                if (addToQueueButton) {
-                    addToQueueButton.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        addToQueueJG(song.id);
-                    });
-                }
-
+                        ${context !== 'queue' ? `<button class="song-item-action-jg add-to-queue-action-jg" title="キューに追加" aria-label="キューに追加"><i class="fas fa-stream"></i></button>` : ''}
+                        <button class="song-item-action-jg favorite-action-jg" title="${isFavorited ? 'お気に入りから削除' : 'お気に入りに追加'}" aria-label="${isFavorited ? 'お気に入りから削除' : 'お気に入りに追加'}"><i class="fas ${isFavorited ? 'fa-heart text-jg-accent-sunburst' : 'fa-feather-alt'}"></i></button>
+                    </div>`;
+                const favBtn = entry.querySelector('.favorite-action-jg');
+                if (favBtn) favBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleFavoriteJG(song.id, favBtn.querySelector('i'), favBtn); });
+                const queueBtn = entry.querySelector('.add-to-queue-action-jg');
+                if (queueBtn) queueBtn.addEventListener('click', (e) => { e.stopPropagation(); addToQueueJG(song.id); });
                 entry.addEventListener('click', (e) => {
-                    if (e.target.closest('.song-item-action-jg')) return; // Action handled by button specific listeners
-                    
+                    if (e.target.closest('.song-item-action-jg')) return;
                     const songIdToPlay = entry.dataset.id;
-                    const originalIdx = parseInt(entry.dataset.originalIndex, 10);
-
-                    if (isNaN(originalIdx) || originalIdx === -1) {
-                         const freshIndex = appStateJG.songs.findIndex(s => s.id === songIdToPlay);
-                         if (freshIndex !== -1) playSongAtIndexJG(freshIndex);
-                         else {
-                            showSnackbarJG("この曲は現在再生できません。", "error");
-                            return;
-                         }
-                    }
-
-                    if (context === 'queue') {
-                        appStateJG.playMode = 'queue';
-                        // Ensure currentQueueIndex refers to the index in appStateJG.queue, not listIndex if queue was filtered/sorted
-                        appStateJG.currentQueueIndex = appStateJG.queue.findIndex(id_in_queue => id_in_queue === songIdToPlay);
-                         if (appStateJG.currentQueueIndex === -1) { // Should not happen if rendering from appStateJG.queue
-                            console.error("Song from queue panel not found in appStateJG.queue");
-                            appStateJG.playMode = 'library'; // Fallback
-                         }
-                    } else {
-                        appStateJG.playMode = 'library';
-                        // If playing from library/fav/hist, and it's in queue, currentQueueIndex should be unset or point to it if desired.
-                        // For simplicity, starting a song outside queue panel sets playMode to library.
-                        appStateJG.currentQueueIndex = -1;
-                    }
+                    let originalIdx = parseInt(entry.dataset.originalIndex, 10);
+                    if (isNaN(originalIdx) || originalIdx === -1) originalIdx = appStateJG.songs.findIndex(s => s.id === songIdToPlay);
+                    if (originalIdx === -1) { showSnackbarJG("この曲は現在再生できません。", "error"); return; }
+                    appStateJG.playMode = (context === 'queue') ? 'queue' : 'library';
+                    if (context === 'queue') appStateJG.currentQueueIndex = appStateJG.queue.findIndex(id => id === songIdToPlay);
+                    else appStateJG.currentQueueIndex = -1;
                     playSongAtIndexJG(originalIdx);
                 });
                 fragment.appendChild(entry);
@@ -1097,802 +842,459 @@
             panelElement.appendChild(fragment);
         }
 
-        function showLoadingInPanelJG(panelElement, isLoading) {
-            if (!panelElement) return;
-            if (isLoading) {
-                panelElement.innerHTML = `<div class="flex justify-center items-center h-full text-jg-text-shadow"><i class="fas fa-spinner fa-spin fa-2x"></i><p class="ml-2">探検中...</p></div>`;
+        function renderPlaylistsJG() {
+            if (!elementsJG.playlistsPanel) return;
+            elementsJG.playlistsPanel.innerHTML = ''; // Clear previous
+
+            if (appStateJG.userPlaylists.length === 0) {
+                showEmptyMessageInPanelJG(elementsJG.playlistsPanel, "まだ道は描かれていない", "下の「New Path」ボタンから新しい音楽の道を作ろう！");
+                return;
             }
+
+            const fragment = document.createDocumentFragment();
+            appStateJG.userPlaylists.forEach(playlist => {
+                const entry = document.createElement('div');
+                entry.className = 'playlist-entry-jg';
+                entry.dataset.playlistId = playlist.id;
+                entry.innerHTML = `
+                    <i class="fas fa-list-music playlist-icon"></i>
+                    <div><span class="title">${escapeHTMLJG(playlist.name)}</span></div>
+                    <span class="song-count">${playlist.songs.length} tracks</span>
+                    <div class="playlist-actions">
+                        <button class="playlist-action-btn delete-playlist-btn" title="プレイリストを削除" aria-label="プレイリストを削除"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                `;
+                // TODO: Add event listener for clicking playlist to show songs
+                // entry.addEventListener('click', () => showPlaylistSongsJG(playlist.id));
+
+                const deleteBtn = entry.querySelector('.delete-playlist-btn');
+                deleteBtn.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Prevent playlist click
+                    deletePlaylistJG(playlist.id);
+                });
+
+                fragment.appendChild(entry);
+            });
+            elementsJG.playlistsPanel.appendChild(fragment);
         }
 
+
+        function showLoadingInPanelJG(panelElement, isLoading) {
+            if (!panelElement) return;
+            if (isLoading) panelElement.innerHTML = `<div class="flex justify-center items-center h-full text-jg-text-shadow"><i class="fas fa-spinner fa-spin fa-2x"></i><p class="ml-2">探検中...</p></div>`;
+        }
         function showEmptyMessageInPanelJG(panelElement, title, message) {
             if (!panelElement) return;
-            panelElement.innerHTML = `
-                <div class="text-center p-8 text-jg-text-shadow">
-                    <i class="fas fa-map-marked-alt fa-3x mb-4 opacity-50"></i>
-                    <h4 class="font-display-jg text-xl text-jg-text-earth mb-2">${escapeHTMLJG(title)}</h4>
-                    <p class="text-sm">${escapeHTMLJG(message)}</p>
-                </div>`;
+            panelElement.innerHTML = `<div class="text-center p-8 text-jg-text-shadow"><i class="fas fa-map-marked-alt fa-3x mb-4 opacity-50"></i><h4 class="font-display-jg text-xl text-jg-text-earth mb-2">${escapeHTMLJG(title)}</h4><p class="text-sm">${escapeHTMLJG(message)}</p></div>`;
         }
 
         function updatePlayerUIGJ(song) {
-            const playerElement = document.querySelector('.watering-hole-player');
             if (song) {
                 elementsJG.mainAlbumArt.src = song.thumbnail || 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
-                if (!song.thumbnail) {
-                    elementsJG.mainAlbumArt.classList.add('album-art-placeholder');
-                    elementsJG.mainAlbumArt.innerHTML = '<i class="fas fa-music"></i>'; // Example placeholder icon
-                } else {
-                    elementsJG.mainAlbumArt.classList.remove('album-art-placeholder');
-                    elementsJG.mainAlbumArt.innerHTML = '';
-                }
+                elementsJG.mainAlbumArt.classList.toggle('album-art-placeholder', !song.thumbnail);
+                if (!song.thumbnail) elementsJG.mainAlbumArt.innerHTML = '<i class="fas fa-music"></i>'; else elementsJG.mainAlbumArt.innerHTML = '';
                 elementsJG.songTitleDisplay.textContent = song.title || "Wild Rhythms";
-                elementsJG.artistNameDisplay.textContent = song.artist || "The Jungle Cats"; // Use song's artist
-                playerElement?.classList.add('has-song');
+                elementsJG.artistNameDisplay.textContent = song.artist || "The Jungle Cats";
             } else {
                 elementsJG.mainAlbumArt.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
                 elementsJG.mainAlbumArt.classList.add('album-art-placeholder');
                 elementsJG.mainAlbumArt.innerHTML = '<i class="fas fa-music"></i>';
                 elementsJG.songTitleDisplay.textContent = "Wild Rhythms";
                 elementsJG.artistNameDisplay.textContent = "The Jungle Cats";
-                elementsJG.currentTimeDisplay.textContent = "0:00";
-                elementsJG.totalTimeDisplay.textContent = "0:00";
-                elementsJG.progressSlider.value = 0;
-                playerElement?.classList.remove('has-song');
+                elementsJG.currentTimeDisplay.textContent = "0:00"; elementsJG.totalTimeDisplay.textContent = "0:00"; elementsJG.progressSlider.value = 0;
             }
-            updatePlayPauseButtonJG();
-            updateActiveListItemJG();
+            updatePlayPauseButtonJG(); updateActiveListItemJG();
         }
-
         function updatePlayPauseButtonJG() {
             if (!elementsJG.btnPlay) return;
-            const iconClass = appStateJG.isPlaying ? 'fa-pause' : 'fa-play';
-            elementsJG.btnPlay.innerHTML = `<i class="fas ${iconClass}"></i>`;
-            document.querySelector('.watering-hole-player')?.classList.toggle('is-playing', appStateJG.isPlaying);
+            elementsJG.btnPlay.innerHTML = `<i class="fas ${appStateJG.isPlaying ? 'fa-pause' : 'fa-play'}"></i>`;
         }
-
         function updateActiveListItemJG() {
             document.querySelectorAll('.log-entry-jg.active-song').forEach(el => el.classList.remove('active-song'));
-            if (appStateJG.currentSongIndex !== -1 && appStateJG.songs && appStateJG.currentSongIndex < appStateJG.songs.length) {
-                const currentSongId = appStateJG.songs[appStateJG.currentSongIndex]?.id;
-                if (currentSongId) {
-                    // This needs to select based on dataset.id
-                    const activeItems = document.querySelectorAll(`.log-entry-jg[data-id="${currentSongId}"]`);
-                    activeItems.forEach(item => item.classList.add('active-song'));
-                }
+            if (appStateJG.currentSongIndex !== -1 && appStateJG.songs[appStateJG.currentSongIndex]) {
+                document.querySelectorAll(`.log-entry-jg[data-id="${appStateJG.songs[appStateJG.currentSongIndex].id}"]`).forEach(item => item.classList.add('active-song'));
             }
         }
 
-        // ==========================================================================
-        // Player Controls
-        // ==========================================================================
-        function playSongAtIndexJG(index) { // index is always from appStateJG.songs
-            if (index < 0 || !appStateJG.songs || index >= appStateJG.songs.length) {
-                console.warn("Invalid song index:", index, "Song list length:", appStateJG.songs?.length);
-                return;
-            }
+        function playSongAtIndexJG(index) {
+            if (index < 0 || index >= appStateJG.songs.length) return;
             appStateJG.currentSongIndex = index;
             const song = appStateJG.songs[index];
-            if (!song) {
-                console.error("Song not found at index:", index);
-                return;
-            }
-
+            if (!song) return;
             console.log(`Playing song: "${song.title}" (ID: ${song.id}), Index: ${index}, PlayMode: ${appStateJG.playMode}, QueueIndex: ${appStateJG.currentQueueIndex}`);
             updatePlayerUIGJ(song);
-
             if (appStateJG.player && appStateJG.isPlayerReady && song.id) {
-                try {
-                    appStateJG.player.loadVideoById(song.id);
-                    // Play is handled by onStateChange:YT.PlayerState.PLAYING
-                } catch (error) {
-                    console.error("Error loading video in player:", error);
-                    showSnackbarJG("動画の読み込みに失敗しました。", "error");
-                }
-            } else {
-                console.warn("Player not ready or song ID missing. Player:", !!appStateJG.player, "Ready:", appStateJG.isPlayerReady, "Song ID:", song.id);
-                 if (!appStateJG.isPlayerReady) showSnackbarJG("プレイヤーの準備ができていません。", "warning");
-            }
+                try { appStateJG.player.loadVideoById(song.id); }
+                catch (error) { showSnackbarJG("動画の読み込みに失敗しました。", "error"); }
+            } else if (!appStateJG.isPlayerReady) showSnackbarJG("プレイヤーの準備ができていません。", "warning");
             addToHistoryJG(song);
             if (appStateJG.currentPanel === 'log-history' && elementsJG.historyPanel) renderHistoryListJG();
-            // playMode is set by the caller of playSongAtIndexJG
         }
-
         function togglePlayPauseJG() {
-            if (!appStateJG.player || !appStateJG.isPlayerReady) {
-                showSnackbarJG("プレイヤーの準備ができていません。", "warning");
-                return;
-            }
-            if (appStateJG.currentSongIndex === -1 && appStateJG.songs && appStateJG.songs.length > 0) {
-                // If nothing is loaded, play first song from library by default
-                appStateJG.playMode = 'library';
-                playSongAtIndexJG(0);
-                return;
-            }
-            if (appStateJG.currentSongIndex === -1 && (!appStateJG.songs || appStateJG.songs.length === 0)) {
-                showSnackbarJG("再生する曲がありません。", "info");
-                return;
-            }
-
-            if (appStateJG.isPlaying) {
-                appStateJG.player.pauseVideo();
-            } else {
-                appStateJG.player.playVideo();
-            }
+            if (!appStateJG.player || !appStateJG.isPlayerReady) { showSnackbarJG("プレイヤーの準備ができていません。", "warning"); return; }
+            if (appStateJG.currentSongIndex === -1 && appStateJG.songs.length > 0) { appStateJG.playMode = 'library'; playSongAtIndexJG(0); return; }
+            if (appStateJG.currentSongIndex === -1) { showSnackbarJG("再生する曲がありません。", "info"); return; }
+            if (appStateJG.isPlaying) appStateJG.player.pauseVideo(); else appStateJG.player.playVideo();
         }
 
         function playNextJG() {
-            if (!appStateJG.songs || appStateJG.songs.length === 0) return;
-            
+            if (appStateJG.songs.length === 0) return;
             let nextSongOriginalIndex = -1;
-
             if (appStateJG.playMode === 'queue' && appStateJG.queue.length > 0) {
                 appStateJG.currentQueueIndex++;
-                if (appStateJG.currentQueueIndex >= appStateJG.queue.length) { // End of queue
-                    if (appStateJG.loopMode === 'all') {
-                        appStateJG.currentQueueIndex = 0;
-                    } else {
-                        showSnackbarJG("キューの再生が終わりました。", "info");
-                        appStateJG.isPlaying = false;
-                        updatePlayPauseButtonJG();
-                        appStateJG.playMode = 'library'; // Revert to library mode
-                        appStateJG.currentQueueIndex = -1;
-                        return; // Stop playback
-                    }
+                if (appStateJG.currentQueueIndex >= appStateJG.queue.length) {
+                    if (appStateJG.loopMode === 'all') appStateJG.currentQueueIndex = 0;
+                    else { showSnackbarJG("キューの再生が終わりました。", "info"); appStateJG.isPlaying = false; updatePlayPauseButtonJG(); appStateJG.playMode = 'library'; appStateJG.currentQueueIndex = -1; return; }
                 }
                 const nextSongIdInQueue = appStateJG.queue[appStateJG.currentQueueIndex];
                 nextSongOriginalIndex = appStateJG.songs.findIndex(s => s.id === nextSongIdInQueue);
-                
-                if (nextSongOriginalIndex === -1) {
-                    console.warn(`Song ID ${nextSongIdInQueue} from queue not found in main song list. Skipping.`);
-                    playNextJG(); // Try to play the next one in queue
-                    return;
-                }
-            } else { // playMode is 'library' or queue is empty
+                if (nextSongOriginalIndex === -1) { playNextJG(); return; }
+            } else {
                 if (appStateJG.isShuffle) {
                     if (appStateJG.songs.length <= 1) nextSongOriginalIndex = 0;
-                    else {
-                        let randomIndex;
-                        do { 
-                            randomIndex = Math.floor(Math.random() * appStateJG.songs.length);
-                        } while (randomIndex === appStateJG.currentSongIndex && appStateJG.songs.length > 1);
-                        nextSongOriginalIndex = randomIndex;
-                    }
-                } else { // Sequential playback
+                    else do { nextSongOriginalIndex = Math.floor(Math.random() * appStateJG.songs.length); } while (nextSongOriginalIndex === appStateJG.currentSongIndex && appStateJG.songs.length > 1);
+                } else {
                     nextSongOriginalIndex = appStateJG.currentSongIndex + 1;
                     if (nextSongOriginalIndex >= appStateJG.songs.length) {
-                        if (appStateJG.loopMode === 'all') {
-                            nextSongOriginalIndex = 0;
-                        } else {
-                            showSnackbarJG("探検の終わりです！", "info");
-                            appStateJG.isPlaying = false;
-                            updatePlayPauseButtonJG();
-                            // currentSongIndex remains at the last song, playMode is still library
-                            return; // Stop playback
-                        }
+                        if (appStateJG.loopMode === 'all') nextSongOriginalIndex = 0;
+                        else { showSnackbarJG("探検の終わりです！", "info"); appStateJG.isPlaying = false; updatePlayPauseButtonJG(); return; }
                     }
                 }
             }
-            
-            if (nextSongOriginalIndex !== -1) {
-                playSongAtIndexJG(nextSongOriginalIndex);
-            } else if (appStateJG.playMode === 'library') { // Should be caught by shuffle/sequential logic, but as a fallback
-                 console.warn("Could not determine next song in library mode.");
-            }
+            if (nextSongOriginalIndex !== -1) playSongAtIndexJG(nextSongOriginalIndex);
         }
-
-
         function playPrevJG() {
-            if (!appStateJG.songs || appStateJG.songs.length === 0) return;
-
-            // If current song has played for more than 3 seconds, restart it
-            if (appStateJG.player && appStateJG.player.getCurrentTime && appStateJG.player.getCurrentTime() > 3) {
-                appStateJG.player.seekTo(0);
-                return;
-            }
-
+            if (appStateJG.songs.length === 0) return;
+            if (appStateJG.player?.getCurrentTime?.() > 3) { appStateJG.player.seekTo(0); return; }
             let prevSongOriginalIndex = -1;
-
             if (appStateJG.playMode === 'queue' && appStateJG.queue.length > 0) {
                 appStateJG.currentQueueIndex--;
-                if (appStateJG.currentQueueIndex < 0) { // Start of queue
-                    if (appStateJG.loopMode === 'all' && appStateJG.queue.length > 0) {
-                        appStateJG.currentQueueIndex = appStateJG.queue.length - 1;
-                    } else {
-                        // At the beginning of queue, not looping all: just restart current song or do nothing
-                        appStateJG.currentQueueIndex = 0; // Stay at first song of queue
-                        if (appStateJG.player && appStateJG.player.seekTo) appStateJG.player.seekTo(0);
-                        return;
-                    }
+                if (appStateJG.currentQueueIndex < 0) {
+                    if (appStateJG.loopMode === 'all' && appStateJG.queue.length > 0) appStateJG.currentQueueIndex = appStateJG.queue.length - 1;
+                    else { appStateJG.currentQueueIndex = 0; appStateJG.player?.seekTo?.(0); return; }
                 }
                 const prevSongIdInQueue = appStateJG.queue[appStateJG.currentQueueIndex];
                 prevSongOriginalIndex = appStateJG.songs.findIndex(s => s.id === prevSongIdInQueue);
-
-                if (prevSongOriginalIndex === -1) {
-                    console.warn(`Song ID ${prevSongIdInQueue} from queue not found in main song list. Skipping to previous.`);
-                    playPrevJG(); // Try to play the previous one
-                    return;
-                }
-            } else { // playMode is 'library' or queue is empty
+                if (prevSongOriginalIndex === -1) { playPrevJG(); return; }
+            } else {
                 if (appStateJG.isShuffle) {
                      if (appStateJG.songs.length <= 1) prevSongOriginalIndex = 0;
-                     else {
-                        let randomIndex;
-                        do { 
-                            randomIndex = Math.floor(Math.random() * appStateJG.songs.length);
-                        } while (randomIndex === appStateJG.currentSongIndex && appStateJG.songs.length > 1);
-                        prevSongOriginalIndex = randomIndex;
-                    }
-                } else { // Sequential playback
+                     else do { prevSongOriginalIndex = Math.floor(Math.random() * appStateJG.songs.length); } while (prevSongOriginalIndex === appStateJG.currentSongIndex && appStateJG.songs.length > 1);
+                } else {
                     prevSongOriginalIndex = appStateJG.currentSongIndex - 1;
                     if (prevSongOriginalIndex < 0) {
-                        if (appStateJG.loopMode === 'all') {
-                            prevSongOriginalIndex = appStateJG.songs.length - 1;
-                        } else {
-                            // At the beginning of library, not looping: restart current song or do nothing
-                            prevSongOriginalIndex = 0; // Stay at first song of library
-                            if (appStateJG.player && appStateJG.player.seekTo) appStateJG.player.seekTo(0);
-                            return;
-                        }
+                        if (appStateJG.loopMode === 'all') prevSongOriginalIndex = appStateJG.songs.length - 1;
+                        else { prevSongOriginalIndex = 0; appStateJG.player?.seekTo?.(0); return; }
                     }
                 }
             }
-            
-            if (prevSongOriginalIndex !== -1) {
-                playSongAtIndexJG(prevSongOriginalIndex);
-            }
+            if (prevSongOriginalIndex !== -1) playSongAtIndexJG(prevSongOriginalIndex);
         }
 
         function handleSongEndJG() {
-            if (appStateJG.loopMode === 'one' && appStateJG.currentSongIndex !== -1) {
-                playSongAtIndexJG(appStateJG.currentSongIndex); // Replay current song
-            } else {
-                playNextJG(); // Handles queue, shuffle, and 'all' loop for current playMode
-            }
+            if (appStateJG.loopMode === 'one' && appStateJG.currentSongIndex !== -1) playSongAtIndexJG(appStateJG.currentSongIndex);
+            else playNextJG();
         }
-
         function updateProgressJG() {
-            if (!appStateJG.player || typeof appStateJG.player.getDuration !== 'function' || !elementsJG.progressSlider) return;
-            const currentTime = appStateJG.player.getCurrentTime ? appStateJG.player.getCurrentTime() : 0;
-            const duration = appStateJG.player.getDuration ? appStateJG.player.getDuration() : 0;
-
+            if (!appStateJG.player?.getDuration || !elementsJG.progressSlider) return;
+            const currentTime = appStateJG.player.getCurrentTime?.() || 0;
+            const duration = appStateJG.player.getDuration?.() || 0;
             if (elementsJG.progressSlider && elementsJG.currentTimeDisplay && elementsJG.totalTimeDisplay) {
                 if (duration > 0) {
-                    const progressPercent = (currentTime / duration) * 100;
-                    elementsJG.progressSlider.value = progressPercent;
+                    elementsJG.progressSlider.value = (currentTime / duration) * 100;
                     elementsJG.currentTimeDisplay.textContent = formatTimeJG(currentTime);
                     elementsJG.totalTimeDisplay.textContent = formatTimeJG(duration);
-
-                    // Update duration in the song list if it was "--:--"
                     const currentSong = appStateJG.songs[appStateJG.currentSongIndex];
                     if (currentSong && currentSong.duration === "--:--") {
                         currentSong.duration = formatTimeJG(duration);
-                        // Find ALL list items for this song and update their duration
-                        document.querySelectorAll(`.log-entry-jg[data-id="${currentSong.id}"] .duration`).forEach(el => {
-                           el.textContent = currentSong.duration;
-                        });
+                        document.querySelectorAll(`.log-entry-jg[data-id="${currentSong.id}"] .duration`).forEach(el => el.textContent = currentSong.duration);
                     }
-                } else {
-                    elementsJG.progressSlider.value = 0;
-                    elementsJG.currentTimeDisplay.textContent = "0:00";
-                    // elementsJG.totalTimeDisplay.textContent = "0:00"; // Keep last known or API provided duration
-                }
+                } else { elementsJG.progressSlider.value = 0; elementsJG.currentTimeDisplay.textContent = "0:00"; }
             }
         }
-        // ==========================================================================
-        // YouTube Player Event Handlers
-        // ==========================================================================
         function onPlayerReadyJG(event) {
-            console.log("Jungle Groove Player Ready! (onPlayerReadyJG called). Player object available:", !!event.target);
+            console.log("Jungle Groove Player Ready!");
             appStateJG.isPlayerReady = true;
-            if (event.target && typeof event.target.setVolume === 'function') {
-                try {
-                    event.target.setVolume(appStateJG.volume);
-                    console.log("onPlayerReadyJG: Volume set to", appStateJG.volume);
-                } catch(e){
-                    console.warn("onPlayerReadyJG: Could not set volume on ready", e);
-                }
-            } else {
-                console.warn("onPlayerReadyJG: event.target or setVolume not available for volume setting.");
-            }
-
-            const apiKey = youtubeAPI_JG.apiKey;
-            if (apiKey && apiKey !== 'YOUR_YOUTUBE_API_KEY_HERE' && !apiKey.includes('_PLACEHOLDER_') && apiKey.length > 10) {
-                console.log("onPlayerReadyJG: API Key seems to be set correctly. Calling loadInitialSongsJG...");
+            event.target?.setVolume?.(appStateJG.volume);
+            if (youtubeAPI_JG.apiKey && !youtubeAPI_JG.apiKey.includes('_PLACEHOLDER_') && youtubeAPI_JG.apiKey.length > 10) {
                 loadInitialSongsJG();
             } else {
-                console.error("onPlayerReadyJG: API Key is missing, still a placeholder, or too short! API Key found:", `"${apiKey}"`);
                 showSnackbarJG("APIキーが正しく設定されていません。曲をロードできません。", "error");
-                if (elementsJG.libraryPanel) {
-                    showEmptyMessageInPanelJG(elementsJG.libraryPanel, "APIキー未設定", "曲をロードするには、スクリプト内のAPIキーを有効なものに置き換えてください。");
-                }
+                if (elementsJG.libraryPanel) showEmptyMessageInPanelJG(elementsJG.libraryPanel, "APIキー未設定", "曲をロードするには、スクリプト内のAPIキーを有効なものに置き換えてください。");
             }
         }
-
         function onPlayerStateChangeJG(event) {
-            console.log("onPlayerStateChangeJG - Player state:", event.data, "(Playing:", YT.PlayerState.PLAYING, "Paused:", YT.PlayerState.PAUSED, "Ended:", YT.PlayerState.ENDED, ")");
-            const playerState = event.data;
-            const previouslyPlaying = appStateJG.isPlaying;
-            appStateJG.isPlaying = (playerState === YT.PlayerState.PLAYING);
-
-            if (previouslyPlaying !== appStateJG.isPlaying) {
-                updatePlayPauseButtonJG();
-            }
-
-            if (appStateJG.isPlaying) {
-                if (appStateJG.progressInterval) clearInterval(appStateJG.progressInterval);
-                appStateJG.progressInterval = setInterval(updateProgressJG, 250);
-                updateProgressJG(); // Call once immediately
-            } else {
-                clearInterval(appStateJG.progressInterval);
-                 if (playerState === YT.PlayerState.PAUSED || playerState === YT.PlayerState.BUFFERING || playerState === YT.PlayerState.ENDED || playerState === YT.PlayerState.CUED) {
-                    updateProgressJG(); // Update progress one last time
-                }
-            }
-
-            if (playerState === YT.PlayerState.ENDED) {
-                handleSongEndJG();
-            }
-            if (playerState === YT.PlayerState.PLAYING) {
-                updateActiveListItemJG(); // Ensure active item is highlighted on play
-                 // If playing, and playMode is queue, ensure currentQueueIndex is valid for the current song
+            console.log("Player state:", event.data);
+            appStateJG.isPlaying = (event.data === YT.PlayerState.PLAYING);
+            updatePlayPauseButtonJG();
+            clearInterval(appStateJG.progressInterval);
+            if (appStateJG.isPlaying) appStateJG.progressInterval = setInterval(updateProgressJG, 250);
+            updateProgressJG(); // Update once immediately
+            if (event.data === YT.PlayerState.ENDED) handleSongEndJG();
+            if (event.data === YT.PlayerState.PLAYING) {
+                updateActiveListItemJG();
                 if (appStateJG.playMode === 'queue') {
-                    const currentSongObject = appStateJG.songs[appStateJG.currentSongIndex];
-                    if (currentSongObject) {
-                        const songIdInQueue = appStateJG.queue[appStateJG.currentQueueIndex];
-                        if (songIdInQueue !== currentSongObject.id) {
-                            // This means currentSongIndex and currentQueueIndex are out of sync.
-                            // This can happen if a song was played from library while queue was active.
-                            // Re-align currentQueueIndex or switch playMode.
-                            const newQueueIndex = appStateJG.queue.findIndex(id => id === currentSongObject.id);
-                            if (newQueueIndex !== -1) {
-                                appStateJG.currentQueueIndex = newQueueIndex;
-                                console.log("Re-aligned currentQueueIndex to:", newQueueIndex);
-                            } else {
-                                // Current song is not in queue, so switch to library mode
-                                console.log("Current song not in queue. Switching to library mode.");
-                                appStateJG.playMode = 'library';
-                                appStateJG.currentQueueIndex = -1;
-                            }
-                        }
+                    const songIdInQueue = appStateJG.queue[appStateJG.currentQueueIndex];
+                    if (appStateJG.songs[appStateJG.currentSongIndex]?.id !== songIdInQueue) {
+                        const newQueueIndex = appStateJG.queue.findIndex(id => id === appStateJG.songs[appStateJG.currentSongIndex]?.id);
+                        if (newQueueIndex !== -1) appStateJG.currentQueueIndex = newQueueIndex;
+                        else { appStateJG.playMode = 'library'; appStateJG.currentQueueIndex = -1; }
                     }
                 }
             }
         }
-
         function onPlayerErrorJG(event) {
-            console.error("onPlayerErrorJG - Error code:", event.data, "for song ID:", appStateJG.songs[appStateJG.currentSongIndex]?.id);
+            console.error("Player Error:", event.data, "for song:", appStateJG.songs[appStateJG.currentSongIndex]?.id);
             let msg = `動画の再生エラー (コード: ${event.data})`;
-            if (event.data === 2) msg = "無効な動画ID、またはリクエストに問題があります。"; // Invalid parameter
-            if (event.data === 5) msg = "HTML5プレイヤーで内部エラーが発生しました。";
-            if (event.data === 100) msg = "要求された動画が見つかりませんでした。(非公開または削除された可能性)";
-            if (event.data === 101 || event.data === 150) msg = "この動画の埋め込み再生は、所有者によって許可されていません。";
-            showSnackbarJG(msg, "error");
-            appStateJG.isPlaying = false;
-            updatePlayPauseButtonJG();
-            // Optionally, try to play the next song
-            // setTimeout(playNextJG, 1000); // Give a small delay before trying next
+            if (event.data === 100) msg = "要求された動画が見つかりませんでした。";
+            if (event.data === 101 || event.data === 150) msg = "この動画の埋め込み再生は許可されていません。";
+            showSnackbarJG(msg, "error"); appStateJG.isPlaying = false; updatePlayPauseButtonJG();
         }
-        // ==========================================================================
-        // Event Listeners Setup
-        // ==========================================================================
+
         function setupEventListenersJG() {
             elementsJG.btnPlay?.addEventListener('click', togglePlayPauseJG);
             elementsJG.btnNext?.addEventListener('click', playNextJG);
             elementsJG.btnPrev?.addEventListener('click', playPrevJG);
             elementsJG.btnShuffle?.addEventListener('click', toggleShuffleJG);
             elementsJG.btnLoop?.addEventListener('click', toggleLoopJG);
-
             elementsJG.progressSlider?.addEventListener('input', (e) => {
-                if (!appStateJG.player || !appStateJG.isPlayerReady || typeof appStateJG.player.getDuration !== 'function') return;
+                if (!appStateJG.player?.getDuration) return;
                 const duration = appStateJG.player.getDuration();
-                if (duration > 0) {
-                    const seekTime = (parseFloat(e.target.value) / 100) * duration;
-                    appStateJG.player.seekTo(seekTime, true);
-                    updateProgressJG(); // Update UI immediately
-                }
+                if (duration > 0) appStateJG.player.seekTo((parseFloat(e.target.value) / 100) * duration, true);
+                updateProgressJG();
             });
-
             elementsJG.volumeSlider?.addEventListener('input', (e) => {
                 appStateJG.volume = parseInt(e.target.value);
-                if (appStateJG.player && appStateJG.isPlayerReady && typeof appStateJG.player.setVolume === 'function') {
-                    appStateJG.player.setVolume(appStateJG.volume);
-                }
+                appStateJG.player?.setVolume?.(appStateJG.volume);
                 if (elementsJG.volumeIconMute && elementsJG.volumeIconUp) {
                     elementsJG.volumeIconMute.style.opacity = appStateJG.volume === 0 ? '1' : '0.5';
                     elementsJG.volumeIconUp.style.opacity = appStateJG.volume > 0 ? '1' : '0.5';
                 }
             });
-
             elementsJG.themeToggle?.addEventListener('click', toggleThemeJG);
-
-            elementsJG.logTabs.forEach(tab => {
-                tab.addEventListener('click', () => switchLogPanelJG(tab.dataset.panel));
-            });
-            
+            elementsJG.logTabs.forEach(tab => tab.addEventListener('click', () => switchLogPanelJG(tab.dataset.panel)));
             elementsJG.searchInput?.addEventListener('input', handleSearchJG);
-
-            elementsJG.btnRefreshFeed?.addEventListener('click', () => {
-                showSnackbarJG("ジャングルの最新情報を取得中...", "info");
-                loadInitialSongsJG();
-            });
-
-            elementsJG.btnCreatePlaylist?.addEventListener('click', () => {
-                showSnackbarJG("新しい道の作成はまだ探検の途中...", "info");
-                // Placeholder for create playlist functionality
-            });
+            elementsJG.btnRefreshFeed?.addEventListener('click', () => { showSnackbarJG("ジャングルの最新情報を取得中...", "info"); loadInitialSongsJG(); });
+            elementsJG.btnCreatePlaylist?.addEventListener('click', createPlaylistJG);
         }
-        // ==========================================================================
-        // UI & Control Logic Helpers
-        // ==========================================================================
+
         function toggleThemeJG() {
             if (!elementsJG.body || !elementsJG.themeToggle) return;
-            elementsJG.body.classList.toggle('light-mode-jg'); // This class should exist in CSS
+            elementsJG.body.classList.toggle('light-mode-jg');
             appStateJG.currentTheme = elementsJG.body.classList.contains('light-mode-jg') ? 'light' : 'dark';
             elementsJG.themeToggle.innerHTML = `<i class="fas ${appStateJG.currentTheme === 'light' ? 'fa-moon' : 'fa-sun'}"></i>`;
             saveToLocalStorageJG(LS_KEYS_JG.THEME, appStateJG.currentTheme);
             showSnackbarJG(`天候が「${appStateJG.currentTheme === 'light' ? '昼のジャングル' : '夜のジャングル'}」に！`);
         }
-
         function switchLogPanelJG(panelId) {
             if (!panelId || appStateJG.currentPanel === panelId) return;
             appStateJG.currentPanel = panelId;
-
             elementsJG.logTabs.forEach(t => t.classList.toggle('active', t.dataset.panel === panelId));
-            elementsJG.logPanels.forEach(p => {
-                if (p) p.classList.toggle('active', p.id === panelId);
-            });
-
-            // Render content for the switched panel
+            elementsJG.logPanels.forEach(p => p?.classList.toggle('active', p.id === panelId));
             switch (panelId) {
-                case 'log-library':
-                    if (elementsJG.libraryPanel) renderSongListJG(elementsJG.libraryPanel, appStateJG.filteredSongs, 'library');
-                    break;
-                case 'log-discoveries': // Queue
-                    if (elementsJG.queuePanel) renderSongListJG(elementsJG.queuePanel, appStateJG.queue.map(id => findSongByIdJG(id)).filter(s => s), 'queue');
-                    break;
-                case 'log-trophies': // Favorites
-                    if (elementsJG.favoritesPanel) renderSongListJG(elementsJG.favoritesPanel, appStateJG.favorites, 'favorites');
-                    break;
-                case 'log-history':
-                    if(elementsJG.historyPanel) renderHistoryListJG();
-                    break;
-                case 'log-paths': // Playlists
-                    if(elementsJG.playlistsPanel) {
-                        showEmptyMessageInPanelJG(elementsJG.playlistsPanel, "まだ道は描かれていない", "自分だけの音楽の道を作ろう！");
-                    }
-                    break;
+                case 'log-library': if (elementsJG.libraryPanel) renderSongListJG(elementsJG.libraryPanel, appStateJG.filteredSongs, 'library'); break;
+                case 'log-discoveries': if (elementsJG.queuePanel) renderSongListJG(elementsJG.queuePanel, appStateJG.queue.map(id => findSongByIdJG(id)).filter(Boolean), 'queue'); break;
+                case 'log-trophies': if (elementsJG.favoritesPanel) renderSongListJG(elementsJG.favoritesPanel, appStateJG.favorites, 'favorites'); break;
+                case 'log-history': if (elementsJG.historyPanel) renderHistoryListJG(); break;
+                case 'log-paths': if (elementsJG.playlistsPanel) renderPlaylistsJG(); break;
             }
         }
-
         function handleSearchJG() {
             if (!elementsJG.searchInput) return;
             const searchTerm = elementsJG.searchInput.value.toLowerCase().trim();
-            if (searchTerm === "") {
-                appStateJG.filteredSongs = [...appStateJG.songs];
-            } else {
-                appStateJG.filteredSongs = appStateJG.songs.filter(song =>
-                    (song.title && song.title.toLowerCase().includes(searchTerm)) ||
-                    (song.artist && song.artist.toLowerCase().includes(searchTerm))
-                );
-            }
-
+            appStateJG.filteredSongs = searchTerm === "" ? [...appStateJG.songs] : appStateJG.songs.filter(s =>
+                s.title?.toLowerCase().includes(searchTerm) || s.artist?.toLowerCase().includes(searchTerm));
             if (appStateJG.currentPanel === 'log-library' && elementsJG.libraryPanel) {
                 renderSongListJG(elementsJG.libraryPanel, appStateJG.filteredSongs, 'library');
             }
-            // Potentially filter other lists too if desired, e.g., favorites
         }
-
         function toggleShuffleJG() {
             if (!elementsJG.btnShuffle) return;
             appStateJG.isShuffle = !appStateJG.isShuffle;
             elementsJG.btnShuffle.classList.toggle('active-control', appStateJG.isShuffle);
             showSnackbarJG(`シャッフル・ビート ${appStateJG.isShuffle ? 'ON' : 'OFF'}!`);
         }
-
         function toggleLoopJG() {
             if (!elementsJG.btnLoop) return;
-            if (appStateJG.loopMode === 'none') appStateJG.loopMode = 'all';
-            else if (appStateJG.loopMode === 'all') appStateJG.loopMode = 'one';
-            else appStateJG.loopMode = 'none';
-
+            const modes = ['none', 'all', 'one'];
+            appStateJG.loopMode = modes[(modes.indexOf(appStateJG.loopMode) + 1) % modes.length];
             elementsJG.btnLoop.classList.toggle('active-control', appStateJG.loopMode !== 'none');
-            // const loopIcon = elementsJG.btnLoop.querySelector('i'); // Not used directly
-            let loopIndicator = elementsJG.btnLoop.querySelector('.loop-indicator-jg');
-
+            let indicator = elementsJG.btnLoop.querySelector('.loop-indicator-jg');
             if (appStateJG.loopMode === 'one') {
-                if (!loopIndicator) {
-                    loopIndicator = document.createElement('span');
-                    loopIndicator.className = 'loop-indicator-jg';
-                    elementsJG.btnLoop.appendChild(loopIndicator);
-                }
-                loopIndicator.textContent = '1';
-            } else {
-                if (loopIndicator) loopIndicator.remove();
-            }
-
-            let loopMsg = "リピート: ";
-            if(appStateJG.loopMode === 'none') loopMsg += "OFF";
-            if(appStateJG.loopMode === 'all') loopMsg += "ジャングル全体" + (appStateJG.playMode === 'queue' && appStateJG.queue.length > 0 ? " (キュー)" : "");
-            if(appStateJG.loopMode === 'one') loopMsg += "この一本の木";
-            showSnackbarJG(loopMsg);
-        }
-        // ==========================================================================
-        // History, Favorites, Queue
-        // ==========================================================================
-        function addToHistoryJG(song) {
-            if (!song || !song.id) return;
-            appStateJG.history = appStateJG.history.filter(s => s.id !== song.id); // Remove if already exists to re-add to top
-            appStateJG.history.unshift(song); // Add to the beginning (most recent)
-            if (appStateJG.history.length > MAX_HISTORY_JG) appStateJG.history.pop(); // Keep max size
-            saveToLocalStorageJG(LS_KEYS_JG.HISTORY, appStateJG.history);
-        }
-
-        function renderHistoryListJG() {
-            if (elementsJG.historyPanel) {
-                 renderSongListJG(elementsJG.historyPanel, appStateJG.history, 'history');
-            }
-        }
-
-        function toggleFavoriteJG(songId, iconElement, buttonElement) {
-            const songIndexInFavorites = appStateJG.favorites.findIndex(s => s.id === songId);
-            const song = findSongByIdJG(songId); 
-            if (!song) {
-                console.warn("Cannot favorite: song not found in main list with ID", songId);
-                return;
-            }
-
-            let isNowFavorite = false;
-            if (songIndexInFavorites > -1) { 
-                appStateJG.favorites.splice(songIndexInFavorites, 1);
-                showSnackbarJG(`「${escapeHTMLJG(song.title)}」をジャングルの秘宝から外した...`);
-            } else { 
-                appStateJG.favorites.push(song); 
-                isNowFavorite = true;
-                showSnackbarJG(`「${escapeHTMLJG(song.title)}」を秘宝として発見！`, "success");
-            }
-            
-            saveToLocalStorageJG(LS_KEYS_JG.FAVORITES, appStateJG.favorites);
-
-            // Update icon and aria-label on the clicked button
-            if (iconElement) iconElement.className = `fas ${isNowFavorite ? 'fa-heart text-jg-accent-sunburst' : 'fa-feather-alt'}`;
-            if (buttonElement) buttonElement.setAttribute('aria-label', isNowFavorite ? 'お気に入りから削除' : 'お気に入りに追加');
-
-
-            // If the favorites panel is active, re-render it
-            if (appStateJG.currentPanel === 'log-trophies' && elementsJG.favoritesPanel) {
-                 renderSongListJG(elementsJG.favoritesPanel, appStateJG.favorites, 'favorites');
-            }
-            // Update icons on all instances of this song in any visible list (e.g. if same song in library and history)
-             document.querySelectorAll(`.log-entry-jg[data-id="${songId}"] .favorite-action-jg`).forEach(btn => {
-                btn.querySelector('i').className = `fas ${isNowFavorite ? 'fa-heart text-jg-accent-sunburst' : 'fa-feather-alt'}`;
-                btn.setAttribute('aria-label', isNowFavorite ? 'お気に入りから削除' : 'お気に入りに追加');
-            });
+                if (!indicator) { indicator = document.createElement('span'); indicator.className = 'loop-indicator-jg'; elementsJG.btnLoop.appendChild(indicator); }
+                indicator.textContent = '1';
+            } else if (indicator) indicator.remove();
+            let msg = "リピート: " + (appStateJG.loopMode === 'none' ? "OFF" : appStateJG.loopMode === 'all' ? "ジャングル全体" + (appStateJG.playMode === 'queue' && appStateJG.queue.length > 0 ? " (キュー)" : "") : "この一本の木");
+            showSnackbarJG(msg);
         }
         
+        function addToHistoryJG(song) {
+            if (!song?.id) return;
+            appStateJG.history = appStateJG.history.filter(s => s.id !== song.id);
+            appStateJG.history.unshift(song);
+            if (appStateJG.history.length > MAX_HISTORY_JG) appStateJG.history.pop();
+            saveToLocalStorageJG(LS_KEYS_JG.HISTORY, appStateJG.history);
+        }
+        function renderHistoryListJG() {
+            if (elementsJG.historyPanel) renderSongListJG(elementsJG.historyPanel, appStateJG.history, 'history');
+        }
+        function toggleFavoriteJG(songId, iconElement, buttonElement) {
+            const song = findSongByIdJG(songId); if (!song) return;
+            const favIndex = appStateJG.favorites.findIndex(s => s.id === songId);
+            let isNowFav = false;
+            if (favIndex > -1) appStateJG.favorites.splice(favIndex, 1);
+            else { appStateJG.favorites.push(song); isNowFav = true; }
+            showSnackbarJG(`「${escapeHTMLJG(song.title)}」を${isNowFav ? '秘宝として発見！' : 'ジャングルの秘宝から外した...'}`, isNowFav ? "success" : "info");
+            saveToLocalStorageJG(LS_KEYS_JG.FAVORITES, appStateJG.favorites);
+            if (iconElement) iconElement.className = `fas ${isNowFav ? 'fa-heart text-jg-accent-sunburst' : 'fa-feather-alt'}`;
+            if (buttonElement) buttonElement.setAttribute('aria-label', isNowFav ? 'お気に入りから削除' : 'お気に入りに追加');
+            if (appStateJG.currentPanel === 'log-trophies' && elementsJG.favoritesPanel) renderSongListJG(elementsJG.favoritesPanel, appStateJG.favorites, 'favorites');
+            document.querySelectorAll(`.log-entry-jg[data-id="${songId}"] .favorite-action-jg`).forEach(btn => {
+                btn.querySelector('i').className = `fas ${isNowFav ? 'fa-heart text-jg-accent-sunburst' : 'fa-feather-alt'}`;
+                btn.setAttribute('aria-label', isNowFav ? 'お気に入りから削除' : 'お気に入りに追加');
+            });
+        }
         function addToQueueJG(songId) {
-            const song = findSongByIdJG(songId);
-            if (!song) {
-                showSnackbarJG("曲が見つかりません。", "error");
-                return;
-            }
-            appStateJG.queue.push(songId); // Add song ID to queue
+            const song = findSongByIdJG(songId); if (!song) { showSnackbarJG("曲が見つかりません。", "error"); return; }
+            appStateJG.queue.push(songId);
             saveToLocalStorageJG(LS_KEYS_JG.QUEUE, appStateJG.queue);
             updateQueueCountBadgeJG();
             showSnackbarJG(`「${escapeHTMLJG(song.title)}」をキューに追加しました。`, "success");
-
             if (appStateJG.currentPanel === 'log-discoveries' && elementsJG.queuePanel) {
-                renderSongListJG(elementsJG.queuePanel, appStateJG.queue.map(id => findSongByIdJG(id)).filter(s => s), 'queue');
+                renderSongListJG(elementsJG.queuePanel, appStateJG.queue.map(id => findSongByIdJG(id)).filter(Boolean), 'queue');
             }
         }
-
         function updateQueueCountBadgeJG() {
-            if (elementsJG.queueCountBadge) {
-                elementsJG.queueCountBadge.textContent = appStateJG.queue.length;
-                elementsJG.queueCountBadge.style.display = appStateJG.queue.length > 0 ? 'inline-block' : 'none';
-            }
-        }
-        // ==========================================================================
-        // Utility Functions
-        // ==========================================================================
-        function findSongByIdJG(songId) { // Finds from appStateJG.songs
-            if (!songId || !appStateJG.songs) return null;
-            return appStateJG.songs.find(s => s && s.id === songId);
+            if (!elementsJG.queueCountBadge) return;
+            elementsJG.queueCountBadge.textContent = appStateJG.queue.length;
+            elementsJG.queueCountBadge.style.display = appStateJG.queue.length > 0 ? 'inline-block' : 'none';
         }
 
+        function createPlaylistJG() {
+            const playlistName = prompt("新しい道の名前を入力してください:", "マイ・ジャングルミックス");
+            if (playlistName && playlistName.trim() !== "") {
+                const newPlaylist = {
+                    id: `jgpl_${Date.now()}`, // Unique ID
+                    name: playlistName.trim(),
+                    songs: [] // Array of song IDs
+                };
+                appStateJG.userPlaylists.push(newPlaylist);
+                saveToLocalStorageJG(LS_KEYS_JG.PLAYLISTS, appStateJG.userPlaylists);
+                showSnackbarJG(`新しい道「${escapeHTMLJG(newPlaylist.name)}」が作られました！`, "success");
+                if (appStateJG.currentPanel === 'log-paths' && elementsJG.playlistsPanel) {
+                    renderPlaylistsJG();
+                } else {
+                    // Optionally switch to playlist panel
+                    // switchLogPanelJG('log-paths');
+                }
+            } else if (playlistName !== null) { // User entered empty string and pressed OK
+                showSnackbarJG("道の名前は空にできません。", "warning");
+            }
+        }
+
+        function deletePlaylistJG(playlistId) {
+            const playlistIndex = appStateJG.userPlaylists.findIndex(p => p.id === playlistId);
+            if (playlistIndex === -1) return;
+
+            const playlistName = appStateJG.userPlaylists[playlistIndex].name;
+            if (confirm(`本当に道「${escapeHTMLJG(playlistName)}」を削除しますか？この操作は元に戻せません。`)) {
+                appStateJG.userPlaylists.splice(playlistIndex, 1);
+                saveToLocalStorageJG(LS_KEYS_JG.PLAYLISTS, appStateJG.userPlaylists);
+                showSnackbarJG(`道「${escapeHTMLJG(playlistName)}」が削除されました。`, "info");
+                if (appStateJG.currentPanel === 'log-paths' && elementsJG.playlistsPanel) {
+                    renderPlaylistsJG();
+                }
+            }
+        }
+        
+        function findSongByIdJG(songId) { return appStateJG.songs.find(s => s?.id === songId); }
         function formatTimeJG(seconds) {
             if (isNaN(seconds) || seconds < 0) return '0:00';
-            const minutes = Math.floor(seconds / 60);
-            const secs = Math.floor(seconds % 60);
-            return `${minutes}:${secs.toString().padStart(2, '0')}`;
+            const m = Math.floor(seconds / 60), s = Math.floor(seconds % 60);
+            return `${m}:${s.toString().padStart(2, '0')}`;
         }
-
         function escapeHTMLJG(str) {
             if (typeof str !== 'string' || !str) return '';
-            const map = {
-                '&': '&amp;',
-                '<': '&lt;',
-                '>': '&gt;',
-                '"': '&quot;',
-                "'": '&#39;'
-            };
-            return str.replace(/[&<>"']/g, function(m) { return map[m]; });
+            return str.replace(/[&<>"']/g, m => ({'&':'&','<':'<','>':'>','"':'"',"'":'''})[m]);
         }
-
-        function saveToLocalStorageJG(key, data) {
-            try {
-                localStorage.setItem(key, JSON.stringify(data));
-            } catch (e) {
-                console.error("Error saving to localStorage:", key, e);
-                showSnackbarJG("設定の保存に失敗しました...", "error");
-            }
-        }
-
-        function loadFromLocalStorageJG(key) {
-            try {
-                const data = localStorage.getItem(key);
-                return data ? JSON.parse(data) : null;
-            } catch (e) {
-                console.error("Error loading from localStorage:", key, e);
-                return null;
-            }
-        }
-
+        function saveToLocalStorageJG(key, data) { try { localStorage.setItem(key, JSON.stringify(data)); } catch (e) { console.error("LS Save Error:", key, e); showSnackbarJG("設定の保存に失敗...", "error"); }}
+        function loadFromLocalStorageJG(key) { try { const d = localStorage.getItem(key); return d ? JSON.parse(d) : null; } catch (e) { console.error("LS Load Error:", key, e); return null; }}
         function showSnackbarJG(message, type = 'info', duration = 3000) {
-            const snackbarId = 'snackbar-jg-dynamic';
-            let snackbar = document.getElementById(snackbarId);
-            if (!snackbar) {
-                snackbar = document.createElement('div');
-                snackbar.id = snackbarId;
-                Object.assign(snackbar.style, {
-                    position: 'fixed',
-                    bottom: '20px',
-                    left: '50%',
-                    transform: 'translateX(-50%) translateY(100px)', // Start off-screen
-                    padding: '12px 25px',
-                    backgroundColor: '#2c3e50', // Default dark
-                    color: '#ecf0f1',
-                    borderRadius: '8px',
-                    boxShadow: '0 4px 15px rgba(0,0,0,0.3)',
-                    zIndex: '10001', // High z-index
-                    opacity: '0',
-                    transition: 'opacity 0.3s ease, transform 0.3s ease-out',
-                    fontSize: '0.9rem',
-                    fontFamily: 'var(--font-body-jg, sans-serif)', // Use CSS var with fallback
-                    textAlign: 'center',
-                    minWidth: '280px',
-                    maxWidth: '90%'
-                });
-                document.body.appendChild(snackbar);
+            const id = 'snackbar-jg-dynamic'; let sb = document.getElementById(id);
+            if (!sb) {
+                sb = document.createElement('div'); sb.id = id;
+                Object.assign(sb.style, { position:'fixed', bottom:'20px', left:'50%', transform:'translateX(-50%) translateY(100px)', padding:'12px 25px', color:'#ecf0f1', borderRadius:'8px', boxShadow:'0 4px 15px rgba(0,0,0,0.3)', zIndex:'10001', opacity:'0', transition:'opacity 0.3s ease, transform 0.3s ease-out', fontSize:'0.9rem', fontFamily:'var(--font-body-jg, sans-serif)', textAlign:'center', minWidth:'280px', maxWidth:'90%'});
+                document.body.appendChild(sb);
             }
-
-            snackbar.textContent = message;
-            let bgColor = '#34495e'; // Info
-            if (type === 'error') bgColor = '#c0392b'; // Red
-            if (type === 'success') bgColor = '#27ae60'; // Green
-            if (type === 'warning') bgColor = '#f39c12'; // Orange
-            snackbar.style.backgroundColor = bgColor;
-
-            // Ensure transition happens after style changes
-            requestAnimationFrame(() => {
-                snackbar.style.opacity = '1';
-                snackbar.style.transform = 'translateX(-50%) translateY(0)';
-            });
-
+            sb.textContent = message;
+            sb.style.backgroundColor = type === 'error' ? '#c0392b' : type === 'success' ? '#27ae60' : type === 'warning' ? '#f39c12' : '#34495e';
+            requestAnimationFrame(() => { sb.style.opacity = '1'; sb.style.transform = 'translateX(-50%) translateY(0)'; });
             if (appStateJG.snackbarTimeoutId) clearTimeout(appStateJG.snackbarTimeoutId);
-            appStateJG.snackbarTimeoutId = setTimeout(() => {
-                snackbar.style.opacity = '0';
-                snackbar.style.transform = 'translateX(-50%) translateY(100px)';
-            }, duration);
+            appStateJG.snackbarTimeoutId = setTimeout(() => { sb.style.opacity = '0'; sb.style.transform = 'translateX(-50%) translateY(100px)'; }, duration);
         }
-        // ==========================================================================
-        // Initialization on DOM Load
-        // ==========================================================================
+        
         function loadInitialDataJG(isSongDataReload = false) {
-            console.log("loadInitialDataJG - START: Loading data from localStorage and setting theme.");
-            // Load non-song-dependent data only once
+            console.log("loadInitialDataJG - START. isSongDataReload:", isSongDataReload);
             if (!isSongDataReload) {
                 appStateJG.history = loadFromLocalStorageJG(LS_KEYS_JG.HISTORY) || [];
-                 // Favorites are full song objects. If songs haven't loaded, these might be incomplete or point to old data.
-                 // It's better to store favorite IDs and reconstruct with current song list.
-                 // For now, assuming stored favorites are adequate or will be refreshed.
-                const favsFromStorage = loadFromLocalStorageJG(LS_KEYS_JG.FAVORITES) || [];
-                // Filter favorites to ensure they exist in the current songs, if songs are loaded
-                if (appStateJG.songs.length > 0) {
-                    appStateJG.favorites = favsFromStorage.map(favSong => findSongByIdJG(favSong.id)).filter(s => s);
-                } else {
-                    appStateJG.favorites = favsFromStorage; // Use as is if songs not loaded yet
-                }
-
+                appStateJG.favorites = loadFromLocalStorageJG(LS_KEYS_JG.FAVORITES) || []; // Will be filtered/rehydrated if songs exist
                 appStateJG.queue = loadFromLocalStorageJG(LS_KEYS_JG.QUEUE) || [];
+                appStateJG.userPlaylists = loadFromLocalStorageJG(LS_KEYS_JG.PLAYLISTS) || [];
                 appStateJG.currentTheme = loadFromLocalStorageJG(LS_KEYS_JG.THEME) || 'dark';
-
                 if (elementsJG.body && elementsJG.themeToggle) {
-                    if (appStateJG.currentTheme === 'light') {
-                        elementsJG.body.classList.add('light-mode-jg');
-                        elementsJG.themeToggle.innerHTML = `<i class="fas fa-moon"></i>`;
-                    } else {
-                        elementsJG.body.classList.remove('light-mode-jg'); // Ensure it's not there if dark
-                        elementsJG.themeToggle.innerHTML = `<i class="fas fa-sun"></i>`;
-                    }
-                } else {
-                    console.warn("loadInitialDataJG: Body or themeToggle element not found for theme setup.");
+                    if (appStateJG.currentTheme === 'light') elementsJG.body.classList.add('light-mode-jg');
+                    else elementsJG.body.classList.remove('light-mode-jg');
+                    elementsJG.themeToggle.innerHTML = `<i class="fas ${appStateJG.currentTheme === 'light' ? 'fa-moon' : 'fa-sun'}"></i>`;
                 }
                 if(elementsJG.volumeSlider) elementsJG.volumeSlider.value = appStateJG.volume;
-                if (elementsJG.volumeIconMute && elementsJG.volumeIconUp) {
+                 if (elementsJG.volumeIconMute && elementsJG.volumeIconUp) {
                     elementsJG.volumeIconMute.style.opacity = appStateJG.volume === 0 ? '1' : '0.5';
                     elementsJG.volumeIconUp.style.opacity = appStateJG.volume > 0 ? '1' : '0.5';
                 }
             }
 
-
-            // Re-render lists that depend on (potentially updated) song data or localStorage.
-            // This part can be called after initial songs load or after a refresh.
-            if (appStateJG.songs.length > 0) { // Only render if songs are available
-                if (elementsJG.favoritesPanel && (appStateJG.currentPanel === 'log-trophies' || isSongDataReload)) {
-                    // Refresh favorite objects from main song list
-                    appStateJG.favorites = appStateJG.favorites.map(fav => findSongByIdJG(fav.id)).filter(s => s);
-                    saveToLocalStorageJG(LS_KEYS_JG.FAVORITES, appStateJG.favorites); // Save potentially updated favs
-                    renderSongListJG(elementsJG.favoritesPanel, appStateJG.favorites, 'favorites');
+            if (appStateJG.songs.length > 0) { // Rehydrate/filter lists if songs are now available
+                appStateJG.favorites = appStateJG.favorites.map(fav => findSongByIdJG(fav.id)).filter(Boolean);
+                saveToLocalStorageJG(LS_KEYS_JG.FAVORITES, appStateJG.favorites);
+                appStateJG.history = appStateJG.history.map(histSong => findSongByIdJG(histSong.id)).filter(Boolean);
+                saveToLocalStorageJG(LS_KEYS_JG.HISTORY, appStateJG.history);
+                const validQueueIds = appStateJG.queue.map(id => findSongByIdJG(id)).filter(Boolean).map(s => s.id);
+                if (validQueueIds.length !== appStateJG.queue.length) {
+                    appStateJG.queue = validQueueIds;
+                    saveToLocalStorageJG(LS_KEYS_JG.QUEUE, appStateJG.queue);
                 }
-                if (elementsJG.historyPanel && (appStateJG.currentPanel === 'log-history' || isSongDataReload)) {
-                    appStateJG.history = appStateJG.history.map(histSong => findSongByIdJG(histSong.id)).filter(s => s);
-                    saveToLocalStorageJG(LS_KEYS_JG.HISTORY, appStateJG.history);
-                    renderHistoryListJG();
-                }
-                if (elementsJG.queuePanel && (appStateJG.currentPanel === 'log-discoveries' || isSongDataReload)) {
-                    const queueSongs = appStateJG.queue.map(id => findSongByIdJG(id)).filter(s => s);
-                    // If some queued song IDs are no longer in appStateJG.songs, they will be filtered out.
-                    // Update appStateJG.queue to only contain valid, existing song IDs.
-                    const validQueueIds = queueSongs.map(s => s.id);
-                    if (validQueueIds.length !== appStateJG.queue.length) {
-                        appStateJG.queue = validQueueIds;
-                        saveToLocalStorageJG(LS_KEYS_JG.QUEUE, appStateJG.queue);
-                    }
-                    renderSongListJG(elementsJG.queuePanel, queueSongs, 'queue');
-                }
+                 // For userPlaylists, ensure songs within them are valid - can be done when displaying/playing playlist
             }
+            
+            // Render lists based on current panel or if it's a data reload
+            const panelNeedsRender = (panelId) => appStateJG.currentPanel === panelId || isSongDataReload;
+
+            if (elementsJG.favoritesPanel && panelNeedsRender('log-trophies')) renderSongListJG(elementsJG.favoritesPanel, appStateJG.favorites, 'favorites');
+            if (elementsJG.historyPanel && panelNeedsRender('log-history')) renderHistoryListJG();
+            if (elementsJG.queuePanel && panelNeedsRender('log-discoveries')) renderSongListJG(elementsJG.queuePanel, appStateJG.queue.map(id => findSongByIdJG(id)).filter(Boolean), 'queue');
+            if (elementsJG.playlistsPanel && panelNeedsRender('log-paths')) renderPlaylistsJG();
+
             updateQueueCountBadgeJG();
-
-            console.log("loadInitialDataJG - END. isSongDataReload:", isSongDataReload);
+            console.log("loadInitialDataJG - END.");
         }
-
 
         document.addEventListener('DOMContentLoaded', () => {
             console.log("DOMContentLoaded - START. Initializing Jungle Groove...");
-            initializeElementsJG();    // Initialize DOM elements first
-            loadInitialDataJG(false);  // Load preferences, history, favorites from localStorage, set theme (initial load)
-            setupEventListenersJG();   // Setup all static event listeners
-            
-            // Set initial UI state for player controls that depend on appStateJG
-            updatePlayerUIGJ(null); // Set to default state initially
+            initializeElementsJG();
+            loadInitialDataJG(false);
+            setupEventListenersJG();
+            updatePlayerUIGJ(null);
             if (elementsJG.btnShuffle) elementsJG.btnShuffle.classList.toggle('active-control', appStateJG.isShuffle);
             if (elementsJG.btnLoop) {
                 elementsJG.btnLoop.classList.toggle('active-control', appStateJG.loopMode !== 'none');
-                 if (appStateJG.loopMode === 'one') {
-                    // Ensure the '1' indicator is correctly managed if it was complex HTML
-                    if (!elementsJG.btnLoop.querySelector('.loop-indicator-jg')) {
-                         const indicator = document.createElement('span');
-                         indicator.className = 'loop-indicator-jg';
-                         indicator.textContent = '1';
-                         elementsJG.btnLoop.appendChild(indicator);
-                    } else {
-                        elementsJG.btnLoop.querySelector('.loop-indicator-jg').textContent = '1';
-                    }
-                } else {
-                     const indicator = elementsJG.btnLoop.querySelector('.loop-indicator-jg');
-                     if (indicator) indicator.remove();
-                }
+                let indicator = elementsJG.btnLoop.querySelector('.loop-indicator-jg');
+                if (appStateJG.loopMode === 'one') {
+                    if (!indicator) { indicator = document.createElement('span'); indicator.className = 'loop-indicator-jg'; elementsJG.btnLoop.appendChild(indicator); }
+                    indicator.textContent = '1';
+                } else if (indicator) indicator.remove();
             }
-
-            // Initial render for the active panel (default is library, which will be populated after songs load)
-            // Other panels like playlists, if they had static content or different loading, could be handled here.
-            if (appStateJG.currentPanel !== 'log-library') { // If default panel isn't library
-                switchLogPanelJG(appStateJG.currentPanel); // Ensure correct panel content is shown
-            }
-
-
-            console.log("DOMContentLoaded - END. UI initialized. Waiting for YouTube API to call onYouTubeIframeAPIReady to load songs and player.");
-            // Song loading (loadInitialSongsJG) is triggered by onPlayerReadyJG which is called by the YouTube API
+            if (appStateJG.currentPanel !== 'log-library') switchLogPanelJG(appStateJG.currentPanel);
+            console.log("DOMContentLoaded - END. UI initialized.");
         });
     </script>
 </body>
