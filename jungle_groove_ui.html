@@ -188,11 +188,11 @@
             font-family: var(--font-display-jg);
             font-size: 2.5rem; font-weight: 700;
             color: var(--jg-text-light); margin-bottom: 0.25rem;
-            min-height: 1.2em;
+            min-height: 1.2em; /* Prevents jump when text changes */
         }
         #artist-name-jg {
             font-size: 1.1rem; color: var(--jg-text-earth);
-            min-height: 1.2em;
+            min-height: 1.2em; /* Prevents jump */
         }
 
         .player-controls-jg { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
@@ -284,6 +284,7 @@
             background: var(--jg-accent-waterfall); color: white; font-size: 0.7rem;
             padding: 1px 5px; border-radius: 8px; margin-left: 0.3rem;
             font-family: var(--font-body-jg);
+            display: none; /* Initially hidden, shown by JS if queue > 0 */
         }
 
         .log-content-jg { flex-grow: 1; overflow-y: auto; }
@@ -323,18 +324,25 @@
             flex-shrink: 0;
         }
 
-        .log-entry-jg > div { flex-grow: 1; overflow:hidden; }
+        .log-entry-jg > div { flex-grow: 1; overflow:hidden; min-width: 0; /* Fix for ellipsis with flex */}
         .log-entry-jg .title { display: block; font-weight: 600; color: var(--jg-text-light); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
         .log-entry-jg .artist { display: block; font-size: 0.85rem; color: var(--jg-text-earth); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
         .log-entry-jg .duration { font-size: 0.85rem; color: var(--jg-text-shadow); margin-left: auto; padding-left:0.5rem; flex-shrink: 0; }
-        .log-entry-jg > button.song-item-action-jg {
-            background: none; border: none; padding: 0.5rem; margin-left: 0.5rem;
-            cursor: pointer; flex-shrink: 0;
+        
+        .log-entry-actions-jg { display: flex; align-items: center; flex-shrink: 0; margin-left: 0.25rem;}
+        .log-entry-jg .song-item-action-jg {
+            background: none; border: none; padding: 0.3rem 0.4rem; /* Adjusted padding */
+            cursor: pointer;
         }
-        .log-entry-jg > button.song-item-action-jg i {
+        .log-entry-jg .song-item-action-jg i {
             font-size: 1rem; color: var(--jg-text-shadow); transition: color 0.2s;
         }
-        .log-entry-jg:hover > button.song-item-action-jg i { color: var(--jg-accent-sunburst); }
+        .log-entry-jg:hover .song-item-action-jg i { color: var(--jg-accent-sunburst); }
+        /* Make favorite heart stand out more when active */
+        .log-entry-jg .song-item-action-jg.favorite-action-jg i.fa-heart { color: var(--jg-accent-sunburst); }
+        .log-entry-jg:hover .song-item-action-jg.favorite-action-jg i.fa-heart { color: var(--jg-accent-waterfall); } /* Example hover for active favorite */
+
+
         /* Fallback for the static HTML example (the last <i> in log-entry-jg) */
         .log-entry-jg > i.fa-feather-alt, .log-entry-jg > i.fa-play-circle {
              font-size: 1rem; color: var(--jg-text-shadow); transition: color 0.2s; margin-left: auto; padding-left:0.5rem; flex-shrink: 0;
@@ -413,6 +421,9 @@
             }
             .log-entry-jg .title { font-size: 0.9rem;}
             .log-entry-jg .artist { font-size: 0.75rem;}
+            .log-entry-actions-jg { margin-left: 0.1rem; }
+            .log-entry-jg .song-item-action-jg { padding: 0.2rem 0.3rem; }
+            .log-entry-jg .song-item-action-jg i { font-size: 0.9rem; }
         }
 
         /* Light mode styles - Toggled by JS */
@@ -464,7 +475,7 @@
         body.light-mode-jg .control-rock.play {
             background-color: var(--jg-accent-canopy);
             border-color: var(--jg-accent-canopy);
-            color: var(--jg-text-light);
+            color: var(--jg-text-light); /* Ensure this text is readable on the accent color */
         }
          body.light-mode-jg .control-rock.active-control {
             color: var(--jg-accent-sunburst) !important;
@@ -584,13 +595,19 @@
                             <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Song Thumbnail" class="img-placeholder list-thumb-placeholder">
                             <div><span class="title">King of the Beats</span><span class="artist">Leo Roars</span></div>
                             <span class="duration">3:15</span>
-                            <button class="song-item-action-jg" aria-label="Favorite"> <i class="fas fa-feather-alt"></i></button>
+                            <div class="log-entry-actions-jg">
+                                <button class="song-item-action-jg add-to-queue-action-jg" title="キューに追加" aria-label="キューに追加"> <i class="fas fa-stream"></i></button>
+                                <button class="song-item-action-jg favorite-action-jg" title="お気に入りに追加" aria-label="お気に入りに追加"> <i class="fas fa-feather-alt"></i></button>
+                            </div>
                         </div>
                         <div class="log-entry-jg active-song">
                              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Song Thumbnail" class="img-placeholder list-thumb-placeholder">
                             <div><span class="title">Monkey Business Funk</span><span class="artist">Primate Groove</span></div>
                             <span class="duration">2:50</span>
-                            <button class="song-item-action-jg" aria-label="Favorite"> <i class="fas fa-feather-alt"></i></button>
+                            <div class="log-entry-actions-jg">
+                                <button class="song-item-action-jg add-to-queue-action-jg" title="キューに追加" aria-label="キューに追加"> <i class="fas fa-stream"></i></button>
+                                <button class="song-item-action-jg favorite-action-jg" title="お気に入りに追加" aria-label="お気に入りに追加"> <i class="fas fa-feather-alt"></i></button>
+                            </div>
                         </div>
                     </div>
                     <div id="log-paths" class="log-panel-jg">
@@ -718,7 +735,7 @@
             player: null,
             songs: [],
             filteredSongs: [],
-            currentSongIndex: -1,
+            currentSongIndex: -1, // Index in appStateJG.songs of the currently loaded/playing song
             isPlaying: false,
             isShuffle: false,
             loopMode: 'none', // 'none', 'all', 'one'
@@ -726,10 +743,10 @@
             volume: 75,
             progressInterval: null,
             history: [],
-            favorites: [],
+            favorites: [], // Array of full song objects
             userPlaylists: [],
-            queue: [],
-            currentQueueIndex: -1, // For queue playback
+            queue: [], // Array of song IDs
+            currentQueueIndex: -1, // Index in appStateJG.queue when playMode is 'queue'
             playMode: 'library', // 'library', 'queue'
             isPlayerReady: false,
             snackbarTimeoutId: null,
@@ -953,10 +970,9 @@
                     }
                 }
             }
-             // After loading songs, re-render queue if it depends on song details
-            if (appStateJG.currentPanel === 'log-discoveries' && elementsJG.queuePanel) {
-                renderSongListJG(elementsJG.queuePanel, appStateJG.queue.map(id => findSongByIdJG(id)).filter(s => s), 'queue');
-            }
+             // After loading songs, re-render queue as it depends on song details from appStateJG.songs
+            // And other lists that might have stored IDs that need full song objects
+            loadInitialDataJG(true); // Call with a flag to re-render lists if songs are now available
         }
         // ==========================================================================
         // UI Rendering
@@ -976,7 +992,7 @@
                     emptyMessage = `「${escapeHTMLJG(elementsJG.searchInput.value)}」に合う冒険は見つからなかった...`;
                 } else if (context === 'queue') {
                     emptyTitle = "キューは空っぽ";
-                    emptyMessage = "次の冒険の準備をしよう！";
+                    emptyMessage = "次の冒険の準備をしよう！ライブラリから曲を追加できます。";
                 } else if (context === 'favorites') {
                     emptyTitle = "お気に入りの宝物なし";
                     emptyMessage = "まだお気に入りの発見がないようだ。曲の羽アイコンをクリック！";
@@ -989,30 +1005,24 @@
             }
 
             const fragment = document.createDocumentFragment();
-            songsToRender.forEach(song => {
+            songsToRender.forEach((song, listIndex) => { // listIndex is specific to songsToRender
                 if (!song || !song.id) {
                     console.warn("Skipping invalid song object in renderSongListJG:", song);
                     return;
                 }
-                // Find the song's original index in the main appStateJG.songs list
-                // This is crucial because appStateJG.currentSongIndex refers to this main list
                 const originalSongIndex = appStateJG.songs.findIndex(s => s.id === song.id);
-
-                // Determine if the song is the currently playing song
-                // Compare based on song ID because currentSongIndex might not align if lists are filtered/shuffled differently
                 const currentPlayingSong = appStateJG.songs[appStateJG.currentSongIndex];
                 const isActive = currentPlayingSong && currentPlayingSong.id === song.id;
-
                 const isFavorited = appStateJG.favorites.some(fav => fav.id === song.id);
+                const artistName = song.artist || "Rei Kikuchi";
 
                 const entry = document.createElement('div');
                 entry.className = `log-entry-jg ${isActive ? 'active-song' : ''}`;
                 entry.dataset.id = song.id;
-                // Store the original index to use when playing the song from this list item
-                entry.dataset.originalIndex = originalSongIndex; // Important for playSongAtIndexJG
-
-                // Default artist if not available
-                const artistName = song.artist || "Rei Kikuchi";
+                entry.dataset.originalIndex = originalSongIndex; // Index in appStateJG.songs
+                if (context === 'queue') {
+                    entry.dataset.queueIndex = listIndex; // Index in the current queue rendering
+                }
 
                 entry.innerHTML = `
                     <img src="${song.thumbnail || 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'}"
@@ -1023,30 +1033,64 @@
                         <span class="artist">${escapeHTMLJG(artistName)}</span>
                     </div>
                     <span class="duration">${song.duration || '--:--'}</span>
-                    <button class="song-item-action-jg" aria-label="${isFavorited ? 'お気に入りから削除' : 'お気に入りに追加'}">
-                        <i class="fas ${isFavorited ? 'fa-heart text-jg-accent-sunburst' : 'fa-feather-alt'}"></i>
-                    </button>
+                    <div class="log-entry-actions-jg">
+                        ${context !== 'queue' ? `
+                            <button class="song-item-action-jg add-to-queue-action-jg" title="キューに追加" aria-label="キューに追加">
+                                <i class="fas fa-stream"></i>
+                            </button>
+                        ` : ''}
+                        <button class="song-item-action-jg favorite-action-jg" title="${isFavorited ? 'お気に入りから削除' : 'お気に入りに追加'}" aria-label="${isFavorited ? 'お気に入りから削除' : 'お気に入りに追加'}">
+                            <i class="fas ${isFavorited ? 'fa-heart text-jg-accent-sunburst' : 'fa-feather-alt'}"></i>
+                        </button>
+                    </div>
                 `;
 
+                const favButton = entry.querySelector('.favorite-action-jg');
+                if (favButton) {
+                    favButton.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        toggleFavoriteJG(song.id, favButton.querySelector('i'), favButton);
+                    });
+                }
+
+                const addToQueueButton = entry.querySelector('.add-to-queue-action-jg');
+                if (addToQueueButton) {
+                    addToQueueButton.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        addToQueueJG(song.id);
+                    });
+                }
+
                 entry.addEventListener('click', (e) => {
-                    const clickedButton = e.target.closest('.song-item-action-jg');
-                    if (clickedButton) {
-                        toggleFavoriteJG(song.id, clickedButton.querySelector('i'));
-                    } else {
-                        // Use the stored original index to play the song
-                        const indexToPlay = parseInt(entry.dataset.originalIndex, 10);
-                        if (!isNaN(indexToPlay) && indexToPlay !== -1) {
-                            playSongAtIndexJG(indexToPlay);
-                        } else {
-                            // Fallback if originalIndex is not found (e.g. song from a dynamic playlist not in main list)
-                            // In this app, all displayable songs should be from appStateJG.songs
-                            console.warn("Could not find original index for song:", song.title);
-                            // Try to find it again, or handle error
-                            const freshIndex = appStateJG.songs.findIndex(s => s.id === song.id);
-                            if (freshIndex !== -1) playSongAtIndexJG(freshIndex);
-                            else showSnackbarJG("この曲は現在再生できません。", "error");
-                        }
+                    if (e.target.closest('.song-item-action-jg')) return; // Action handled by button specific listeners
+                    
+                    const songIdToPlay = entry.dataset.id;
+                    const originalIdx = parseInt(entry.dataset.originalIndex, 10);
+
+                    if (isNaN(originalIdx) || originalIdx === -1) {
+                         const freshIndex = appStateJG.songs.findIndex(s => s.id === songIdToPlay);
+                         if (freshIndex !== -1) playSongAtIndexJG(freshIndex);
+                         else {
+                            showSnackbarJG("この曲は現在再生できません。", "error");
+                            return;
+                         }
                     }
+
+                    if (context === 'queue') {
+                        appStateJG.playMode = 'queue';
+                        // Ensure currentQueueIndex refers to the index in appStateJG.queue, not listIndex if queue was filtered/sorted
+                        appStateJG.currentQueueIndex = appStateJG.queue.findIndex(id_in_queue => id_in_queue === songIdToPlay);
+                         if (appStateJG.currentQueueIndex === -1) { // Should not happen if rendering from appStateJG.queue
+                            console.error("Song from queue panel not found in appStateJG.queue");
+                            appStateJG.playMode = 'library'; // Fallback
+                         }
+                    } else {
+                        appStateJG.playMode = 'library';
+                        // If playing from library/fav/hist, and it's in queue, currentQueueIndex should be unset or point to it if desired.
+                        // For simplicity, starting a song outside queue panel sets playMode to library.
+                        appStateJG.currentQueueIndex = -1;
+                    }
+                    playSongAtIndexJG(originalIdx);
                 });
                 fragment.appendChild(entry);
             });
@@ -1121,7 +1165,7 @@
         // ==========================================================================
         // Player Controls
         // ==========================================================================
-        function playSongAtIndexJG(index) {
+        function playSongAtIndexJG(index) { // index is always from appStateJG.songs
             if (index < 0 || !appStateJG.songs || index >= appStateJG.songs.length) {
                 console.warn("Invalid song index:", index, "Song list length:", appStateJG.songs?.length);
                 return;
@@ -1133,7 +1177,7 @@
                 return;
             }
 
-            console.log("Playing song:", song.title, "at index:", index, "ID:", song.id);
+            console.log(`Playing song: "${song.title}" (ID: ${song.id}), Index: ${index}, PlayMode: ${appStateJG.playMode}, QueueIndex: ${appStateJG.currentQueueIndex}`);
             updatePlayerUIGJ(song);
 
             if (appStateJG.player && appStateJG.isPlayerReady && song.id) {
@@ -1150,8 +1194,7 @@
             }
             addToHistoryJG(song);
             if (appStateJG.currentPanel === 'log-history' && elementsJG.historyPanel) renderHistoryListJG();
-
-            appStateJG.playMode = 'library'; // Default to library, can be overridden if playing from queue
+            // playMode is set by the caller of playSongAtIndexJG
         }
 
         function togglePlayPauseJG() {
@@ -1160,7 +1203,9 @@
                 return;
             }
             if (appStateJG.currentSongIndex === -1 && appStateJG.songs && appStateJG.songs.length > 0) {
-                playSongAtIndexJG(0); // Play first song if none selected
+                // If nothing is loaded, play first song from library by default
+                appStateJG.playMode = 'library';
+                playSongAtIndexJG(0);
                 return;
             }
             if (appStateJG.currentSongIndex === -1 && (!appStateJG.songs || appStateJG.songs.length === 0)) {
@@ -1177,97 +1222,131 @@
 
         function playNextJG() {
             if (!appStateJG.songs || appStateJG.songs.length === 0) return;
-            let nextIndex;
+            
+            let nextSongOriginalIndex = -1;
 
             if (appStateJG.playMode === 'queue' && appStateJG.queue.length > 0) {
                 appStateJG.currentQueueIndex++;
-                if (appStateJG.currentQueueIndex < appStateJG.queue.length) {
-                    const nextSongIdInQueue = appStateJG.queue[appStateJG.currentQueueIndex];
-                    nextIndex = appStateJG.songs.findIndex(s => s.id === nextSongIdInQueue);
-                    if (nextIndex === -1) { // Song from queue not found in main list, fallback
-                        console.warn("Song from queue not found, playing next from library logic.");
-                        return playNextGeneralLogic(); // Use general logic
-                    }
-                } else { // End of queue
-                    if (appStateJG.loopMode === 'all' || appStateJG.loopMode === 'one') { // Loop queue if 'all' or 'one' (treats queue as the 'all')
+                if (appStateJG.currentQueueIndex >= appStateJG.queue.length) { // End of queue
+                    if (appStateJG.loopMode === 'all') {
                         appStateJG.currentQueueIndex = 0;
-                        const nextSongIdInQueue = appStateJG.queue[appStateJG.currentQueueIndex];
-                        nextIndex = appStateJG.songs.findIndex(s => s.id === nextSongIdInQueue);
-                        if (nextIndex === -1) return playNextGeneralLogic();
                     } else {
                         showSnackbarJG("キューの再生が終わりました。", "info");
                         appStateJG.isPlaying = false;
                         updatePlayPauseButtonJG();
-                        return;
+                        appStateJG.playMode = 'library'; // Revert to library mode
+                        appStateJG.currentQueueIndex = -1;
+                        return; // Stop playback
                     }
                 }
-            } else {
-                // Standard library playback or if queue is empty/not active
-                nextIndex = playNextGeneralLogic(true); // Pass true to indicate it can stop
-                if (nextIndex === -1) return; // Means playback stopped
-            }
-            playSongAtIndexJG(nextIndex);
-        }
-
-        function playNextGeneralLogic(canStop = false) {
-            let nextIndex = appStateJG.currentSongIndex;
-            if (appStateJG.isShuffle) {
-                if (appStateJG.songs.length <= 1) nextIndex = 0;
-                else do { nextIndex = Math.floor(Math.random() * appStateJG.songs.length); } while (nextIndex === appStateJG.currentSongIndex && appStateJG.songs.length > 1);
-            } else {
-                nextIndex = (appStateJG.currentSongIndex + 1);
-                if (nextIndex >= appStateJG.songs.length) {
-                    if (appStateJG.loopMode === 'all') nextIndex = 0;
-                    else if (canStop) { // Only stop if canStop is true (e.g. end of library, no loop)
-                        showSnackbarJG("探検の終わりです！", "info");
-                        appStateJG.isPlaying = false;
-                        updatePlayPauseButtonJG();
-                        return -1; // Indicate stop
-                    } else {
-                        nextIndex = 0; // Loop if not allowed to stop (e.g. from queue that fell through)
+                const nextSongIdInQueue = appStateJG.queue[appStateJG.currentQueueIndex];
+                nextSongOriginalIndex = appStateJG.songs.findIndex(s => s.id === nextSongIdInQueue);
+                
+                if (nextSongOriginalIndex === -1) {
+                    console.warn(`Song ID ${nextSongIdInQueue} from queue not found in main song list. Skipping.`);
+                    playNextJG(); // Try to play the next one in queue
+                    return;
+                }
+            } else { // playMode is 'library' or queue is empty
+                if (appStateJG.isShuffle) {
+                    if (appStateJG.songs.length <= 1) nextSongOriginalIndex = 0;
+                    else {
+                        let randomIndex;
+                        do { 
+                            randomIndex = Math.floor(Math.random() * appStateJG.songs.length);
+                        } while (randomIndex === appStateJG.currentSongIndex && appStateJG.songs.length > 1);
+                        nextSongOriginalIndex = randomIndex;
+                    }
+                } else { // Sequential playback
+                    nextSongOriginalIndex = appStateJG.currentSongIndex + 1;
+                    if (nextSongOriginalIndex >= appStateJG.songs.length) {
+                        if (appStateJG.loopMode === 'all') {
+                            nextSongOriginalIndex = 0;
+                        } else {
+                            showSnackbarJG("探検の終わりです！", "info");
+                            appStateJG.isPlaying = false;
+                            updatePlayPauseButtonJG();
+                            // currentSongIndex remains at the last song, playMode is still library
+                            return; // Stop playback
+                        }
                     }
                 }
             }
-            return nextIndex;
+            
+            if (nextSongOriginalIndex !== -1) {
+                playSongAtIndexJG(nextSongOriginalIndex);
+            } else if (appStateJG.playMode === 'library') { // Should be caught by shuffle/sequential logic, but as a fallback
+                 console.warn("Could not determine next song in library mode.");
+            }
         }
 
 
         function playPrevJG() {
             if (!appStateJG.songs || appStateJG.songs.length === 0) return;
 
-            // If playing from queue, previous means previous in queue
-            if (appStateJG.playMode === 'queue' && appStateJG.queue.length > 0 && appStateJG.currentQueueIndex > 0) {
-                 appStateJG.currentQueueIndex--;
-                 const prevSongIdInQueue = appStateJG.queue[appStateJG.currentQueueIndex];
-                 const originalIndex = appStateJG.songs.findIndex(s => s.id === prevSongIdInQueue);
-                 if (originalIndex !== -1) {
-                     playSongAtIndexJG(originalIndex);
-                     return;
-                 }
-                 // If song not found, fall through to general logic
-            }
-
-
+            // If current song has played for more than 3 seconds, restart it
             if (appStateJG.player && appStateJG.player.getCurrentTime && appStateJG.player.getCurrentTime() > 3) {
                 appStateJG.player.seekTo(0);
                 return;
             }
 
-            let prevIndex;
-            if (appStateJG.isShuffle) {
-                if (appStateJG.songs.length <= 1) prevIndex = 0;
-                else do { prevIndex = Math.floor(Math.random() * appStateJG.songs.length); } while (prevIndex === appStateJG.currentSongIndex && appStateJG.songs.length > 1);
-            } else {
-                prevIndex = (appStateJG.currentSongIndex - 1 + appStateJG.songs.length) % appStateJG.songs.length;
+            let prevSongOriginalIndex = -1;
+
+            if (appStateJG.playMode === 'queue' && appStateJG.queue.length > 0) {
+                appStateJG.currentQueueIndex--;
+                if (appStateJG.currentQueueIndex < 0) { // Start of queue
+                    if (appStateJG.loopMode === 'all' && appStateJG.queue.length > 0) {
+                        appStateJG.currentQueueIndex = appStateJG.queue.length - 1;
+                    } else {
+                        // At the beginning of queue, not looping all: just restart current song or do nothing
+                        appStateJG.currentQueueIndex = 0; // Stay at first song of queue
+                        if (appStateJG.player && appStateJG.player.seekTo) appStateJG.player.seekTo(0);
+                        return;
+                    }
+                }
+                const prevSongIdInQueue = appStateJG.queue[appStateJG.currentQueueIndex];
+                prevSongOriginalIndex = appStateJG.songs.findIndex(s => s.id === prevSongIdInQueue);
+
+                if (prevSongOriginalIndex === -1) {
+                    console.warn(`Song ID ${prevSongIdInQueue} from queue not found in main song list. Skipping to previous.`);
+                    playPrevJG(); // Try to play the previous one
+                    return;
+                }
+            } else { // playMode is 'library' or queue is empty
+                if (appStateJG.isShuffle) {
+                     if (appStateJG.songs.length <= 1) prevSongOriginalIndex = 0;
+                     else {
+                        let randomIndex;
+                        do { 
+                            randomIndex = Math.floor(Math.random() * appStateJG.songs.length);
+                        } while (randomIndex === appStateJG.currentSongIndex && appStateJG.songs.length > 1);
+                        prevSongOriginalIndex = randomIndex;
+                    }
+                } else { // Sequential playback
+                    prevSongOriginalIndex = appStateJG.currentSongIndex - 1;
+                    if (prevSongOriginalIndex < 0) {
+                        if (appStateJG.loopMode === 'all') {
+                            prevSongOriginalIndex = appStateJG.songs.length - 1;
+                        } else {
+                            // At the beginning of library, not looping: restart current song or do nothing
+                            prevSongOriginalIndex = 0; // Stay at first song of library
+                            if (appStateJG.player && appStateJG.player.seekTo) appStateJG.player.seekTo(0);
+                            return;
+                        }
+                    }
+                }
             }
-            playSongAtIndexJG(prevIndex);
+            
+            if (prevSongOriginalIndex !== -1) {
+                playSongAtIndexJG(prevSongOriginalIndex);
+            }
         }
 
         function handleSongEndJG() {
-            if (appStateJG.loopMode === 'one') {
+            if (appStateJG.loopMode === 'one' && appStateJG.currentSongIndex !== -1) {
                 playSongAtIndexJG(appStateJG.currentSongIndex); // Replay current song
             } else {
-                playNextJG(); // This will handle queue, shuffle, and 'all' loop correctly
+                playNextJG(); // Handles queue, shuffle, and 'all' loop for current playMode
             }
         }
 
@@ -1342,7 +1421,7 @@
             if (appStateJG.isPlaying) {
                 if (appStateJG.progressInterval) clearInterval(appStateJG.progressInterval);
                 appStateJG.progressInterval = setInterval(updateProgressJG, 250);
-                updateProgressJG();
+                updateProgressJG(); // Call once immediately
             } else {
                 clearInterval(appStateJG.progressInterval);
                  if (playerState === YT.PlayerState.PAUSED || playerState === YT.PlayerState.BUFFERING || playerState === YT.PlayerState.ENDED || playerState === YT.PlayerState.CUED) {
@@ -1355,6 +1434,28 @@
             }
             if (playerState === YT.PlayerState.PLAYING) {
                 updateActiveListItemJG(); // Ensure active item is highlighted on play
+                 // If playing, and playMode is queue, ensure currentQueueIndex is valid for the current song
+                if (appStateJG.playMode === 'queue') {
+                    const currentSongObject = appStateJG.songs[appStateJG.currentSongIndex];
+                    if (currentSongObject) {
+                        const songIdInQueue = appStateJG.queue[appStateJG.currentQueueIndex];
+                        if (songIdInQueue !== currentSongObject.id) {
+                            // This means currentSongIndex and currentQueueIndex are out of sync.
+                            // This can happen if a song was played from library while queue was active.
+                            // Re-align currentQueueIndex or switch playMode.
+                            const newQueueIndex = appStateJG.queue.findIndex(id => id === currentSongObject.id);
+                            if (newQueueIndex !== -1) {
+                                appStateJG.currentQueueIndex = newQueueIndex;
+                                console.log("Re-aligned currentQueueIndex to:", newQueueIndex);
+                            } else {
+                                // Current song is not in queue, so switch to library mode
+                                console.log("Current song not in queue. Switching to library mode.");
+                                appStateJG.playMode = 'library';
+                                appStateJG.currentQueueIndex = -1;
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -1457,7 +1558,6 @@
                     break;
                 case 'log-paths': // Playlists
                     if(elementsJG.playlistsPanel) {
-                        // For now, show empty or placeholder. Implement playlist rendering when ready.
                         showEmptyMessageInPanelJG(elementsJG.playlistsPanel, "まだ道は描かれていない", "自分だけの音楽の道を作ろう！");
                     }
                     break;
@@ -1479,6 +1579,7 @@
             if (appStateJG.currentPanel === 'log-library' && elementsJG.libraryPanel) {
                 renderSongListJG(elementsJG.libraryPanel, appStateJG.filteredSongs, 'library');
             }
+            // Potentially filter other lists too if desired, e.g., favorites
         }
 
         function toggleShuffleJG() {
@@ -1495,7 +1596,7 @@
             else appStateJG.loopMode = 'none';
 
             elementsJG.btnLoop.classList.toggle('active-control', appStateJG.loopMode !== 'none');
-            const loopIcon = elementsJG.btnLoop.querySelector('i');
+            // const loopIcon = elementsJG.btnLoop.querySelector('i'); // Not used directly
             let loopIndicator = elementsJG.btnLoop.querySelector('.loop-indicator-jg');
 
             if (appStateJG.loopMode === 'one') {
@@ -1511,7 +1612,7 @@
 
             let loopMsg = "リピート: ";
             if(appStateJG.loopMode === 'none') loopMsg += "OFF";
-            if(appStateJG.loopMode === 'all') loopMsg += "ジャングル全体";
+            if(appStateJG.loopMode === 'all') loopMsg += "ジャングル全体" + (appStateJG.playMode === 'queue' && appStateJG.queue.length > 0 ? " (キュー)" : "");
             if(appStateJG.loopMode === 'one') loopMsg += "この一本の木";
             showSnackbarJG(loopMsg);
         }
@@ -1520,7 +1621,7 @@
         // ==========================================================================
         function addToHistoryJG(song) {
             if (!song || !song.id) return;
-            appStateJG.history = appStateJG.history.filter(s => s.id !== song.id); // Remove if already exists
+            appStateJG.history = appStateJG.history.filter(s => s.id !== song.id); // Remove if already exists to re-add to top
             appStateJG.history.unshift(song); // Add to the beginning (most recent)
             if (appStateJG.history.length > MAX_HISTORY_JG) appStateJG.history.pop(); // Keep max size
             saveToLocalStorageJG(LS_KEYS_JG.HISTORY, appStateJG.history);
@@ -1528,45 +1629,60 @@
 
         function renderHistoryListJG() {
             if (elementsJG.historyPanel) {
-                 // History is stored most recent first, so display as is.
                  renderSongListJG(elementsJG.historyPanel, appStateJG.history, 'history');
             }
         }
 
-        function toggleFavoriteJG(songId, iconElement) {
+        function toggleFavoriteJG(songId, iconElement, buttonElement) {
             const songIndexInFavorites = appStateJG.favorites.findIndex(s => s.id === songId);
-            const song = findSongByIdJG(songId); // Get full song object from main list
+            const song = findSongByIdJG(songId); 
             if (!song) {
                 console.warn("Cannot favorite: song not found in main list with ID", songId);
                 return;
             }
 
             let isNowFavorite = false;
-            if (songIndexInFavorites > -1) { // Already a favorite, remove it
+            if (songIndexInFavorites > -1) { 
                 appStateJG.favorites.splice(songIndexInFavorites, 1);
                 showSnackbarJG(`「${escapeHTMLJG(song.title)}」をジャングルの秘宝から外した...`);
-            } else { // Not a favorite, add it
-                appStateJG.favorites.push(song); // Add the full song object
+            } else { 
+                appStateJG.favorites.push(song); 
                 isNowFavorite = true;
                 showSnackbarJG(`「${escapeHTMLJG(song.title)}」を秘宝として発見！`, "success");
             }
-
-            // Update the icon on the clicked element immediately
-            if (iconElement) {
-                iconElement.className = `fas ${isNowFavorite ? 'fa-heart text-jg-accent-sunburst' : 'fa-feather-alt'}`;
-                iconElement.closest('button').setAttribute('aria-label', isNowFavorite ? 'お気に入りから削除' : 'お気に入りに追加');
-            }
+            
             saveToLocalStorageJG(LS_KEYS_JG.FAVORITES, appStateJG.favorites);
+
+            // Update icon and aria-label on the clicked button
+            if (iconElement) iconElement.className = `fas ${isNowFavorite ? 'fa-heart text-jg-accent-sunburst' : 'fa-feather-alt'}`;
+            if (buttonElement) buttonElement.setAttribute('aria-label', isNowFavorite ? 'お気に入りから削除' : 'お気に入りに追加');
+
 
             // If the favorites panel is active, re-render it
             if (appStateJG.currentPanel === 'log-trophies' && elementsJG.favoritesPanel) {
                  renderSongListJG(elementsJG.favoritesPanel, appStateJG.favorites, 'favorites');
             }
-            // Update icons on all instances of this song in any visible list
-            document.querySelectorAll(`.log-entry-jg[data-id="${songId}"] .song-item-action-jg i`).forEach(icon => {
-                icon.className = `fas ${isNowFavorite ? 'fa-heart text-jg-accent-sunburst' : 'fa-feather-alt'}`;
-                icon.closest('button').setAttribute('aria-label', isNowFavorite ? 'お気に入りから削除' : 'お気に入りに追加');
+            // Update icons on all instances of this song in any visible list (e.g. if same song in library and history)
+             document.querySelectorAll(`.log-entry-jg[data-id="${songId}"] .favorite-action-jg`).forEach(btn => {
+                btn.querySelector('i').className = `fas ${isNowFavorite ? 'fa-heart text-jg-accent-sunburst' : 'fa-feather-alt'}`;
+                btn.setAttribute('aria-label', isNowFavorite ? 'お気に入りから削除' : 'お気に入りに追加');
             });
+        }
+        
+        function addToQueueJG(songId) {
+            const song = findSongByIdJG(songId);
+            if (!song) {
+                showSnackbarJG("曲が見つかりません。", "error");
+                return;
+            }
+            appStateJG.queue.push(songId); // Add song ID to queue
+            saveToLocalStorageJG(LS_KEYS_JG.QUEUE, appStateJG.queue);
+            updateQueueCountBadgeJG();
+            showSnackbarJG(`「${escapeHTMLJG(song.title)}」をキューに追加しました。`, "success");
+
+            if (appStateJG.currentPanel === 'log-discoveries' && elementsJG.queuePanel) {
+                renderSongListJG(elementsJG.queuePanel, appStateJG.queue.map(id => findSongByIdJG(id)).filter(s => s), 'queue');
+            }
         }
 
         function updateQueueCountBadgeJG() {
@@ -1578,7 +1694,7 @@
         // ==========================================================================
         // Utility Functions
         // ==========================================================================
-        function findSongByIdJG(songId) {
+        function findSongByIdJG(songId) { // Finds from appStateJG.songs
             if (!songId || !appStateJG.songs) return null;
             return appStateJG.songs.find(s => s && s.id === songId);
         }
@@ -1593,11 +1709,11 @@
         function escapeHTMLJG(str) {
             if (typeof str !== 'string' || !str) return '';
             const map = {
-                '&': '&',
-                '<': '<',
+                '&': '&amp;',
+                '<': '&lt;',
                 '>': '&gt;',
                 '"': '&quot;',
-                "'": '&apos;' // HTML5, or use &#39; for wider compatibility
+                "'": '&#39;'
             };
             return str.replace(/[&<>"']/g, function(m) { return map[m]; });
         }
@@ -1671,64 +1787,107 @@
         // ==========================================================================
         // Initialization on DOM Load
         // ==========================================================================
-        function loadInitialDataJG() {
+        function loadInitialDataJG(isSongDataReload = false) {
             console.log("loadInitialDataJG - START: Loading data from localStorage and setting theme.");
-            appStateJG.history = loadFromLocalStorageJG(LS_KEYS_JG.HISTORY) || [];
-            appStateJG.favorites = loadFromLocalStorageJG(LS_KEYS_JG.FAVORITES) || [];
-            appStateJG.queue = loadFromLocalStorageJG(LS_KEYS_JG.QUEUE) || [];
-            appStateJG.currentTheme = loadFromLocalStorageJG(LS_KEYS_JG.THEME) || 'dark';
-
-            if (elementsJG.body && elementsJG.themeToggle) {
-                if (appStateJG.currentTheme === 'light') {
-                    elementsJG.body.classList.add('light-mode-jg');
-                    elementsJG.themeToggle.innerHTML = `<i class="fas fa-moon"></i>`;
+            // Load non-song-dependent data only once
+            if (!isSongDataReload) {
+                appStateJG.history = loadFromLocalStorageJG(LS_KEYS_JG.HISTORY) || [];
+                 // Favorites are full song objects. If songs haven't loaded, these might be incomplete or point to old data.
+                 // It's better to store favorite IDs and reconstruct with current song list.
+                 // For now, assuming stored favorites are adequate or will be refreshed.
+                const favsFromStorage = loadFromLocalStorageJG(LS_KEYS_JG.FAVORITES) || [];
+                // Filter favorites to ensure they exist in the current songs, if songs are loaded
+                if (appStateJG.songs.length > 0) {
+                    appStateJG.favorites = favsFromStorage.map(favSong => findSongByIdJG(favSong.id)).filter(s => s);
                 } else {
-                    elementsJG.body.classList.remove('light-mode-jg'); // Ensure it's not there if dark
-                    elementsJG.themeToggle.innerHTML = `<i class="fas fa-sun"></i>`;
+                    appStateJG.favorites = favsFromStorage; // Use as is if songs not loaded yet
                 }
-            } else {
-                console.warn("loadInitialDataJG: Body or themeToggle element not found for theme setup.");
+
+                appStateJG.queue = loadFromLocalStorageJG(LS_KEYS_JG.QUEUE) || [];
+                appStateJG.currentTheme = loadFromLocalStorageJG(LS_KEYS_JG.THEME) || 'dark';
+
+                if (elementsJG.body && elementsJG.themeToggle) {
+                    if (appStateJG.currentTheme === 'light') {
+                        elementsJG.body.classList.add('light-mode-jg');
+                        elementsJG.themeToggle.innerHTML = `<i class="fas fa-moon"></i>`;
+                    } else {
+                        elementsJG.body.classList.remove('light-mode-jg'); // Ensure it's not there if dark
+                        elementsJG.themeToggle.innerHTML = `<i class="fas fa-sun"></i>`;
+                    }
+                } else {
+                    console.warn("loadInitialDataJG: Body or themeToggle element not found for theme setup.");
+                }
+                if(elementsJG.volumeSlider) elementsJG.volumeSlider.value = appStateJG.volume;
+                if (elementsJG.volumeIconMute && elementsJG.volumeIconUp) {
+                    elementsJG.volumeIconMute.style.opacity = appStateJG.volume === 0 ? '1' : '0.5';
+                    elementsJG.volumeIconUp.style.opacity = appStateJG.volume > 0 ? '1' : '0.5';
+                }
             }
 
-            // Initial render of lists that depend on localStorage.
-            // Songs are loaded after player is ready, so some lists might be empty if they need song details.
-            if (elementsJG.favoritesPanel) renderSongListJG(elementsJG.favoritesPanel, appStateJG.favorites, 'favorites');
-            if (elementsJG.historyPanel) renderHistoryListJG();
 
-            // Queue needs song details. Map stored IDs to full song objects if appStateJG.songs is populated.
-            // This might be re-rendered after songs load if necessary.
-            if (elementsJG.queuePanel) {
-                const queueSongs = appStateJG.queue.map(id => findSongByIdJG(id)).filter(s => s);
-                renderSongListJG(elementsJG.queuePanel, queueSongs, 'queue');
+            // Re-render lists that depend on (potentially updated) song data or localStorage.
+            // This part can be called after initial songs load or after a refresh.
+            if (appStateJG.songs.length > 0) { // Only render if songs are available
+                if (elementsJG.favoritesPanel && (appStateJG.currentPanel === 'log-trophies' || isSongDataReload)) {
+                    // Refresh favorite objects from main song list
+                    appStateJG.favorites = appStateJG.favorites.map(fav => findSongByIdJG(fav.id)).filter(s => s);
+                    saveToLocalStorageJG(LS_KEYS_JG.FAVORITES, appStateJG.favorites); // Save potentially updated favs
+                    renderSongListJG(elementsJG.favoritesPanel, appStateJG.favorites, 'favorites');
+                }
+                if (elementsJG.historyPanel && (appStateJG.currentPanel === 'log-history' || isSongDataReload)) {
+                    appStateJG.history = appStateJG.history.map(histSong => findSongByIdJG(histSong.id)).filter(s => s);
+                    saveToLocalStorageJG(LS_KEYS_JG.HISTORY, appStateJG.history);
+                    renderHistoryListJG();
+                }
+                if (elementsJG.queuePanel && (appStateJG.currentPanel === 'log-discoveries' || isSongDataReload)) {
+                    const queueSongs = appStateJG.queue.map(id => findSongByIdJG(id)).filter(s => s);
+                    // If some queued song IDs are no longer in appStateJG.songs, they will be filtered out.
+                    // Update appStateJG.queue to only contain valid, existing song IDs.
+                    const validQueueIds = queueSongs.map(s => s.id);
+                    if (validQueueIds.length !== appStateJG.queue.length) {
+                        appStateJG.queue = validQueueIds;
+                        saveToLocalStorageJG(LS_KEYS_JG.QUEUE, appStateJG.queue);
+                    }
+                    renderSongListJG(elementsJG.queuePanel, queueSongs, 'queue');
+                }
             }
             updateQueueCountBadgeJG();
-            // Set initial volume slider position
-            if(elementsJG.volumeSlider) elementsJG.volumeSlider.value = appStateJG.volume;
-            if (elementsJG.volumeIconMute && elementsJG.volumeIconUp) {
-                elementsJG.volumeIconMute.style.opacity = appStateJG.volume === 0 ? '1' : '0.5';
-                elementsJG.volumeIconUp.style.opacity = appStateJG.volume > 0 ? '1' : '0.5';
-            }
 
-
-            console.log("loadInitialDataJG - END");
+            console.log("loadInitialDataJG - END. isSongDataReload:", isSongDataReload);
         }
 
 
         document.addEventListener('DOMContentLoaded', () => {
             console.log("DOMContentLoaded - START. Initializing Jungle Groove...");
-            initializeElementsJG(); // Initialize DOM elements first
-            loadInitialDataJG();    // Load preferences, history, favorites from localStorage, set theme
-            setupEventListenersJG(); // Setup all static event listeners
+            initializeElementsJG();    // Initialize DOM elements first
+            loadInitialDataJG(false);  // Load preferences, history, favorites from localStorage, set theme (initial load)
+            setupEventListenersJG();   // Setup all static event listeners
+            
             // Set initial UI state for player controls that depend on appStateJG
             updatePlayerUIGJ(null); // Set to default state initially
             if (elementsJG.btnShuffle) elementsJG.btnShuffle.classList.toggle('active-control', appStateJG.isShuffle);
             if (elementsJG.btnLoop) {
                 elementsJG.btnLoop.classList.toggle('active-control', appStateJG.loopMode !== 'none');
                  if (appStateJG.loopMode === 'one') {
-                    elementsJG.btnLoop.innerHTML = '<i class="fas fa-redo-alt"></i><span class="loop-indicator-jg">1</span>';
+                    // Ensure the '1' indicator is correctly managed if it was complex HTML
+                    if (!elementsJG.btnLoop.querySelector('.loop-indicator-jg')) {
+                         const indicator = document.createElement('span');
+                         indicator.className = 'loop-indicator-jg';
+                         indicator.textContent = '1';
+                         elementsJG.btnLoop.appendChild(indicator);
+                    } else {
+                        elementsJG.btnLoop.querySelector('.loop-indicator-jg').textContent = '1';
+                    }
                 } else {
-                    elementsJG.btnLoop.innerHTML = '<i class="fas fa-redo-alt"></i>';
+                     const indicator = elementsJG.btnLoop.querySelector('.loop-indicator-jg');
+                     if (indicator) indicator.remove();
                 }
+            }
+
+            // Initial render for the active panel (default is library, which will be populated after songs load)
+            // Other panels like playlists, if they had static content or different loading, could be handled here.
+            if (appStateJG.currentPanel !== 'log-library') { // If default panel isn't library
+                switchLogPanelJG(appStateJG.currentPanel); // Ensure correct panel content is shown
             }
 
 
