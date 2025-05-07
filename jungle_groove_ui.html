@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- MODIFIED_CODE: Default title will be updated by JS -->
     <title>Jungle Groove - Wild Music Safari</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css">
@@ -100,6 +101,7 @@
         .compass-logo i { color: var(--jg-accent-sunburst); margin-right: 0.5rem; transform: rotate(-15deg); }
         .text-accent-jg { color: var(--jg-accent-canopy); }
 
+        /* MODIFIED_CODE: For search clear button positioning */
         .search-outpost {
             display: flex;
             align-items: center;
@@ -107,13 +109,36 @@
             padding: 0.5rem 1rem;
             border-radius: 30px;
             border: 1px solid var(--jg-border-vine);
+            position: relative; /* For clear button */
         }
-        .search-outpost i { color: var(--jg-text-shadow); margin-right: 0.7rem; }
+        .search-outpost i.fa-binoculars { color: var(--jg-text-shadow); margin-right: 0.7rem; }
         #animal-tracker {
             background: transparent; border: none; outline: none;
             color: var(--jg-text-light); font-size: 0.9rem; width: 250px;
+            padding-right: 25px; /* Space for clear button */
         }
         #animal-tracker::placeholder { color: var(--jg-text-shadow); opacity: 0.8; }
+        /* NEW_CODE_START: Search clear button styles */
+        #clear-search-btn-jg {
+            position: absolute;
+            right: 0.8rem; /* Adjusted for padding of search-outpost */
+            top: 50%;
+            transform: translateY(-50%);
+            background: transparent;
+            border: none;
+            color: var(--jg-text-shadow);
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 0.2rem;
+            line-height: 1;
+        }
+        #clear-search-btn-jg:hover {
+            color: var(--jg-text-light);
+        }
+        body.light-mode-jg #clear-search-btn-jg { color: var(--jg-text-shadow); }
+        body.light-mode-jg #clear-search-btn-jg:hover { color: var(--jg-text-light); }
+        /* NEW_CODE_END */
+
 
         .safari-tools { display: flex; align-items: center; gap: 0.75rem; }
         .tool-btn-jg {
@@ -174,6 +199,7 @@
         }
         .leaf-overlay {
             position: absolute; inset: 0;
+            /* background-image: url('path/to/leaf-texture.png'); */ /* Example */
             opacity: 0.1;
             pointer-events: none;
         }
@@ -224,6 +250,7 @@
             -webkit-appearance: none; appearance: none;
             width: 18px; height: 18px;
             background-color: var(--jg-accent-canopy);
+            /* background-image: url('path/to/leaf-thumb.svg'); */ /* Example */
             background-size: contain;
             border: none;
             border-radius: 50%;
@@ -238,6 +265,7 @@
         .fruit-slider::-webkit-slider-thumb {
             -webkit-appearance: none; appearance: none; width: 16px; height: 16px;
             background: var(--jg-accent-sunburst);
+            /* background-image: url('path/to/fruit-thumb.svg'); */ /* Example */
             border-radius: 50%; border: 1px solid #D47500;
         }
 
@@ -273,7 +301,7 @@
             background: var(--jg-accent-waterfall); color: white; font-size: 0.7rem;
             padding: 1px 5px; border-radius: 8px; margin-left: 0.3rem;
             font-family: var(--font-body-jg);
-            display: none;
+            display: none; /* Initially hidden, shown by JS */
         }
 
         .log-content-jg { flex-grow: 1; overflow-y: auto; }
@@ -286,7 +314,7 @@
             margin-bottom: 0.5rem; border-radius: 10px;
             background-color: rgba(var(--jg-bg-forest-floor-rgb), 0.55);
             transition: background-color 0.2s, transform 0.2s;
-            cursor: pointer;
+            cursor: pointer; /* Default cursor, will be 'grab' if draggable */
         }
         .log-entry-jg:hover {
             background-color: rgba(var(--jg-surface-leaf-rgb),0.5);
@@ -297,6 +325,20 @@
             border-left: 4px solid var(--jg-accent-canopy);
             padding-left: calc(0.75rem - 4px);
         }
+        /* NEW_CODE_START: Drag and Drop Styles */
+        .log-entry-jg.dragging-jg {
+            opacity: 0.4;
+            background-color: rgba(var(--jg-accent-sunburst-rgb, 255, 167, 38), 0.3); /* Define --jg-accent-sunburst-rgb if needed or use direct rgba */
+            border: 2px dashed var(--jg-accent-sunburst);
+        }
+        .drag-over-placeholder-jg {
+            height: 2px;
+            background-color: var(--jg-accent-sunburst);
+            margin: 2px 0;
+            border-radius: 1px;
+            pointer-events: none; /* Important so it doesn't interfere with drop target */
+        }
+        /* NEW_CODE_END */
         .log-entry-jg .img-placeholder.list-thumb-placeholder {
             width: 40px; height: 40px; border-radius: 6px; margin-right: 0.75rem;
             background-color: var(--jg-text-shadow);
@@ -325,7 +367,7 @@
             font-size: 1rem; color: var(--jg-text-shadow); transition: color 0.2s;
         }
         .log-entry-jg:hover .song-item-action-jg i { color: var(--jg-accent-sunburst); }
-        .log-entry-jg .song-item-action-jg.favorite-action-jg i.fa-heart { color: var(--jg-accent-sunburst); }
+        .log-entry-jg .song-item-action-jg.favorite-action-jg i.fa-heart { color: var(--jg-accent-sunburst); } /* Custom applied class */
         .log-entry-jg:hover .song-item-action-jg.favorite-action-jg i.fa-heart { color: var(--jg-accent-waterfall); } 
         .log-entry-jg .song-item-action-jg.remove-from-playlist-action-jg i { color: var(--jg-text-shadow); } /* default red-500 in HTML */
         .log-entry-jg:hover .song-item-action-jg.remove-from-playlist-action-jg i { color: #EF4444; } /* Tailwind red-500 on hover */
@@ -369,24 +411,31 @@
 
         .img-placeholder {
             display: inline-block;
-            background-color: var(--jg-placeholder-bg);
-            object-fit: cover; 
+            background-color: var(--jg-placeholder-bg); /* Defined in :root */
+            object-fit: cover; /* Ensures image covers area if it's an <img> */
         }
 
         @media (max-width: 1024px) {
             .app-safari-hut { width: 100vw; height: 100vh; margin: 0; border-radius: 0; max-height: none; }
             .safari-zone { flex-direction: column; padding: 0.75rem; }
-            .watering-hole-player { flex: 1; padding: 1rem; min-height: 350px; }
+            .watering-hole-player { flex: 1; padding: 1rem; min-height: 350px; } /* Adjusted min-height */
             .album-canopy { width: 180px; height: 180px; }
             #song-title-jg { font-size: 1.8rem; }
             .explorers-log { flex: 1; }
-            #animal-tracker { width: 150px; }
+            #animal-tracker { width: 150px; padding-right: 22px; /* Space for clear button */ }
+             /* NEW_CODE_START: Adjust clear button position for smaller search */
+            #clear-search-btn-jg { right: 0.6rem; font-size: 0.9rem; }
+            /* NEW_CODE_END */
         }
         @media (max-width: 767px) {
             .safari-map-bar { padding: 0.75rem 1rem; }
             .compass-logo { font-size: 1.2rem;}
             .search-outpost { padding: 0.4rem 0.8rem;}
-            #animal-tracker { width: 120px; font-size: 0.8rem;}
+            #animal-tracker { width: 120px; font-size: 0.8rem; padding-right: 20px; /* Space for clear button */ }
+            /* NEW_CODE_START: Adjust clear button position for smallest search */
+            #clear-search-btn-jg { right: 0.5rem; font-size: 0.8rem; }
+            /* NEW_CODE_END */
+
             .tool-btn-jg { width: 36px; height: 36px; font-size: 1rem; }
             .watering-hole-player { padding: 0.75rem; }
             .album-canopy { width: 150px; height: 150px; margin-bottom: 1rem; }
@@ -429,6 +478,9 @@
             --jg-surface-leaf-rgb: 165, 214, 167;
             --jg-bg-forest-floor-rgb: 245, 239, 230;
             --jg-accent-canopy-rgb: 56, 142, 60;
+            /* NEW_CODE_START: For light mode dragging style if needed */
+            /* --jg-accent-sunburst-rgb: 255, 143, 0; */
+            /* NEW_CODE_END */
         }
 
         body.light-mode-jg .app-safari-hut {
@@ -460,7 +512,7 @@
         body.light-mode-jg .control-rock.play {
             background-color: var(--jg-accent-canopy);
             border-color: var(--jg-accent-canopy);
-            color: var(--jg-text-light); 
+            color: var(--jg-text-light); /* Should be light for contrast */
         }
          body.light-mode-jg .control-rock.active-control {
             color: var(--jg-accent-sunburst) !important;
@@ -498,18 +550,19 @@
         body.light-mode-jg .log-actions-jg { border-top-color: var(--jg-border-vine); }
         body.light-mode-jg .log-actions-jg button {
             background-color: var(--jg-surface-leaf);
-            color: var(--jg-text-light); 
+            color: var(--jg-text-light); /* Check contrast */
             border-color: var(--jg-accent-canopy);
         }
         body.light-mode-jg .log-actions-jg button:hover {
             background-color: var(--jg-accent-canopy);
         }
 
+        /* Modal Light Mode Styles */
         body.light-mode-jg #createPlaylistModalJG .bg-jg-surface-bark {
-            background-color: var(--jg-surface-bark); 
+            background-color: var(--jg-surface-bark); /* Or a lighter variant like --jg-bg-forest-floor */
         }
         body.light-mode-jg #createPlaylistModalJG .text-jg-text-light {
-            color: var(--jg-text-light); 
+            color: var(--jg-text-light); /* This will be dark text on light bg */
         }
         body.light-mode-jg #createPlaylistModalJG .text-jg-accent-sunburst {
             color: var(--jg-accent-sunburst);
@@ -517,18 +570,18 @@
         body.light-mode-jg #createPlaylistModalJG #newPlaylistNameJG {
             background-color: var(--jg-bg-forest-floor);
             border-color: var(--jg-border-vine);
-            color: var(--jg-text-light);
+            color: var(--jg-text-light); /* Dark text */
         }
         body.light-mode-jg #createPlaylistModalJG #newPlaylistNameJG::placeholder {
             color: var(--jg-text-shadow);
         }
         body.light-mode-jg #createPlaylistModalJG #cancelCreatePlaylistJG {
             background-color: var(--jg-text-shadow);
-            color: var(--jg-bg-deep-jungle); 
+            color: var(--jg-bg-deep-jungle); /* Light text on darkish gray */
         }
          body.light-mode-jg #createPlaylistModalJG #confirmCreatePlaylistJG {
             background-color: var(--jg-accent-canopy);
-            color: #FFFFFF; 
+            color: #FFFFFF; /* White text on green */
         }
 
         body.light-mode-jg #addToPlaylistModalJG .bg-jg-surface-bark {
@@ -550,6 +603,7 @@
             background-color: var(--jg-text-shadow);
             color: var(--jg-bg-deep-jungle);
         }
+        /* Playlist Select Item Styles */
         #addToPlaylistListJG .playlist-select-item-jg {
             padding: 0.75rem 1rem;
             cursor: pointer;
@@ -563,10 +617,10 @@
             background-color: rgba(var(--jg-surface-leaf-rgb), 0.3);
         }
         body.light-mode-jg #addToPlaylistListJG .playlist-select-item-jg {
-            border-bottom-color: var(--jg-border-vine);
+            border-bottom-color: var(--jg-border-vine); /* Ensure this is different for light mode if needed */
         }
         body.light-mode-jg #addToPlaylistListJG .playlist-select-item-jg:hover {
-            background-color: rgba(var(--jg-surface-leaf-rgb), 0.4);
+            background-color: rgba(var(--jg-surface-leaf-rgb), 0.4); /* Ensure contrast */
         }
 
     </style>
@@ -586,9 +640,11 @@
                 <i class="fas fa-compass"></i>
                 <span>Jungle<span class="text-accent-jg">Groove</span></span>
             </div>
+            <!-- MODIFIED_CODE: Added clear button -->
             <div class="search-outpost">
                 <i class="fas fa-binoculars"></i>
                 <input type="text" id="animal-tracker" placeholder="Track your tunes...">
+                <button id="clear-search-btn-jg" style="display:none;" title="クリア"><i class="fas fa-times"></i></button>
             </div>
             <div class="safari-tools">
                 <button id="weather-toggle" class="tool-btn-jg" title="Toggle Ambience (Theme)"><i class="fas fa-sun"></i></button>
@@ -609,22 +665,20 @@
                     <p id="artist-name-jg">The Jungle Cats</p>
                 </div>
                 <div class="player-controls-jg">
-                    <button class="control-rock small" id="btn-shuffle-jg" title="Shuffle"><i class="fas fa-random"></i></button>
-                    <button class="control-rock" id="btn-prev-jg" title="Previous"><i class="fas fa-step-backward"></i></button>
-                    <button class="control-rock play" id="btn-play-jg" title="Play/Pause">
-                        <i class="fas fa-play"></i>
-                    </button>
-                    <button class="control-rock" id="btn-next-jg" title="Next"><i class="fas fa-step-forward"></i></button>
-                    <button class="control-rock small" id="btn-loop-jg" title="Loop"><i class="fas fa-redo-alt"></i></button>
+                    <button class="control-rock small" id="btn-shuffle-jg" title="Shuffle (S)"><i class="fas fa-random"></i></button>
+                    <button class="control-rock" id="btn-prev-jg" title="Previous (P)"><i class="fas fa-step-backward"></i></button>
+                    <button class="control-rock play" id="btn-play-jg" title="Play/Pause (Space)"><i class="fas fa-play"></i></button>
+                    <button class="control-rock" id="btn-next-jg" title="Next (N)"><i class="fas fa-step-forward"></i></button>
+                    <button class="control-rock small" id="btn-loop-jg" title="Loop (L)"><i class="fas fa-redo-alt"></i></button>
                 </div>
                 <div class="progress-liana-jg">
                     <span id="current-time-jg">0:00</span>
-                    <input type="range" id="progress-slider-jg" class="liana-slider" value="0" title="Seek">
+                    <input type="range" id="progress-slider-jg" class="liana-slider" value="0" title="Seek (←/→)">
                     <span id="total-time-jg">0:00</span>
                 </div>
                 <div class="volume-fruit-jg">
-                    <i class="fas fa-volume-mute animal-icon monkey" title="Mute/Unmute (icon might change)"></i>
-                    <input type="range" id="volume-slider-jg" class="fruit-slider" value="75" min="0" max="100" title="Volume">
+                    <i class="fas fa-volume-mute animal-icon monkey" title="Mute/Unmute (M)"></i>
+                    <input type="range" id="volume-slider-jg" class="fruit-slider" value="75" min="0" max="100" title="Volume (↑/↓)">
                     <i class="fas fa-volume-up animal-icon parrot" title="Volume (icon might change)"></i>
                 </div>
             </section>
@@ -640,7 +694,7 @@
                 <div class="log-content-jg">
                     <div id="log-library" class="log-panel-jg active">
                         <!-- Library items will be dynamically inserted here -->
-                        <div class="log-entry-jg">
+                        <div class="log-entry-jg"> <!-- Example, will be cleared -->
                             <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Song Thumbnail" class="img-placeholder list-thumb-placeholder">
                             <div><span class="title">King of the Beats</span><span class="artist">Leo Roars</span></div>
                             <span class="duration">3:15</span>
@@ -709,6 +763,12 @@
 
         let elementsJG = {}; 
         let appStateJG = {}; 
+        // NEW_CODE_START: For drag and drop
+        let draggedItemJG = null;
+        let draggedItemOriginalIndexJG = -1;
+        let currentDragContextJG = null; // 'queue' or 'playlistSongs'
+        let dragOverPlaceholderJG = null;
+        // NEW_CODE_END
 
         // ==========================================================================
         // YouTube Player API Ready Callback
@@ -734,7 +794,7 @@
                     console.warn("onYouTubeIframeAPIReady: appStateJG seems partially initialized, re-setting basic player state.");
                     appStateJG.player = null;
                     appStateJG.isPlayerReady = false;
-                    appStateJG.volume = appStateJG.volume || 75;
+                    // appStateJG.volume = appStateJG.volume || 75; // Volume is initialized in appStateJG definition
                 }
 
                 appStateJG.player = new YT.Player(elementsJG.youtubePlayerContainer.id, {
@@ -768,14 +828,16 @@
         // ==========================================================================
         const MAX_HISTORY_JG = 20;
         const VOLUME_STEP_JG = 5;
-        const SEEK_STEP_JG = 5; 
+        const SEEK_STEP_JG = 5; // seconds
+        const DEFAULT_TITLE_JG = "Jungle Groove - Wild Music Safari"; // NEW_CODE
         const LS_KEYS_JG = {
             HISTORY: 'jungleGrooveHistory',
             FAVORITES: 'jungleGrooveFavorites',
             PLAYLISTS: 'jungleGroovePlaylists',
-            USER: 'jungleGrooveUser',
+            USER: 'jungleGrooveUser', // Not currently used, but good to have
             THEME: 'jungleGrooveTheme',
-            QUEUE: 'jungleGrooveQueue'
+            QUEUE: 'jungleGrooveQueue',
+            VOLUME: 'jungleGrooveVolume' // NEW_CODE for persistent volume
         };
 
         appStateJG = {
@@ -785,16 +847,18 @@
             currentSongIndex: -1,
             isPlaying: false,
             isShuffle: false,
-            loopMode: 'none', 
+            loopMode: 'none', // 'none', 'all', 'one'
             currentPanel: 'log-library',
-            volume: 75,
+            volume: 75, // Default volume
+            previousVolumeBeforeMute: 75, // NEW_CODE for mute functionality
+            isMuted: false, // NEW_CODE
             progressInterval: null,
             history: [],
             favorites: [],
             userPlaylists: [], 
             queue: [], 
-            currentQueueIndex: -1,
-            playMode: 'library', 
+            currentQueueIndex: -1, // Index within the current playing list (queue or playlist.songs)
+            playMode: 'library', // 'library', 'queue', 'playlist'
             isPlayerReady: false,
             snackbarTimeoutId: null,
             activeModalId: null,
@@ -807,8 +871,8 @@
                 'log-trophies': ['btn-refresh-feed-jg', 'btn-create-playlist-jg'],
                 'log-history': ['btn-clear-history-jg', 'btn-refresh-feed-jg', 'btn-create-playlist-jg']
             },
-            currentViewingPlaylistId: null,
-            currentPlayingPlaylistId: null
+            currentViewingPlaylistId: null, // ID of playlist whose songs are being viewed
+            currentPlayingPlaylistId: null // ID of playlist currently being played (if playMode is 'playlist')
         };
 
         // ==========================================================================
@@ -819,6 +883,7 @@
             elementsJG = {
                 body: document.body,
                 searchInput: document.getElementById('animal-tracker'),
+                clearSearchButton: document.getElementById('clear-search-btn-jg'), // NEW_CODE
                 themeToggle: document.getElementById('weather-toggle'),
                 profileButton: document.getElementById('profile-ranger'),
                 mainAlbumArt: document.getElementById('main-album-art-jg'),
@@ -843,7 +908,7 @@
                 historyPanel: document.getElementById('log-history'),
                 playlistsPanel: document.getElementById('log-paths'),
                 queueCountBadge: document.getElementById('queue-count-jg'),
-                youtubePlayerContainer: null,
+                youtubePlayerContainer: null, // Will be created if not exists
             };
 
             let ytContainer = document.getElementById('youtube-player-container-jg');
@@ -852,9 +917,9 @@
                 ytContainer = document.createElement('div');
                 ytContainer.id = 'youtube-player-container-jg';
                 ytContainer.style.position = 'absolute';
-                ytContainer.style.top = '-9999px';
+                ytContainer.style.top = '-9999px'; // Keep it off-screen
                 ytContainer.style.left = '-9999px';
-                ytContainer.style.width = '1px';
+                ytContainer.style.width = '1px'; // Minimal size
                 ytContainer.style.height = '1px';
                 document.body.appendChild(ytContainer);
             }
@@ -867,18 +932,14 @@
         // YouTube API & Song Loading
         // ==========================================================================
         const youtubeAPI_JG = {
-            // !!========================================================================!!
-            // !!  重要: このAPIキーをあなた自身の有効なYouTube Data API v3キーに置き換えてください。!!
-            // !!  現在のキーはサンプルであり、機能しないか、すぐに制限に達する可能性があります。      !!
-            // !!========================================================================!!
             apiKey: 'AIzaSyCbzvjP9vFa5I8N1qLI5H9LUpYim0nkQS4', // <<< ここをあなたのAPIキーに置き換えてください!!!
             channelId: 'UCYAuSEKhuk3v4ZKzm5Lqb1Q', 
 
             async getLatestVideos(maxResults = 15) {
                 console.log("getLatestVideos - START. API Key used:", this.apiKey ? 'Yes' : 'No');
-                // APIキーチェックは loadInitialSongsJG で行うので、ここでは簡略化
-                if (!this.apiKey) { 
-                    showSnackbarJG("YouTube APIキーが設定されていません。", "error");
+                if (!this.apiKey || this.apiKey === 'YOUR_YOUTUBE_API_KEY_HERE' || this.apiKey.length < 30) { 
+                    showSnackbarJG("YouTube APIキーが設定されていません。管理者に連絡してください。", "error", 10000);
+                    console.error("getLatestVideos: YouTube API Key is invalid or not set!");
                     return [];
                 }
                 const apiUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${this.channelId}&maxResults=${maxResults}&order=date&type=video&key=${this.apiKey}`;
@@ -907,7 +968,7 @@
                         title: item.snippet.title,
                         artist: item.snippet.channelTitle, 
                         thumbnail: item.snippet.thumbnails.high?.url || item.snippet.thumbnails.medium?.url || item.snippet.thumbnails.default?.url,
-                        duration: "--:--"
+                        duration: "--:--" // Fetched later
                     }));
                 } catch (error) {
                     console.error('Error in getLatestVideos fetch operation:', error);
@@ -919,8 +980,8 @@
             async getVideoDetails(videoIds) {
                 console.log("getVideoDetails - START. Fetching for IDs:", videoIds);
                 if (!videoIds || videoIds.length === 0) return {};
-                if (!this.apiKey) {
-                    console.error("youtubeAPI_JG.getVideoDetails: YouTube API Key is not set!");
+                if (!this.apiKey || this.apiKey === 'YOUR_YOUTUBE_API_KEY_HERE' || this.apiKey.length < 30) {
+                    console.error("youtubeAPI_JG.getVideoDetails: YouTube API Key is invalid or not set!");
                     return {};
                 }
                 const MAX_IDS_PER_REQUEST = 50;
@@ -936,13 +997,15 @@
                                 if (item.contentDetails) {
                                 details[item.id] = this.convertDuration(item.contentDetails.duration);
                                 } else {
-                                details[item.id] = "--:--";
+                                details[item.id] = "--:--"; // Fallback
                                 console.warn(`Video item ${item.id} missing contentDetails.`);
                                 }
                             });
                         }
                     } catch (error) {
                         console.error('Error fetching video details chunk:', error);
+                        // Assign fallback to chunkIds that failed
+                        chunkIds.forEach(id => { if (!details[id]) details[id] = "--:--"; });
                     }
                 }
                 return details;
@@ -965,10 +1028,14 @@
 
         async function loadInitialSongsJG() {
             console.log("loadInitialSongsJG - START");
-
-            // APIキーとチャンネルIDの確認処理を削除 (お客様のものであるため)
-            // const currentApiKey = youtubeAPI_JG.apiKey;
-            // if (!currentApiKey || currentApiKey === 'YOUR_YOUTUBE_API_KEY_HERE' || ... ) { ... }
+             if (!youtubeAPI_JG.apiKey || youtubeAPI_JG.apiKey === 'YOUR_YOUTUBE_API_KEY_HERE' || youtubeAPI_JG.apiKey.length < 30) {
+                showSnackbarJG("YouTube APIキーが設定されていません。管理者に連絡してください。", "error", 10000);
+                console.error("loadInitialSongsJG: YouTube API Key is invalid or not set! Cannot load songs.");
+                if (elementsJG.libraryPanel) {
+                    showEmptyMessageInPanelJG(elementsJG.libraryPanel, "APIキーエラー", "YouTube APIキーが正しく設定されていません。曲を読み込めません。");
+                }
+                return;
+            }
 
             if (!elementsJG.libraryPanel) {
                 console.error("loadInitialSongsJG: Library panel element not found for loading songs.");
@@ -979,7 +1046,7 @@
 
             let songs = [];
             try {
-                songs = await youtubeAPI_JG.getLatestVideos(25); // APIキーは youtubeAPI_JG オブジェクトから直接使用される
+                songs = await youtubeAPI_JG.getLatestVideos(25); 
                 console.log("loadInitialSongsJG: Fetched songs from getLatestVideos:", songs.length);
             } catch (error) {
                 console.error("loadInitialSongsJG: Error occurred while calling getLatestVideos:", error);
@@ -988,7 +1055,6 @@
                 if (elementsJG.libraryPanel) {
                     renderSongListJG(elementsJG.libraryPanel, [], 'library');
                     showLoadingInPanelJG(elementsJG.libraryPanel, false);
-                    // APIキーが正しい前提なので、エラーメッセージはAPIからのものに集中させる
                     showEmptyMessageInPanelJG(elementsJG.libraryPanel, "読み込み失敗", `曲の取得中にエラーが発生しました。APIの割り当て上限、またはネットワークの問題かもしれません。詳細: ${error.message}`);
                 }
                 return;
@@ -1003,12 +1069,11 @@
                         console.log("loadInitialSongsJG: Fetched durations:", durations);
                         songs = songs.map(song => ({
                             ...song,
-                            artist: song.artist || "Rei Kikuchi", // デフォルトアーティスト
+                            artist: song.artist || "Rei Kikuchi", // Default artist if API doesn't provide
                             duration: durations[song.id] || "--:--"
                         }));
                     } catch (error) {
                         console.error("loadInitialSongsJG: Error fetching video details (durations):", error);
-                        // 曲はロードされるが、一部の再生時間情報が欠ける可能性
                     }
                 }
             }
@@ -1023,21 +1088,34 @@
 
             if ((!songs || songs.length === 0)) {
                 if (elementsJG.libraryPanel) {
-                     // APIキーの問題ではないので、純粋に曲がないか、APIから返ってこなかった場合
                      showEmptyMessageInPanelJG(elementsJG.libraryPanel, "まだ曲がありません", "新しい冒険が始まるのを待とう！または、APIから曲が返されませんでした。");
                 }
             }
-            loadInitialDataJG(true); // true を渡して、曲データ依存リストを再描画
+            loadInitialDataJG(true); 
         }
         // ==========================================================================
         // UI Rendering
         // ==========================================================================
         function renderSongListJG(panelElement, songsToRender, context) {
+            // MODIFIED_CODE: Added drag and drop related logic
             if (!panelElement) {
                 console.warn(`Panel element for context "${context}" not found.`);
                 return;
             }
             panelElement.innerHTML = ''; 
+
+            const isDraggableContext = (context === 'queue' || context === 'playlistSongs');
+            if (isDraggableContext) {
+                // Remove old listeners if any, before adding new ones for the container
+                panelElement.removeEventListener('dragover', handleDragOverJG);
+                panelElement.removeEventListener('drop', handleDropJG);
+                panelElement.removeEventListener('dragleave', handleDragLeaveJG); // NEW_CODE
+
+                panelElement.addEventListener('dragover', handleDragOverJG);
+                panelElement.addEventListener('drop', (event) => handleDropJG(event, panelElement, context));
+                panelElement.addEventListener('dragleave', handleDragLeaveJG); // NEW_CODE
+            }
+
 
             if (!songsToRender || songsToRender.length === 0) {
                 let emptyTitle = "何も見つからない...";
@@ -1065,7 +1143,7 @@
                     console.warn("Skipping invalid song object in renderSongListJG:", song);
                     return;
                 }
-                const originalSongIndex = appStateJG.songs.findIndex(s => s.id === song.id);
+                const originalSongIndex = appStateJG.songs.findIndex(s => s.id === song.id); // Index in the main appStateJG.songs
                 const currentPlayingSong = appStateJG.songs[appStateJG.currentSongIndex];
                 const isActive = currentPlayingSong && currentPlayingSong.id === song.id;
                 const isFavorited = appStateJG.favorites.some(fav => fav.id === song.id);
@@ -1074,10 +1152,20 @@
                 const entry = document.createElement('div');
                 entry.className = `log-entry-jg ${isActive ? 'active-song' : ''}`;
                 entry.dataset.id = song.id;
-                entry.dataset.originalIndex = originalSongIndex; 
-                if (context === 'queue') {
-                    entry.dataset.queueIndex = listIndex; 
+                entry.dataset.originalIndex = originalSongIndex; // For playing the song from the main list
+                // For queue/playlist context, listIndex refers to its position in that specific list (queue or playlist.songs)
+                entry.dataset.listIndex = listIndex; 
+
+                // MODIFIED_CODE: Add draggable attributes and listeners if applicable
+                if (isDraggableContext) {
+                    entry.draggable = true;
+                    entry.style.cursor = 'grab';
+                    entry.addEventListener('dragstart', (event) => handleDragStartJG(event, song.id, listIndex, context));
+                    entry.addEventListener('dragend', handleDragEndJG);
+                } else {
+                    entry.style.cursor = 'pointer';
                 }
+
 
                 let actionButtonsHTML = '';
                 if (context !== 'queue') { 
@@ -1087,7 +1175,7 @@
                         </button>
                     `;
                 }
-                if (context !== 'queue') {
+                if (context !== 'queue') { // Also prevent adding from queue to playlist (though UI doesn't show it)
                     actionButtonsHTML += `
                         <button class="song-item-action-jg add-to-playlist-action-jg" title="プレイリストに追加" aria-label="プレイリストに追加">
                             <i class="fas fa-folder-plus"></i>
@@ -1156,11 +1244,12 @@
                     });
                 }
                 
+                // Click to play (only if not dragging, dragstart will handle its own logic)
                 entry.addEventListener('click', (e) => {
-                    if (e.target.closest('.song-item-action-jg')) return; 
+                    if (e.target.closest('.song-item-action-jg') || entry.classList.contains('dragging-jg')) return; 
                     
                     const songIdToPlay = entry.dataset.id;
-                    const originalIdx = parseInt(entry.dataset.originalIndex, 10);
+                    const originalIdx = parseInt(entry.dataset.originalIndex, 10); // Index in appStateJG.songs
 
                     if (isNaN(originalIdx) || originalIdx < 0 || originalIdx >= appStateJG.songs.length) {
                          const freshIndex = appStateJG.songs.findIndex(s => s.id === songIdToPlay);
@@ -1168,35 +1257,22 @@
                             showSnackbarJG("この曲は現在再生できません (情報不足)。", "error");
                             return;
                          }
-                         // This should ideally not happen if originalIndex is set correctly.
                          console.warn("playSongAtIndexJG: originalIndex was invalid, using freshly found index:", freshIndex);
-                         playSongAtIndexJG(freshIndex); // Play using the re-found index
-                         return; // Exit to avoid double play if logic below also calls playSongAtIndexJG
+                         playSongAtIndexJG(freshIndex); 
+                         return; 
                     }
 
-
+                    // Set playMode and currentQueueIndex (which is the index within the specific list like queue or playlist)
                     if (context === 'queue') {
                         appStateJG.playMode = 'queue';
-                        appStateJG.currentQueueIndex = appStateJG.queue.findIndex(id_in_queue => id_in_queue === songIdToPlay);
-                         if (appStateJG.currentQueueIndex === -1) { 
-                            console.error("Song from queue panel not found in appStateJG.queue. Defaulting to library play.");
-                            appStateJG.playMode = 'library'; 
-                         }
+                        appStateJG.currentQueueIndex = parseInt(entry.dataset.listIndex, 10);
                         appStateJG.currentPlayingPlaylistId = null;
                     } else if (context === 'playlistSongs' && appStateJG.currentViewingPlaylistId) {
                         appStateJG.playMode = 'playlist';
                         appStateJG.currentPlayingPlaylistId = appStateJG.currentViewingPlaylistId;
-                        const currentPlaylist = appStateJG.userPlaylists.find(p => p.id === appStateJG.currentPlayingPlaylistId);
-                        if (currentPlaylist) {
-                            appStateJG.currentQueueIndex = currentPlaylist.songs.findIndex(id_in_playlist => id_in_playlist === songIdToPlay);
-                        } else {
-                             console.error("Currently viewed playlist not found. Defaulting to library play.");
-                             appStateJG.playMode = 'library';
-                             appStateJG.currentPlayingPlaylistId = null;
-                             appStateJG.currentQueueIndex = -1;
-                        }
+                        appStateJG.currentQueueIndex = parseInt(entry.dataset.listIndex, 10);
                     } else { 
-                        appStateJG.playMode = 'library';
+                        appStateJG.playMode = 'library'; // or 'favorites', 'history' - these don't use currentQueueIndex for next/prev logic
                         appStateJG.currentQueueIndex = -1; 
                         appStateJG.currentPlayingPlaylistId = null;
                     }
@@ -1251,6 +1327,7 @@
             }
             updatePlayPauseButtonJG();
             updateActiveListItemJG();
+            updateDocumentTitleJG(); // NEW_CODE
         }
 
         function updatePlayPauseButtonJG() {
@@ -1270,6 +1347,21 @@
                 }
             }
         }
+        // NEW_CODE_START: Update document title based on player state
+        function updateDocumentTitleJG() {
+            if (appStateJG.currentSongIndex === -1 || !appStateJG.songs[appStateJG.currentSongIndex]) {
+                document.title = DEFAULT_TITLE_JG;
+                return;
+            }
+            const song = appStateJG.songs[appStateJG.currentSongIndex];
+            if (!song) { // Should not happen if currentSongIndex is valid
+                 document.title = DEFAULT_TITLE_JG;
+                return;
+            }
+            const prefix = appStateJG.isPlaying ? "▶ " : "❚❚ ";
+            document.title = `${prefix}${song.title} - ${song.artist} | Jungle Groove`;
+        }
+        // NEW_CODE_END
 
         // ==========================================================================
         // Player Controls
@@ -1289,19 +1381,19 @@
                 return;
             }
 
-            console.log(`playSongAtIndexJG: Attempting to play song: "${song.title}" (ID: ${song.id}), Index: ${index}, PlayMode: ${appStateJG.playMode}, QueueIndex: ${appStateJG.currentQueueIndex}`);
-            updatePlayerUIGJ(song);
+            console.log(`playSongAtIndexJG: Attempting to play song: "${song.title}" (ID: ${song.id}), OriginalIndex: ${index}, PlayMode: ${appStateJG.playMode}, CurrentListIndex: ${appStateJG.currentQueueIndex}`);
+            updatePlayerUIGJ(song); // This will also call updateDocumentTitleJG
 
             if (appStateJG.player && appStateJG.isPlayerReady) {
                 try {
                     console.log("playSongAtIndexJG: Calling player.loadVideoById with ID:", song.id);
                     appStateJG.player.loadVideoById(song.id);
-                    console.log("playSongAtIndexJG: Calling player.playVideo() explicitly after loadVideoById.");
-                    appStateJG.player.playVideo(); 
-
+                    // Play is handled by onStateChange or triggered after load if needed
+                    // appStateJG.player.playVideo(); // YT API docs suggest video plays automatically after loadVideoById IF autoplay is enabled in playerVars. We have it as 0.
+                                                  // However, onStateChange to CUED then PLAYING is expected. Let's rely on that. If not, call playVideo() in CUED.
                 } catch (error) {
-                    console.error("playSongAtIndexJG: Error during loadVideoById or playVideo:", error);
-                    showSnackbarJG("動画の読み込みまたは再生に失敗しました。", "error");
+                    console.error("playSongAtIndexJG: Error during loadVideoById:", error);
+                    showSnackbarJG("動画の読み込みに失敗しました。", "error");
                 }
             } else {
                 console.warn("playSongAtIndexJG: Player not ready or song ID missing. Player:", !!appStateJG.player, "Ready:", appStateJG.isPlayerReady, "Song ID:", song.id);
@@ -1321,7 +1413,9 @@
                 return;
             }
             if (appStateJG.currentSongIndex === -1 && appStateJG.songs && appStateJG.songs.length > 0) {
-                appStateJG.playMode = 'library';
+                // If no song is selected, play the first from library (or current view if applicable)
+                appStateJG.playMode = 'library'; // Default to library
+                appStateJG.currentQueueIndex = -1;
                 playSongAtIndexJG(0);
                 return;
             }
@@ -1335,84 +1429,108 @@
             } else {
                 appStateJG.player.playVideo();
             }
+            // State change will handle UI updates
         }
 
         function playNextJG() {
-            if (!appStateJG.songs || appStateJG.songs.length === 0) return;
+            if (!appStateJG.songs || appStateJG.songs.length === 0) {
+                showSnackbarJG("再生リストに曲がありません。", "info");
+                return;
+            }
             
-            let nextSongOriginalIndex = -1;
+            let nextSongOriginalIndex = -1; // Index in appStateJG.songs
+            let currentList; // The list we are iterating (queue, playlist.songs, or appStateJG.filteredSongs for library)
+            let nextListIndex; // The index for the next song within currentList
 
             if (appStateJG.playMode === 'queue' && appStateJG.queue.length > 0) {
-                appStateJG.currentQueueIndex++;
-                if (appStateJG.currentQueueIndex >= appStateJG.queue.length) { 
+                currentList = appStateJG.queue.map(id => findSongByIdJG(id)).filter(s => s); // Array of song objects
+                nextListIndex = appStateJG.currentQueueIndex + 1;
+
+                if (nextListIndex >= currentList.length) { 
                     if (appStateJG.loopMode === 'all') {
-                        appStateJG.currentQueueIndex = 0;
+                        nextListIndex = 0;
                     } else {
                         showSnackbarJG("キューの再生が終わりました。", "info");
                         appStateJG.isPlaying = false;
                         updatePlayPauseButtonJG();
-                        appStateJG.playMode = 'library'; 
-                        appStateJG.currentQueueIndex = -1;
+                        updateDocumentTitleJG();
+                        // Optionally, switch back to library play mode or stop
+                        // appStateJG.playMode = 'library'; 
+                        // appStateJG.currentQueueIndex = -1;
                         return; 
                     }
                 }
+                appStateJG.currentQueueIndex = nextListIndex;
                 const nextSongIdInQueue = appStateJG.queue[appStateJG.currentQueueIndex];
                 nextSongOriginalIndex = appStateJG.songs.findIndex(s => s.id === nextSongIdInQueue);
                 
-                if (nextSongOriginalIndex === -1) {
-                    console.warn(`Song ID ${nextSongIdInQueue} from queue not found. Skipping.`);
-                    playNextJG(); 
-                    return;
-                }
-
             } else if (appStateJG.playMode === 'playlist' && appStateJG.currentPlayingPlaylistId) {
                 const playlist = appStateJG.userPlaylists.find(p => p.id === appStateJG.currentPlayingPlaylistId);
                 if (playlist && playlist.songs.length > 0) {
-                    appStateJG.currentQueueIndex++; 
-                    if (appStateJG.currentQueueIndex >= playlist.songs.length) {
+                    currentList = playlist.songs.map(id => findSongByIdJG(id)).filter(s => s);
+                    nextListIndex = appStateJG.currentQueueIndex + 1; 
+
+                    if (nextListIndex >= currentList.length) {
                         if (appStateJG.loopMode === 'all') {
-                            appStateJG.currentQueueIndex = 0;
+                            nextListIndex = 0;
                         } else {
                             showSnackbarJG(`プレイリスト「${escapeHTMLJG(playlist.name)}」の再生が終わりました。`, "info");
                             appStateJG.isPlaying = false;
                             updatePlayPauseButtonJG();
+                            updateDocumentTitleJG();
                             return;
                         }
                     }
+                    appStateJG.currentQueueIndex = nextListIndex;
                     const nextSongIdInPlaylist = playlist.songs[appStateJG.currentQueueIndex];
                     nextSongOriginalIndex = appStateJG.songs.findIndex(s => s.id === nextSongIdInPlaylist);
-
-                    if (nextSongOriginalIndex === -1) {
-                        console.warn(`Song ID ${nextSongIdInPlaylist} from playlist not found. Skipping.`);
-                        playNextJG();
-                        return;
-                    }
                 } else { 
-                    appStateJG.playMode = 'library';
+                    appStateJG.playMode = 'library'; // Fallback
+                    appStateJG.currentPlayingPlaylistId = null;
+                    appStateJG.currentQueueIndex = -1;
                 }
             }
             
+            // Fallback to library mode if not in queue/playlist or if song not found
             if (appStateJG.playMode === 'library' || nextSongOriginalIndex === -1) {
+                 currentList = appStateJG.isShuffle ? appStateJG.songs : appStateJG.filteredSongs; // Use filtered for non-shuffle library
+                 if (currentList.length === 0) currentList = appStateJG.songs; // Absolute fallback
+                 if (currentList.length === 0) return;
+
+
                  if (appStateJG.isShuffle) {
-                    if (appStateJG.songs.length <= 1) nextSongOriginalIndex = 0;
+                    if (currentList.length <= 1) nextSongOriginalIndex = appStateJG.songs.findIndex(s => s.id === currentList[0]?.id);
                     else {
-                        let randomIndex;
+                        let randomOriginalIndex;
+                        let randomSongId;
                         do { 
-                            randomIndex = Math.floor(Math.random() * appStateJG.songs.length);
-                        } while (randomIndex === appStateJG.currentSongIndex && appStateJG.songs.length > 1);
-                        nextSongOriginalIndex = randomIndex;
+                            randomSongId = currentList[Math.floor(Math.random() * currentList.length)].id;
+                            randomOriginalIndex = appStateJG.songs.findIndex(s => s.id === randomSongId);
+                        } while (randomOriginalIndex === appStateJG.currentSongIndex && currentList.length > 1);
+                        nextSongOriginalIndex = randomOriginalIndex;
                     }
                 } else { 
-                    nextSongOriginalIndex = (appStateJG.currentSongIndex === -1) ? 0 : appStateJG.currentSongIndex + 1;
-                    if (nextSongOriginalIndex >= appStateJG.songs.length) {
+                    // Find current song in filteredSongs to get its index for next calculation
+                    let currentFilteredIndex = -1;
+                    if (appStateJG.currentSongIndex !== -1) {
+                        const currentActualSongId = appStateJG.songs[appStateJG.currentSongIndex].id;
+                        currentFilteredIndex = appStateJG.filteredSongs.findIndex(s => s.id === currentActualSongId);
+                    }
+                    
+                    nextListIndex = (currentFilteredIndex === -1) ? 0 : currentFilteredIndex + 1;
+                    if (nextListIndex >= appStateJG.filteredSongs.length) {
                         if (appStateJG.loopMode === 'all') {
-                            nextSongOriginalIndex = 0;
+                            nextListIndex = 0;
                         } else {
                             showSnackbarJG("探検の終わりです！", "info");
                             appStateJG.isPlaying = false;
                             updatePlayPauseButtonJG();
+                            updateDocumentTitleJG();
                             return; 
                         }
+                    }
+                    if (appStateJG.filteredSongs[nextListIndex]) {
+                        nextSongOriginalIndex = appStateJG.songs.findIndex(s => s.id === appStateJG.filteredSongs[nextListIndex].id);
                     }
                 }
             }
@@ -1420,92 +1538,114 @@
             if (nextSongOriginalIndex !== -1) {
                 playSongAtIndexJG(nextSongOriginalIndex);
             } else {
-                 console.warn("Could not determine next song.");
+                 console.warn("Could not determine next song. Current playMode:", appStateJG.playMode);
+                 // Potentially stop playback or reset
+                appStateJG.isPlaying = false;
+                updatePlayPauseButtonJG();
+                updateDocumentTitleJG();
             }
         }
 
 
         function playPrevJG() {
-            if (!appStateJG.songs || appStateJG.songs.length === 0) return;
+            if (!appStateJG.songs || appStateJG.songs.length === 0) {
+                showSnackbarJG("再生リストに曲がありません。", "info");
+                return;
+            }
 
-            if (appStateJG.player && appStateJG.player.getCurrentTime && appStateJG.player.getCurrentTime() > 3) {
+            if (appStateJG.player && appStateJG.isPlayerReady && appStateJG.player.getCurrentTime && appStateJG.player.getCurrentTime() > SEEK_STEP_JG) {
                 appStateJG.player.seekTo(0);
                 return;
             }
 
             let prevSongOriginalIndex = -1;
+            let currentList;
+            let prevListIndex;
 
             if (appStateJG.playMode === 'queue' && appStateJG.queue.length > 0) {
-                appStateJG.currentQueueIndex--;
-                if (appStateJG.currentQueueIndex < 0) { 
-                    if (appStateJG.loopMode === 'all' && appStateJG.queue.length > 0) {
-                        appStateJG.currentQueueIndex = appStateJG.queue.length - 1;
+                currentList = appStateJG.queue.map(id => findSongByIdJG(id)).filter(s => s);
+                prevListIndex = appStateJG.currentQueueIndex - 1;
+
+                if (prevListIndex < 0) { 
+                    if (appStateJG.loopMode === 'all' && currentList.length > 0) {
+                        prevListIndex = currentList.length - 1;
                     } else {
-                        appStateJG.currentQueueIndex = 0; 
-                        if (appStateJG.player && appStateJG.player.seekTo) appStateJG.player.seekTo(0);
-                        return;
+                        // Stay at the first song, or seek to 0 if already there
+                        prevListIndex = 0; 
+                        if (appStateJG.player && appStateJG.isPlayerReady && appStateJG.player.seekTo) appStateJG.player.seekTo(0);
+                        // If we don't want to replay the first song, we might return here.
+                        // For now, it will effectively restart the first song if at the beginning.
                     }
                 }
+                appStateJG.currentQueueIndex = prevListIndex;
                 const prevSongIdInQueue = appStateJG.queue[appStateJG.currentQueueIndex];
                 prevSongOriginalIndex = appStateJG.songs.findIndex(s => s.id === prevSongIdInQueue);
 
-                if (prevSongOriginalIndex === -1) {
-                    console.warn(`Song ID ${prevSongIdInQueue} from queue not found. Skipping.`);
-                    playPrevJG(); 
-                    return;
-                }
             } else if (appStateJG.playMode === 'playlist' && appStateJG.currentPlayingPlaylistId) {
                 const playlist = appStateJG.userPlaylists.find(p => p.id === appStateJG.currentPlayingPlaylistId);
                 if (playlist && playlist.songs.length > 0) {
-                    appStateJG.currentQueueIndex--; 
-                     if (appStateJG.currentQueueIndex < 0) {
+                    currentList = playlist.songs.map(id => findSongByIdJG(id)).filter(s => s);
+                    prevListIndex = appStateJG.currentQueueIndex - 1; 
+                     if (prevListIndex < 0) {
                         if (appStateJG.loopMode === 'all') {
-                            appStateJG.currentQueueIndex = playlist.songs.length - 1;
+                            prevListIndex = currentList.length - 1;
                         } else {
-                            appStateJG.currentQueueIndex = 0;
-                            if (appStateJG.player && appStateJG.player.seekTo) appStateJG.player.seekTo(0);
-                            return;
+                            prevListIndex = 0;
+                            if (appStateJG.player && appStateJG.isPlayerReady && appStateJG.player.seekTo) appStateJG.player.seekTo(0);
                         }
                     }
+                    appStateJG.currentQueueIndex = prevListIndex;
                     const prevSongIdInPlaylist = playlist.songs[appStateJG.currentQueueIndex];
                     prevSongOriginalIndex = appStateJG.songs.findIndex(s => s.id === prevSongIdInPlaylist);
-
-                    if (prevSongOriginalIndex === -1) {
-                        console.warn(`Song ID ${prevSongIdInPlaylist} from playlist not found. Skipping.`);
-                        playPrevJG();
-                        return;
-                    }
                 } else {
                     appStateJG.playMode = 'library';
+                    appStateJG.currentPlayingPlaylistId = null;
+                    appStateJG.currentQueueIndex = -1;
                 }
             }
             
             if (appStateJG.playMode === 'library' || prevSongOriginalIndex === -1) {
+                 currentList = appStateJG.isShuffle ? appStateJG.songs : appStateJG.filteredSongs;
+                 if (currentList.length === 0) currentList = appStateJG.songs;
+                 if (currentList.length === 0) return;
+
                 if (appStateJG.isShuffle) {
-                     if (appStateJG.songs.length <= 1) prevSongOriginalIndex = 0;
+                     if (currentList.length <= 1) prevSongOriginalIndex = appStateJG.songs.findIndex(s => s.id === currentList[0]?.id);
                      else {
-                        let randomIndex;
+                        let randomOriginalIndex;
+                        let randomSongId;
                         do { 
-                            randomIndex = Math.floor(Math.random() * appStateJG.songs.length);
-                        } while (randomIndex === appStateJG.currentSongIndex && appStateJG.songs.length > 1);
-                        prevSongOriginalIndex = randomIndex;
+                            randomSongId = currentList[Math.floor(Math.random() * currentList.length)].id;
+                            randomOriginalIndex = appStateJG.songs.findIndex(s => s.id === randomSongId);
+                        } while (randomOriginalIndex === appStateJG.currentSongIndex && currentList.length > 1);
+                        prevSongOriginalIndex = randomOriginalIndex;
                     }
                 } else { 
-                    prevSongOriginalIndex = appStateJG.currentSongIndex - 1;
-                    if (prevSongOriginalIndex < 0) {
-                        if (appStateJG.loopMode === 'all') {
-                            prevSongOriginalIndex = appStateJG.songs.length - 1;
+                    let currentFilteredIndex = -1;
+                    if (appStateJG.currentSongIndex !== -1) {
+                        const currentActualSongId = appStateJG.songs[appStateJG.currentSongIndex].id;
+                        currentFilteredIndex = appStateJG.filteredSongs.findIndex(s => s.id === currentActualSongId);
+                    }
+                    
+                    prevListIndex = currentFilteredIndex - 1;
+                    if (prevListIndex < 0) {
+                        if (appStateJG.loopMode === 'all' && appStateJG.filteredSongs.length > 0) {
+                            prevListIndex = appStateJG.filteredSongs.length - 1;
                         } else {
-                            prevSongOriginalIndex = 0; 
-                            if (appStateJG.player && appStateJG.player.seekTo) appStateJG.player.seekTo(0);
-                            return;
+                            prevListIndex = 0; 
+                            if (appStateJG.player && appStateJG.isPlayerReady && appStateJG.player.seekTo) appStateJG.player.seekTo(0);
                         }
+                    }
+                     if (appStateJG.filteredSongs[prevListIndex]) {
+                        prevSongOriginalIndex = appStateJG.songs.findIndex(s => s.id === appStateJG.filteredSongs[prevListIndex].id);
                     }
                 }
             }
             
             if (prevSongOriginalIndex !== -1) {
                 playSongAtIndexJG(prevSongOriginalIndex);
+            } else {
+                 console.warn("Could not determine previous song. Current playMode:", appStateJG.playMode);
             }
         }
 
@@ -1518,7 +1658,7 @@
         }
 
         function updateProgressJG() {
-            if (!appStateJG.player || typeof appStateJG.player.getDuration !== 'function' || !elementsJG.progressSlider) return;
+            if (!appStateJG.player || !appStateJG.isPlayerReady || typeof appStateJG.player.getDuration !== 'function' || !elementsJG.progressSlider) return;
             const currentTime = appStateJG.player.getCurrentTime ? appStateJG.player.getCurrentTime() : 0;
             const duration = appStateJG.player.getDuration ? appStateJG.player.getDuration() : 0;
 
@@ -1530,8 +1670,9 @@
                     elementsJG.totalTimeDisplay.textContent = formatTimeJG(duration);
 
                     const currentSong = appStateJG.songs[appStateJG.currentSongIndex];
-                    if (currentSong && currentSong.duration === "--:--") {
+                    if (currentSong && currentSong.duration === "--:--") { // Update duration if it was a placeholder
                         currentSong.duration = formatTimeJG(duration);
+                        // Update duration in the list items if visible
                         document.querySelectorAll(`.log-entry-jg[data-id="${currentSong.id}"] .duration`).forEach(el => {
                            el.textContent = currentSong.duration;
                         });
@@ -1539,6 +1680,8 @@
                 } else {
                     elementsJG.progressSlider.value = 0;
                     elementsJG.currentTimeDisplay.textContent = "0:00";
+                    // totalTimeDisplay might still show old value if duration is 0 (e.g. before first play)
+                    // It gets updated once a song with duration is played.
                 }
             }
         }
@@ -1550,7 +1693,8 @@
             appStateJG.isPlayerReady = true;
             if (event.target && typeof event.target.setVolume === 'function') {
                 try {
-                    event.target.setVolume(appStateJG.volume);
+                    // Volume is now loaded from localStorage in loadInitialDataJG and applied via setVolumeJG
+                    setVolumeJG(appStateJG.volume, false); // Apply initial volume without saving again
                     console.log("onPlayerReadyJG: Volume set to", appStateJG.volume);
                 } catch(e){
                     console.warn("onPlayerReadyJG: Could not set volume on ready", e);
@@ -1558,9 +1702,6 @@
             } else {
                 console.warn("onPlayerReadyJG: event.target or setVolume not available for volume setting.");
             }
-
-            // APIキーチェックは loadInitialSongsJG の冒頭で行われるため、ここでの詳細なチェックは不要
-            // loadInitialSongsJG を呼び出すだけで良い
             console.log("onPlayerReadyJG: Calling loadInitialSongsJG...");
             loadInitialSongsJG();
         }
@@ -1573,22 +1714,17 @@
                 appStateJG.isPlaying = true;
                 if (appStateJG.progressInterval) clearInterval(appStateJG.progressInterval);
                 appStateJG.progressInterval = setInterval(updateProgressJG, 500);
-                updatePlayPauseButtonJG();
-                updatePlayerUIGJ(appStateJG.songs[appStateJG.currentSongIndex]);
+                updatePlayerUIGJ(appStateJG.songs[appStateJG.currentSongIndex]); // Also calls updateDocumentTitleJG
                 updateActiveListItemJG(); 
                 
                 const currentSongObject = appStateJG.songs[appStateJG.currentSongIndex];
-                if (currentSongObject) {
+                if (currentSongObject) { // Update currentQueueIndex if it drifted
                     if (appStateJG.playMode === 'queue') {
                         const songIdInQueue = appStateJG.queue[appStateJG.currentQueueIndex];
                         if (songIdInQueue !== currentSongObject.id) {
                             const newQueueIndex = appStateJG.queue.findIndex(id => id === currentSongObject.id);
-                            if (newQueueIndex !== -1) {
-                                appStateJG.currentQueueIndex = newQueueIndex;
-                            } else {
-                                appStateJG.playMode = 'library'; 
-                                appStateJG.currentQueueIndex = -1;
-                            }
+                            if (newQueueIndex !== -1) appStateJG.currentQueueIndex = newQueueIndex;
+                            else { appStateJG.playMode = 'library'; appStateJG.currentQueueIndex = -1; }
                         }
                     } else if (appStateJG.playMode === 'playlist' && appStateJG.currentPlayingPlaylistId) {
                         const playlist = appStateJG.userPlaylists.find(p => p.id === appStateJG.currentPlayingPlaylistId);
@@ -1596,29 +1732,22 @@
                             const songIdInPlaylist = playlist.songs[appStateJG.currentQueueIndex]; 
                             if (songIdInPlaylist !== currentSongObject.id) {
                                 const newPlaylistSongIndex = playlist.songs.findIndex(id => id === currentSongObject.id);
-                                if (newPlaylistSongIndex !== -1) {
-                                    appStateJG.currentQueueIndex = newPlaylistSongIndex;
-                                } else {
-                                    appStateJG.playMode = 'library'; 
-                                    appStateJG.currentPlayingPlaylistId = null;
-                                    appStateJG.currentQueueIndex = -1;
-                                }
+                                if (newPlaylistSongIndex !== -1) appStateJG.currentQueueIndex = newPlaylistSongIndex;
+                                else { appStateJG.playMode = 'library'; appStateJG.currentPlayingPlaylistId = null; appStateJG.currentQueueIndex = -1; }
                             }
-                        } else { 
-                            appStateJG.playMode = 'library';
-                            appStateJG.currentPlayingPlaylistId = null;
-                            appStateJG.currentQueueIndex = -1;
-                        }
+                        } else { appStateJG.playMode = 'library'; appStateJG.currentPlayingPlaylistId = null; appStateJG.currentQueueIndex = -1; }
                     }
                 }
             } else if (playerState === YT.PlayerState.PAUSED) { // 2
                 appStateJG.isPlaying = false;
                 clearInterval(appStateJG.progressInterval);
                 updatePlayPauseButtonJG();
+                updateDocumentTitleJG(); // NEW_CODE
             } else if (playerState === YT.PlayerState.ENDED) { // 0
                 appStateJG.isPlaying = false;
                 clearInterval(appStateJG.progressInterval);
                 updatePlayPauseButtonJG();
+                updateDocumentTitleJG(); // NEW_CODE
                 if(elementsJG.progressSlider) elementsJG.progressSlider.value = 100; 
                 if(elementsJG.currentTimeDisplay && elementsJG.totalTimeDisplay) { 
                     elementsJG.currentTimeDisplay.textContent = elementsJG.totalTimeDisplay.textContent;
@@ -1629,8 +1758,15 @@
             } else if (playerState === YT.PlayerState.CUED) { // 5
                 console.log("Video cued:", appStateJG.songs[appStateJG.currentSongIndex]?.title);
                 updateProgressJG(); 
+                // Sometimes player doesn't auto-play after loadVideoById if autoplay is 0.
+                // If not playing and a song is cued, try to play it.
+                if (!appStateJG.isPlaying && appStateJG.currentSongIndex !== -1) {
+                    console.log("onPlayerStateChangeJG (CUED): Song cued, attempting to play explicitly.");
+                    appStateJG.player.playVideo();
+                }
             } else if (playerState === -1) { // UNSTARTED
                  console.log("Player unstarted.");
+                 updateDocumentTitleJG(); // NEW_CODE
             }
         }
 
@@ -1639,25 +1775,16 @@
             let msg = `動画の再生エラー (コード: ${event.data})`;
             const currentSongTitle = appStateJG.songs[appStateJG.currentSongIndex]?.title || "この動画";
             switch(event.data) {
-                case 2: 
-                    msg = `「${escapeHTMLJG(currentSongTitle)}」の読み込みに失敗しました。動画IDが無効か、リクエストに問題がある可能性があります。`;
-                    break;
-                case 5: 
-                    msg = `「${escapeHTMLJG(currentSongTitle)}」の再生中にHTML5プレイヤーエラーが発生しました。`;
-                    break;
-                case 100: 
-                    msg = `「${escapeHTMLJG(currentSongTitle)}」が見つかりませんでした。非公開または削除された可能性があります。`;
-                    break;
-                case 101: 
-                case 150: 
-                    msg = `「${escapeHTMLJG(currentSongTitle)}」の埋め込み再生は、所有者によって許可されていません。`;
-                    break;
-                default:
-                    msg = `「${escapeHTMLJG(currentSongTitle)}」の再生中に不明なエラーが発生しました (コード: ${event.data})。`;
+                case 2: msg = `「${escapeHTMLJG(currentSongTitle)}」の読み込みに失敗しました。動画IDが無効か、リクエストに問題がある可能性があります。`; break;
+                case 5: msg = `「${escapeHTMLJG(currentSongTitle)}」の再生中にHTML5プレイヤーエラーが発生しました。`; break;
+                case 100: msg = `「${escapeHTMLJG(currentSongTitle)}」が見つかりませんでした。非公開または削除された可能性があります。`; break;
+                case 101: case 150: msg = `「${escapeHTMLJG(currentSongTitle)}」の埋め込み再生は、所有者によって許可されていません。`; break;
+                default: msg = `「${escapeHTMLJG(currentSongTitle)}」の再生中に不明なエラーが発生しました (コード: ${event.data})。`;
             }
             showSnackbarJG(msg, "error", 7000); 
             appStateJG.isPlaying = false;
             updatePlayPauseButtonJG();
+            updateDocumentTitleJG(); // NEW_CODE
         }
 
         // ==========================================================================
@@ -1769,21 +1896,21 @@
                 const duration = appStateJG.player.getDuration();
                 if (duration > 0) {
                     const seekTime = (parseFloat(e.target.value) / 100) * duration;
-                    appStateJG.player.seekTo(seekTime, true);
-                    updateProgressJG(); 
+                    if (appStateJG.player.seekTo) appStateJG.player.seekTo(seekTime, true); // true: allow seek ahead
+                    updateProgressJG(); // Visually update immediately
                 }
             });
 
             elementsJG.volumeSlider?.addEventListener('input', (e) => {
-                appStateJG.volume = parseInt(e.target.value);
-                if (appStateJG.player && appStateJG.isPlayerReady && typeof appStateJG.player.setVolume === 'function') {
-                    appStateJG.player.setVolume(appStateJG.volume);
-                }
-                if (elementsJG.volumeIconMute && elementsJG.volumeIconUp) {
-                    elementsJG.volumeIconMute.style.opacity = appStateJG.volume === 0 ? '1' : '0.5';
-                    elementsJG.volumeIconUp.style.opacity = appStateJG.volume > 0 ? '1' : '0.5';
-                }
+                const newVolume = parseInt(e.target.value);
+                setVolumeJG(newVolume); // This will update state, player, UI, and save
             });
+             // NEW_CODE_START: Mute icon click listener
+            elementsJG.volumeIconMute?.addEventListener('click', toggleMuteJG);
+            elementsJG.volumeIconUp?.addEventListener('click', () => { // If unmuted by clicking speaker icon
+                if (appStateJG.isMuted) toggleMuteJG();
+            });
+            // NEW_CODE_END
 
             elementsJG.themeToggle?.addEventListener('click', toggleThemeJG);
 
@@ -1793,7 +1920,19 @@
             
             elementsJG.searchInput?.addEventListener('input', handleSearchJG);
 
-            // Dynamic buttons (Refresh Feed, New Path) are handled by updateLogActionButtonsJG
+            // NEW_CODE_START: Search clear button listener
+            elementsJG.clearSearchButton?.addEventListener('click', () => {
+                if (elementsJG.searchInput) {
+                    elementsJG.searchInput.value = '';
+                    elementsJG.searchInput.dispatchEvent(new Event('input')); // Trigger search handler
+                    elementsJG.searchInput.focus();
+                }
+            });
+            // NEW_CODE_END
+            
+            // NEW_CODE_START: Global Keydown Listener
+            document.addEventListener('keydown', handleGlobalKeydownJG);
+            // NEW_CODE_END
         }
         // ==========================================================================
         // UI & Control Logic Helpers
@@ -1821,6 +1960,7 @@
                 if (p) p.classList.toggle('active', p.id === panelId);
             });
 
+            // MODIFIED_CODE: Use findSongByIdJG for queue rendering
             switch (panelId) {
                 case 'log-library':
                     if (elementsJG.libraryPanel) renderSongListJG(elementsJG.libraryPanel, appStateJG.filteredSongs, 'library');
@@ -1836,7 +1976,12 @@
                     break;
                 case 'log-paths': 
                     if(elementsJG.playlistsPanel) {
-                        renderPlaylistsJG(); 
+                        // If a playlist was being viewed, stay on it, otherwise show list of playlists
+                        if (appStateJG.currentViewingPlaylistId) {
+                             renderSongsInPlaylistJG(appStateJG.currentViewingPlaylistId);
+                        } else {
+                             renderPlaylistsJG(); 
+                        }
                     }
                     break;
             }
@@ -1844,8 +1989,12 @@
         }
 
         function handleSearchJG() {
-            if (!elementsJG.searchInput) return;
+            if (!elementsJG.searchInput || !elementsJG.clearSearchButton) return; // MODIFIED_CODE
             const searchTerm = elementsJG.searchInput.value.toLowerCase().trim();
+
+            // MODIFIED_CODE: Show/hide clear button
+            elementsJG.clearSearchButton.style.display = searchTerm ? 'inline-block' : 'none';
+
             if (searchTerm === "") {
                 appStateJG.filteredSongs = [...appStateJG.songs];
             } else {
@@ -1865,6 +2014,8 @@
             appStateJG.isShuffle = !appStateJG.isShuffle;
             elementsJG.btnShuffle.classList.toggle('active-control', appStateJG.isShuffle);
             showSnackbarJG(`シャッフル・ビート ${appStateJG.isShuffle ? 'ON' : 'OFF'}!`);
+            // Note: Shuffle primarily affects 'library' playMode's next/prev.
+            // Queue and Playlist playModes follow their defined order unless explicitly shuffled (not implemented).
         }
 
         function toggleLoopJG() {
@@ -1893,6 +2044,49 @@
             if(appStateJG.loopMode === 'one') loopMsg += "この一本の木";
             showSnackbarJG(loopMsg);
         }
+
+        // NEW_CODE_START: Volume and Mute controls
+        function setVolumeJG(volume, save = true) {
+            appStateJG.volume = Math.max(0, Math.min(100, volume)); // Clamp between 0 and 100
+            appStateJG.isMuted = (appStateJG.volume === 0);
+
+            if (elementsJG.volumeSlider) elementsJG.volumeSlider.value = appStateJG.volume;
+            
+            if (appStateJG.player && appStateJG.isPlayerReady && typeof appStateJG.player.setVolume === 'function') {
+                appStateJG.player.setVolume(appStateJG.volume);
+                if (appStateJG.isMuted && typeof appStateJG.player.mute === 'function') {
+                    // Some players might not unmute automatically when volume > 0
+                    // appStateJG.player.mute(); // Not strictly needed if setVolume(0) mutes
+                } else if (!appStateJG.isMuted && typeof appStateJG.player.unMute === 'function' && appStateJG.player.isMuted()) {
+                     appStateJG.player.unMute();
+                }
+            }
+            updateVolumeIconsJG();
+            if (save) saveToLocalStorageJG(LS_KEYS_JG.VOLUME, appStateJG.volume);
+        }
+
+        function toggleMuteJG() {
+            if (appStateJG.isMuted) { // Unmute
+                // Restore to previous volume or a default if previous was 0
+                setVolumeJG(appStateJG.previousVolumeBeforeMute > 0 ? appStateJG.previousVolumeBeforeMute : 25);
+            } else { // Mute
+                appStateJG.previousVolumeBeforeMute = appStateJG.volume; // Save current volume
+                setVolumeJG(0);
+            }
+        }
+
+        function updateVolumeIconsJG() {
+            if (elementsJG.volumeIconMute && elementsJG.volumeIconUp) {
+                const isEffectivelyMuted = appStateJG.volume === 0 || appStateJG.isMuted;
+                elementsJG.volumeIconMute.style.opacity = isEffectivelyMuted ? '1' : '0.5';
+                elementsJG.volumeIconMute.classList.toggle('text-jg-accent-sunburst', isEffectivelyMuted); // Highlight if muted
+
+                elementsJG.volumeIconUp.style.opacity = !isEffectivelyMuted ? '1' : '0.5';
+                elementsJG.volumeIconUp.classList.remove('text-jg-accent-sunburst'); // Ensure up icon isn't highlighted when mute is active
+            }
+        }
+        // NEW_CODE_END
+
         // ==========================================================================
         // History, Favorites, Queue
         // ==========================================================================
@@ -1915,6 +2109,7 @@
             const song = findSongByIdJG(songId); 
             if (!song) {
                 console.warn("Cannot favorite: song not found in main list with ID", songId);
+                showSnackbarJG("お気に入り操作エラー: 曲が見つかりません。", "error");
                 return;
             }
 
@@ -1930,15 +2125,23 @@
             
             saveToLocalStorageJG(LS_KEYS_JG.FAVORITES, appStateJG.favorites);
 
+            // Update the clicked button immediately
             if (iconElement) iconElement.className = `fas ${isNowFavorite ? 'fa-heart text-jg-accent-sunburst' : 'fa-feather-alt'}`;
             if (buttonElement) buttonElement.setAttribute('aria-label', isNowFavorite ? 'お気に入りから削除' : 'お気に入りに追加');
 
+            // Re-render if currently viewing favorites panel
             if (appStateJG.currentPanel === 'log-trophies' && elementsJG.favoritesPanel) {
                  renderSongListJG(elementsJG.favoritesPanel, appStateJG.favorites, 'favorites');
             }
+            // Update all other instances of this song's favorite button in other lists
              document.querySelectorAll(`.log-entry-jg[data-id="${songId}"] .favorite-action-jg`).forEach(btn => {
-                btn.querySelector('i').className = `fas ${isNowFavorite ? 'fa-heart text-jg-accent-sunburst' : 'fa-feather-alt'}`;
-                btn.setAttribute('aria-label', isNowFavorite ? 'お気に入りから削除' : 'お気に入りに追加');
+                const i = btn.querySelector('i');
+                if (i && i !== iconElement) { // Don't re-update the one we just changed
+                    i.className = `fas ${isNowFavorite ? 'fa-heart text-jg-accent-sunburst' : 'fa-feather-alt'}`;
+                }
+                if (btn !== buttonElement) {
+                    btn.setAttribute('aria-label', isNowFavorite ? 'お気に入りから削除' : 'お気に入りに追加');
+                }
             });
         }
         
@@ -1948,15 +2151,16 @@
                 showSnackbarJG("曲が見つかりません。", "error");
                 return;
             }
-            appStateJG.queue.push(songId); 
+            appStateJG.queue.push(songId); // Add ID to queue
             saveToLocalStorageJG(LS_KEYS_JG.QUEUE, appStateJG.queue);
             updateQueueCountBadgeJG();
             showSnackbarJG(`「${escapeHTMLJG(song.title)}」をキューに追加しました。`, "success");
 
             if (appStateJG.currentPanel === 'log-discoveries' && elementsJG.queuePanel) {
+                // Re-render queue panel with full song objects
                 renderSongListJG(elementsJG.queuePanel, appStateJG.queue.map(id => findSongByIdJG(id)).filter(s => s), 'queue');
             }
-            updateLogActionButtonsJG('log-discoveries'); // キューのボタンを更新する可能性がある
+            updateLogActionButtonsJG('log-discoveries'); 
         }
 
         function updateQueueCountBadgeJG() {
@@ -1984,61 +2188,66 @@
 
             const confirmButton = document.getElementById('confirmCreatePlaylistJG');
             const cancelButton = document.getElementById('cancelCreatePlaylistJG');
-
+            
+            // Use named functions for event handlers to remove them properly
             const handleConfirm = () => {
                 const playlistName = input.value.trim();
                 if (playlistName) {
                     createPlaylistJG(playlistName);
-                    hideCreatePlaylistModalJG();
+                    hideCreatePlaylistModalJG(); // This will also cleanup listeners
                 } else {
                     showSnackbarJG("プレイリスト名を入力してください。", "warning");
                     input.focus();
                 }
-                cleanupListeners();
             };
 
             const handleCancel = () => {
-                hideCreatePlaylistModalJG();
-                cleanupListeners();
+                hideCreatePlaylistModalJG(); // This will also cleanup listeners
             };
             
             const handleKeydown = (e) => {
-                if (e.key === 'Enter') {
-                    handleConfirm();
-                } else if (e.key === 'Escape') {
-                    handleCancel();
-                }
+                if (e.key === 'Enter') handleConfirm();
+                else if (e.key === 'Escape') handleCancel();
             };
+            
+            const handleBackdropClick = (e) => {
+                if (e.target === modal) handleCancel();
+            };
+
+            // Store handlers on elements to remove them in hide function
+            confirmButton._handleConfirm = handleConfirm;
+            cancelButton._handleCancel = handleCancel;
+            input._handleKeydown = handleKeydown;
+            modal._handleBackdropClick = handleBackdropClick;
 
             confirmButton.addEventListener('click', handleConfirm);
             cancelButton.addEventListener('click', handleCancel);
             input.addEventListener('keydown', handleKeydown); 
-            modal.addEventListener('click', (e) => { 
-                if (e.target === modal) {
-                    handleCancel();
-                }
-            });
-
-            function cleanupListeners() {
-                confirmButton.removeEventListener('click', handleConfirm);
-                cancelButton.removeEventListener('click', handleCancel);
-                input.removeEventListener('keydown', handleKeydown);
-            }
+            modal.addEventListener('click', handleBackdropClick);
         }
 
         function hideCreatePlaylistModalJG() {
             const modal = document.getElementById('createPlaylistModalJG');
-            if (modal) {
-                modal.style.display = 'none';
-            }
+            if (!modal) return;
+            modal.style.display = 'none';
             appStateJG.activeModalId = null;
+
+            // Cleanup listeners
+            const confirmButton = document.getElementById('confirmCreatePlaylistJG');
+            const cancelButton = document.getElementById('cancelCreatePlaylistJG');
+            const input = document.getElementById('newPlaylistNameJG');
+
+            if (confirmButton && confirmButton._handleConfirm) confirmButton.removeEventListener('click', confirmButton._handleConfirm);
+            if (cancelButton && cancelButton._handleCancel) cancelButton.removeEventListener('click', cancelButton._handleCancel);
+            if (input && input._handleKeydown) input.removeEventListener('keydown', input._handleKeydown);
+            if (modal._handleBackdropClick) modal.removeEventListener('click', modal._handleBackdropClick);
         }
 
         function createPlaylistJG(name) {
             const newPlaylist = {
                 id: generateUniqueIdJG(),
                 name: name,
-                songs: [] 
+                songs: [] // Array of song IDs
             };
             appStateJG.userPlaylists.push(newPlaylist);
             saveToLocalStorageJG(LS_KEYS_JG.PLAYLISTS, appStateJG.userPlaylists);
@@ -2052,20 +2261,21 @@
         function renderPlaylistsJG() {
             if (!elementsJG.playlistsPanel) return;
             elementsJG.playlistsPanel.innerHTML = ''; 
+            appStateJG.currentViewingPlaylistId = null; // Ensure we are viewing the list of playlists
 
             if (appStateJG.userPlaylists.length === 0) {
                 showEmptyMessageInPanelJG(elementsJG.playlistsPanel, "まだ道は描かれていない", "「新しい道」ボタンからプレイリストを作成しましょう！");
-                updateLogActionButtonsJG('log-paths'); // ボタン更新
+                updateLogActionButtonsJG('log-paths'); 
                 return;
             }
 
             const fragment = document.createDocumentFragment();
             appStateJG.userPlaylists.forEach(playlist => {
                 const playlistEntry = document.createElement('div');
-                playlistEntry.className = 'log-entry-jg playlist-item-jg';
+                playlistEntry.className = 'log-entry-jg playlist-item-jg'; // Keep styling consistent
                 playlistEntry.dataset.playlistId = playlist.id;
                 playlistEntry.innerHTML = `
-                    <i class="fas fa-compact-disc fa-lg mr-3 text-jg-accent-waterfall" style="width: 40px; text-align: center;"></i>
+                    <i class="fas fa-compact-disc fa-lg mr-3 text-jg-accent-waterfall" style="width: 40px; text-align: center; flex-shrink:0;"></i>
                     <div>
                         <span class="title">${escapeHTMLJG(playlist.name)}</span>
                         <span class="artist">${playlist.songs.length} 曲</span>
@@ -2082,14 +2292,20 @@
                 
                 playlistEntry.addEventListener('click', (e) => {
                     if (e.target.closest('.song-item-action-jg')) return; 
-                    appStateJG.currentViewingPlaylistId = playlist.id;
+                    // appStateJG.currentViewingPlaylistId = playlist.id; // Set when rendering songs
                     renderSongsInPlaylistJG(playlist.id);
                 });
 
                 const renameBtn = playlistEntry.querySelector('.rename-playlist-action-jg');
                 renameBtn?.addEventListener('click', (e) => {
                     e.stopPropagation(); 
-                    showSnackbarJG(`「${escapeHTMLJG(playlist.name)}」の名前変更機能は準備中です。`, "info");
+                    // TODO: Implement rename playlist functionality
+                    const newName = prompt(`プレイリスト「${escapeHTMLJG(playlist.name)}」の新しい名前を入力してください:`, playlist.name);
+                    if (newName && newName.trim() !== "" && newName.trim() !== playlist.name) {
+                        renamePlaylistJG(playlist.id, newName.trim());
+                    } else if (newName !== null) { // Not cancelled, but empty or same
+                        showSnackbarJG("プレイリスト名は変更されませんでした。", "info");
+                    }
                 });
                 
                 const deleteBtn = playlistEntry.querySelector('.delete-playlist-action-jg');
@@ -2101,8 +2317,32 @@
                 fragment.appendChild(playlistEntry);
             });
             elementsJG.playlistsPanel.appendChild(fragment);
-            updateLogActionButtonsJG('log-paths'); // ボタン更新
+            updateLogActionButtonsJG('log-paths'); 
         }
+
+        // NEW_CODE_START: Rename Playlist
+        function renamePlaylistJG(playlistId, newName) {
+            const playlist = appStateJG.userPlaylists.find(p => p.id === playlistId);
+            if (playlist) {
+                const oldName = playlist.name;
+                playlist.name = newName;
+                saveToLocalStorageJG(LS_KEYS_JG.PLAYLISTS, appStateJG.userPlaylists);
+                showSnackbarJG(`プレイリスト「${escapeHTMLJG(oldName)}」を「${escapeHTMLJG(newName)}」に改名しました。`, "success");
+                if (appStateJG.currentPanel === 'log-paths') {
+                    if (appStateJG.currentViewingPlaylistId === playlistId) {
+                        // If viewing this playlist, update its header
+                        const headerTitle = elementsJG.playlistsPanel?.querySelector('h4.font-display-jg');
+                        if (headerTitle) headerTitle.textContent = escapeHTMLJG(newName);
+                    } else {
+                        renderPlaylistsJG(); // Re-render list of playlists
+                    }
+                }
+            } else {
+                showSnackbarJG("プレイリストの改名に失敗しました。", "error");
+            }
+        }
+        // NEW_CODE_END
+
 
         function confirmDeletePlaylistJG(playlistId, playlistName) {
             if (confirm(`プレイリスト「${escapeHTMLJG(playlistName)}」を本当に削除しますか？この操作は元に戻せません。`)) {
@@ -2114,8 +2354,18 @@
             appStateJG.userPlaylists = appStateJG.userPlaylists.filter(p => p.id !== playlistId);
             saveToLocalStorageJG(LS_KEYS_JG.PLAYLISTS, appStateJG.userPlaylists);
             showSnackbarJG("プレイリストを削除しました。", "info");
+            // If the deleted playlist was being viewed or played, reset relevant state
+            if (appStateJG.currentViewingPlaylistId === playlistId) {
+                appStateJG.currentViewingPlaylistId = null;
+            }
+            if (appStateJG.currentPlayingPlaylistId === playlistId) {
+                appStateJG.currentPlayingPlaylistId = null;
+                appStateJG.playMode = 'library'; // Fallback
+                appStateJG.currentQueueIndex = -1;
+            }
+
             if (appStateJG.currentPanel === 'log-paths' && elementsJG.playlistsPanel) {
-                renderPlaylistsJG(); // Will also call updateLogActionButtonsJG
+                renderPlaylistsJG(); 
             }
         }
         
@@ -2160,14 +2410,8 @@
 
             const cancelButton = document.getElementById('cancelAddToPlaylistJG');
             
-            const handleCancel = () => {
-                hideAddToPlaylistModalJG(); 
-            };
-            const handleBackdropClick = (e) => {
-                if (e.target === modal) {
-                    handleCancel();
-                }
-            };
+            const handleCancel = () => hideAddToPlaylistModalJG();
+            const handleBackdropClick = (e) => { if (e.target === modal) handleCancel(); };
             
             modal._handleBackdropClick = handleBackdropClick;
             cancelButton._handleCancel = handleCancel;
@@ -2218,7 +2462,9 @@
                 if (appStateJG.currentViewingPlaylistId === playlistId) {
                     renderSongsInPlaylistJG(playlistId); 
                 } else {
-                    renderPlaylistsJG(); 
+                    // If viewing the main playlist list, update the count on the specific playlist item
+                    const playlistItem = elementsJG.playlistsPanel.querySelector(`.playlist-item-jg[data-playlist-id="${playlistId}"] .artist`);
+                    if (playlistItem) playlistItem.textContent = `${playlist.songs.length} 曲`;
                 }
             }
         }
@@ -2260,7 +2506,22 @@
 
             const playlist = appStateJG.userPlaylists.find(p => p.id === playlistId);
             if (!playlist) {
-                showEmptyMessageInPanelJG(elementsJG.playlistsPanel, "プレイリストが見つかりません", "エラーが発生しました。");
+                showEmptyMessageInPanelJG(elementsJG.playlistsPanel, "プレイリストが見つかりません", "エラーが発生しました。道の一覧に戻ってください。");
+                 // Add a back button even if playlist not found, to allow navigation
+                elementsJG.playlistsPanel.innerHTML = `
+                    <div class="flex items-center justify-between mb-3 px-1">
+                        <h4 class="font-display-jg text-xl text-jg-text-earth">プレイリストエラー</h4>
+                        <button id="backToPlaylistsViewErrorJG" class="px-3 py-1 rounded bg-jg-surface-leaf hover:bg-jg-accent-canopy text-sm transition-colors">
+                            <i class="fas fa-arrow-left mr-1"></i> 道の一覧へ
+                        </button>
+                    </div>
+                    <div class="text-center p-4 text-jg-text-shadow">指定されたプレイリストが見つかりませんでした。</div>
+                `;
+                document.getElementById('backToPlaylistsViewErrorJG')?.addEventListener('click', () => {
+                    appStateJG.currentViewingPlaylistId = null; 
+                    renderPlaylistsJG(); 
+                    updateLogActionButtonsJG('log-paths'); 
+                });
                 updateLogActionButtonsJG('log-paths');
                 return;
             }
@@ -2283,7 +2544,7 @@
             document.getElementById('backToPlaylistsViewJG').addEventListener('click', () => {
                 appStateJG.currentViewingPlaylistId = null; 
                 renderPlaylistsJG(); 
-                updateLogActionButtonsJG('log-paths'); 
+                // updateLogActionButtonsJG will be called by renderPlaylistsJG
             });
 
             const songListContainer = document.createElement('div');
@@ -2297,8 +2558,188 @@
             } else {
                 renderSongListJG(songListContainer, songsInPlaylist, 'playlistSongs');
             }
-            updateLogActionButtonsJG('log-paths'); 
+            updateLogActionButtonsJG('log-paths'); // Context is 'playlistSongs' now
         }
+
+        // NEW_CODE_START: Drag and Drop Handlers
+        function handleDragStartJG(event, songId, originalListIndex, context) {
+            if (!event.target.classList.contains('log-entry-jg')) return;
+
+            draggedItemJG = event.target;
+            draggedItemOriginalIndexJG = originalListIndex; // Index in the specific list (queue or playlist.songs)
+            currentDragContextJG = context;
+
+            event.dataTransfer.setData('text/plain', songId);
+            event.dataTransfer.effectAllowed = 'move';
+            draggedItemJG.classList.add('dragging-jg');
+            draggedItemJG.style.cursor = 'grabbing';
+
+            // Create placeholder immediately for better UX (optional)
+            // if (!dragOverPlaceholderJG) {
+            //     dragOverPlaceholderJG = document.createElement('div');
+            //     dragOverPlaceholderJG.className = 'drag-over-placeholder-jg';
+            // }
+        }
+
+        function handleDragOverJG(event) {
+            event.preventDefault(); // Necessary to allow dropping
+            event.dataTransfer.dropEffect = 'move';
+
+            if (!draggedItemJG) return;
+
+            const targetItem = event.target.closest('.log-entry-jg');
+            const container = draggedItemJG.parentElement; // The list container
+
+            if (!dragOverPlaceholderJG) {
+                dragOverPlaceholderJG = document.createElement('div');
+                dragOverPlaceholderJG.className = 'drag-over-placeholder-jg';
+            }
+
+            if (targetItem && targetItem !== draggedItemJG) {
+                const rect = targetItem.getBoundingClientRect();
+                const isAfter = event.clientY > rect.top + rect.height / 2;
+                if (isAfter) {
+                    container.insertBefore(dragOverPlaceholderJG, targetItem.nextSibling);
+                } else {
+                    container.insertBefore(dragOverPlaceholderJG, targetItem);
+                }
+            } else if (!targetItem && container.contains(draggedItemJG)) { // Dragging over empty space in container
+                 // Check if dragging to the end of the list
+                const lastChild = container.lastElementChild;
+                if(lastChild && lastChild !== dragOverPlaceholderJG && lastChild !== draggedItemJG) {
+                    // Heuristic: if near bottom of container, append placeholder
+                     if (event.clientY > lastChild.getBoundingClientRect().bottom - 10) {
+                        container.appendChild(dragOverPlaceholderJG);
+                     }
+                } else if (!lastChild || lastChild === draggedItemJG) { // Empty list or only dragging item present
+                    container.appendChild(dragOverPlaceholderJG);
+                }
+            }
+        }
+        
+        function handleDragLeaveJG(event) {
+            // If leaving the container itself or a child that's not a valid drop target temporarily.
+            // More robust placeholder removal is in dragend and drop.
+            if (dragOverPlaceholderJG && dragOverPlaceholderJG.parentElement && !event.currentTarget.contains(event.relatedTarget)) {
+                 // dragOverPlaceholderJG.remove(); // This can be flickering. Better to manage in drop/end.
+            }
+        }
+
+
+        function handleDropJG(event, panelElement, context) {
+            event.preventDefault();
+            if (!draggedItemJG || currentDragContextJG !== context) {
+                cleanupDragStateJG();
+                return;
+            }
+
+            const draggedSongId = event.dataTransfer.getData('text/plain');
+            let listToUpdate;
+            
+            if (context === 'queue') {
+                listToUpdate = appStateJG.queue;
+            } else if (context === 'playlistSongs' && appStateJG.currentViewingPlaylistId) {
+                const playlist = appStateJG.userPlaylists.find(p => p.id === appStateJG.currentViewingPlaylistId);
+                if (playlist) {
+                    listToUpdate = playlist.songs;
+                } else {
+                    console.error("Playlist not found for drop:", appStateJG.currentViewingPlaylistId);
+                    cleanupDragStateJG();
+                    return;
+                }
+            } else {
+                cleanupDragStateJG();
+                return;
+            }
+
+            const oldIndex = listToUpdate.indexOf(draggedSongId);
+            if (oldIndex === -1) { // Song was somehow not in the list (should not happen if drag started correctly)
+                console.warn("Dragged song ID not found in list:", draggedSongId, listToUpdate);
+                cleanupDragStateJG();
+                return;
+            }
+
+            // Determine new index based on placeholder position
+            let newIndex = -1;
+            if (dragOverPlaceholderJG && dragOverPlaceholderJG.parentElement) {
+                const children = Array.from(dragOverPlaceholderJG.parentElement.children);
+                newIndex = children.indexOf(dragOverPlaceholderJG);
+                 // Adjust if placeholder was after the dragged item originally
+                if (newIndex > oldIndex && children.indexOf(draggedItemJG) < newIndex) {
+                    // No adjustment needed if newIndex already accounts for removed item
+                } else if (newIndex <= oldIndex && children.indexOf(draggedItemJG) > newIndex) {
+                    // If placeholder is before, and item was after it, newIndex is fine.
+                }
+            } else { // Fallback: drop on item or end of list
+                const droppedOnItem = event.target.closest('.log-entry-jg');
+                if (droppedOnItem && droppedOnItem !== draggedItemJG) {
+                    const droppedOnId = droppedOnItem.dataset.id;
+                    newIndex = listToUpdate.indexOf(droppedOnId);
+                    const rect = droppedOnItem.getBoundingClientRect();
+                    if (event.clientY > rect.top + rect.height / 2) {
+                        newIndex++; // Insert after
+                    }
+                } else { // Dropped in empty space, assume end of list
+                    newIndex = listToUpdate.length;
+                }
+            }
+            
+            if (newIndex === -1) { // Could not determine drop position
+                cleanupDragStateJG();
+                return;
+            }
+
+            // Perform array update
+            const [movedSongId] = listToUpdate.splice(oldIndex, 1);
+            // If newIndex was calculated before splice and oldIndex was smaller, newIndex might need adjustment.
+            // The placeholder logic above should be more robust.
+            // For splice, if newIndex was after oldIndex, it needs to be decremented.
+            if (newIndex > oldIndex) newIndex--; 
+            listToUpdate.splice(Math.max(0, Math.min(newIndex, listToUpdate.length)), 0, movedSongId);
+
+
+            // Save and re-render
+            if (context === 'queue') {
+                appStateJG.queue = listToUpdate;
+                saveToLocalStorageJG(LS_KEYS_JG.QUEUE, appStateJG.queue);
+                renderSongListJG(panelElement, appStateJG.queue.map(id => findSongByIdJG(id)).filter(s => s), 'queue');
+                // If current playing song was in queue, update its currentQueueIndex
+                if (appStateJG.playMode === 'queue' && appStateJG.currentSongIndex !== -1) {
+                    const currentPlayingSongId = appStateJG.songs[appStateJG.currentSongIndex].id;
+                    appStateJG.currentQueueIndex = appStateJG.queue.indexOf(currentPlayingSongId);
+                }
+            } else if (context === 'playlistSongs') {
+                // Playlist songs already updated in listToUpdate
+                saveToLocalStorageJG(LS_KEYS_JG.PLAYLISTS, appStateJG.userPlaylists);
+                renderSongsInPlaylistJG(appStateJG.currentViewingPlaylistId);
+                 // If current playing song was in this playlist, update its currentQueueIndex (list index)
+                if (appStateJG.playMode === 'playlist' && appStateJG.currentPlayingPlaylistId === appStateJG.currentViewingPlaylistId && appStateJG.currentSongIndex !== -1) {
+                    const currentPlayingSongId = appStateJG.songs[appStateJG.currentSongIndex].id;
+                    const playlist = appStateJG.userPlaylists.find(p => p.id === appStateJG.currentPlayingPlaylistId);
+                    if(playlist) appStateJG.currentQueueIndex = playlist.songs.indexOf(currentPlayingSongId);
+                }
+            }
+            cleanupDragStateJG();
+        }
+
+        function handleDragEndJG(event) {
+            if (draggedItemJG) {
+                draggedItemJG.classList.remove('dragging-jg');
+                draggedItemJG.style.cursor = 'grab'; // Reset cursor
+            }
+            cleanupDragStateJG();
+        }
+
+        function cleanupDragStateJG() {
+            if (dragOverPlaceholderJG && dragOverPlaceholderJG.parentElement) {
+                dragOverPlaceholderJG.remove();
+            }
+            dragOverPlaceholderJG = null;
+            draggedItemJG = null;
+            draggedItemOriginalIndexJG = -1;
+            currentDragContextJG = null;
+        }
+        // NEW_CODE_END
 
         // ==========================================================================
         // Utility Functions
@@ -2317,13 +2758,7 @@
 
         function escapeHTMLJG(str) {
             if (typeof str !== 'string' || !str) return '';
-            const map = {
-                '&': '&amp;',
-                '<': '&lt;',
-                '>': '&gt;',
-                '"': '&quot;',
-                "'": '&#39;'
-            };
+            const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
             return str.replace(/[&<>"']/g, function(m) { return map[m]; });
         }
 
@@ -2353,22 +2788,13 @@
                 snackbar = document.createElement('div');
                 snackbar.id = snackbarId;
                 Object.assign(snackbar.style, {
-                    position: 'fixed',
-                    bottom: '20px',
-                    left: '50%',
+                    position: 'fixed', bottom: '20px', left: '50%',
                     transform: 'translateX(-50%) translateY(100px)', 
-                    padding: '12px 25px',
-                    color: '#ecf0f1',
-                    borderRadius: '8px',
-                    boxShadow: '0 4px 15px rgba(0,0,0,0.3)',
-                    zIndex: '10001', 
-                    opacity: '0',
-                    transition: 'opacity 0.3s ease, transform 0.3s ease-out',
-                    fontSize: '0.9rem',
-                    fontFamily: 'var(--font-body-jg, sans-serif)', 
-                    textAlign: 'center',
-                    minWidth: '280px',
-                    maxWidth: '90%'
+                    padding: '12px 25px', color: '#ecf0f1', borderRadius: '8px',
+                    boxShadow: '0 4px 15px rgba(0,0,0,0.3)', zIndex: '10001', 
+                    opacity: '0', transition: 'opacity 0.3s ease, transform 0.3s ease-out',
+                    fontSize: '0.9rem', fontFamily: 'var(--font-body-jg, sans-serif)', 
+                    textAlign: 'center', minWidth: '280px', maxWidth: '90%'
                 });
                 document.body.appendChild(snackbar);
             }
@@ -2391,24 +2817,105 @@
                 snackbar.style.transform = 'translateX(-50%) translateY(100px)';
             }, duration);
         }
+
+        // NEW_CODE_START: Keyboard Shortcuts Handler
+        function handleGlobalKeydownJG(event) {
+            // Ignore if typing in an input, textarea, or contenteditable element
+            const targetTagName = event.target.tagName.toLowerCase();
+            if (targetTagName === 'input' || targetTagName === 'textarea' || event.target.isContentEditable) {
+                // Allow specific keys even in inputs if needed (e.g. Escape for modals)
+                if (event.key === 'Escape' && appStateJG.activeModalId) {
+                    if (appStateJG.activeModalId === 'createPlaylistModalJG') hideCreatePlaylistModalJG();
+                    else if (appStateJG.activeModalId === 'addToPlaylistModalJG') hideAddToPlaylistModalJG();
+                }
+                return;
+            }
+            
+            let preventDefault = true; // Default to prevent browser's default action
+
+            switch (event.key) {
+                case ' ': // Spacebar
+                    togglePlayPauseJG();
+                    break;
+                case 'm': // M key
+                case 'M':
+                    toggleMuteJG();
+                    break;
+                case 'ArrowRight':
+                    if (appStateJG.player && appStateJG.isPlayerReady && appStateJG.player.getCurrentTime) {
+                        appStateJG.player.seekTo(appStateJG.player.getCurrentTime() + SEEK_STEP_JG, true);
+                        updateProgressJG();
+                    }
+                    break;
+                case 'ArrowLeft':
+                    if (appStateJG.player && appStateJG.isPlayerReady && appStateJG.player.getCurrentTime) {
+                        appStateJG.player.seekTo(Math.max(0, appStateJG.player.getCurrentTime() - SEEK_STEP_JG), true);
+                        updateProgressJG();
+                    }
+                    break;
+                case 'ArrowUp':
+                    setVolumeJG(appStateJG.volume + VOLUME_STEP_JG);
+                    break;
+                case 'ArrowDown':
+                    setVolumeJG(appStateJG.volume - VOLUME_STEP_JG);
+                    break;
+                case 'n': // N key
+                case 'N':
+                    playNextJG();
+                    break;
+                case 'p': // P key (for Previous)
+                case 'P':
+                case 'b': // B key (for Back) - common alternative
+                case 'B':
+                    playPrevJG();
+                    break;
+                case 's': // S key
+                case 'S':
+                    toggleShuffleJG();
+                    break;
+                case 'l': // L key
+                case 'L':
+                    toggleLoopJG();
+                    break;
+                case 'Escape':
+                    if (appStateJG.activeModalId) {
+                        if (appStateJG.activeModalId === 'createPlaylistModalJG') hideCreatePlaylistModalJG();
+                        else if (appStateJG.activeModalId === 'addToPlaylistModalJG') hideAddToPlaylistModalJG();
+                    } else {
+                        preventDefault = false; // Allow default escape behavior if no modal
+                    }
+                    break;
+                default:
+                    preventDefault = false; // Don't prevent default for other keys
+                    break;
+            }
+            if (preventDefault) {
+                event.preventDefault();
+            }
+        }
+        // NEW_CODE_END
+
         // ==========================================================================
         // Initialization on DOM Load
         // ==========================================================================
         function loadInitialDataJG(isSongDataReload = false) {
-            console.log("loadInitialDataJG - START: Loading data from localStorage and setting theme. isSongDataReload:", isSongDataReload);
+            console.log("loadInitialDataJG - START: isSongDataReload:", isSongDataReload);
+            
+            // Load non-song-dependent data only once initially
             if (!isSongDataReload) {
-                appStateJG.history = loadFromLocalStorageJG(LS_KEYS_JG.HISTORY) || [];
-                const favsFromStorage = loadFromLocalStorageJG(LS_KEYS_JG.FAVORITES) || [];
-                if (appStateJG.songs.length > 0) { 
-                    appStateJG.favorites = favsFromStorage.map(favSong => findSongByIdJG(favSong.id)).filter(s => s);
-                } else {
-                    appStateJG.favorites = favsFromStorage; 
-                }
-
-                appStateJG.queue = loadFromLocalStorageJG(LS_KEYS_JG.QUEUE) || [];
-                appStateJG.userPlaylists = loadFromLocalStorageJG(LS_KEYS_JG.PLAYLISTS) || []; 
                 appStateJG.currentTheme = loadFromLocalStorageJG(LS_KEYS_JG.THEME) || 'dark';
+                // NEW_CODE_START: Load volume from localStorage
+                const storedVolume = loadFromLocalStorageJG(LS_KEYS_JG.VOLUME);
+                if (storedVolume !== null) {
+                    appStateJG.volume = parseInt(storedVolume, 10);
+                    appStateJG.isMuted = (appStateJG.volume === 0);
+                    // If muted, previousVolumeBeforeMute should ideally also be stored/retrieved
+                    // For now, if loaded volume is 0, assume it was intentionally set to 0, not muted from a higher vol.
+                    appStateJG.previousVolumeBeforeMute = appStateJG.volume > 0 ? appStateJG.volume : 75; 
+                }
+                // NEW_CODE_END
 
+                // Apply theme (before elementsJG might be fully populated if called too early, ensure it's safe)
                 if (elementsJG.body && elementsJG.themeToggle) {
                     if (appStateJG.currentTheme === 'light') {
                         elementsJG.body.classList.add('light-mode-jg');
@@ -2417,39 +2924,46 @@
                         elementsJG.body.classList.remove('light-mode-jg'); 
                         elementsJG.themeToggle.innerHTML = `<i class="fas fa-sun"></i>`;
                     }
-                } else {
-                    console.warn("loadInitialDataJG: Body or themeToggle element not found for theme setup.");
                 }
+                // Apply volume to UI
                 if(elementsJG.volumeSlider) elementsJG.volumeSlider.value = appStateJG.volume;
-                if (elementsJG.volumeIconMute && elementsJG.volumeIconUp) {
-                    elementsJG.volumeIconMute.style.opacity = appStateJG.volume === 0 ? '1' : '0.5';
-                    elementsJG.volumeIconUp.style.opacity = appStateJG.volume > 0 ? '1' : '0.5';
-                }
+                updateVolumeIconsJG(); // NEW_CODE
             }
 
-            if (appStateJG.songs.length > 0) { 
-                appStateJG.favorites = appStateJG.favorites.map(fav => findSongByIdJG(fav.id)).filter(s => s);
-                saveToLocalStorageJG(LS_KEYS_JG.FAVORITES, appStateJG.favorites);
-                if (elementsJG.favoritesPanel && (appStateJG.currentPanel === 'log-trophies' || isSongDataReload)) {
-                    renderSongListJG(elementsJG.favoritesPanel, appStateJG.favorites, 'favorites');
-                }
+            // Load song-dependent data (history, favorites, queue, playlists with songs)
+            // This part might run on initial load (after songs potentially loaded) or if songs are reloaded
+            appStateJG.history = (loadFromLocalStorageJG(LS_KEYS_JG.HISTORY) || []).map(histSong => findSongByIdJG(histSong.id) || histSong).filter(s => s.id);
+            appStateJG.favorites = (loadFromLocalStorageJG(LS_KEYS_JG.FAVORITES) || []).map(favSong => findSongByIdJG(favSong.id) || favSong).filter(s => s.id);
+            appStateJG.queue = (loadFromLocalStorageJG(LS_KEYS_JG.QUEUE) || []).filter(id => findSongByIdJG(id)); // Keep only valid song IDs
+            appStateJG.userPlaylists = (loadFromLocalStorageJG(LS_KEYS_JG.PLAYLISTS) || []).map(p => ({
+                ...p,
+                songs: (p.songs || []).filter(id => findSongByIdJG(id)) // Filter songs within playlists too
+            }));
 
-                appStateJG.history = appStateJG.history.map(histSong => findSongByIdJG(histSong.id)).filter(s => s);
-                saveToLocalStorageJG(LS_KEYS_JG.HISTORY, appStateJG.history);
-                if (elementsJG.historyPanel && (appStateJG.currentPanel === 'log-history' || isSongDataReload)) {
-                    renderHistoryListJG();
-                }
-                
-                const queueSongs = appStateJG.queue.map(id => findSongByIdJG(id)).filter(s => s);
-                const validQueueIds = queueSongs.map(s => s.id);
-                if (validQueueIds.length !== appStateJG.queue.length) { 
-                    appStateJG.queue = validQueueIds;
-                    saveToLocalStorageJG(LS_KEYS_JG.QUEUE, appStateJG.queue);
-                }
-                if (elementsJG.queuePanel && (appStateJG.currentPanel === 'log-discoveries' || isSongDataReload)) {
-                    renderSongListJG(elementsJG.queuePanel, queueSongs, 'queue');
+            // Save back potentially cleaned lists
+            saveToLocalStorageJG(LS_KEYS_JG.HISTORY, appStateJG.history);
+            saveToLocalStorageJG(LS_KEYS_JG.FAVORITES, appStateJG.favorites);
+            saveToLocalStorageJG(LS_KEYS_JG.QUEUE, appStateJG.queue);
+            saveToLocalStorageJG(LS_KEYS_JG.PLAYLISTS, appStateJG.userPlaylists);
+
+            // Re-render relevant panels if they are active or if it's a song data reload
+            if (elementsJG.favoritesPanel && (appStateJG.currentPanel === 'log-trophies' || isSongDataReload)) {
+                renderSongListJG(elementsJG.favoritesPanel, appStateJG.favorites, 'favorites');
+            }
+            if (elementsJG.historyPanel && (appStateJG.currentPanel === 'log-history' || isSongDataReload)) {
+                renderHistoryListJG();
+            }
+            if (elementsJG.queuePanel && (appStateJG.currentPanel === 'log-discoveries' || isSongDataReload)) {
+                renderSongListJG(elementsJG.queuePanel, appStateJG.queue.map(id => findSongByIdJG(id)).filter(s => s), 'queue');
+            }
+            if (elementsJG.playlistsPanel && (appStateJG.currentPanel === 'log-paths' || isSongDataReload)) {
+                if (appStateJG.currentViewingPlaylistId) {
+                    renderSongsInPlaylistJG(appStateJG.currentViewingPlaylistId);
+                } else {
+                    renderPlaylistsJG();
                 }
             }
+            
             updateQueueCountBadgeJG();
             console.log("loadInitialDataJG - END.");
         }
@@ -2458,35 +2972,39 @@
         document.addEventListener('DOMContentLoaded', () => {
             console.log("DOMContentLoaded - START. Initializing Jungle Groove...");
             initializeElementsJG();    
-            loadInitialDataJG(false);  
+            loadInitialDataJG(false);  // Load theme, volume, and lists (will be filtered if songs not yet loaded)
             setupEventListenersJG();   
             
-            updatePlayerUIGJ(null); 
+            updatePlayerUIGJ(null); // Initialize player UI (also calls updateDocumentTitleJG)
             if (elementsJG.btnShuffle) elementsJG.btnShuffle.classList.toggle('active-control', appStateJG.isShuffle);
             if (elementsJG.btnLoop) {
                 elementsJG.btnLoop.classList.toggle('active-control', appStateJG.loopMode !== 'none');
+                 let loopIndicator = elementsJG.btnLoop.querySelector('.loop-indicator-jg');
                  if (appStateJG.loopMode === 'one') {
-                    if (!elementsJG.btnLoop.querySelector('.loop-indicator-jg')) {
-                         const indicator = document.createElement('span');
-                         indicator.className = 'loop-indicator-jg';
-                         indicator.textContent = '1';
-                         elementsJG.btnLoop.appendChild(indicator);
-                    } else {
-                        elementsJG.btnLoop.querySelector('.loop-indicator-jg').textContent = '1';
+                    if (!loopIndicator) {
+                         loopIndicator = document.createElement('span');
+                         loopIndicator.className = 'loop-indicator-jg';
+                         elementsJG.btnLoop.appendChild(loopIndicator);
                     }
+                    loopIndicator.textContent = '1';
                 } else {
-                     const indicator = elementsJG.btnLoop.querySelector('.loop-indicator-jg');
-                     if (indicator) indicator.remove();
+                     if (loopIndicator) loopIndicator.remove();
                 }
             }
 
-            if (appStateJG.currentPanel !== 'log-library' || !elementsJG.libraryPanel) { 
-                switchLogPanelJG(appStateJG.currentPanel || 'log-library'); 
-            } else if (elementsJG.libraryPanel) { 
-                 if (appStateJG.songs.length === 0) { 
-                    showLoadingInPanelJG(elementsJG.libraryPanel, true); 
-                 }
-                 updateLogActionButtonsJG('log-library'); 
+            // Initial state of search clear button
+            if (elementsJG.searchInput && elementsJG.clearSearchButton) {
+                elementsJG.clearSearchButton.style.display = elementsJG.searchInput.value ? 'inline-block' : 'none';
+            }
+            
+            // Initial panel display and action buttons
+            // switchLogPanelJG will render the content and update action buttons
+            switchLogPanelJG(appStateJG.currentPanel || 'log-library'); 
+
+            // If songs haven't loaded yet (e.g. API key issue or player not ready), library might be empty or show loading.
+            // loadInitialSongsJG is called from onPlayerReadyJG.
+            if (appStateJG.songs.length === 0 && appStateJG.currentPanel === 'log-library' && elementsJG.libraryPanel && !youtubeAPI_JG.apiKey) { 
+                 // showLoadingInPanelJG(elementsJG.libraryPanel, true); // This will be handled by loadInitialSongs if API key is bad
             }
 
             console.log("DOMContentLoaded - END. UI initialized. Waiting for YouTube API to call onYouTubeIframeAPIReady to load songs and player.");
