@@ -190,7 +190,47 @@
              .album-canopy { width: 240px; height: 240px; }
              #song-title-jg { font-size: 2.2rem; }
         }
+        /* --- Base Styles (Applies to all sizes unless overridden) --- */
+        /* Hide mobile elements by default */
+        #mini-player-jg, #mobile-nav-bar-jg {
+             display: none;
+        }
 
+        /* --- Responsive Styles --- */
+        /* Small Screens (Mobile - New Layout) */
+        @media (max-width: 767px) {
+            /* ... (Existing mobile styles remain here) ... */
+
+            /* Ensure PC elements are hidden on mobile */
+            .safari-navigation-tabs-jg, .watering-hole-player {
+                display: none !important;
+            }
+            .explorers-log-content-area-jg {
+                display: flex !important; /* Ensure content area shows */
+                /* ... other mobile styles for content area ... */
+            }
+
+
+            /* Show mobile elements */
+            #mini-player-jg, #mobile-nav-bar-jg {
+                display: flex !important; /* Override the default display: none */
+            }
+             /* ... (Rest of the mobile styles for mini-player and nav-bar) ... */
+        }
+
+        /* Medium Screens and up (Tablets, PC - Ensure mobile elements are hidden) */
+        @media (min-width: 768px) {
+            /* Explicitly hide mobile elements */
+            #mini-player-jg, #mobile-nav-bar-jg {
+                display: none !important;
+            }
+            /* Ensure PC elements are displayed */
+            .safari-navigation-tabs-jg, .watering-hole-player, .explorers-log-content-area-jg {
+                 display: flex !important; /* Or appropriate display value */
+            }
+        }
+
+        /* ... (Rest of the CSS including themes, modals, etc.) ... */
         @media (max-width: 767px) {
             html, body { height: 100%; overflow: hidden; }
             .app-safari-hut {
