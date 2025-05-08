@@ -123,10 +123,75 @@
             background-color: var(--jg-text-shadow); 
         }
 
-        .safari-zone { flex-grow: 1; display: flex; padding: 1.5rem; gap: 1.5rem; overflow: hidden; }
+        .safari-zone {
+            flex-grow: 1;
+            display: flex;
+            padding: 1.5rem; 
+            gap: 1.5rem; 
+            overflow: hidden;
+        }
+        
+        /* NEW: Left Navigation Column */
+        .safari-navigation-tabs-jg {
+            flex: 0 0 200px; /* Fixed width for the tab bar */
+            display: flex;
+            flex-direction: column;
+            background-color: rgba(var(--jg-bg-forest-floor-rgb), 0.55); /* Slightly different than player/list */
+            border-radius: 15px;
+            padding: 1rem 0.5rem; 
+            border: 2px solid var(--jg-border-vine);
+            height: 100%; 
+            overflow-y: auto; 
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        /* Adjustments for .log-tabs-jg when in the left column */
+        .safari-navigation-tabs-jg .log-tabs-jg {
+            display: flex;
+            flex-direction: column; 
+            border-bottom: none; 
+            margin-bottom: 0; 
+            gap: 0.5rem; 
+        }
+        /* Adjustments for .log-tab-jg when in the left column */
+        .safari-navigation-tabs-jg .log-tab-jg {
+            flex-grow: 0; 
+            width: 100%;
+            padding: 0.85rem 1rem; /* More vertical padding */
+            text-align: left;
+            border-radius: 10px; 
+            position: relative; /* For ::after */
+        }
+        .safari-navigation-tabs-jg .log-tab-jg.active {
+            background-color: rgba(var(--jg-accent-canopy-rgb), 0.25); 
+            color: var(--jg-accent-sunburst); 
+            font-weight: 700;
+        }
+        .safari-navigation-tabs-jg .log-tab-jg.active::after {
+            content: '';
+            position: absolute;
+            left: 0; 
+            top: 15%;
+            width: 4px; 
+            height: 70%; 
+            background-color: var(--jg-accent-sunburst);
+            border-radius: 0 2px 2px 0; 
+        }
+        .safari-navigation-tabs-jg .log-tab-jg i {
+            margin-right: 0.85rem; /* More space for icon */
+            width: 20px; 
+            text-align: center;
+        }
+        .safari-navigation-tabs-jg .log-tab-jg #queue-count-jg {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+        }
 
+
+        /* Middle Player Column */
         .watering-hole-player {
-            flex: 3;
+            flex: 3; 
             background: linear-gradient(135deg, rgba(var(--jg-surface-leaf-rgb),0.7), rgba(var(--jg-surface-bark-rgb),0.5));
             border-radius: 20px; padding: 2rem;
             display: flex; flex-direction: column; align-items: center;
@@ -224,14 +289,17 @@
         #btn-pip-jg:disabled { opacity: 0.5; cursor: not-allowed; }
 
 
-        .explorers-log {
-            flex: 2; background-color: rgba(var(--jg-surface-bark-rgb), 0.65);
+        /* NEW: Right Song List Column */
+        .explorers-log-content-area-jg {
+            flex: 2; 
+            background-color: rgba(var(--jg-surface-bark-rgb), 0.65);
             border-radius: 15px; border: 2px solid var(--jg-border-vine);
             padding: 1rem; display: flex; flex-direction: column; overflow: hidden;
             transition: background-color 0.3s, border-color 0.3s;
         }
-        .log-tabs-jg { display: flex; border-bottom: 2px solid var(--jg-border-vine); margin-bottom: 1rem; transition: border-color 0.3s;}
-        .log-tab-jg {
+        /* Original .log-tabs-jg is now in the left column. These rules are for context within log-content-area if needed, but likely not. */
+        /* .log-tabs-jg { display: flex; border-bottom: 2px solid var(--jg-border-vine); margin-bottom: 1rem; transition: border-color 0.3s;} */
+        /* .log-tab-jg {
             flex-grow: 1; padding: 0.75rem 0.5rem; font-family: var(--font-display-jg); font-size: 1.1rem;
             color: var(--jg-text-earth); border: none; background: transparent;
             position: relative; opacity: 0.7; transition: opacity 0.2s, color 0.2s;
@@ -244,11 +312,11 @@
             background-color: var(--jg-accent-sunburst); border-radius: 1.5px;
             transition: background-color 0.3s;
         }
-        .log-tab-jg i { margin-right: 0.4rem; }
-        #queue-count-jg {
+        .log-tab-jg i { margin-right: 0.4rem; } */
+        #queue-count-jg { /* This is now positioned inside .safari-navigation-tabs-jg .log-tab-jg */
             background: var(--jg-accent-waterfall); color: white; font-size: 0.7rem;
-            padding: 1px 5px; border-radius: 8px; margin-left: 0.3rem;
-            font-family: var(--font-body-jg); display: none; 
+            padding: 1px 5px; border-radius: 8px; /* margin-left: 0.3rem; */ /* No margin needed with abs pos */
+            font-family: var(--font-body-jg); /* display: none; by default in JS */
         }
 
         .log-content-jg { flex-grow: 1; overflow-y: auto; }
@@ -341,11 +409,70 @@
         #song-context-menu-jg li { padding: 0.5rem 1rem; color: var(--jg-text-light); cursor: pointer; font-size: 0.9rem; }
         #song-context-menu-jg li:hover { background-color: var(--jg-surface-leaf); }
 
-        @media (max-width: 1024px) { /* ... (Responsive styles - no major theme-specific changes here) ... */ }
-        @media (max-width: 767px) { /* ... (Responsive styles - player controls wrap, PiP button placement) ... */
+        @media (max-width: 1024px) { 
+            .safari-zone {
+                flex-direction: column;
+                height: auto; 
+                overflow-y: auto; 
+            }
+            .safari-navigation-tabs-jg {
+                flex: 0 0 auto; 
+                width: 100%;
+                margin-bottom: 1rem; 
+                height: auto; 
+                overflow-y: visible; 
+            }
+             .safari-navigation-tabs-jg .log-tabs-jg { 
+                flex-direction: row;
+                overflow-x: auto; 
+                gap: 0.25rem;
+                padding-bottom: 5px; /* Space for scrollbar if needed and active indicator */
+            }
+            .safari-navigation-tabs-jg .log-tab-jg {
+                flex-grow: 1; 
+                min-width: 100px; /* Min width for each tab */
+                width: auto;
+                padding: 0.6rem 0.5rem; 
+                text-align: center;
+            }
+            .safari-navigation-tabs-jg .log-tab-jg.active::after { 
+                left: 10%; width: 80%; height: 3px;
+                top: auto; bottom: -2px; 
+                border-radius: 1.5px;
+            }
+            .safari-navigation-tabs-jg .log-tab-jg i {
+                margin-right: 0.4rem; 
+            }
+            .safari-navigation-tabs-jg .log-tab-jg #queue-count-jg {
+                 position: relative; /* Revert from absolute */
+                 top: auto; right: auto; transform: none;
+                 margin-left: 0.3rem;
+                 display: inline-block; /* Ensure it's visible if JS shows it */
+            }
+
+
+            .watering-hole-player,
+            .explorers-log-content-area-jg {
+                flex: 1 1 auto; 
+                width: 100%; 
+                max-height: none; 
+            }
+            .album-canopy {
+                width: 200px; height: 200px; 
+            }
+        }
+        @media (max-width: 767px) { 
             .player-controls-jg { flex-wrap: wrap; justify-content: center;}
             .volume-and-extra-controls-jg { max-width: 100%; flex-direction: column; gap: 0.5rem; }
             #btn-pip-jg { margin-left: 0; margin-top: 0.5rem; }
+            .album-canopy {
+                width: 150px; height: 150px;
+            }
+            .watering-hole-player { padding: 1rem; }
+            .explorers-log-content-area-jg { padding: 0.75rem; }
+             .safari-navigation-tabs-jg .log-tab-jg i {
+                margin-right: 0.25rem; 
+            }
         }
 
         /* --- THEME DEFINITIONS --- */
@@ -353,8 +480,8 @@
         body.theme-dark-jg .app-safari-hut { background-color: rgba(26, 42, 42, 0.75); border-color: var(--jg-border-vine); }
         body.theme-dark-jg #animal-tracker { color: var(--jg-text-light); }
         body.theme-dark-jg #animal-tracker::placeholder { color: var(--jg-text-shadow); }
-        body.theme-dark-jg .control-rock { border-color: #5C4033; } /* Specific dark border for rocks */
-        body.theme-dark-jg .control-rock.play { color: var(--jg-text-light); } /* Ensure light icon on canopy */
+        body.theme-dark-jg .control-rock { border-color: #5C4033; } 
+        body.theme-dark-jg .control-rock.play { color: var(--jg-text-light); } 
 
 
         /* Light Theme */
@@ -362,7 +489,7 @@
             --jg-bg-deep-jungle: #F0F4F8; --jg-bg-forest-floor: #FFFFFF;
             --jg-surface-bark: #D3C1B3; --jg-surface-leaf: #A8D8B5;
             --jg-accent-sunburst: #FF8F00; --jg-accent-canopy: #388E3C;
-            --jg-accent-waterfall: #1976D2; --jg-text-light: #212121; /* Dark text */
+            --jg-accent-waterfall: #1976D2; --jg-text-light: #212121; 
             --jg-text-earth: #5D4037; --jg-text-shadow: #8D9499;
             --jg-border-vine: #A1887F;
 
@@ -377,6 +504,16 @@
         body.theme-light-jg .control-rock.play { color: #FFFFFF; }
         body.theme-light-jg .log-entry-jg .title { color: var(--jg-text-light); }
         body.theme-light-jg .log-entry-jg .artist { color: var(--jg-text-earth); }
+        body.theme-light-jg .safari-navigation-tabs-jg {
+            background-color: rgba(var(--jg-bg-forest-floor-rgb), 0.8);
+            border-color: var(--jg-border-vine);
+        }
+        body.theme-light-jg .safari-navigation-tabs-jg .log-tab-jg.active {
+            background-color: rgba(var(--jg-accent-canopy-rgb), 0.15);
+        }
+        body.theme-light-jg .explorers-log-content-area-jg {
+            background-color: rgba(var(--jg-bg-forest-floor-rgb), 0.7);
+        }
 
 
         /* Ocean Breeze Theme */
@@ -384,7 +521,7 @@
             --jg-bg-deep-jungle: #E1F5FE; --jg-bg-forest-floor: #FFFFFF;
             --jg-surface-bark: #B0BEC5; --jg-surface-leaf: #80CBC4;
             --jg-accent-sunburst: #FFC107; --jg-accent-canopy: #00796B;
-            --jg-accent-waterfall: #03A9F4; --jg-text-light: #263238; /* Dark text */
+            --jg-accent-waterfall: #03A9F4; --jg-text-light: #263238; 
             --jg-text-earth: #455A64; --jg-text-shadow: #78909C;
             --jg-border-vine: #90A4AE;
 
@@ -399,6 +536,16 @@
         body.theme-ocean-breeze-jg .control-rock.play { color: #FFFFFF; }
         body.theme-ocean-breeze-jg .log-entry-jg .title { color: var(--jg-text-light); }
         body.theme-ocean-breeze-jg .log-entry-jg .artist { color: var(--jg-text-earth); }
+        body.theme-ocean-breeze-jg .safari-navigation-tabs-jg {
+            background-color: rgba(var(--jg-bg-forest-floor-rgb), 0.8);
+            border-color: var(--jg-border-vine);
+        }
+        body.theme-ocean-breeze-jg .safari-navigation-tabs-jg .log-tab-jg.active {
+            background-color: rgba(var(--jg-accent-canopy-rgb), 0.15);
+        }
+        body.theme-ocean-breeze-jg .explorers-log-content-area-jg {
+            background-color: rgba(var(--jg-bg-forest-floor-rgb), 0.7);
+        }
 
 
         /* Forest Dawn Theme */
@@ -406,7 +553,7 @@
             --jg-bg-deep-jungle: #1B262C; --jg-bg-forest-floor: #39322E;
             --jg-surface-bark: #5D4037; --jg-surface-leaf: #689F38;
             --jg-accent-sunburst: #FFA000; --jg-accent-canopy: #9CCC65;
-            --jg-accent-waterfall: #29B6F6; --jg-text-light: #F5F5F5; /* Bright text */
+            --jg-accent-waterfall: #29B6F6; --jg-text-light: #F5F5F5; 
             --jg-text-earth: #BCAAA4; --jg-text-shadow: #90A4AE;
             --jg-border-vine: #4E342E;
 
@@ -417,6 +564,15 @@
         body.theme-forest-dawn-jg .app-safari-hut { background-color: rgba(40, 53, 59, 0.8); }
         body.theme-forest-dawn-jg .control-rock { border-color: var(--jg-border-vine); }
         body.theme-forest-dawn-jg .control-rock.play { color: var(--jg-text-light); }
+        body.theme-forest-dawn-jg .safari-navigation-tabs-jg {
+            background-color: rgba(var(--jg-bg-forest-floor-rgb), 0.7);
+        }
+        body.theme-forest-dawn-jg .safari-navigation-tabs-jg .log-tab-jg.active {
+             background-color: rgba(var(--jg-accent-canopy-rgb), 0.25);
+        }
+        body.theme-forest-dawn-jg .explorers-log-content-area-jg {
+            background-color: rgba(var(--jg-surface-bark-rgb), 0.75);
+        }
 
 
         /* Neon Noir Theme */
@@ -424,7 +580,7 @@
             --jg-bg-deep-jungle: #0D0D0D; --jg-bg-forest-floor: #1A1A1A;
             --jg-surface-bark: #2C2C2C; --jg-surface-leaf: #3C3C3C;
             --jg-accent-sunburst: #F000B8; --jg-accent-canopy: #00F0E0;
-            --jg-accent-waterfall: #30A0FF; --jg-text-light: #E0E0E0; /* Bright text */
+            --jg-accent-waterfall: #30A0FF; --jg-text-light: #E0E0E0; 
             --jg-text-earth: #A0A0A0; --jg-text-shadow: #606060;
             --jg-border-vine: #4A4A4A;
 
@@ -444,6 +600,22 @@
         body.theme-neon-noir-jg #animal-tracker::placeholder { color: var(--jg-text-shadow); }
         body.theme-neon-noir-jg .tool-btn-jg { background-color: var(--jg-surface-leaf); border: 1px solid var(--jg-accent-waterfall); color: var(--jg-accent-waterfall); }
         body.theme-neon-noir-jg .tool-btn-jg:hover { background-color: var(--jg-accent-waterfall); color: var(--jg-bg-deep-jungle); }
+        
+        body.theme-neon-noir-jg .safari-navigation-tabs-jg {
+            background-color: rgba(var(--jg-bg-forest-floor-rgb), 0.85);
+            border-color: var(--jg-accent-waterfall); 
+        }
+        body.theme-neon-noir-jg .safari-navigation-tabs-jg .log-tab-jg:hover {
+            color: var(--jg-accent-canopy); 
+        }
+        body.theme-neon-noir-jg .safari-navigation-tabs-jg .log-tab-jg.active {
+            background-color: rgba(var(--jg-accent-canopy-rgb), 0.2);
+            color: var(--jg-accent-canopy); 
+        }
+        body.theme-neon-noir-jg .safari-navigation-tabs-jg .log-tab-jg.active::after {
+            background-color: var(--jg-accent-canopy); 
+        }
+        
         body.theme-neon-noir-jg .watering-hole-player { border: 2px solid var(--jg-accent-sunburst); }
         body.theme-neon-noir-jg #main-album-art-jg.album-art-placeholder { border: 4px solid var(--jg-accent-canopy); background-color: var(--jg-surface-bark); color: var(--jg-accent-canopy); }
         body.theme-neon-noir-jg .control-rock { background-color: var(--jg-surface-bark); border: 2px solid var(--jg-accent-waterfall); color: var(--jg-accent-waterfall); }
@@ -451,10 +623,11 @@
         body.theme-neon-noir-jg .control-rock.active-control, body.theme-neon-noir-jg #btn-playback-rate-jg.active-control { color: var(--jg-accent-canopy) !important; border-color: var(--jg-accent-canopy) !important; box-shadow: 0 0 10px var(--jg-accent-canopy); }
         body.theme-neon-noir-jg .liana-slider::-webkit-slider-thumb { background-color: var(--jg-accent-canopy); }
         body.theme-neon-noir-jg .fruit-slider::-webkit-slider-thumb { background: var(--jg-accent-sunburst); border-color: var(--jg-accent-sunburst); }
-        body.theme-neon-noir-jg .explorers-log { background-color: rgba(var(--jg-surface-bark-rgb), 0.7); border: 2px solid var(--jg-accent-waterfall); }
-        body.theme-neon-noir-jg .log-tab-jg:hover { color: var(--jg-accent-canopy); }
-        body.theme-neon-noir-jg .log-tab-jg.active { color: var(--jg-accent-canopy); }
-        body.theme-neon-noir-jg .log-tab-jg.active::after { background-color: var(--jg-accent-canopy); }
+        
+        body.theme-neon-noir-jg .explorers-log-content-area-jg { 
+            background-color: rgba(var(--jg-surface-bark-rgb), 0.75); 
+            border: 2px solid var(--jg-accent-waterfall); 
+        }
         body.theme-neon-noir-jg .log-entry-jg { background-color: rgba(var(--jg-bg-forest-floor-rgb), 0.8); }
         body.theme-neon-noir-jg .log-entry-jg:hover { background-color: rgba(var(--jg-surface-leaf-rgb),0.7); border-color: var(--jg-accent-sunburst); }
         body.theme-neon-noir-jg .log-entry-jg.active-song { background-color: rgba(var(--jg-accent-canopy-rgb),0.4); border-left-color: var(--jg-accent-canopy); }
@@ -468,12 +641,12 @@
         body.modal-light-theme-jg #addToPlaylistModalJG .bg-jg-surface-bark,
         body.modal-light-theme-jg #editSongModalJG .bg-jg-surface-bark {
             background-color: var(--jg-bg-forest-floor) !important; 
-            color: var(--jg-text-light) !important; /* Modal text color */
+            color: var(--jg-text-light) !important; 
         }
-        body.modal-light-theme-jg #createPlaylistModalJG .text-jg-accent-sunburst, /* Headers in modals */
+        body.modal-light-theme-jg #createPlaylistModalJG .text-jg-accent-sunburst, 
         body.modal-light-theme-jg #addToPlaylistModalJG .text-jg-accent-sunburst,
         body.modal-light-theme-jg #editSongModalJG .text-jg-accent-sunburst {
-             color: var(--jg-accent-canopy) !important; /* Use canopy for headers in light modal */
+             color: var(--jg-accent-canopy) !important; 
         }
         body.modal-light-theme-jg #newPlaylistNameJG,
         body.modal-light-theme-jg #editSongTitleJG,
@@ -491,7 +664,7 @@
         body.modal-light-theme-jg #cancelAddToPlaylistJG,
         body.modal-light-theme-jg #cancelEditSongJG {
             background-color: var(--jg-text-shadow) !important;
-            color: var(--jg-bg-deep-jungle) !important; /* Light text on greyish button */
+            color: var(--jg-bg-deep-jungle) !important; 
         }
         body.modal-light-theme-jg #confirmCreatePlaylistJG,
         body.modal-light-theme-jg #confirmEditSongJG {
@@ -506,7 +679,6 @@
         body.modal-light-theme-jg #song-context-menu-jg li:hover { background-color: var(--jg-surface-leaf); }
 
         /* Dark Themes Modals (default, forest-dawn, neon-noir if not overridden by neon-noir specific) */
-        /* Default styles for modals in dark themes (they already use main vars) */
         #createPlaylistModalJG .bg-jg-surface-bark,
         #addToPlaylistModalJG .bg-jg-surface-bark,
         #editSongModalJG .bg-jg-surface-bark {
@@ -516,10 +688,10 @@
         body.theme-neon-noir-jg #createPlaylistModalJG .bg-jg-surface-bark,
         body.theme-neon-noir-jg #addToPlaylistModalJG .bg-jg-surface-bark,
         body.theme-neon-noir-jg #editSongModalJG .bg-jg-surface-bark {
-            background-color: var(--jg-bg-forest-floor) !important; /* Very dark bg for neon */
+            background-color: var(--jg-bg-forest-floor) !important; 
             border: 1px solid var(--jg-accent-canopy);
         }
-        body.theme-neon-noir-jg #createPlaylistModalJG .text-jg-accent-sunburst, /* Headers */
+        body.theme-neon-noir-jg #createPlaylistModalJG .text-jg-accent-sunburst, 
         body.theme-neon-noir-jg #addToPlaylistModalJG .text-jg-accent-sunburst,
         body.theme-neon-noir-jg #editSongModalJG .text-jg-accent-sunburst {
              color: var(--jg-accent-canopy) !important;
@@ -534,7 +706,7 @@
         body.theme-neon-noir-jg #confirmCreatePlaylistJG,
         body.theme-neon-noir-jg #confirmEditSongJG {
             background-color: var(--jg-accent-sunburst) !important;
-            color: var(--jg-bg-deep-jungle) !important; /* Black text on neon pink */
+            color: var(--jg-bg-deep-jungle) !important; 
         }
         body.theme-neon-noir-jg #song-context-menu-jg { background-color: var(--jg-bg-forest-floor); border: 1px solid var(--jg-accent-canopy); }
         body.theme-neon-noir-jg #song-context-menu-jg li:hover { background-color: var(--jg-accent-sunburst); color: var(--jg-bg-deep-jungle); }
@@ -570,6 +742,18 @@
         </header>
 
         <main class="safari-zone">
+            <!-- NEW: Left Navigation Column -->
+            <nav class="safari-navigation-tabs-jg">
+                <div class="log-tabs-jg"> <!-- This div wraps the tab buttons -->
+                    <button class="log-tab-jg active" data-panel="log-library"><i class="fas fa-tree"></i> Library</button>
+                    <button class="log-tab-jg" data-panel="log-paths"><i class="fas fa-map-signs"></i> Playlists</button>
+                    <button class="log-tab-jg" data-panel="log-discoveries"><i class="fas fa-paw"></i> Queue <span id="queue-count-jg">0</span></button>
+                    <button class="log-tab-jg" data-panel="log-trophies"><i class="fas fa-gem"></i> Favorites</button>
+                    <button class="log-tab-jg" data-panel="log-history"><i class="fas fa-history"></i> History</button>
+                </div>
+            </nav>
+
+            <!-- Middle Player Column (existing) -->
             <section class="watering-hole-player">
                 <div class="album-canopy">
                     <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Album Art" id="main-album-art-jg" class="img-placeholder album-art-placeholder">
@@ -599,19 +783,13 @@
                         <i class="fas fa-volume-up animal-icon parrot" title="Volume"></i>
                     </div>
                     <button id="btn-pip-jg" class="tool-btn-jg" title="ミニプレイヤー" style="display: none;"> 
-                        <i class="fas fa-photo-video"></i> <!-- Changed icon for PiP -->
+                        <i class="fas fa-photo-video"></i> 
                     </button>
                 </div>
             </section>
 
-            <aside class="explorers-log">
-                <div class="log-tabs-jg">
-                    <button class="log-tab-jg active" data-panel="log-library"><i class="fas fa-tree"></i> Library</button>
-                    <button class="log-tab-jg" data-panel="log-paths"><i class="fas fa-map-signs"></i> Playlists</button>
-                    <button class="log-tab-jg" data-panel="log-discoveries"><i class="fas fa-paw"></i> Queue <span id="queue-count-jg">0</span></button>
-                    <button class="log-tab-jg" data-panel="log-trophies"><i class="fas fa-gem"></i> Favorites</button>
-                    <button class="log-tab-jg" data-panel="log-history"><i class="fas fa-history"></i> History</button>
-                </div>
+            <!-- NEW: Right Song List Column -->
+            <aside class="explorers-log-content-area-jg">
                 <div class="log-content-jg">
                     <div id="log-library" class="log-panel-jg active"></div>
                     <div id="log-paths" class="log-panel-jg"></div>
@@ -756,7 +934,9 @@
                 volumeSlider: document.getElementById('volume-slider-jg'),
                 volumeIconMute: document.querySelector('.volume-fruit-jg .fa-volume-mute'),
                 volumeIconUp: document.querySelector('.volume-fruit-jg .fa-volume-up'),
-                logTabs: document.querySelectorAll('.log-tab-jg'),
+                // Note: .log-tabs-jg is now inside .safari-navigation-tabs-jg
+                logTabsContainer: document.querySelector('.safari-navigation-tabs-jg .log-tabs-jg'),
+                logTabs: document.querySelectorAll('.safari-navigation-tabs-jg .log-tab-jg'),
                 logPanels: document.querySelectorAll('.log-panel-jg'),
                 libraryPanel: document.getElementById('log-library'),
                 queuePanel: document.getElementById('log-discoveries'),
@@ -830,10 +1010,63 @@
         function clearQueueJG(){ /* ... (Same as previous) ... */ appStateJG.queue=[];appStateJG.currentQueueIndex=-1;saveToLocalStorageJG(LS_KEYS_JG.QUEUE,appStateJG.queue);updateQueueCountBadgeJG();if(appStateJG.currentPanel==='log-discoveries'&&elementsJG.queuePanel)renderSongListJG(elementsJG.queuePanel,[],'queue');showSnackbarJG("キューを空に","success");updateLogActionButtonsJG('log-discoveries');}
         function confirmClearHistoryJG(){ /* ... (Same as previous) ... */ if(appStateJG.history.length===0){showSnackbarJG("再生履歴は空","info");return;}if(confirm("再生履歴を全て削除しますか？"))clearHistoryJG();}
         function clearHistoryJG(){ /* ... (Same as previous) ... */ appStateJG.history=[];saveToLocalStorageJG(LS_KEYS_JG.HISTORY,appStateJG.history);if(appStateJG.currentPanel==='log-history'&&elementsJG.historyPanel)renderHistoryListJG();showSnackbarJG("再生履歴削除","success");updateLogActionButtonsJG('log-history');}
-        function setupEventListenersJG() { /* ... (Same as previous, includes new button listeners) ... */ elementsJG.btnPlay?.addEventListener('click', togglePlayPauseJG); elementsJG.btnNext?.addEventListener('click', playNextJG); elementsJG.btnPrev?.addEventListener('click', playPrevJG); elementsJG.btnShuffle?.addEventListener('click', toggleShuffleJG); elementsJG.btnLoop?.addEventListener('click', toggleLoopJG); elementsJG.btnPlaybackRate?.addEventListener('click', cyclePlaybackRateJG); elementsJG.btnPip?.addEventListener('click', togglePictureInPictureJG); elementsJG.progressSlider?.addEventListener('input', (e) => { if(!appStateJG.player||!appStateJG.isPlayerReady||typeof appStateJG.player.getDuration!=='function')return;const d=appStateJG.player.getDuration();if(d>0){const sT=(parseFloat(e.target.value)/100)*d;if(appStateJG.player.seekTo)appStateJG.player.seekTo(sT,true);updateProgressJG();}}); elementsJG.volumeSlider?.addEventListener('input', (e) => setVolumeJG(parseInt(e.target.value))); elementsJG.volumeIconMute?.addEventListener('click', toggleMuteJG); elementsJG.volumeIconUp?.addEventListener('click', () => { if (appStateJG.isMuted) toggleMuteJG(); }); elementsJG.themeToggle?.addEventListener('click', cycleThemeJG); elementsJG.logTabs.forEach(tab => tab.addEventListener('click', () => switchLogPanelJG(tab.dataset.panel))); elementsJG.searchInput?.addEventListener('input', handleSearchJG); elementsJG.clearSearchButton?.addEventListener('click', () => { if(elementsJG.searchInput){elementsJG.searchInput.value='';elementsJG.searchInput.dispatchEvent(new Event('input'));elementsJG.searchInput.focus();}}); document.addEventListener('keydown', handleGlobalKeydownJG); elementsJG.songContextMenu?.addEventListener('click', handleContextMenuActionJG); document.addEventListener('click', hideSongContextMenuJG); elementsJG.confirmEditSongButton?.addEventListener('click', handleConfirmEditSongJG); elementsJG.cancelEditSongButton?.addEventListener('click', hideEditSongModalJG); elementsJG.editSongModal?.addEventListener('click', (e) => { if (e.target === elementsJG.editSongModal) hideEditSongModalJG(); }); if (document.pictureInPictureEnabled && elementsJG.btnPip) elementsJG.btnPip.style.display = 'inline-flex'; }
+        function setupEventListenersJG() { 
+            elementsJG.btnPlay?.addEventListener('click', togglePlayPauseJG); 
+            elementsJG.btnNext?.addEventListener('click', playNextJG); 
+            elementsJG.btnPrev?.addEventListener('click', playPrevJG); 
+            elementsJG.btnShuffle?.addEventListener('click', toggleShuffleJG); 
+            elementsJG.btnLoop?.addEventListener('click', toggleLoopJG); 
+            elementsJG.btnPlaybackRate?.addEventListener('click', cyclePlaybackRateJG); 
+            elementsJG.btnPip?.addEventListener('click', togglePictureInPictureJG); 
+            elementsJG.progressSlider?.addEventListener('input', (e) => { if(!appStateJG.player||!appStateJG.isPlayerReady||typeof appStateJG.player.getDuration!=='function')return;const d=appStateJG.player.getDuration();if(d>0){const sT=(parseFloat(e.target.value)/100)*d;if(appStateJG.player.seekTo)appStateJG.player.seekTo(sT,true);updateProgressJG();}}); 
+            elementsJG.volumeSlider?.addEventListener('input', (e) => setVolumeJG(parseInt(e.target.value))); 
+            elementsJG.volumeIconMute?.addEventListener('click', toggleMuteJG); 
+            elementsJG.volumeIconUp?.addEventListener('click', () => { if (appStateJG.isMuted) toggleMuteJG(); }); 
+            elementsJG.themeToggle?.addEventListener('click', cycleThemeJG); 
+            
+            // Re-fetch logTabs after potential DOM changes if not done in initializeElementsJG already
+            elementsJG.logTabs = document.querySelectorAll('.safari-navigation-tabs-jg .log-tab-jg');
+            elementsJG.logTabs.forEach(tab => tab.addEventListener('click', () => switchLogPanelJG(tab.dataset.panel))); 
+            
+            elementsJG.searchInput?.addEventListener('input', handleSearchJG); 
+            elementsJG.clearSearchButton?.addEventListener('click', () => { if(elementsJG.searchInput){elementsJG.searchInput.value='';elementsJG.searchInput.dispatchEvent(new Event('input'));elementsJG.searchInput.focus();}}); 
+            document.addEventListener('keydown', handleGlobalKeydownJG); 
+            elementsJG.songContextMenu?.addEventListener('click', handleContextMenuActionJG); 
+            document.addEventListener('click', hideSongContextMenuJG); 
+            elementsJG.confirmEditSongButton?.addEventListener('click', handleConfirmEditSongJG); 
+            elementsJG.cancelEditSongButton?.addEventListener('click', hideEditSongModalJG); 
+            elementsJG.editSongModal?.addEventListener('click', (e) => { if (e.target === elementsJG.editSongModal) hideEditSongModalJG(); }); 
+            if (document.pictureInPictureEnabled && elementsJG.btnPip) elementsJG.btnPip.style.display = 'inline-flex'; 
+        }
         function cycleThemeJG() { /* ... (Same as previous) ... */ currentThemeIndexJG = (currentThemeIndexJG + 1) % AVAILABLE_THEMES_JG.length; const newTheme = AVAILABLE_THEMES_JG[currentThemeIndexJG]; applyThemeJG(newTheme.id); saveToLocalStorageJG(LS_KEYS_JG.THEME, newTheme.id); showSnackbarJG(`テーマ: ${newTheme.name}`, "info", 1500); }
         function applyThemeJG(themeId) { /* ... (Same as previous) ... */ elementsJG.body.className = ''; elementsJG.body.classList.add(themeId); const themeObject = AVAILABLE_THEMES_JG.find(t => t.id === themeId); if (themeObject && themeObject.type === 'light') { elementsJG.body.classList.add('modal-light-theme-jg'); } else { elementsJG.body.classList.remove('modal-light-theme-jg'); } }
-        function switchLogPanelJG(panelId) { /* ... (Same as previous) ... */ if (!panelId) return;  if (appStateJG.currentViewingPlaylistId && panelId !== 'log-paths') appStateJG.currentViewingPlaylistId = null;  appStateJG.currentPanel = panelId; elementsJG.logTabs.forEach(t => t.classList.toggle('active', t.dataset.panel === panelId)); elementsJG.logPanels.forEach(p => { if (p) p.classList.toggle('active', p.id === panelId);}); switch (panelId) { case 'log-library': if (elementsJG.libraryPanel) renderSongListJG(elementsJG.libraryPanel, appStateJG.filteredSongs, 'library'); break; case 'log-discoveries': if (elementsJG.queuePanel) renderSongListJG(elementsJG.queuePanel, appStateJG.queue.map(id => findSongByIdJG(id)).filter(s => s), 'queue'); break; case 'log-trophies': if (elementsJG.favoritesPanel) renderSongListJG(elementsJG.favoritesPanel, appStateJG.favorites, 'favorites'); break; case 'log-history': if(elementsJG.historyPanel) renderHistoryListJG(); break; case 'log-paths': if(elementsJG.playlistsPanel) { if (appStateJG.currentViewingPlaylistId) renderSongsInPlaylistJG(appStateJG.currentViewingPlaylistId); else renderPlaylistsJG(); } break; } updateLogActionButtonsJG(panelId);  }
+        function switchLogPanelJG(panelId) { 
+            if (!panelId) return;  
+            if (appStateJG.currentViewingPlaylistId && panelId !== 'log-paths') {
+                appStateJG.currentViewingPlaylistId = null;
+            }
+            appStateJG.currentPanel = panelId; 
+            
+            elementsJG.logTabs.forEach(t => t.classList.toggle('active', t.dataset.panel === panelId)); 
+            elementsJG.logPanels.forEach(p => { if (p) p.classList.toggle('active', p.id === panelId);}); 
+            
+            switch (panelId) { 
+                case 'log-library': if (elementsJG.libraryPanel) renderSongListJG(elementsJG.libraryPanel, appStateJG.filteredSongs, 'library'); break; 
+                case 'log-discoveries': if (elementsJG.queuePanel) renderSongListJG(elementsJG.queuePanel, appStateJG.queue.map(id => findSongByIdJG(id)).filter(s => s), 'queue'); break; 
+                case 'log-trophies': if (elementsJG.favoritesPanel) renderSongListJG(elementsJG.favoritesPanel, appStateJG.favorites, 'favorites'); break; 
+                case 'log-history': if(elementsJG.historyPanel) renderHistoryListJG(); break; 
+                case 'log-paths': 
+                    if(elementsJG.playlistsPanel) { 
+                        if (appStateJG.currentViewingPlaylistId) {
+                            renderSongsInPlaylistJG(appStateJG.currentViewingPlaylistId);
+                        } else {
+                            renderPlaylistsJG();
+                        }
+                    } 
+                    break; 
+            } 
+            updateLogActionButtonsJG(panelId);  
+        }
         function handleSearchJG() { /* ... (Same as previous) ... */ if(!elementsJG.searchInput||!elementsJG.clearSearchButton)return;const sT=elementsJG.searchInput.value.toLowerCase().trim();elementsJG.clearSearchButton.style.display=sT?'inline-block':'none';if(sT===""){appStateJG.filteredSongs=[...appStateJG.songs];}else{appStateJG.filteredSongs=appStateJG.songs.filter(s=>(getDisplaySongInfoJG(s.id).title.toLowerCase().includes(sT))||(getDisplaySongInfoJG(s.id).artist.toLowerCase().includes(sT)));}if(appStateJG.currentPanel==='log-library'&&elementsJG.libraryPanel)renderSongListJG(elementsJG.libraryPanel,appStateJG.filteredSongs,'library');}
         function toggleShuffleJG() { /* ... (Same as previous) ... */ if(!elementsJG.btnShuffle)return;appStateJG.isShuffle=!appStateJG.isShuffle;elementsJG.btnShuffle.classList.toggle('active-control',appStateJG.isShuffle);showSnackbarJG(`シャッフル ${appStateJG.isShuffle?'ON':'OFF'}!`);}
         function toggleLoopJG() { /* ... (Same as previous) ... */ if (!elementsJG.btnLoop) return; if (appStateJG.loopMode === 'none') appStateJG.loopMode = 'all'; else if (appStateJG.loopMode === 'all') appStateJG.loopMode = 'one'; else appStateJG.loopMode = 'none'; elementsJG.btnLoop.classList.toggle('active-control', appStateJG.loopMode !== 'none'); let ind = elementsJG.btnLoop.querySelector('.loop-indicator-jg'); if (appStateJG.loopMode === 'one') { if (!ind) { ind = document.createElement('span'); ind.className = 'loop-indicator-jg'; elementsJG.btnLoop.appendChild(ind); } ind.textContent = '1'; } else { if (ind) ind.remove(); } let msg="リピート: "; if(appStateJG.loopMode==='none')msg+="OFF"; if(appStateJG.loopMode==='all')msg+="全体"+(appStateJG.playMode==='queue'&&appStateJG.queue.length>0?" (キュー)":""); if(appStateJG.loopMode==='one')msg+="この曲"; showSnackbarJG(msg); }
