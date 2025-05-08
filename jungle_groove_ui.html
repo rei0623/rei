@@ -37,15 +37,22 @@
             --jg-placeholder-bg: var(--jg-surface-bark);
         }
 
+        html {
+             height: 100%; /* Ensure html takes full height */
+             overflow: hidden; /* Prevent default html scroll */
+        }
+
         body {
             font-family: var(--font-body-jg);
             background-color: var(--jg-bg-deep-jungle);
             color: var(--jg-text-light);
             margin: 0;
-            height: 100vh;
-            overflow: hidden;
+            height: 100%; /* Changed from 100vh to 100% to work with html */
+            overflow: hidden; /* Prevent body scroll, handle scroll in app-safari-hut or children */
             position: relative;
             transition: background-color 0.3s, color 0.3s;
+            display: flex; /* Use flex to manage app-safari-hut height */
+            flex-direction: column; /* Stack elements vertically */
         }
 
         .jungle-background-layers { position: fixed; inset: 0; z-index: -1; }
@@ -59,7 +66,7 @@
 
         .app-safari-hut {
             width: 95vw; height: 90vh; max-width: 1500px; max-height: 850px;
-            margin: 2.5vh auto;
+            margin: auto; /* Center horizontally and vertically */
             background-color: rgba(40, 30, 20, 0.65);
             backdrop-filter: blur(15px) saturate(120%);
             -webkit-backdrop-filter: blur(15px) saturate(120%);
@@ -78,8 +85,9 @@
             border-bottom: 2px solid var(--jg-border-vine);
             box-shadow: 0 4px 10px var(--jg-shadow-light);
             transition: background-color 0.3s, border-color 0.3s;
+            flex-shrink: 0; /* Prevent header from shrinking */
         }
-        .compass-logo { font-family: var(--font-display-jg); font-size: 1.6rem; font-weight: 700; color: var(--jg-text-light); }
+        .compass-logo { font-family: var(--font-display-jg); font-size: 1.6rem; font-weight: 700; color: var(--jg-text-light); flex-shrink: 0; }
         .compass-logo i { color: var(--jg-accent-sunburst); margin-right: 0.5rem; transform: rotate(-15deg); }
         .text-accent-jg { color: var(--jg-accent-canopy); }
 
@@ -90,11 +98,14 @@
             border: 1px solid var(--jg-border-vine);
             position: relative;
             transition: background-color 0.3s, border-color 0.3s;
+            flex-grow: 1; /* Allow search to grow */
+            margin: 0 1rem; /* Add some margin */
+            min-width: 150px; /* Prevent shrinking too much */
         }
         .search-outpost i.fa-binoculars { color: var(--jg-text-shadow); margin-right: 0.7rem; }
         #animal-tracker {
             background: transparent; border: none; outline: none;
-            color: var(--jg-text-light); font-size: 0.9rem; width: 250px;
+            color: var(--jg-text-light); font-size: 0.9rem; width: 100%; /* Take full width */
             padding-right: 25px;
         }
         #animal-tracker::placeholder { color: var(--jg-text-shadow); opacity: 0.8; }
@@ -106,14 +117,14 @@
         #clear-search-btn-jg:hover { color: var(--jg-text-light); }
 
 
-        .safari-tools { display: flex; align-items: center; gap: 0.75rem; }
+        .safari-tools { display: flex; align-items: center; gap: 0.75rem; flex-shrink: 0; }
         .tool-btn-jg {
             background-color: var(--jg-surface-bark); border: 1px solid var(--jg-border-vine);
             color: var(--jg-text-earth); width: 40px; height: 40px;
             border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;
             font-size: 1.1rem; transition: all 0.2s ease;
             box-shadow: 0 2px 5px var(--jg-shadow-light);
-            padding: 0; /* Ensure no extra padding interferes with image */
+            padding: 0;
         }
         .tool-btn-jg:hover {
             background-color: var(--jg-accent-sunburst); color: var(--jg-bg-deep-jungle);
@@ -129,11 +140,11 @@
         }
 
         .safari-zone {
-            flex-grow: 1;
+            flex-grow: 1; /* Take remaining vertical space */
             display: flex;
             padding: 1.5rem;
             gap: 1.5rem;
-            overflow: hidden;
+            overflow: hidden; /* Prevent this zone from scrolling itself */
         }
 
         .safari-navigation-tabs-jg {
@@ -162,23 +173,23 @@
             text-align: left;
             border-radius: 10px;
             position: relative;
-            cursor: pointer; /* Add cursor pointer */
-            transition: background-color 0.2s, color 0.2s, opacity 0.2s; /* Add transitions */
-            color: var(--jg-text-earth); /* Default color */
-            opacity: 0.7; /* Default opacity */
-            background: transparent; /* Ensure default background is transparent */
-            border: none; /* Ensure no default border */
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s, opacity 0.2s;
+            color: var(--jg-text-earth);
+            opacity: 0.7;
+            background: transparent;
+            border: none;
         }
         .safari-navigation-tabs-jg .log-tab-jg:hover {
             opacity: 1;
             color: var(--jg-accent-sunburst);
-            background-color: rgba(var(--jg-surface-leaf-rgb), 0.1); /* Subtle hover background */
+            background-color: rgba(var(--jg-surface-leaf-rgb), 0.1);
         }
         .safari-navigation-tabs-jg .log-tab-jg.active {
             background-color: rgba(var(--jg-accent-canopy-rgb), 0.25);
             color: var(--jg-accent-sunburst);
             font-weight: 700;
-            opacity: 1; /* Ensure active tab is fully opaque */
+            opacity: 1;
         }
         .safari-navigation-tabs-jg .log-tab-jg.active::after {
             content: '';
@@ -189,7 +200,7 @@
             height: 70%;
             background-color: var(--jg-accent-sunburst);
             border-radius: 0 2px 2px 0;
-            transition: background-color 0.3s; /* Add transition */
+            transition: background-color 0.3s;
         }
         .safari-navigation-tabs-jg .log-tab-jg i {
             margin-right: 0.85rem;
@@ -219,6 +230,7 @@
             position: relative; box-shadow: 0 8px 25px var(--jg-shadow-heavy);
             overflow: hidden; background-color: var(--jg-bg-forest-floor);
             transition: background-color 0.3s;
+            flex-shrink: 0; /* Prevent shrinking */
         }
 
         #main-album-art-jg {
@@ -237,7 +249,7 @@
         }
 
         .leaf-overlay { position: absolute; inset: 0; opacity: 0.1; pointer-events: none; }
-        .track-details-jg { text-align: center; margin-bottom: 1.5rem; width: 100%; }
+        .track-details-jg { text-align: center; margin-bottom: 1.5rem; width: 100%; flex-shrink: 0; }
 
         #song-title-jg {
             font-family: var(--font-display-jg);
@@ -251,6 +263,7 @@
             white-space: nowrap;
             position: relative;
             width: 100%;
+            max-width: 90%; /* Ensure some padding within the player */
         }
         #song-title-jg.enable-marquee .marquee-text-inner-jg {
             display: inline-block;
@@ -271,7 +284,7 @@
 
         #artist-name-jg { font-size: 1.1rem; color: var(--jg-text-earth); min-height: 1.2em; }
 
-        .player-controls-jg { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+        .player-controls-jg { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; flex-shrink: 0; }
         .control-rock {
             background-color: var(--jg-surface-bark); border: 2px solid #5C4033;
             color: var(--jg-text-earth); border-radius: 50%;
@@ -280,7 +293,7 @@
             box-shadow: 2px 2px 5px var(--jg-shadow-light), inset 1px 1px 3px rgba(255,255,255,0.1);
             transition: all 0.15s ease-out;
             text-shadow: 1px 1px 2px var(--jg-shadow-heavy);
-            cursor: pointer; /* Ensure pointer cursor */
+            cursor: pointer;
         }
         .control-rock:hover { transform: translateY(-2px) scale(1.05); box-shadow: 4px 4px 8px var(--jg-shadow-light), inset 1px 1px 3px rgba(255,255,255,0.1); }
         .control-rock:active { transform: translateY(1px) scale(0.98); box-shadow: 1px 1px 3px var(--jg-shadow-light), inset 1px 1px 3px rgba(0,0,0,0.2); }
@@ -302,7 +315,7 @@
         }
 
 
-        .progress-liana-jg { display: flex; align-items: center; gap: 0.75rem; width: 100%; max-width: 400px; margin-bottom: 1rem; }
+        .progress-liana-jg { display: flex; align-items: center; gap: 0.75rem; width: 100%; max-width: 400px; margin-bottom: 1rem; flex-shrink: 0; }
         .progress-liana-jg span { font-size: 0.8rem; color: var(--jg-text-shadow); }
         .liana-slider {
             -webkit-appearance: none; appearance: none; flex-grow: 1; height: 8px;
@@ -320,6 +333,7 @@
         .volume-and-extra-controls-jg {
             display: flex; align-items: center; justify-content: space-between;
             width: 100%; max-width: 400px;
+            flex-shrink: 0;
         }
         .volume-fruit-jg { display: flex; align-items: center; gap: 0.5rem; }
         .animal-icon { font-size: 1.2rem; color: var(--jg-text-shadow); cursor: pointer; }
@@ -345,7 +359,7 @@
 
 
         .explorers-log-content-area-jg {
-            flex: 2;
+            flex: 2; /* Takes space in 3-col layout */
             background-color: rgba(var(--jg-surface-bark-rgb), 0.65);
             border-radius: 15px; border: 2px solid var(--jg-border-vine);
             padding: 1rem; display: flex; flex-direction: column; overflow: hidden;
@@ -358,7 +372,7 @@
         }
 
         .log-content-jg { flex-grow: 1; overflow-y: auto; }
-        .log-panel-jg { display: none; padding-top: 0.5rem; }
+        .log-panel-jg { display: none; padding-top: 0.5rem; height: 100%; /* Ensure panel takes height for scroll */ }
         .log-panel-jg.active { display: block; animation: revealPanel 0.4s ease-in-out; }
         @keyframes revealPanel { from { opacity:0; transform:scale(0.98); } to { opacity:1; transform:scale(1); } }
 
@@ -416,6 +430,7 @@
             padding-top: 1rem; border-top: 1px solid var(--jg-border-vine);
             display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;
             transition: border-color 0.3s;
+            flex-shrink: 0; /* Prevent shrinking */
         }
         .log-actions-jg button {
             background-color: var(--jg-surface-leaf); color: var(--jg-text-light);
@@ -467,39 +482,100 @@
              text-align: center;
         }
 
+        /* --- Responsive Styles --- */
+
+        /* Medium Screens (Tablets, smaller laptops) */
         @media (max-width: 1024px) {
-            .safari-zone {
-                flex-direction: column;
-                height: auto;
-                overflow-y: auto;
+             /* Keep 3-column layout but adjust sizes or stack if needed */
+             /* Example: Make side columns narrower */
+             .safari-navigation-tabs-jg { flex-basis: 160px; }
+             .explorers-log-content-area-jg { flex-basis: 300px; }
+
+             /* Alternatively, stack at 1024px if preferred */
+             /*
+             .safari-zone { flex-direction: column; }
+             .safari-navigation-tabs-jg,
+             .watering-hole-player,
+             .explorers-log-content-area-jg { flex-basis: auto; width: 100%; }
+             .safari-navigation-tabs-jg { height: auto; overflow-y: visible; margin-bottom: 1rem; }
+             .safari-navigation-tabs-jg .log-tabs-jg { flex-direction: row; overflow-x: auto; padding-bottom: 5px; }
+             .safari-navigation-tabs-jg .log-tab-jg { flex-grow: 1; min-width: 100px; text-align: center; }
+             .safari-navigation-tabs-jg .log-tab-jg.active::after { top: auto; bottom: -2px; left: 10%; width: 80%; height: 3px; border-radius: 1.5px; }
+             .safari-navigation-tabs-jg .log-tab-jg #queue-count-jg { position: relative; top: auto; right: auto; transform: none; margin-left: 0.3rem; display: inline-block;}
+             .album-canopy { width: 200px; height: 200px; }
+             */
+        }
+
+        /* Small Screens (Mobile Phones) */
+        @media (max-width: 767px) {
+            body {
+                height: 100vh; /* Use vh for mobile body */
+                overflow: hidden; /* Still prevent body scroll */
             }
+            .app-safari-hut {
+                width: 100vw; height: 100%; /* Full viewport */
+                max-width: none; max-height: none;
+                margin: 0;
+                border-radius: 0;
+                border: none;
+                box-shadow: none;
+            }
+             .safari-map-bar {
+                 padding: 0.75rem 1rem; /* Reduce header padding */
+             }
+             .compass-logo { font-size: 1.4rem; }
+             .search-outpost { padding: 0.4rem 0.8rem; margin: 0 0.5rem; }
+             #animal-tracker { font-size: 0.85rem; }
+             .tool-btn-jg { width: 36px; height: 36px; font-size: 1rem; }
+             .profile-avatar-jg { width: 28px; height: 28px; }
+
+
+            .safari-zone {
+                flex-direction: column; /* Stack elements vertically */
+                padding: 0.75rem; /* Reduce padding */
+                gap: 0.75rem; /* Reduce gap */
+                overflow: hidden; /* Prevent this area scrolling */
+                flex-grow: 1; /* Take remaining height */
+            }
+
+            /* Tab Bar Styling for Mobile */
             .safari-navigation-tabs-jg {
-                flex: 0 0 auto;
+                order: 1; /* Place tabs below header */
+                flex: 0 0 auto; /* Don't grow or shrink vertically */
                 width: 100%;
-                margin-bottom: 1rem;
                 height: auto;
                 overflow-y: visible;
+                margin-bottom: 0.75rem;
+                padding: 0.5rem;
+                border: none; /* Remove border */
+                border-radius: 15px; /* Keep some rounding */
+                background-color: rgba(var(--jg-surface-bark-rgb), 0.75); /* Consistent background */
             }
              .safari-navigation-tabs-jg .log-tabs-jg {
-                flex-direction: row;
-                overflow-x: auto;
+                flex-direction: row; /* Horizontal tabs */
+                overflow-x: auto; /* Enable horizontal scroll */
                 gap: 0.25rem;
-                padding-bottom: 5px;
+                padding-bottom: 5px; /* Space for scrollbar and active indicator */
+                -webkit-overflow-scrolling: touch; /* Smoother scroll on iOS */
+                scrollbar-width: none; /* Hide scrollbar on Firefox */
             }
+             .safari-navigation-tabs-jg .log-tabs-jg::-webkit-scrollbar {
+                 display: none; /* Hide scrollbar on Chrome/Safari */
+             }
             .safari-navigation-tabs-jg .log-tab-jg {
-                flex-grow: 1;
-                min-width: 100px;
-                width: auto;
+                flex: 0 0 auto; /* Don't shrink, size based on content */
+                min-width: 90px; /* Ensure tabs have minimum width */
                 padding: 0.6rem 0.5rem;
                 text-align: center;
+                white-space: nowrap; /* Prevent text wrapping */
             }
-            .safari-navigation-tabs-jg .log-tab-jg.active::after {
+            .safari-navigation-tabs-jg .log-tab-jg.active::after { /* Bottom indicator for mobile */
                 left: 10%; width: 80%; height: 3px;
                 top: auto; bottom: -2px;
                 border-radius: 1.5px;
             }
             .safari-navigation-tabs-jg .log-tab-jg i {
-                margin-right: 0.4rem;
+                margin-right: 0.25rem;
             }
             .safari-navigation-tabs-jg .log-tab-jg #queue-count-jg {
                  position: relative;
@@ -508,30 +584,64 @@
                  display: inline-block;
             }
 
-
-            .watering-hole-player,
-            .explorers-log-content-area-jg {
-                flex: 1 1 auto;
+            /* Player Styling for Mobile */
+            .watering-hole-player {
+                order: 2; /* Place player below tabs */
+                flex-shrink: 0; /* Don't shrink vertically */
                 width: 100%;
-                max-height: none;
+                padding: 1rem;
+                border-radius: 15px; /* Keep some rounding */
             }
             .album-canopy {
-                width: 200px; height: 200px;
+                width: 150px; height: 150px; /* Smaller album art */
+                margin-bottom: 1rem;
             }
-        }
-        @media (max-width: 767px) {
-            .player-controls-jg { flex-wrap: wrap; justify-content: center;}
-            .volume-and-extra-controls-jg { max-width: 100%; flex-direction: column; gap: 0.5rem; }
-            #btn-pip-jg { margin-left: 0; margin-top: 0.5rem; }
-            .album-canopy {
-                width: 150px; height: 150px;
+            #main-album-art-jg { border-radius: 10px; } /* Match smaller container */
+             #song-title-jg { font-size: 1.8rem; max-width: 100%; } /* Adjust font size, allow full width */
+             #artist-name-jg { font-size: 1rem; }
+
+            .player-controls-jg {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.75rem;
+                margin-bottom: 1rem;
             }
-            .watering-hole-player { padding: 1rem; }
-            .explorers-log-content-area-jg { padding: 0.75rem; }
-             .safari-navigation-tabs-jg .log-tab-jg i {
-                margin-right: 0.25rem;
+            .control-rock { width: 50px; height: 50px; font-size: 1.1rem; }
+            .control-rock.play { width: 65px; height: 65px; font-size: 1.8rem; }
+            .control-rock.small { width: 40px; height: 40px; font-size: 0.9rem; }
+             #btn-playback-rate-jg { width: 50px; height: 36px; font-size: 0.85rem; }
+
+            .progress-liana-jg { max-width: 100%; }
+            .volume-and-extra-controls-jg {
+                max-width: 100%;
+                flex-direction: row; /* Keep row layout if space allows */
+                justify-content: space-around; /* Better spacing */
+                gap: 1rem; /* Add gap */
             }
-             #song-title-jg { font-size: 2rem; }
+            .fruit-slider { width: 100px; }
+            #btn-pip-jg { margin-left: 0; }
+
+            /* Content Area Styling for Mobile */
+            .explorers-log-content-area-jg {
+                order: 3; /* Place below player */
+                flex: 1 1 auto; /* Take remaining space and allow shrinking/growing */
+                overflow-y: auto; /* Enable vertical scroll */
+                width: 100%;
+                padding: 0.75rem;
+                border-radius: 15px; /* Keep some rounding */
+                background-color: rgba(var(--jg-surface-bark-rgb), 0.75); /* Consistent background */
+                -webkit-overflow-scrolling: touch; /* Smoother scroll on iOS */
+            }
+             .log-content-jg {
+                /* Height is handled by the parent */
+             }
+             .log-actions-jg {
+                 padding: 0.75rem 0; /* Adjust padding */
+             }
+             .log-entry-jg .title { font-size: 0.95rem; }
+             .log-entry-jg .artist { font-size: 0.8rem; }
+             .log-entry-jg .duration { font-size: 0.8rem; }
+             .log-entry-jg .song-item-action-jg i { font-size: 0.9rem; }
         }
 
         /* --- THEME DEFINITIONS --- */
@@ -690,13 +800,8 @@
 
 
         /* Modal Styling based on theme type */
-        /* Shared Modal Styles */
-        .modal-dialog-jg { /* Base style for all modal dialogs */
-             /* Add any common padding, etc. here if needed */
-        }
-        .modal-input-jg { /* Base style for modal inputs */
-             /* Add common input styles */
-        }
+        .modal-dialog-jg { }
+        .modal-input-jg { }
 
         /* Light Themes Modals */
         body.modal-light-theme-jg #createPlaylistModalJG .modal-dialog-jg,
@@ -751,7 +856,6 @@
         body.modal-light-theme-jg #song-context-menu-jg li:hover { background-color: var(--jg-surface-leaf); }
 
         /* Dark Themes Modals (default, forest-dawn, neon-noir if not overridden) */
-        /* Defaults use theme variables, no explicit rules needed unless overriding */
 
         /* Specific for Neon Noir modals */
         body.theme-neon-noir-jg #createPlaylistModalJG .modal-dialog-jg,
@@ -801,7 +905,7 @@
 
     </style>
 </head>
-<body class="theme-dark-jg">
+<body class="theme-dark-jg"> <!-- Default theme applied here -->
 
     <div class="jungle-background-layers">
         <div class="layer layer-1"></div>
@@ -830,8 +934,9 @@
         </header>
 
         <main class="safari-zone">
+            <!-- Desktop: Left Nav Column -->
             <nav class="safari-navigation-tabs-jg">
-                <div class="log-tabs-jg">
+                <div class="log-tabs-jg"> <!-- Container for tabs -->
                     <button class="log-tab-jg active" data-panel="log-library"><i class="fas fa-tree"></i> Library</button>
                     <button class="log-tab-jg" data-panel="log-paths"><i class="fas fa-map-signs"></i> Playlists</button>
                     <button class="log-tab-jg" data-panel="log-discoveries"><i class="fas fa-paw"></i> Queue <span id="queue-count-jg">0</span></button>
@@ -840,6 +945,7 @@
                 </div>
             </nav>
 
+            <!-- Desktop: Middle Player Column / Mobile: Player Section -->
             <section class="watering-hole-player">
                 <div class="album-canopy">
                     <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Album Art" id="main-album-art-jg" class="img-placeholder album-art-placeholder">
@@ -874,15 +980,16 @@
                 </div>
             </section>
 
+            <!-- Desktop: Right Content Column / Mobile: Content Section -->
             <aside class="explorers-log-content-area-jg">
-                <div class="log-content-jg">
+                <div class="log-content-jg"> <!-- This div will scroll on mobile -->
                     <div id="log-library" class="log-panel-jg active"></div>
                     <div id="log-paths" class="log-panel-jg"></div>
                     <div id="log-discoveries" class="log-panel-jg"></div>
                     <div id="log-trophies" class="log-panel-jg"></div>
                     <div id="log-history" class="log-panel-jg"></div>
                 </div>
-                 <div id="log-actions-container-jg" class="log-actions-jg"></div>
+                 <div id="log-actions-container-jg" class="log-actions-jg"></div> <!-- Buttons at the bottom -->
             </aside>
         </main>
     </div>
@@ -905,7 +1012,6 @@
             <h3 class="font-display-jg text-2xl mb-1 text-jg-accent-sunburst">プレイリストに追加</h3>
             <p class="text-sm text-jg-text-earth mb-4" id="addToPlaylistSongTitleJG">曲名...</p>
             <div id="addToPlaylistListJG" class="max-h-60 overflow-y-auto mb-4 border border-jg-border-vine rounded">
-                 <!-- Playlist items will be injected here by JS -->
                  <style> /* Simple style for playlist items in modal */
                     .playlist-select-item-jg { padding: 0.5rem 0.75rem; cursor: pointer; border-bottom: 1px solid var(--jg-border-vine); }
                     .playlist-select-item-jg:last-child { border-bottom: none; }
@@ -969,6 +1075,7 @@
 
     <script>
         // jungle_groove_script.js
+        // (JavaScript code remains the same as the previous version - no changes needed for this layout update)
         console.log("Jungle Groove Initializing...");
 
         let elementsJG = {};
@@ -1062,8 +1169,8 @@
                 confirmEditSongButton: document.getElementById('confirmEditSongJG'),
                 cancelEditSongButton: document.getElementById('cancelEditSongJG'),
                 songContextMenu: document.getElementById('song-context-menu-jg'),
-                profileModal: document.getElementById('profileModalJG'), // Added
-                closeProfileModalButton: document.getElementById('closeProfileModalJG'), // Added
+                profileModal: document.getElementById('profileModalJG'),
+                closeProfileModalButton: document.getElementById('closeProfileModalJG'),
             };
             let ytContainer = document.getElementById('youtube-player-container-jg');
             if (!ytContainer) {
@@ -1112,7 +1219,6 @@
             }
 
             requestAnimationFrame(() => {
-                // Check if the element is visible before calculating dimensions
                 const isVisible = titleEl.offsetWidth > 0 && titleEl.offsetHeight > 0;
                 if (isVisible && titleEl.scrollWidth > titleEl.clientWidth) {
                     titleEl.innerHTML = `<span class="marquee-text-inner-jg">${escapeHTMLJG(text)}</span>`;
@@ -1129,11 +1235,8 @@
                         marqueeSpan.style.animationPlayState = appStateJG.isPlaying ? 'running' : 'paused';
                     }
                 } else {
-                     // Explicitly remove the class if no overflow
                      titleEl.classList.remove('enable-marquee');
-                     // Center text if not marquee
                      titleEl.style.textAlign = 'center';
-                     // Clear any inline animation styles left over
                      const innerSpan = titleEl.querySelector('.marquee-text-inner-jg');
                      if(innerSpan) {
                          innerSpan.style.animationDuration = '';
@@ -1209,15 +1312,14 @@
         function clearQueueJG(){ appStateJG.queue=[];appStateJG.currentQueueIndex=-1;saveToLocalStorageJG(LS_KEYS_JG.QUEUE,appStateJG.queue);updateQueueCountBadgeJG();if(appStateJG.currentPanel==='log-discoveries'&&elementsJG.queuePanel)renderSongListJG(elementsJG.queuePanel,[],'queue');showSnackbarJG("キューを空に","success");updateLogActionButtonsJG('log-discoveries');}
         function confirmClearHistoryJG(){ if(appStateJG.history.length===0){showSnackbarJG("再生履歴は空","info");return;}if(confirm("再生履歴を全て削除しますか？"))clearHistoryJG();}
         function clearHistoryJG(){ appStateJG.history=[];saveToLocalStorageJG(LS_KEYS_JG.HISTORY,appStateJG.history);if(appStateJG.currentPanel==='log-history'&&elementsJG.historyPanel)renderHistoryListJG();showSnackbarJG("再生履歴削除","success");updateLogActionButtonsJG('log-history');}
-        
-        // Added Functions for Profile Modal
+
+        // Profile Modal Functions
         function showProfileModalJG() {
             if (elementsJG.profileModal) {
                 elementsJG.profileModal.style.display = 'flex';
                 appStateJG.activeModalId = 'profileModalJG';
             }
         }
-
         function hideProfileModalJG() {
             if (elementsJG.profileModal) {
                 elementsJG.profileModal.style.display = 'none';
@@ -1333,7 +1435,7 @@
         function saveToLocalStorageJG(key,data){ try{localStorage.setItem(key,JSON.stringify(data));}catch(e){console.error("LocalStorage Save Error:",key,e);showSnackbarJG("設定保存失敗","error");}}
         function loadFromLocalStorageJG(key){ try{const d=localStorage.getItem(key);return d?JSON.parse(d):null;}catch(e){console.error("LocalStorage Load Error:",key,e);return null;}}
         function showSnackbarJG(message,type='info',duration=3000){ const sId='snackbar-jg-dynamic';let s=document.getElementById(sId);if(!s){s=document.createElement('div');s.id=sId;Object.assign(s.style,{position:'fixed',bottom:'20px',left:'50%',transform:'translateX(-50%) translateY(100px)',padding:'12px 25px',color:'#ecf0f1',borderRadius:'8px',boxShadow:'0 4px 15px rgba(0,0,0,0.3)',zIndex:'10001',opacity:'0',transition:'opacity 0.3s ease, transform 0.3s ease-out',fontSize:'0.9rem',fontFamily:'var(--font-body-jg,sans-serif)',textAlign:'center',minWidth:'280px',maxWidth:'90%'});document.body.appendChild(s);}s.textContent=message;let bgC='#34495e';if(type==='error')bgC='#c0392b';if(type==='success')bgC='#27ae60';if(type==='warning')bgC='#f39c12';s.style.backgroundColor=bgC;requestAnimationFrame(()=>{s.style.opacity='1';s.style.transform='translateX(-50%) translateY(0)';});if(appStateJG.snackbarTimeoutId)clearTimeout(appStateJG.snackbarTimeoutId);appStateJG.snackbarTimeoutId=setTimeout(()=>{s.style.opacity='0';s.style.transform='translateX(-50%) translateY(100px)';},duration);}
-        
+
         function handleGlobalKeydownJG(event) {
             const tTN = event.target.tagName.toLowerCase();
             const isModalOpen = appStateJG.activeModalId !== null;
@@ -1344,12 +1446,12 @@
                     else if (appStateJG.activeModalId === 'addToPlaylistModalJG') hideAddToPlaylistModalJG();
                     else if (appStateJG.activeModalId === 'editSongModalJG') hideEditSongModalJG();
                     else if (appStateJG.activeModalId === 'profileModalJG') hideProfileModalJG();
-                    event.preventDefault(); // Prevent default escape behavior in inputs
+                    event.preventDefault();
                 }
-                return; // Don't process player shortcuts if focus is on input/textarea
+                return;
             }
 
-            let pD = true; // preventDefault flag
+            let pD = true;
             switch (event.key) {
                 case ' ': togglePlayPauseJG(); break;
                 case 'm': case 'M': toggleMuteJG(); break;
@@ -1368,10 +1470,10 @@
                         else if (appStateJG.activeModalId === 'editSongModalJG') hideEditSongModalJG();
                         else if (appStateJG.activeModalId === 'profileModalJG') hideProfileModalJG();
                     } else {
-                        pD = false; // Don't prevent default if no modal is open
+                        pD = false;
                     }
                     break;
-                default: pD = false; break; // Don't prevent default for other keys
+                default: pD = false; break;
             }
             if (pD) event.preventDefault();
         }
