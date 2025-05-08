@@ -2,85 +2,29 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"> <!-- viewport-fit=cover for notch areas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Jungle Groove - Wild Music Safari</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Optional: Add this line if you have a favicon.ico file -->
-    <!-- <link rel="icon" href="favicon.ico" type="image/x-icon"> -->
     <style>
         /* jungle_groove_styles.css */
         :root {
             /* Default Dark Jungle */
-            --jg-bg-deep-jungle: #122c2c;
-            --jg-bg-forest-floor: #3a2e27;
-            --jg-surface-bark: #6a4c3a;
-            --jg-surface-leaf: #4a703b;
-            --jg-accent-sunburst: #FFB743;
-            --jg-accent-canopy: #66BB6A;
-            --jg-accent-waterfall: #4FC3F7;
-            --jg-text-light: #F5F5F5;
-            --jg-text-earth: #E0CDB4;
-            --jg-text-shadow: #B0A08C;
-            --jg-border-vine: #5D4037;
-            --jg-shadow-heavy: rgba(0,0,0,0.5);
-            --jg-shadow-light: rgba(0,0,0,0.25);
-
-            --font-display-jg: 'Kalam', cursive;
-            --font-body-jg: 'Montserrat', sans-serif;
-
-            --jg-surface-bark-rgb: 106, 76, 58;
-            --jg-surface-leaf-rgb: 74, 112, 59;
-            --jg-bg-forest-floor-rgb: 58, 46, 39;
-            --jg-accent-canopy-rgb: 102, 187, 106;
-            --jg-accent-sunburst-rgb: 255, 183, 67;
-
+            --jg-bg-deep-jungle: #122c2c; --jg-bg-forest-floor: #3a2e27; --jg-surface-bark: #6a4c3a; --jg-surface-leaf: #4a703b; --jg-accent-sunburst: #FFB743; --jg-accent-canopy: #66BB6A; --jg-accent-waterfall: #4FC3F7; --jg-text-light: #F5F5F5; --jg-text-earth: #E0CDB4; --jg-text-shadow: #B0A08C; --jg-border-vine: #5D4037; --jg-shadow-heavy: rgba(0,0,0,0.5); --jg-shadow-light: rgba(0,0,0,0.25);
+            --font-display-jg: 'Kalam', cursive; --font-body-jg: 'Montserrat', sans-serif;
+            --jg-surface-bark-rgb: 106, 76, 58; --jg-surface-leaf-rgb: 74, 112, 59; --jg-bg-forest-floor-rgb: 58, 46, 39; --jg-accent-canopy-rgb: 102, 187, 106; --jg-accent-sunburst-rgb: 255, 183, 67;
             --jg-placeholder-bg: var(--jg-surface-bark);
-
-            /* Mobile Layout Heights - Adjusted for safe area */
-            --mobile-nav-height: calc(60px + env(safe-area-inset-bottom));
-            --mini-player-height: 65px;
-            --safe-area-bottom: env(safe-area-inset-bottom);
+            --mobile-nav-height: calc(60px + env(safe-area-inset-bottom)); --mini-player-height: 65px; --safe-area-bottom: env(safe-area-inset-bottom);
         }
-
-        html {
-             height: 100%;
-             overflow: hidden;
-        }
-
-        body {
-            font-family: var(--font-body-jg);
-            background-color: var(--jg-bg-deep-jungle);
-            color: var(--jg-text-light);
-            margin: 0;
-            height: 100%;
-            overflow: hidden;
-            position: relative;
-            transition: background-color 0.3s, color 0.3s;
-            display: flex;
-            flex-direction: column;
-        }
-
+        html { height: 100%; overflow: hidden; }
+        body { font-family: var(--font-body-jg); background-color: var(--jg-bg-deep-jungle); color: var(--jg-text-light); margin: 0; height: 100%; overflow: hidden; position: relative; transition: background-color 0.3s, color 0.3s; display: flex; flex-direction: column; }
         .jungle-background-layers { position: fixed; inset: 0; z-index: -1; }
         .jungle-background-layers .layer { position: absolute; inset: 0; transition: transform 0.5s ease-out, opacity 0.5s ease; }
         .layer-1 { background: linear-gradient(to bottom, #3A506B, #1C2541 70%); opacity: 0.8; }
         .layer-2 { background-color: rgba(var(--jg-surface-leaf-rgb), 0.15); opacity: 0.4; transform: scale(1.05); }
         .layer-3 { opacity: 0.6; transform: scale(1.1); }
-
-        /* Default PC Styles */
-        .app-safari-hut {
-            width: 95vw; height: 90vh; max-width: 1500px; max-height: 850px;
-            margin: auto;
-            background-color: rgba(40, 30, 20, 0.65);
-            backdrop-filter: blur(15px) saturate(120%); -webkit-backdrop-filter: blur(15px) saturate(120%);
-            border: 3px solid var(--jg-surface-bark); border-radius: 25px;
-            box-shadow: 0 10px 40px var(--jg-shadow-heavy);
-            display: flex; flex-direction: column;
-            overflow: hidden; position: relative;
-            transition: background-color 0.3s, border-color 0.3s;
-        }
-
+        .app-safari-hut { width: 95vw; height: 90vh; max-width: 1500px; max-height: 850px; margin: auto; background-color: rgba(40, 30, 20, 0.65); backdrop-filter: blur(15px) saturate(120%); -webkit-backdrop-filter: blur(15px) saturate(120%); border: 3px solid var(--jg-surface-bark); border-radius: 25px; box-shadow: 0 10px 40px var(--jg-shadow-heavy); display: flex; flex-direction: column; overflow: hidden; position: relative; transition: background-color 0.3s, border-color 0.3s; }
         .safari-map-bar { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.5rem; background-color: rgba(var(--jg-surface-bark-rgb), 0.85); border-bottom: 2px solid var(--jg-border-vine); box-shadow: 0 4px 10px var(--jg-shadow-light); transition: background-color 0.3s, border-color 0.3s; flex-shrink: 0; }
         .compass-logo { font-family: var(--font-display-jg); font-size: 1.6rem; font-weight: 700; color: var(--jg-text-light); flex-shrink: 0; }
         .compass-logo i { color: var(--jg-accent-sunburst); margin-right: 0.5rem; transform: rotate(-15deg); }
@@ -106,7 +50,6 @@
         .safari-navigation-tabs-jg .log-tab-jg.active::after { content: ''; position: absolute; left: 0; top: 15%; width: 4px; height: 70%; background-color: var(--jg-accent-sunburst); border-radius: 0 2px 2px 0; transition: background-color 0.3s; }
         .safari-navigation-tabs-jg .log-tab-jg i { margin-right: 0.85rem; width: 20px; text-align: center; }
         .safari-navigation-tabs-jg .log-tab-jg #queue-count-jg { position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); }
-
         .watering-hole-player { flex: 3; display: flex; flex-direction: column; align-items: center; background: linear-gradient(135deg, rgba(var(--jg-surface-leaf-rgb),0.7), rgba(var(--jg-surface-bark-rgb),0.5)); border-radius: 20px; padding: 2rem; box-shadow: inset 0 0 15px var(--jg-shadow-light); border: 2px solid var(--jg-border-vine); transition: background 0.3s, border-color 0.3s; overflow: hidden; }
         .album-canopy { width: 280px; height: 280px; border-radius: 15px; margin-bottom: 1.5rem; position: relative; box-shadow: 0 8px 25px var(--jg-shadow-heavy); overflow: hidden; background-color: var(--jg-bg-forest-floor); transition: background-color 0.3s; flex-shrink: 0; }
         #main-album-art-jg { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 15px; }
@@ -180,8 +123,39 @@
         .profile-link-jg:hover { background-color: rgba(var(--jg-surface-leaf-rgb), 0.4); color: var(--jg-text-light); }
         .profile-link-jg i { width: 20px; text-align: center; }
 
-        /* Mobile Player & Nav - Hidden by default on PC */
+        /* Mobile Player & Nav - Hidden by default */
         #mini-player-jg, #mobile-nav-bar-jg { display: none; }
+
+        /* Load More Button Style */
+        #load-more-container-jg {
+            padding: 1rem;
+            text-align: center;
+        }
+        #load-more-btn-jg {
+            background-color: var(--jg-surface-leaf);
+            color: var(--jg-text-light);
+            padding: 0.6rem 1.5rem;
+            border-radius: 20px;
+            border: 1px solid var(--jg-accent-canopy);
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        #load-more-btn-jg:hover {
+             background-color: var(--jg-accent-canopy);
+             transform: translateY(-1px);
+             box-shadow: 0 2px 8px var(--jg-shadow-light);
+        }
+        #load-more-btn-jg:disabled {
+             opacity: 0.5;
+             cursor: not-allowed;
+             background-color: var(--jg-text-shadow);
+             border-color: var(--jg-text-shadow);
+        }
+        #load-more-btn-jg .fa-spinner {
+             margin-right: 0.5rem;
+        }
 
         /* --- Responsive Styles --- */
         @media (max-width: 1024px) {
@@ -190,54 +164,10 @@
              .album-canopy { width: 240px; height: 240px; }
              #song-title-jg { font-size: 2.2rem; }
         }
-        /* --- Base Styles (Applies to all sizes unless overridden) --- */
-        /* Hide mobile elements by default */
-        #mini-player-jg, #mobile-nav-bar-jg {
-             display: none;
-        }
 
-        /* --- Responsive Styles --- */
-        /* Small Screens (Mobile - New Layout) */
-        @media (max-width: 767px) {
-            /* ... (Existing mobile styles remain here) ... */
-
-            /* Ensure PC elements are hidden on mobile */
-            .safari-navigation-tabs-jg, .watering-hole-player {
-                display: none !important;
-            }
-            .explorers-log-content-area-jg {
-                display: flex !important; /* Ensure content area shows */
-                /* ... other mobile styles for content area ... */
-            }
-
-
-            /* Show mobile elements */
-            #mini-player-jg, #mobile-nav-bar-jg {
-                display: flex !important; /* Override the default display: none */
-            }
-             /* ... (Rest of the mobile styles for mini-player and nav-bar) ... */
-        }
-
-        /* Medium Screens and up (Tablets, PC - Ensure mobile elements are hidden) */
-        @media (min-width: 768px) {
-            /* Explicitly hide mobile elements */
-            #mini-player-jg, #mobile-nav-bar-jg {
-                display: none !important;
-            }
-            /* Ensure PC elements are displayed */
-            .safari-navigation-tabs-jg, .watering-hole-player, .explorers-log-content-area-jg {
-                 display: flex !important; /* Or appropriate display value */
-            }
-        }
-
-        /* ... (Rest of the CSS including themes, modals, etc.) ... */
         @media (max-width: 767px) {
             html, body { height: 100%; overflow: hidden; }
-            .app-safari-hut {
-                width: 100%; height: 100%; max-width: none; max-height: none;
-                margin: 0; border-radius: 0; border: none; box-shadow: none;
-                display: flex; flex-direction: column; overflow: hidden;
-            }
+            .app-safari-hut { width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; border-radius: 0; border: none; box-shadow: none; display: flex; flex-direction: column; overflow: hidden; }
             .safari-map-bar { padding: 0.75rem 1rem; order: 1; flex-shrink: 0; }
             .compass-logo { font-size: 1.4rem; }
             .search-outpost { padding: 0.4rem 0.8rem; margin: 0 0.5rem; flex-grow: 1; min-width: 100px; }
@@ -263,7 +193,7 @@
             #mini-player-artist-jg { display: block; font-size: 0.75rem; color: var(--jg-text-earth); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
             #mini-player-play-btn-jg { background: none; border: none; color: var(--jg-text-light); font-size: 1.8rem; padding: 0.25rem; cursor: pointer; flex-shrink: 0; width: 40px; text-align: center; }
 
-            #mobile-nav-bar-jg { order: 4; display: flex !important; justify-content: space-around; align-items: center; height: var(--mobile-nav-height); background-color: rgba(var(--jg-bg-forest-floor-rgb), 0.95); border-top: 1px solid var(--jg-border-vine); box-shadow: 0 -2px 10px var(--jg-shadow-light); flex-shrink: 0; padding-bottom: var(--safe-area-bottom); /* Add padding for safe area */ }
+            #mobile-nav-bar-jg { order: 4; display: flex !important; justify-content: space-around; align-items: center; height: var(--mobile-nav-height); background-color: rgba(var(--jg-bg-forest-floor-rgb), 0.95); border-top: 1px solid var(--jg-border-vine); box-shadow: 0 -2px 10px var(--jg-shadow-light); flex-shrink: 0; padding-bottom: var(--safe-area-bottom); }
             .mobile-tab-btn-jg { background: none; border: none; color: var(--jg-text-shadow); display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 0.65rem; padding: 0.25rem 0; flex-grow: 1; cursor: pointer; transition: color 0.2s; position: relative; }
             .mobile-tab-btn-jg i { font-size: 1.4rem; margin-bottom: 2px; }
             .mobile-tab-btn-jg.active { color: var(--jg-accent-sunburst); }
@@ -275,102 +205,56 @@
             .log-entry-jg .song-item-action-jg i { font-size: 0.9rem; }
         }
 
-        /* --- THEME DEFINITIONS (PC + Mobile specific colors) --- */
-        /* Default Dark Theme */
-        body.theme-dark-jg .app-safari-hut { background-color: rgba(26, 42, 42, 0.75); border-color: var(--jg-border-vine); }
-        body.theme-dark-jg #animal-tracker { color: var(--jg-text-light); }
-        body.theme-dark-jg #animal-tracker::placeholder { color: var(--jg-text-shadow); }
-        body.theme-dark-jg .control-rock { border-color: #5C4033; }
-        body.theme-dark-jg .control-rock.play { color: var(--jg-text-light); }
+        /* PC Styles (Ensuring mobile elements hidden) */
+        @media (min-width: 768px) {
+            #mini-player-jg, #mobile-nav-bar-jg { display: none !important; }
+            .safari-navigation-tabs-jg, .watering-hole-player, .explorers-log-content-area-jg { display: flex !important; } /* Ensure PC layout displays */
+        }
+
+        /* --- THEME DEFINITIONS --- */
+        body.theme-dark-jg {} /* Base variables */
         body.theme-dark-jg #mini-player-jg { background-color: rgba(var(--jg-surface-bark-rgb), 0.9); border-top-color: var(--jg-border-vine); }
         body.theme-dark-jg #mobile-nav-bar-jg { background-color: rgba(var(--jg-bg-forest-floor-rgb), 0.95); border-top-color: var(--jg-border-vine); }
         body.theme-dark-jg .mobile-tab-btn-jg { color: var(--jg-text-shadow); }
         body.theme-dark-jg .mobile-tab-btn-jg.active { color: var(--jg-accent-sunburst); }
 
-        /* Light Theme */
-        body.theme-light-jg { --jg-bg-deep-jungle: #F0F4F8; --jg-bg-forest-floor: #FFFFFF; --jg-surface-bark: #D3C1B3; --jg-surface-leaf: #A8D8B5; --jg-accent-sunburst: #FF8F00; --jg-accent-canopy: #388E3C; --jg-accent-waterfall: #1976D2; --jg-text-light: #212121; --jg-text-earth: #5D4037; --jg-text-shadow: #8D9499; --jg-border-vine: #A1887F; --jg-surface-bark-rgb: 211, 193, 179; --jg-surface-leaf-rgb: 168, 216, 181; --jg-bg-forest-floor-rgb: 255, 255, 255; --jg-accent-canopy-rgb: 56, 142, 60; --jg-accent-sunburst-rgb: 255, 143, 0; }
+        body.theme-light-jg { /* Variables... */ }
         body.theme-light-jg .app-safari-hut { background-color: rgba(245, 247, 249, 0.85); border-color: var(--jg-border-vine); }
-        body.theme-light-jg #animal-tracker { color: var(--jg-text-light); }
-        body.theme-light-jg #animal-tracker::placeholder { color: var(--jg-text-shadow); }
-        body.theme-light-jg .control-rock { border-color: var(--jg-border-vine); }
-        body.theme-light-jg .control-rock.play { color: #FFFFFF; }
-        body.theme-light-jg .log-entry-jg .title { color: var(--jg-text-light); }
-        body.theme-light-jg .log-entry-jg .artist { color: var(--jg-text-earth); }
-        body.theme-light-jg .safari-navigation-tabs-jg { background-color: rgba(var(--jg-bg-forest-floor-rgb), 0.8); border-color: var(--jg-border-vine); }
-        body.theme-light-jg .safari-navigation-tabs-jg .log-tab-jg.active { background-color: rgba(var(--jg-accent-canopy-rgb), 0.15); }
         body.theme-light-jg #mini-player-jg { background-color: rgba(var(--jg-surface-bark-rgb), 0.9); border-top-color: var(--jg-border-vine); }
         body.theme-light-jg #mobile-nav-bar-jg { background-color: rgba(var(--jg-bg-forest-floor-rgb), 0.95); border-top-color: var(--jg-border-vine); }
         body.theme-light-jg .mobile-tab-btn-jg { color: var(--jg-text-shadow); }
         body.theme-light-jg .mobile-tab-btn-jg.active { color: var(--jg-accent-canopy); }
-        body.theme-light-jg #mini-player-title-jg { color: var(--jg-text-light); }
+        body.theme-light-jg #mini-player-title-jg, body.theme-light-jg #mini-player-play-btn-jg { color: var(--jg-text-light); }
         body.theme-light-jg #mini-player-artist-jg { color: var(--jg-text-earth); }
-        body.theme-light-jg #mini-player-play-btn-jg { color: var(--jg-text-light); }
+        /* Other light theme styles... */
 
-        /* Ocean Breeze Theme */
-        body.theme-ocean-breeze-jg { --jg-bg-deep-jungle: #E1F5FE; --jg-bg-forest-floor: #FFFFFF; --jg-surface-bark: #B0BEC5; --jg-surface-leaf: #80CBC4; --jg-accent-sunburst: #FFC107; --jg-accent-canopy: #00796B; --jg-accent-waterfall: #03A9F4; --jg-text-light: #263238; --jg-text-earth: #455A64; --jg-text-shadow: #78909C; --jg-border-vine: #90A4AE; --jg-surface-bark-rgb: 176, 190, 197; --jg-surface-leaf-rgb: 128, 203, 196; --jg-bg-forest-floor-rgb: 255, 255, 255; --jg-accent-canopy-rgb: 0, 121, 107; --jg-accent-sunburst-rgb: 255, 193, 7; }
+        body.theme-ocean-breeze-jg { /* Variables... */ }
         body.theme-ocean-breeze-jg .app-safari-hut { background-color: rgba(225, 245, 254, 0.85); border-color: var(--jg-border-vine); }
-        body.theme-ocean-breeze-jg #animal-tracker { color: var(--jg-text-light); }
-        body.theme-ocean-breeze-jg #animal-tracker::placeholder { color: var(--jg-text-shadow); }
-        body.theme-ocean-breeze-jg .control-rock { border-color: var(--jg-border-vine); }
-        body.theme-ocean-breeze-jg .control-rock.play { color: #FFFFFF; }
-        body.theme-ocean-breeze-jg .log-entry-jg .title { color: var(--jg-text-light); }
-        body.theme-ocean-breeze-jg .log-entry-jg .artist { color: var(--jg-text-earth); }
-        body.theme-ocean-breeze-jg .safari-navigation-tabs-jg { background-color: rgba(var(--jg-bg-forest-floor-rgb), 0.8); border-color: var(--jg-border-vine); }
-        body.theme-ocean-breeze-jg .safari-navigation-tabs-jg .log-tab-jg.active { background-color: rgba(var(--jg-accent-canopy-rgb), 0.15); }
         body.theme-ocean-breeze-jg #mini-player-jg { background-color: rgba(var(--jg-surface-bark-rgb), 0.9); border-top-color: var(--jg-border-vine); }
         body.theme-ocean-breeze-jg #mobile-nav-bar-jg { background-color: rgba(var(--jg-bg-forest-floor-rgb), 0.95); border-top-color: var(--jg-border-vine); }
         body.theme-ocean-breeze-jg .mobile-tab-btn-jg { color: var(--jg-text-shadow); }
         body.theme-ocean-breeze-jg .mobile-tab-btn-jg.active { color: var(--jg-accent-canopy); }
-        body.theme-ocean-breeze-jg #mini-player-title-jg { color: var(--jg-text-light); }
+        body.theme-ocean-breeze-jg #mini-player-title-jg, body.theme-ocean-breeze-jg #mini-player-play-btn-jg { color: var(--jg-text-light); }
         body.theme-ocean-breeze-jg #mini-player-artist-jg { color: var(--jg-text-earth); }
-        body.theme-ocean-breeze-jg #mini-player-play-btn-jg { color: var(--jg-text-light); }
+        /* Other ocean theme styles... */
 
-        /* Forest Dawn Theme */
-        body.theme-forest-dawn-jg { --jg-bg-deep-jungle: #1B262C; --jg-bg-forest-floor: #39322E; --jg-surface-bark: #5D4037; --jg-surface-leaf: #689F38; --jg-accent-sunburst: #FFA000; --jg-accent-canopy: #9CCC65; --jg-accent-waterfall: #29B6F6; --jg-text-light: #F5F5F5; --jg-text-earth: #BCAAA4; --jg-text-shadow: #90A4AE; --jg-border-vine: #4E342E; --jg-surface-bark-rgb: 93, 64, 55; --jg-surface-leaf-rgb: 104, 159, 56; --jg-bg-forest-floor-rgb: 57, 50, 46; --jg-accent-canopy-rgb: 156, 204, 101; --jg-accent-sunburst-rgb: 255, 160, 0; }
+        body.theme-forest-dawn-jg { /* Variables... */ }
         body.theme-forest-dawn-jg .app-safari-hut { background-color: rgba(40, 53, 59, 0.8); border-color: var(--jg-border-vine); }
-        body.theme-forest-dawn-jg .control-rock { border-color: var(--jg-border-vine); }
-        body.theme-forest-dawn-jg .control-rock.play { color: var(--jg-text-light); }
-        body.theme-forest-dawn-jg .safari-navigation-tabs-jg { background-color: rgba(var(--jg-bg-forest-floor-rgb), 0.7); }
-        body.theme-forest-dawn-jg .safari-navigation-tabs-jg .log-tab-jg.active { background-color: rgba(var(--jg-accent-canopy-rgb), 0.25); }
         body.theme-forest-dawn-jg #mini-player-jg { background-color: rgba(var(--jg-surface-bark-rgb), 0.9); border-top-color: var(--jg-border-vine); }
         body.theme-forest-dawn-jg #mobile-nav-bar-jg { background-color: rgba(var(--jg-bg-forest-floor-rgb), 0.95); border-top-color: var(--jg-border-vine); }
         body.theme-forest-dawn-jg .mobile-tab-btn-jg { color: var(--jg-text-shadow); }
         body.theme-forest-dawn-jg .mobile-tab-btn-jg.active { color: var(--jg-accent-canopy); }
+        /* Other forest theme styles... */
 
-        /* Neon Noir Theme */
-        body.theme-neon-noir-jg { --jg-bg-deep-jungle: #0D0D0D; --jg-bg-forest-floor: #1A1A1A; --jg-surface-bark: #2C2C2C; --jg-surface-leaf: #3C3C3C; --jg-accent-sunburst: #F000B8; --jg-accent-canopy: #00F0E0; --jg-accent-waterfall: #30A0FF; --jg-text-light: #E0E0E0; --jg-text-earth: #A0A0A0; --jg-text-shadow: #606060; --jg-border-vine: #4A4A4A; --jg-surface-bark-rgb: 44, 44, 44; --jg-surface-leaf-rgb: 60, 60, 60; --jg-bg-forest-floor-rgb: 26, 26, 26; --jg-accent-canopy-rgb: 0, 240, 224; --jg-accent-sunburst-rgb: 240, 0, 184; }
+        body.theme-neon-noir-jg { /* Variables... */ }
         body.theme-neon-noir-jg .app-safari-hut { background-color: rgba(10, 10, 10, 0.85); border: 3px solid var(--jg-accent-canopy); box-shadow: 0 0 25px rgba(var(--jg-accent-canopy-rgb), 0.5), 0 0 40px rgba(var(--jg-accent-sunburst-rgb), 0.3); }
-        body.theme-neon-noir-jg .safari-map-bar { background-color: rgba(var(--jg-surface-bark-rgb), 0.9); border-bottom: 2px solid var(--jg-accent-sunburst); }
-        body.theme-neon-noir-jg .compass-logo i { color: var(--jg-accent-canopy); }
-        body.theme-neon-noir-jg .text-accent-jg { color: var(--jg-accent-sunburst); }
-        body.theme-neon-noir-jg #animal-tracker { color: var(--jg-text-light); border: 1px solid var(--jg-text-shadow); }
-        body.theme-neon-noir-jg #animal-tracker::placeholder { color: var(--jg-text-shadow); }
-        body.theme-neon-noir-jg .tool-btn-jg { background-color: var(--jg-surface-leaf); border: 1px solid var(--jg-accent-waterfall); color: var(--jg-accent-waterfall); }
-        body.theme-neon-noir-jg .tool-btn-jg:hover { background-color: var(--jg-accent-waterfall); color: var(--jg-bg-deep-jungle); }
-        body.theme-neon-noir-jg .safari-navigation-tabs-jg { background-color: rgba(var(--jg-bg-forest-floor-rgb), 0.85); border-color: var(--jg-accent-waterfall); }
-        body.theme-neon-noir-jg .safari-navigation-tabs-jg .log-tab-jg:hover { color: var(--jg-accent-canopy); }
-        body.theme-neon-noir-jg .safari-navigation-tabs-jg .log-tab-jg.active { background-color: rgba(var(--jg-accent-canopy-rgb), 0.2); color: var(--jg-accent-canopy); }
-        body.theme-neon-noir-jg .safari-navigation-tabs-jg .log-tab-jg.active::after { background-color: var(--jg-accent-canopy); }
-        body.theme-neon-noir-jg .watering-hole-player { border: 2px solid var(--jg-accent-sunburst); }
-        body.theme-neon-noir-jg #main-album-art-jg.album-art-placeholder { border: 4px solid var(--jg-accent-canopy); background-color: var(--jg-surface-bark); color: var(--jg-accent-canopy); }
-        body.theme-neon-noir-jg .control-rock { background-color: var(--jg-surface-bark); border: 2px solid var(--jg-accent-waterfall); color: var(--jg-accent-waterfall); }
-        body.theme-neon-noir-jg .control-rock.play { background-color: var(--jg-accent-sunburst); border-color: var(--jg-accent-sunburst); color: var(--jg-bg-deep-jungle); }
-        body.theme-neon-noir-jg .control-rock.active-control, body.theme-neon-noir-jg #btn-playback-rate-jg.active-control { color: var(--jg-accent-canopy) !important; border-color: var(--jg-accent-canopy) !important; box-shadow: 0 0 10px var(--jg-accent-canopy); }
-        body.theme-neon-noir-jg .liana-slider::-webkit-slider-thumb { background-color: var(--jg-accent-canopy); }
-        body.theme-neon-noir-jg .fruit-slider::-webkit-slider-thumb { background: var(--jg-accent-sunburst); border-color: var(--jg-accent-sunburst); }
-        body.theme-neon-noir-jg .explorers-log-content-area-jg { border: none; }
-        body.theme-neon-noir-jg .log-entry-jg { background-color: rgba(var(--jg-bg-forest-floor-rgb), 0.8); }
-        body.theme-neon-noir-jg .log-entry-jg:hover { background-color: rgba(var(--jg-surface-leaf-rgb),0.7); border-color: var(--jg-accent-sunburst); }
-        body.theme-neon-noir-jg .log-entry-jg.active-song { background-color: rgba(var(--jg-accent-canopy-rgb),0.4); border-left-color: var(--jg-accent-canopy); }
-        body.theme-neon-noir-jg .log-actions-jg button { background-color: var(--jg-surface-leaf); color: var(--jg-accent-canopy); border: 1px solid var(--jg-accent-canopy); }
-        body.theme-neon-noir-jg .log-actions-jg button:hover { background-color: var(--jg-accent-canopy); color: var(--jg-bg-deep-jungle); }
-        /* Mobile theme colors */
         body.theme-neon-noir-jg #mini-player-jg { background-color: rgba(var(--jg-surface-bark-rgb), 0.9); border-top-color: var(--jg-border-vine); }
         body.theme-neon-noir-jg #mobile-nav-bar-jg { background-color: rgba(var(--jg-bg-forest-floor-rgb), 0.95); border-top-color: var(--jg-border-vine); }
         body.theme-neon-noir-jg .mobile-tab-btn-jg { color: var(--jg-text-shadow); }
         body.theme-neon-noir-jg .mobile-tab-btn-jg.active { color: var(--jg-accent-canopy); }
+        /* Other neon theme styles... */
 
-        /* Modal Styling */
+        /* Modal Styling (Keep as is) */
         .modal-dialog-jg {} .modal-input-jg {}
         body.modal-light-theme-jg #createPlaylistModalJG .modal-dialog-jg, body.modal-light-theme-jg #addToPlaylistModalJG .modal-dialog-jg, body.modal-light-theme-jg #editSongModalJG .modal-dialog-jg, body.modal-light-theme-jg #profileModalJG .modal-dialog-jg { background-color: var(--jg-bg-forest-floor) !important; color: var(--jg-text-light) !important; }
         body.modal-light-theme-jg #createPlaylistModalJG .text-jg-accent-sunburst, body.modal-light-theme-jg #addToPlaylistModalJG .text-jg-accent-sunburst, body.modal-light-theme-jg #editSongModalJG .text-jg-accent-sunburst, body.modal-light-theme-jg #profileModalJG .text-jg-accent-sunburst { color: var(--jg-accent-canopy) !important; }
@@ -482,6 +366,10 @@
                     <div id="log-discoveries" class="log-panel-jg"></div>
                     <div id="log-trophies" class="log-panel-jg"></div>
                     <div id="log-history" class="log-panel-jg"></div>
+                    <!-- "Load More" Button Container -->
+                    <div id="load-more-container-jg" style="display: none;">
+                         <button id="load-more-btn-jg">もっと読み込む</button>
+                    </div>
                 </div>
                  <div id="log-actions-container-jg" class="log-actions-jg"></div>
             </aside>
@@ -526,118 +414,38 @@
     </div> <!-- End .app-safari-hut -->
 
     <!-- Modals (Keep outside main structure) -->
-    <div id="createPlaylistModalJG" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50" style="display: none;">
-        <div class="modal-dialog-jg bg-jg-surface-bark p-6 rounded-lg shadow-xl w-full max-w-md text-jg-text-light">
-            <h3 class="font-display-jg text-2xl mb-4 text-jg-accent-sunburst">新しい道 (プレイリスト) を作成</h3>
-            <input type="text" id="newPlaylistNameJG" class="modal-input-jg w-full p-2 rounded bg-jg-bg-forest-floor border border-jg-border-vine text-jg-text-light placeholder-jg-text-shadow focus:ring-2 focus:ring-jg-accent-canopy outline-none" placeholder="プレイリスト名を入力...">
-            <div class="mt-6 flex justify-end gap-3">
-                <button id="cancelCreatePlaylistJG" class="px-4 py-2 rounded bg-jg-text-shadow hover:bg-opacity-80 transition-colors">キャンセル</button>
-                <button id="confirmCreatePlaylistJG" class="px-4 py-2 rounded bg-jg-accent-canopy hover:bg-opacity-80 text-white transition-colors">作成</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="addToPlaylistModalJG" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50" style="display: none;">
-        <div class="modal-dialog-jg bg-jg-surface-bark p-6 rounded-lg shadow-xl w-full max-w-md text-jg-text-light">
-            <h3 class="font-display-jg text-2xl mb-1 text-jg-accent-sunburst">プレイリストに追加</h3>
-            <p class="text-sm text-jg-text-earth mb-4" id="addToPlaylistSongTitleJG">曲名...</p>
-            <div id="addToPlaylistListJG" class="max-h-60 overflow-y-auto mb-4 border border-jg-border-vine rounded">
-                 <style>
-                    .playlist-select-item-jg { padding: 0.5rem 0.75rem; cursor: pointer; border-bottom: 1px solid var(--jg-border-vine); }
-                    .playlist-select-item-jg:last-child { border-bottom: none; }
-                    .playlist-select-item-jg:hover { background-color: rgba(var(--jg-surface-leaf-rgb), 0.4); }
-                 </style>
-            </div>
-            <div class="mt-6 flex justify-end gap-3">
-                <button id="cancelAddToPlaylistJG" class="px-4 py-2 rounded bg-jg-text-shadow hover:bg-opacity-80 transition-colors">キャンセル</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="editSongModalJG" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50" style="display: none;">
-        <div class="modal-dialog-jg bg-jg-surface-bark p-6 rounded-lg shadow-xl w-full max-w-md text-jg-text-light">
-            <h3 class="font-display-jg text-2xl mb-4 text-jg-accent-sunburst">曲情報を編集</h3>
-            <div class="mb-4">
-                <label for="editSongTitleJG" class="block text-sm font-medium text-jg-text-earth mb-1">タイトル:</label>
-                <input type="text" id="editSongTitleJG" class="modal-input-jg w-full p-2 rounded bg-jg-bg-forest-floor border border-jg-border-vine text-jg-text-light placeholder-jg-text-shadow focus:ring-2 focus:ring-jg-accent-canopy outline-none">
-            </div>
-            <div class="mb-6">
-                <label for="editSongArtistJG" class="block text-sm font-medium text-jg-text-earth mb-1">アーティスト:</label>
-                <input type="text" id="editSongArtistJG" class="modal-input-jg w-full p-2 rounded bg-jg-bg-forest-floor border border-jg-border-vine text-jg-text-light placeholder-jg-text-shadow focus:ring-2 focus:ring-jg-accent-canopy outline-none">
-            </div>
-            <div class="flex justify-end gap-3">
-                <button id="cancelEditSongJG" class="px-4 py-2 rounded bg-jg-text-shadow hover:bg-opacity-80 transition-colors">キャンセル</button>
-                <button id="confirmEditSongJG" class="px-4 py-2 rounded bg-jg-accent-canopy hover:bg-opacity-80 text-white transition-colors">保存</button>
-            </div>
-        </div>
-    </div>
-
-     <div id="profileModalJG" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50" style="display: none;">
-        <div class="modal-dialog-jg bg-jg-surface-bark p-6 rounded-lg shadow-xl w-full max-w-md text-jg-text-light">
-            <h3 class="font-display-jg text-2xl mb-4 text-jg-accent-sunburst">Ranger Profile</h3>
-            <div id="profileLinksContainerJG" class="space-y-3 mb-6">
-                <a href="https://youtube.com/@reikikuchi?si=N7ea0a6H6eyFb4Qk" target="_blank" rel="noopener noreferrer" class="profile-link-jg">
-                    <i class="fab fa-youtube text-red-500 fa-lg"></i>
-                    <span>YouTube Channel</span>
-                </a>
-                <a href="https://www.instagram.com/youtube_rei_kikuchi/?igsh=MTFheTR4cjFrdmN2cw%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" class="profile-link-jg">
-                    <i class="fab fa-instagram text-pink-500 fa-lg"></i>
-                    <span>Instagram</span>
-                </a>
-            </div>
-            <div class="mt-6 flex justify-end gap-3">
-                <button id="closeProfileModalJG" class="px-4 py-2 rounded bg-jg-text-shadow hover:bg-opacity-80 transition-colors">閉じる</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="song-context-menu-jg" style="display: none;">
-        <ul>
-            <li data-action="edit-song">情報を編集...</li>
-        </ul>
-    </div>
+    <div id="createPlaylistModalJG" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50" style="display: none;"> <div class="modal-dialog-jg bg-jg-surface-bark p-6 rounded-lg shadow-xl w-full max-w-md text-jg-text-light"> <h3 class="font-display-jg text-2xl mb-4 text-jg-accent-sunburst">新しい道 (プレイリスト) を作成</h3> <input type="text" id="newPlaylistNameJG" class="modal-input-jg w-full p-2 rounded bg-jg-bg-forest-floor border border-jg-border-vine text-jg-text-light placeholder-jg-text-shadow focus:ring-2 focus:ring-jg-accent-canopy outline-none" placeholder="プレイリスト名を入力..."> <div class="mt-6 flex justify-end gap-3"> <button id="cancelCreatePlaylistJG" class="px-4 py-2 rounded bg-jg-text-shadow hover:bg-opacity-80 transition-colors">キャンセル</button> <button id="confirmCreatePlaylistJG" class="px-4 py-2 rounded bg-jg-accent-canopy hover:bg-opacity-80 text-white transition-colors">作成</button> </div> </div> </div>
+    <div id="addToPlaylistModalJG" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50" style="display: none;"> <div class="modal-dialog-jg bg-jg-surface-bark p-6 rounded-lg shadow-xl w-full max-w-md text-jg-text-light"> <h3 class="font-display-jg text-2xl mb-1 text-jg-accent-sunburst">プレイリストに追加</h3> <p class="text-sm text-jg-text-earth mb-4" id="addToPlaylistSongTitleJG">曲名...</p> <div id="addToPlaylistListJG" class="max-h-60 overflow-y-auto mb-4 border border-jg-border-vine rounded"> <style> .playlist-select-item-jg { padding: 0.5rem 0.75rem; cursor: pointer; border-bottom: 1px solid var(--jg-border-vine); } .playlist-select-item-jg:last-child { border-bottom: none; } .playlist-select-item-jg:hover { background-color: rgba(var(--jg-surface-leaf-rgb), 0.4); } </style> </div> <div class="mt-6 flex justify-end gap-3"> <button id="cancelAddToPlaylistJG" class="px-4 py-2 rounded bg-jg-text-shadow hover:bg-opacity-80 transition-colors">キャンセル</button> </div> </div> </div>
+    <div id="editSongModalJG" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50" style="display: none;"> <div class="modal-dialog-jg bg-jg-surface-bark p-6 rounded-lg shadow-xl w-full max-w-md text-jg-text-light"> <h3 class="font-display-jg text-2xl mb-4 text-jg-accent-sunburst">曲情報を編集</h3> <div class="mb-4"> <label for="editSongTitleJG" class="block text-sm font-medium text-jg-text-earth mb-1">タイトル:</label> <input type="text" id="editSongTitleJG" class="modal-input-jg w-full p-2 rounded bg-jg-bg-forest-floor border border-jg-border-vine text-jg-text-light placeholder-jg-text-shadow focus:ring-2 focus:ring-jg-accent-canopy outline-none"> </div> <div class="mb-6"> <label for="editSongArtistJG" class="block text-sm font-medium text-jg-text-earth mb-1">アーティスト:</label> <input type="text" id="editSongArtistJG" class="modal-input-jg w-full p-2 rounded bg-jg-bg-forest-floor border border-jg-border-vine text-jg-text-light placeholder-jg-text-shadow focus:ring-2 focus:ring-jg-accent-canopy outline-none"> </div> <div class="flex justify-end gap-3"> <button id="cancelEditSongJG" class="px-4 py-2 rounded bg-jg-text-shadow hover:bg-opacity-80 transition-colors">キャンセル</button> <button id="confirmEditSongJG" class="px-4 py-2 rounded bg-jg-accent-canopy hover:bg-opacity-80 text-white transition-colors">保存</button> </div> </div> </div>
+    <div id="profileModalJG" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50" style="display: none;"> <div class="modal-dialog-jg bg-jg-surface-bark p-6 rounded-lg shadow-xl w-full max-w-md text-jg-text-light"> <h3 class="font-display-jg text-2xl mb-4 text-jg-accent-sunburst">Ranger Profile</h3> <div id="profileLinksContainerJG" class="space-y-3 mb-6"> <a href="https://youtube.com/@reikikuchi?si=N7ea0a6H6eyFb4Qk" target="_blank" rel="noopener noreferrer" class="profile-link-jg"> <i class="fab fa-youtube text-red-500 fa-lg"></i> <span>YouTube Channel</span> </a> <a href="https://www.instagram.com/youtube_rei_kikuchi/?igsh=MTFheTR4cjFrdmN2cw%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" class="profile-link-jg"> <i class="fab fa-instagram text-pink-500 fa-lg"></i> <span>Instagram</span> </a> </div> <div class="mt-6 flex justify-end gap-3"> <button id="closeProfileModalJG" class="px-4 py-2 rounded bg-jg-text-shadow hover:bg-opacity-80 transition-colors">閉じる</button> </div> </div> </div>
+    <div id="song-context-menu-jg" style="display: none;"> <ul> <li data-action="edit-song">情報を編集...</li> </ul> </div>
 
 
     <script src="https://www.youtube.com/iframe_api"></script>
 
     <script>
         // jungle_groove_script.js
-        // (No changes to JS logic needed for this pure CSS layout change)
         console.log("Jungle Groove Initializing...");
 
+        // --- State & Constants (Keep as is) ---
         let elementsJG = {};
         let appStateJG = {};
         let draggedItemJG = null;
         let draggedItemOriginalIndexJG = -1;
         let currentDragContextJG = null;
         let dragOverPlaceholderJG = null;
-
         const PLAYBACK_RATES_JG = [0.75, 1, 1.25, 1.5];
         let currentPlaybackRateIndexJG = 1;
-        const AVAILABLE_THEMES_JG = [
-            { id: 'theme-dark-jg', name: 'ジャングルナイト (標準)', type: 'dark' },
-            { id: 'theme-light-jg', name: 'ジャングルデイ', type: 'light' },
-            { id: 'theme-ocean-breeze-jg', name: 'オーシャンブリーズ', type: 'light' },
-            { id: 'theme-forest-dawn-jg', name: 'フォレストドーン', type: 'dark' },
-            { id: 'theme-neon-noir-jg', name: 'ネオンノワール', type: 'dark' }
-        ];
+        const AVAILABLE_THEMES_JG = [ { id: 'theme-dark-jg', name: 'ジャングルナイト (標準)', type: 'dark' }, { id: 'theme-light-jg', name: 'ジャングルデイ', type: 'light' }, { id: 'theme-ocean-breeze-jg', name: 'オーシャンブリーズ', type: 'light' }, { id: 'theme-forest-dawn-jg', name: 'フォレストドーン', type: 'dark' }, { id: 'theme-neon-noir-jg', name: 'ネオンノワール', type: 'dark' } ];
         let currentThemeIndexJG = 0;
         let songMetadataOverridesJG = {};
         let currentEditingSongIdJG = null;
         let currentContextMenuSongIdJG = null;
-
-
         const MAX_HISTORY_JG = 20;
         const VOLUME_STEP_JG = 5;
         const SEEK_STEP_JG = 5;
         const DEFAULT_TITLE_JG = "Jungle Groove - Wild Music Safari";
-        const LS_KEYS_JG = {
-            HISTORY: 'jungleGrooveHistory', FAVORITES: 'jungleGrooveFavorites',
-            PLAYLISTS: 'jungleGroovePlaylists', THEME: 'jungleGrooveThemeId',
-            QUEUE: 'jungleGrooveQueue', VOLUME: 'jungleGrooveVolume',
-            PLAYBACK_RATE: 'jungleGroovePlaybackRate',
-            METADATA_OVERRIDES: 'jungleGrooveMetadataOverrides'
-        };
+        const LS_KEYS_JG = { HISTORY: 'jungleGrooveHistory', FAVORITES: 'jungleGrooveFavorites', PLAYLISTS: 'jungleGroovePlaylists', THEME: 'jungleGrooveThemeId', QUEUE: 'jungleGrooveQueue', VOLUME: 'jungleGrooveVolume', PLAYBACK_RATE: 'jungleGroovePlaybackRate', METADATA_OVERRIDES: 'jungleGrooveMetadataOverrides' };
 
         appStateJG = {
             player: null, songs: [], filteredSongs: [], currentSongIndex: -1,
@@ -646,176 +454,373 @@
             isMuted: false, progressInterval: null, history: [], favorites: [],
             userPlaylists: [], queue: [], currentQueueIndex: -1, playMode: 'library',
             isPlayerReady: false, snackbarTimeoutId: null, activeModalId: null,
-            buttonsForPanel: {
-                'log-library': ['btn-refresh-feed-jg', 'btn-create-playlist-jg'],
-                'log-paths': ['btn-refresh-feed-jg', 'btn-create-playlist-jg'],
-                'playlistSongs': ['btn-refresh-feed-jg', 'btn-create-playlist-jg'],
-                'log-discoveries': ['btn-clear-queue-jg', 'btn-refresh-feed-jg', 'btn-create-playlist-jg'],
-                'log-trophies': ['btn-refresh-feed-jg', 'btn-create-playlist-jg'],
-                'log-history': ['btn-clear-history-jg', 'btn-refresh-feed-jg', 'btn-create-playlist-jg']
-            },
-            currentViewingPlaylistId: null, currentPlayingPlaylistId: null
+            buttonsForPanel: { 'log-library': ['btn-refresh-feed-jg', 'btn-create-playlist-jg'], 'log-paths': ['btn-refresh-feed-jg', 'btn-create-playlist-jg'], 'playlistSongs': ['btn-refresh-feed-jg', 'btn-create-playlist-jg'], 'log-discoveries': ['btn-clear-queue-jg', 'btn-refresh-feed-jg', 'btn-create-playlist-jg'], 'log-trophies': ['btn-refresh-feed-jg', 'btn-create-playlist-jg'], 'log-history': ['btn-clear-history-jg', 'btn-refresh-feed-jg', 'btn-create-playlist-jg'] },
+            currentViewingPlaylistId: null, currentPlayingPlaylistId: null,
+            // New state for playlist loading
+            uploadsPlaylistId: null, // Store the UU... ID
+            nextPageToken: null,
+            isLoadingMore: false
         };
 
+        // --- Element Initialization ---
         function initializeElementsJG() {
-             elementsJG = {
-                body: document.body,
-                appHut: document.querySelector('.app-safari-hut'), // Needed for mobile height adjustment
-                searchInput: document.getElementById('animal-tracker'),
-                clearSearchButton: document.getElementById('clear-search-btn-jg'),
-                themeToggle: document.getElementById('weather-toggle'),
-                profileButton: document.getElementById('profile-ranger'),
-                // PC Player Elements (might be hidden on mobile)
-                mainAlbumArt: document.getElementById('main-album-art-jg'),
-                songTitleDisplay: document.getElementById('song-title-jg'),
-                artistNameDisplay: document.getElementById('artist-name-jg'),
-                btnShuffle: document.getElementById('btn-shuffle-jg'),
-                btnPrev: document.getElementById('btn-prev-jg'),
-                btnPlay: document.getElementById('btn-play-jg'),
-                btnNext: document.getElementById('btn-next-jg'),
-                btnLoop: document.getElementById('btn-loop-jg'),
-                btnPlaybackRate: document.getElementById('btn-playback-rate-jg'),
-                btnPip: document.getElementById('btn-pip-jg'),
-                currentTimeDisplay: document.getElementById('current-time-jg'),
-                totalTimeDisplay: document.getElementById('total-time-jg'),
-                progressSlider: document.getElementById('progress-slider-jg'),
-                volumeSlider: document.getElementById('volume-slider-jg'),
-                volumeIconMute: document.querySelector('.volume-fruit-jg .fa-volume-mute'),
-                volumeIconUp: document.querySelector('.volume-fruit-jg .fa-volume-up'),
-                // PC Navigation Elements
-                logTabsContainer: document.querySelector('.safari-navigation-tabs-jg .log-tabs-jg'),
-                logTabs: document.querySelectorAll('.safari-navigation-tabs-jg .log-tab-jg'),
-                // Content Panels (used by both)
-                logPanels: document.querySelectorAll('.log-panel-jg'),
-                libraryPanel: document.getElementById('log-library'),
-                queuePanel: document.getElementById('log-discoveries'),
-                favoritesPanel: document.getElementById('log-trophies'),
-                historyPanel: document.getElementById('log-history'),
-                playlistsPanel: document.getElementById('log-paths'),
-                queueCountBadge: document.getElementById('queue-count-jg'), // Used in PC nav only now
-                // Mobile Specific Elements
-                miniPlayerContainer: document.getElementById('mini-player-jg'),
-                miniPlayerArt: document.getElementById('mini-player-art-jg'),
-                miniPlayerTitle: document.getElementById('mini-player-title-jg'),
-                miniPlayerArtist: document.getElementById('mini-player-artist-jg'),
-                miniPlayerPlayBtn: document.getElementById('mini-player-play-btn-jg'),
-                mobileNavBar: document.getElementById('mobile-nav-bar-jg'),
-                mobileNavTabs: document.querySelectorAll('#mobile-nav-bar-jg .mobile-tab-btn-jg'),
-                // Other elements
-                youtubePlayerContainer: null,
-                editSongModal: document.getElementById('editSongModalJG'),
-                editSongTitleInput: document.getElementById('editSongTitleJG'),
-                editSongArtistInput: document.getElementById('editSongArtistJG'),
-                confirmEditSongButton: document.getElementById('confirmEditSongJG'),
-                cancelEditSongButton: document.getElementById('cancelEditSongJG'),
-                songContextMenu: document.getElementById('song-context-menu-jg'),
-                profileModal: document.getElementById('profileModalJG'),
-                closeProfileModalButton: document.getElementById('closeProfileModalJG'),
+            elementsJG = {
+                body: document.body, appHut: document.querySelector('.app-safari-hut'), searchInput: document.getElementById('animal-tracker'), clearSearchButton: document.getElementById('clear-search-btn-jg'), themeToggle: document.getElementById('weather-toggle'), profileButton: document.getElementById('profile-ranger'),
+                mainAlbumArt: document.getElementById('main-album-art-jg'), songTitleDisplay: document.getElementById('song-title-jg'), artistNameDisplay: document.getElementById('artist-name-jg'), btnShuffle: document.getElementById('btn-shuffle-jg'), btnPrev: document.getElementById('btn-prev-jg'), btnPlay: document.getElementById('btn-play-jg'), btnNext: document.getElementById('btn-next-jg'), btnLoop: document.getElementById('btn-loop-jg'), btnPlaybackRate: document.getElementById('btn-playback-rate-jg'), btnPip: document.getElementById('btn-pip-jg'), currentTimeDisplay: document.getElementById('current-time-jg'), totalTimeDisplay: document.getElementById('total-time-jg'), progressSlider: document.getElementById('progress-slider-jg'), volumeSlider: document.getElementById('volume-slider-jg'), volumeIconMute: document.querySelector('.volume-fruit-jg .fa-volume-mute'), volumeIconUp: document.querySelector('.volume-fruit-jg .fa-volume-up'),
+                logTabsContainer: document.querySelector('.safari-navigation-tabs-jg .log-tabs-jg'), logTabs: document.querySelectorAll('.safari-navigation-tabs-jg .log-tab-jg'),
+                logPanels: document.querySelectorAll('.log-panel-jg'), libraryPanel: document.getElementById('log-library'), queuePanel: document.getElementById('log-discoveries'), favoritesPanel: document.getElementById('log-trophies'), historyPanel: document.getElementById('log-history'), playlistsPanel: document.getElementById('log-paths'), queueCountBadge: document.getElementById('queue-count-jg'),
+                miniPlayerContainer: document.getElementById('mini-player-jg'), miniPlayerArt: document.getElementById('mini-player-art-jg'), miniPlayerTitle: document.getElementById('mini-player-title-jg'), miniPlayerArtist: document.getElementById('mini-player-artist-jg'), miniPlayerPlayBtn: document.getElementById('mini-player-play-btn-jg'), mobileNavBar: document.getElementById('mobile-nav-bar-jg'), mobileNavTabs: document.querySelectorAll('#mobile-nav-bar-jg .mobile-tab-btn-jg'),
+                loadMoreContainer: document.getElementById('load-more-container-jg'), // Added
+                loadMoreButton: document.getElementById('load-more-btn-jg'), // Added
+                youtubePlayerContainer: null, editSongModal: document.getElementById('editSongModalJG'), editSongTitleInput: document.getElementById('editSongTitleJG'), editSongArtistInput: document.getElementById('editSongArtistJG'), confirmEditSongButton: document.getElementById('confirmEditSongJG'), cancelEditSongButton: document.getElementById('cancelEditSongJG'), songContextMenu: document.getElementById('song-context-menu-jg'), profileModal: document.getElementById('profileModalJG'), closeProfileModalButton: document.getElementById('closeProfileModalJG'),
             };
-            let ytContainer = document.getElementById('youtube-player-container-jg');
-            if (!ytContainer) {
-                ytContainer = document.createElement('div');
-                ytContainer.id = 'youtube-player-container-jg';
-                Object.assign(ytContainer.style, {position: 'absolute', top: '-9999px', left: '-9999px', width: '1px', height: '1px'});
-                document.body.appendChild(ytContainer);
-            }
-            elementsJG.youtubePlayerContainer = ytContainer;
+            let ytContainer = document.getElementById('youtube-player-container-jg'); if (!ytContainer) { ytContainer = document.createElement('div'); ytContainer.id = 'youtube-player-container-jg'; Object.assign(ytContainer.style, {position: 'absolute', top: '-9999px', left: '-9999px', width: '1px', height: '1px'}); document.body.appendChild(ytContainer); } elementsJG.youtubePlayerContainer = ytContainer;
         }
 
+        // --- YouTube API Handling ---
         function onYouTubeIframeAPIReady() { if (Object.keys(elementsJG).length === 0) initializeElementsJG(); if (!elementsJG.youtubePlayerContainer) { showSnackbarJG("プレイヤー表示領域なし", "error", 10000); return; } try { appStateJG.player = new YT.Player(elementsJG.youtubePlayerContainer.id, { height: '1', width: '1', playerVars: { 'autoplay': 0, 'controls': 0, 'playsinline': 1, 'origin': window.location.origin }, events: { 'onReady': onPlayerReadyJG, 'onStateChange': onPlayerStateChangeJG, 'onError': onPlayerErrorJG } }); } catch (e) { showSnackbarJG("YTプレイヤー作成エラー: " + e.message, "error"); } }
-        const youtubeAPI_JG = { apiKey: 'AIzaSyCbzvjP9vFa5I8N1qLI5H9LUpYim0nkQS4', channelId: 'UCYAuSEKhuk3v4ZKzm5Lqb1Q', async getLatestVideos(maxResults = 15) { if (!this.apiKey || this.apiKey === 'YOUR_YOUTUBE_API_KEY_HERE' || this.apiKey.length < 30) { showSnackbarJG("YouTube APIキーが設定されていません。", "error", 10000); return []; } const apiUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${this.channelId}&maxResults=${maxResults}&order=date&type=video&key=${this.apiKey}`; try { const response = await fetch(apiUrl); if (!response.ok) { const errorText = await response.text(); let errorData = null; try { errorData = JSON.parse(errorText); } catch (e) {} throw new Error(errorData?.error?.message || `YouTube APIエラー: ${response.status}`); } const data = await response.json(); return data.items?.map(item => ({ id: item.id.videoId, title: item.snippet.title, artist: item.snippet.channelTitle, thumbnail: item.snippet.thumbnails.high?.url || item.snippet.thumbnails.medium?.url || item.snippet.thumbnails.default?.url, duration: "--:--" })) || []; } catch (error) { console.error('getLatestVideos Error:', error); showSnackbarJG(`曲読込エラー: ${error.message}`, "error"); return []; } }, async getVideoDetails(videoIds) { if (!videoIds || videoIds.length === 0) return {}; if (!this.apiKey || this.apiKey === 'YOUR_YOUTUBE_API_KEY_HERE' || this.apiKey.length < 30) return {}; const details = {}; for (let i = 0; i < videoIds.length; i += 50) { const chunkIds = videoIds.slice(i, i + 50); try { const response = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=${chunkIds.join(',')}&key=${this.apiKey}`); if (!response.ok) throw new Error(`Video Details API error: ${response.status}`); const data = await response.json(); data.items?.forEach(item => { details[item.id] = item.contentDetails ? this.convertDuration(item.contentDetails.duration) : "--:--"; }); } catch (error) { console.error('getVideoDetails chunk error:', error); chunkIds.forEach(id => { if (!details[id]) details[id] = "--:--"; });} } return details; }, convertDuration(iso) { if (!iso) return '--:--'; const m = iso.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/); if (!m) return '--:--'; const h = parseInt(m[1]||0), min = parseInt(m[2]||0), s = parseInt(m[3]||0); return h > 0 ? `${h}:${min.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}` : `${min}:${s.toString().padStart(2,'0')}`; } };
-        async function loadInitialSongsJG() { if (!youtubeAPI_JG.apiKey || youtubeAPI_JG.apiKey === 'YOUR_YOUTUBE_API_KEY_HERE' || youtubeAPI_JG.apiKey.length < 30) { showSnackbarJG("YouTube APIキー未設定。", "error", 10000); if (elementsJG.libraryPanel) showEmptyMessageInPanelJG(elementsJG.libraryPanel, "APIキーエラー", "曲を読込めません。"); return; } if (!elementsJG.libraryPanel) return; showLoadingInPanelJG(elementsJG.libraryPanel, true); let songs = []; try { songs = await youtubeAPI_JG.getLatestVideos(25); } catch (error) { appStateJG.songs = []; appStateJG.filteredSongs = []; if (elementsJG.libraryPanel) { renderSongListJG(elementsJG.libraryPanel, [], 'library'); showLoadingInPanelJG(elementsJG.libraryPanel, false); showEmptyMessageInPanelJG(elementsJG.libraryPanel, "読込失敗", `エラー: ${error.message}`); } return; } if (songs && songs.length > 0) { const videoIds = songs.map(s => s.id).filter(id => id); if (videoIds.length > 0) { try { const durations = await youtubeAPI_JG.getVideoDetails(videoIds); songs = songs.map(song => ({ ...song, artist: song.artist || "Rei Kikuchi", duration: durations[song.id] || "--:--" })); } catch (error) { console.error("Error fetching durations:", error); } } } appStateJG.songs = songs || []; appStateJG.filteredSongs = [...(songs || [])]; if (elementsJG.libraryPanel) { renderSongListJG(elementsJG.libraryPanel, appStateJG.filteredSongs, 'library'); showLoadingInPanelJG(elementsJG.libraryPanel, false); } if ((!songs || songs.length === 0) && elementsJG.libraryPanel) { showEmptyMessageInPanelJG(elementsJG.libraryPanel, "曲なし", "新しい冒険を待とう！");} loadInitialDataJG(true);  }
-        function renderSongListJG(panelElement, songsToRender, context) { if (!panelElement) return; panelElement.innerHTML = ''; const isDraggableContext = (context === 'queue' || context === 'playlistSongs'); if (isDraggableContext) { panelElement.removeEventListener('dragover', handleDragOverJG); panelElement.removeEventListener('drop', handleDropJG); panelElement.removeEventListener('dragleave', handleDragLeaveJG); panelElement.addEventListener('dragover', handleDragOverJG); panelElement.addEventListener('drop', (event) => handleDropJG(event, panelElement, context)); panelElement.addEventListener('dragleave', handleDragLeaveJG); } if (!songsToRender || songsToRender.length === 0) { let emptyTitle = "何も見つからない..."; let emptyMessage = "このエリアにはまだ何もないようだ。"; if (context === 'library' && elementsJG.searchInput?.value) { emptyTitle = "検索結果なし"; emptyMessage = `「${escapeHTMLJG(elementsJG.searchInput.value)}」一致なし...`; } else if (context === 'queue') { emptyTitle = "キューは空っぽ"; emptyMessage = "ライブラリから曲を追加！"; } else if (context === 'favorites') { emptyTitle = "お気に入りの宝物なし"; emptyMessage = "曲の羽アイコンをクリック！"; } else if (context === 'history') { emptyTitle = "足跡なし"; emptyMessage = "まだ探検していないようだ。"; } showEmptyMessageInPanelJG(panelElement, emptyTitle, emptyMessage); return; } const fragment = document.createDocumentFragment(); songsToRender.forEach((songData, listIndex) => { if (!songData || !songData.id) return; const displayInfo = getDisplaySongInfoJG(songData.id); const originalSongIndex = appStateJG.songs.findIndex(s => s.id === songData.id); const currentPlayingSong = appStateJG.songs[appStateJG.currentSongIndex]; const isActive = currentPlayingSong && currentPlayingSong.id === songData.id; const isFavorited = appStateJG.favorites.some(fav => fav.id === songData.id); const isEdited = songMetadataOverridesJG[songData.id] ? '<i class="fas fa-edit edited-indicator-jg" title="情報編集済み"></i>' : ''; const entry = document.createElement('div'); entry.className = `log-entry-jg ${isActive ? 'active-song' : ''}`; entry.dataset.id = songData.id; entry.dataset.originalIndex = originalSongIndex; entry.dataset.listIndex = listIndex; if (isDraggableContext) { entry.draggable = true; entry.style.cursor = 'grab'; entry.addEventListener('dragstart', (event) => handleDragStartJG(event, songData.id, listIndex, context)); entry.addEventListener('dragend', handleDragEndJG); } else { entry.style.cursor = 'pointer'; } entry.addEventListener('contextmenu', (e) => { e.preventDefault(); showSongContextMenuJG(e.clientX, e.clientY, songData.id); }); let actionButtonsHTML = ''; if (context !== 'queue') { actionButtonsHTML += `<button class="song-item-action-jg add-to-queue-action-jg" title="キューに追加"><i class="fas fa-stream"></i></button>`; } if (context !== 'queue') { actionButtonsHTML += `<button class="song-item-action-jg add-to-playlist-action-jg" title="プレイリストに追加"><i class="fas fa-folder-plus"></i></button>`; } actionButtonsHTML += `<button class="song-item-action-jg favorite-action-jg" title="${isFavorited ? 'お気に入りから削除' : 'お気に入りに追加'}"><i class="fas ${isFavorited ? 'fa-heart text-jg-accent-sunburst' : 'fa-feather-alt'}"></i></button>`; if (context === 'playlistSongs' && appStateJG.currentViewingPlaylistId) { actionButtonsHTML += `<button class="song-item-action-jg remove-from-playlist-action-jg" title="このプレイリストから削除"><i class="fas fa-minus-circle text-red-500 hover:text-red-400"></i></button>`;} entry.innerHTML = ` <img src="${displayInfo.thumbnail || 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'}" alt="${escapeHTMLJG(displayInfo.title || '')}" class="${!displayInfo.thumbnail ? 'img-placeholder list-thumb-placeholder' : ''}"> <div> <span class="title">${escapeHTMLJG(displayInfo.title || '不明なタイトル')} ${isEdited}</span> <span class="artist">${escapeHTMLJG(displayInfo.artist || '不明なアーティスト')}</span> </div> <span class="duration">${songData.duration || '--:--'}</span> <div class="log-entry-actions-jg">${actionButtonsHTML}</div>`; entry.querySelector('.favorite-action-jg')?.addEventListener('click', (e) => { e.stopPropagation(); toggleFavoriteJG(songData.id, e.currentTarget.querySelector('i'), e.currentTarget); }); entry.querySelector('.add-to-queue-action-jg')?.addEventListener('click', (e) => { e.stopPropagation(); addToQueueJG(songData.id); }); entry.querySelector('.add-to-playlist-action-jg')?.addEventListener('click', (e) => { e.stopPropagation(); showAddToPlaylistModalJG(songData.id); }); entry.querySelector('.remove-from-playlist-action-jg')?.addEventListener('click', (e) => { e.stopPropagation(); if (appStateJG.currentViewingPlaylistId) confirmRemoveSongFromPlaylistJG(songData.id, appStateJG.currentViewingPlaylistId, displayInfo.title); }); entry.addEventListener('click', (e) => { if (e.target.closest('.song-item-action-jg') || entry.classList.contains('dragging-jg')) return; const songIdToPlay = entry.dataset.id; const originalIdx = parseInt(entry.dataset.originalIndex, 10); if (isNaN(originalIdx) || originalIdx < 0 || originalIdx >= appStateJG.songs.length) { const freshIndex = appStateJG.songs.findIndex(s => s.id === songIdToPlay); if (freshIndex === -1) { showSnackbarJG("この曲は現在再生不可", "error"); return; } playSongAtIndexJG(freshIndex); return;  } if (context === 'queue') { appStateJG.playMode = 'queue'; appStateJG.currentQueueIndex = parseInt(entry.dataset.listIndex, 10); appStateJG.currentPlayingPlaylistId = null;} else if (context === 'playlistSongs' && appStateJG.currentViewingPlaylistId) { appStateJG.playMode = 'playlist'; appStateJG.currentPlayingPlaylistId = appStateJG.currentViewingPlaylistId; appStateJG.currentQueueIndex = parseInt(entry.dataset.listIndex, 10); } else { appStateJG.playMode = 'library'; appStateJG.currentQueueIndex = -1; appStateJG.currentPlayingPlaylistId = null; } playSongAtIndexJG(originalIdx); }); fragment.appendChild(entry); }); panelElement.appendChild(fragment); }
-        function showLoadingInPanelJG(panelElement, isLoading) { if (!panelElement) return; if (isLoading) { panelElement.innerHTML = `<div class="flex justify-center items-center h-full text-jg-text-shadow"><i class="fas fa-spinner fa-spin fa-2x"></i><p class="ml-2">探検中...</p></div>`; } }
-        function showEmptyMessageInPanelJG(panelElement, title, message) { if (!panelElement) return; panelElement.innerHTML = `<div class="text-center p-8 text-jg-text-shadow"><i class="fas fa-map-marked-alt fa-3x mb-4 opacity-50"></i><h4 class="font-display-jg text-xl text-jg-text-earth mb-2">${escapeHTMLJG(title)}</h4><p class="text-sm">${escapeHTMLJG(message)}</p></div>`; }
-        function setupTitleMarqueeJG(titleEl, text) { if (!titleEl) return; titleEl.classList.remove('enable-marquee'); const existingMarqueeSpan = titleEl.querySelector('.marquee-text-inner-jg'); if (existingMarqueeSpan) { titleEl.textContent = text; } else { titleEl.textContent = text; } requestAnimationFrame(() => { const isVisible = titleEl.offsetWidth > 0 && titleEl.offsetHeight > 0; if (isVisible && titleEl.scrollWidth > titleEl.clientWidth) { titleEl.innerHTML = `<span class="marquee-text-inner-jg">${escapeHTMLJG(text)}</span>`; titleEl.classList.add('enable-marquee'); const marqueeSpan = titleEl.querySelector('.marquee-text-inner-jg'); if (marqueeSpan) { const textWidth = marqueeSpan.offsetWidth; const containerWidth = titleEl.clientWidth; const speed = 40; const duration = (textWidth + containerWidth) / speed; marqueeSpan.style.animationDuration = `${Math.max(3, duration)}s`; marqueeSpan.style.animationPlayState = appStateJG.isPlaying ? 'running' : 'paused'; } } else { titleEl.classList.remove('enable-marquee'); titleEl.style.textAlign = 'center'; const innerSpan = titleEl.querySelector('.marquee-text-inner-jg'); if(innerSpan) { innerSpan.style.animationDuration = ''; innerSpan.style.animationPlayState = ''; } } }); }
-        function updatePlayerUIGJ(song) { const displayInfo = song && song.id ? getDisplaySongInfoJG(song.id) : null; const defaultTitle = "Wild Rhythms"; const defaultArtist = "The Jungle Cats"; const placeholderArt = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'; const playerElement = document.querySelector('.watering-hole-player'); if (elementsJG.mainAlbumArt) { elementsJG.mainAlbumArt.src = displayInfo?.thumbnail || placeholderArt; elementsJG.mainAlbumArt.classList.toggle('album-art-placeholder', !displayInfo?.thumbnail); elementsJG.mainAlbumArt.innerHTML = !displayInfo?.thumbnail ? '<i class="fas fa-music"></i>' : ''; } if (elementsJG.songTitleDisplay) setupTitleMarqueeJG(elementsJG.songTitleDisplay, displayInfo?.title || defaultTitle); if (elementsJG.artistNameDisplay) elementsJG.artistNameDisplay.textContent = displayInfo?.artist || defaultArtist; playerElement?.classList.toggle('has-song', !!displayInfo); if(!displayInfo){ if (elementsJG.currentTimeDisplay) elementsJG.currentTimeDisplay.textContent = "0:00"; if (elementsJG.totalTimeDisplay) elementsJG.totalTimeDisplay.textContent = "0:00"; if (elementsJG.progressSlider) elementsJG.progressSlider.value = 0; } if (elementsJG.miniPlayerContainer) { if (displayInfo) { elementsJG.miniPlayerContainer.style.display = 'flex'; if(elementsJG.miniPlayerArt) { elementsJG.miniPlayerArt.src = displayInfo.thumbnail || placeholderArt; elementsJG.miniPlayerArt.classList.toggle('placeholder', !displayInfo.thumbnail); elementsJG.miniPlayerArt.innerHTML = !displayInfo.thumbnail ? '<i class="fas fa-music"></i>' : ''; } if(elementsJG.miniPlayerTitle) elementsJG.miniPlayerTitle.textContent = displayInfo.title || "Track Title"; if(elementsJG.miniPlayerArtist) elementsJG.miniPlayerArtist.textContent = displayInfo.artist || "Artist Name"; } else { elementsJG.miniPlayerContainer.style.display = 'none'; } } updatePlayPauseButtonJG(); updateActiveListItemJG(); updateDocumentTitleJG(); }
-        function updatePlayPauseButtonJG() { const isPlaying = appStateJG.isPlaying; const iconClass = isPlaying ? 'fa-pause' : 'fa-play'; if (elementsJG.btnPlay) elementsJG.btnPlay.innerHTML = `<i class="fas ${iconClass}"></i>`; document.querySelector('.watering-hole-player')?.classList.toggle('is-playing', isPlaying); if (elementsJG.miniPlayerPlayBtn) elementsJG.miniPlayerPlayBtn.innerHTML = `<i class="fas ${iconClass}"></i>`; const marqueeSpan = elementsJG.songTitleDisplay?.querySelector('.marquee-text-inner-jg'); if (marqueeSpan) marqueeSpan.style.animationPlayState = isPlaying ? 'running' : 'paused'; }
-        function updateActiveListItemJG() { document.querySelectorAll('.log-entry-jg.active-song').forEach(el=>el.classList.remove('active-song')); if(appStateJG.currentSongIndex!==-1&&appStateJG.songs&&appStateJG.currentSongIndex<appStateJG.songs.length){const cSId=appStateJG.songs[appStateJG.currentSongIndex]?.id;if(cSId){document.querySelectorAll(`.log-entry-jg[data-id="${cSId}"]`).forEach(item=>item.classList.add('active-song'));}}}
-        function updateDocumentTitleJG() { if (appStateJG.currentSongIndex === -1 || !appStateJG.songs[appStateJG.currentSongIndex]) { document.title = DEFAULT_TITLE_JG; return; } const song = appStateJG.songs[appStateJG.currentSongIndex]; if (!song) { document.title = DEFAULT_TITLE_JG; return; } const displayInfo = getDisplaySongInfoJG(song.id); const prefix = appStateJG.isPlaying ? "▶ " : "❚❚ "; document.title = `${prefix}${displayInfo.title} - ${displayInfo.artist} | Jungle Groove`; }
-        function playSongAtIndexJG(index) { if (index < 0 || !appStateJG.songs || index >= appStateJG.songs.length) { showSnackbarJG("無効な曲index", "error"); return; } appStateJG.currentSongIndex = index; const song = appStateJG.songs[index]; if (!song || !song.id) { showSnackbarJG("曲情報不正", "error"); updatePlayerUIGJ(null); return; } updatePlayerUIGJ(song); if (appStateJG.player && appStateJG.isPlayerReady) { try { appStateJG.player.loadVideoById(song.id); } catch (error) { console.error("loadVideoById Error:", error); showSnackbarJG("動画読込失敗", "error"); } } else { if (!appStateJG.isPlayerReady) showSnackbarJG("プレイヤー準備未了", "warning"); else if (!song.id) showSnackbarJG("曲IDなし", "error"); } addToHistoryJG(song); if (appStateJG.currentPanel === 'log-history' && elementsJG.historyPanel) renderHistoryListJG(); }
-        function togglePlayPauseJG() { if(!appStateJG.player||!appStateJG.isPlayerReady){showSnackbarJG("プレイヤー準備未了","warning");return;}if(appStateJG.currentSongIndex===-1&&appStateJG.songs&&appStateJG.songs.length>0){appStateJG.playMode='library';appStateJG.currentQueueIndex=-1;playSongAtIndexJG(0);return;}if(appStateJG.currentSongIndex===-1&&(!appStateJG.songs||appStateJG.songs.length===0)){showSnackbarJG("再生曲なし","info");return;}if(appStateJG.isPlaying){appStateJG.player.pauseVideo();}else{appStateJG.player.playVideo();}}
-        function playNextJG() { if (!appStateJG.songs || appStateJG.songs.length === 0) { showSnackbarJG("リストに曲なし", "info"); return; } let nextSongOriginalIndex = -1, currentList, nextListIndex; if (appStateJG.playMode === 'queue' && appStateJG.queue.length > 0) { currentList = appStateJG.queue.map(id => findSongByIdJG(id)).filter(s => s); nextListIndex = appStateJG.currentQueueIndex + 1; if (nextListIndex >= currentList.length) { if (appStateJG.loopMode === 'all') nextListIndex = 0; else { showSnackbarJG("キュー再生終了", "info"); appStateJG.isPlaying = false; updatePlayPauseButtonJG(); updateDocumentTitleJG(); return; } } appStateJG.currentQueueIndex = nextListIndex; const nextSongIdInQueue = appStateJG.queue[appStateJG.currentQueueIndex]; nextSongOriginalIndex = appStateJG.songs.findIndex(s => s.id === nextSongIdInQueue); } else if (appStateJG.playMode === 'playlist' && appStateJG.currentPlayingPlaylistId) { const p = appStateJG.userPlaylists.find(pl => pl.id === appStateJG.currentPlayingPlaylistId); if (p && p.songs.length > 0) { currentList = p.songs.map(id => findSongByIdJG(id)).filter(s => s); nextListIndex = appStateJG.currentQueueIndex + 1; if (nextListIndex >= currentList.length) { if (appStateJG.loopMode === 'all') nextListIndex = 0; else { showSnackbarJG(`プレイリスト「${escapeHTMLJG(p.name)}」終了`, "info"); appStateJG.isPlaying = false; updatePlayPauseButtonJG(); updateDocumentTitleJG(); return; } } appStateJG.currentQueueIndex = nextListIndex; const nextSongIdInPlaylist = p.songs[appStateJG.currentQueueIndex]; nextSongOriginalIndex = appStateJG.songs.findIndex(s => s.id === nextSongIdInPlaylist); } else { appStateJG.playMode = 'library'; appStateJG.currentPlayingPlaylistId = null; appStateJG.currentQueueIndex = -1; } } if (appStateJG.playMode === 'library' || nextSongOriginalIndex === -1) { currentList = appStateJG.isShuffle ? appStateJG.songs : appStateJG.filteredSongs; if (currentList.length === 0) currentList = appStateJG.songs; if (currentList.length === 0) return; if (appStateJG.isShuffle) { if (currentList.length <= 1) nextSongOriginalIndex = appStateJG.songs.findIndex(s => s.id === currentList[0]?.id); else { let rOI, rSId; do { rSId = currentList[Math.floor(Math.random()*currentList.length)].id; rOI = appStateJG.songs.findIndex(s => s.id === rSId); } while (rOI === appStateJG.currentSongIndex && currentList.length > 1); nextSongOriginalIndex = rOI; } } else { let cFI = -1; if (appStateJG.currentSongIndex !== -1) { const cASId = appStateJG.songs[appStateJG.currentSongIndex].id; cFI = appStateJG.filteredSongs.findIndex(s => s.id === cASId); } nextListIndex = (cFI === -1) ? 0 : cFI + 1; if (nextListIndex >= appStateJG.filteredSongs.length) { if (appStateJG.loopMode === 'all') nextListIndex = 0; else { showSnackbarJG("探検終了！", "info"); appStateJG.isPlaying = false; updatePlayPauseButtonJG(); updateDocumentTitleJG(); return; } } if (appStateJG.filteredSongs[nextListIndex]) nextSongOriginalIndex = appStateJG.songs.findIndex(s => s.id === appStateJG.filteredSongs[nextListIndex].id); } } if (nextSongOriginalIndex !== -1) playSongAtIndexJG(nextSongOriginalIndex); else { appStateJG.isPlaying = false; updatePlayPauseButtonJG(); updateDocumentTitleJG(); } }
-        function playPrevJG() { if (!appStateJG.songs || appStateJG.songs.length === 0) { showSnackbarJG("リストに曲なし", "info"); return; } if (appStateJG.player && appStateJG.isPlayerReady && appStateJG.player.getCurrentTime && appStateJG.player.getCurrentTime() > SEEK_STEP_JG) { appStateJG.player.seekTo(0); return; } let prevSongOriginalIndex = -1, currentList, prevListIndex; if (appStateJG.playMode === 'queue' && appStateJG.queue.length > 0) { currentList = appStateJG.queue.map(id => findSongByIdJG(id)).filter(s => s); prevListIndex = appStateJG.currentQueueIndex - 1; if (prevListIndex < 0) { if (appStateJG.loopMode === 'all' && currentList.length > 0) prevListIndex = currentList.length - 1; else { prevListIndex = 0; if (appStateJG.player && appStateJG.isPlayerReady && appStateJG.player.seekTo) appStateJG.player.seekTo(0); } } appStateJG.currentQueueIndex = prevListIndex; const prevSongIdInQueue = appStateJG.queue[appStateJG.currentQueueIndex]; prevSongOriginalIndex = appStateJG.songs.findIndex(s => s.id === prevSongIdInQueue); } else if (appStateJG.playMode === 'playlist' && appStateJG.currentPlayingPlaylistId) { const p = appStateJG.userPlaylists.find(pl => pl.id === appStateJG.currentPlayingPlaylistId); if (p && p.songs.length > 0) { currentList = p.songs.map(id => findSongByIdJG(id)).filter(s => s); prevListIndex = appStateJG.currentQueueIndex - 1; if (prevListIndex < 0) { if (appStateJG.loopMode === 'all') prevListIndex = currentList.length - 1; else { prevListIndex = 0; if (appStateJG.player && appStateJG.isPlayerReady && appStateJG.player.seekTo) appStateJG.player.seekTo(0); } } appStateJG.currentQueueIndex = prevListIndex; const prevSongIdInPlaylist = p.songs[appStateJG.currentQueueIndex]; prevSongOriginalIndex = appStateJG.songs.findIndex(s => s.id === prevSongIdInPlaylist); } else { appStateJG.playMode = 'library'; appStateJG.currentPlayingPlaylistId = null; appStateJG.currentQueueIndex = -1; } } if (appStateJG.playMode === 'library' || prevSongOriginalIndex === -1) { currentList = appStateJG.isShuffle ? appStateJG.songs : appStateJG.filteredSongs; if (currentList.length === 0) currentList = appStateJG.songs; if (currentList.length === 0) return; if (appStateJG.isShuffle) { if (currentList.length <= 1) prevSongOriginalIndex = appStateJG.songs.findIndex(s => s.id === currentList[0]?.id); else { let rOI, rSId; do { rSId = currentList[Math.floor(Math.random()*currentList.length)].id; rOI = appStateJG.songs.findIndex(s => s.id === rSId); } while (rOI === appStateJG.currentSongIndex && currentList.length > 1); prevSongOriginalIndex = rOI; } } else { let cFI = -1; if (appStateJG.currentSongIndex !== -1) { const cASId = appStateJG.songs[appStateJG.currentSongIndex].id; cFI = appStateJG.filteredSongs.findIndex(s => s.id === cASId); } prevListIndex = cFI - 1; if (prevListIndex < 0) { if (appStateJG.loopMode === 'all' && appStateJG.filteredSongs.length > 0) prevListIndex = appStateJG.filteredSongs.length - 1; else { prevListIndex = 0; if (appStateJG.player && appStateJG.isPlayerReady && appStateJG.player.seekTo) appStateJG.player.seekTo(0); } } if (appStateJG.filteredSongs[prevListIndex]) prevSongOriginalIndex = appStateJG.songs.findIndex(s => s.id === appStateJG.filteredSongs[prevListIndex].id); } } if (prevSongOriginalIndex !== -1) playSongAtIndexJG(prevSongOriginalIndex); }
-        function handleSongEndJG() { if (appStateJG.loopMode === 'one' && appStateJG.currentSongIndex !== -1) playSongAtIndexJG(appStateJG.currentSongIndex); else playNextJG(); }
-        function updateProgressJG() { if(!appStateJG.player||!appStateJG.isPlayerReady||typeof appStateJG.player.getDuration!=='function'||!elementsJG.progressSlider)return;const curTime=appStateJG.player.getCurrentTime?appStateJG.player.getCurrentTime():0;const dur=appStateJG.player.getDuration?appStateJG.player.getDuration():0;if(elementsJG.progressSlider&&elementsJG.currentTimeDisplay&&elementsJG.totalTimeDisplay){if(dur>0){elementsJG.progressSlider.value=(curTime/dur)*100;elementsJG.currentTimeDisplay.textContent=formatTimeJG(curTime);elementsJG.totalTimeDisplay.textContent=formatTimeJG(dur);const curSong=appStateJG.songs[appStateJG.currentSongIndex];if(curSong&&curSong.duration==="--:--"){curSong.duration=formatTimeJG(dur);document.querySelectorAll(`.log-entry-jg[data-id="${curSong.id}"] .duration`).forEach(el=>{el.textContent=curSong.duration;});}}else{elementsJG.progressSlider.value=0;elementsJG.currentTimeDisplay.textContent="0:00";}}}
-        function cyclePlaybackRateJG() { if (!appStateJG.player || !appStateJG.isPlayerReady || typeof appStateJG.player.setPlaybackRate !== 'function') { showSnackbarJG("再生速度変更不可", "warning"); return; } currentPlaybackRateIndexJG = (currentPlaybackRateIndexJG + 1) % PLAYBACK_RATES_JG.length; const newRate = PLAYBACK_RATES_JG[currentPlaybackRateIndexJG]; appStateJG.player.setPlaybackRate(newRate); if (elementsJG.btnPlaybackRate) elementsJG.btnPlaybackRate.textContent = `${newRate}x`; elementsJG.btnPlaybackRate.classList.toggle('active-control', newRate !== 1); saveToLocalStorageJG(LS_KEYS_JG.PLAYBACK_RATE, newRate); showSnackbarJG(`再生速度: ${newRate}x`, "info", 1500); }
-        function applyPlaybackRateJG(rate) { if (appStateJG.player && appStateJG.isPlayerReady && typeof appStateJG.player.setPlaybackRate === 'function') { const validRate = PLAYBACK_RATES_JG.includes(rate) ? rate : 1; currentPlaybackRateIndexJG = PLAYBACK_RATES_JG.indexOf(validRate); appStateJG.player.setPlaybackRate(validRate); if (elementsJG.btnPlaybackRate) elementsJG.btnPlaybackRate.textContent = `${validRate}x`; elementsJG.btnPlaybackRate.classList.toggle('active-control', validRate !== 1); } }
-        async function togglePictureInPictureJG() { if (!elementsJG.youtubePlayerContainer || !elementsJG.youtubePlayerContainer.firstChild) { showSnackbarJG("PiPターゲットなし", "error"); return; } const videoElement = elementsJG.youtubePlayerContainer.firstChild; if (!document.pictureInPictureEnabled) { showSnackbarJG("ブラウザPiP非対応", "warning"); elementsJG.btnPip.disabled = true; return; } try { if (document.pictureInPictureElement) { await document.exitPictureInPicture(); } else { if (videoElement.requestPictureInPicture) { await videoElement.requestPictureInPicture(); } else { showSnackbarJG("PiP開始失敗", "error"); } } } catch (error) { console.error("PiP Error:", error); showSnackbarJG(`PiPエラー: ${error.message}`, "error"); } }
-        function handleEnterPiPJG() { if(elementsJG.btnPip) elementsJG.btnPip.classList.add('active-control'); console.log("Entered PiP mode");}
-        function handleLeavePiPJG() { if(elementsJG.btnPip) elementsJG.btnPip.classList.remove('active-control'); console.log("Exited PiP mode");}
-        function onPlayerReadyJG(event) { appStateJG.isPlayerReady = true; if (event.target && typeof event.target.setVolume === 'function') { setVolumeJG(appStateJG.volume, false);  } const storedRate = loadFromLocalStorageJG(LS_KEYS_JG.PLAYBACK_RATE); if (storedRate !== null) applyPlaybackRateJG(parseFloat(storedRate)); loadInitialSongsJG(); }
-        function onPlayerStateChangeJG(event) { const ps=event.data; if(ps===YT.PlayerState.PLAYING){appStateJG.isPlaying=true;if(appStateJG.progressInterval)clearInterval(appStateJG.progressInterval);appStateJG.progressInterval=setInterval(updateProgressJG,500);updatePlayerUIGJ(appStateJG.songs[appStateJG.currentSongIndex]);updateActiveListItemJG(); const cSO=appStateJG.songs[appStateJG.currentSongIndex];if(cSO){if(appStateJG.playMode==='queue'){const sIQ=appStateJG.queue[appStateJG.currentQueueIndex];if(sIQ!==cSO.id){const nQI=appStateJG.queue.findIndex(id=>id===cSO.id);if(nQI!==-1)appStateJG.currentQueueIndex=nQI;else{appStateJG.playMode='library';appStateJG.currentQueueIndex=-1;}}}else if(appStateJG.playMode==='playlist'&&appStateJG.currentPlayingPlaylistId){const p=appStateJG.userPlaylists.find(pl=>pl.id===appStateJG.currentPlayingPlaylistId);if(p){const sIP=p.songs[appStateJG.currentQueueIndex];if(sIP!==cSO.id){const nPSI=p.songs.findIndex(id=>id===cSO.id);if(nPSI!==-1)appStateJG.currentQueueIndex=nPSI;else{appStateJG.playMode='library';appStateJG.currentPlayingPlaylistId=null;appStateJG.currentQueueIndex=-1;}}}else{appStateJG.playMode='library';appStateJG.currentPlayingPlaylistId=null;appStateJG.currentQueueIndex=-1;}}}} else if(ps===YT.PlayerState.PAUSED){appStateJG.isPlaying=false;clearInterval(appStateJG.progressInterval);updatePlayPauseButtonJG();updateDocumentTitleJG();} else if(ps===YT.PlayerState.ENDED){appStateJG.isPlaying=false;clearInterval(appStateJG.progressInterval);updatePlayPauseButtonJG();updateDocumentTitleJG();if(elementsJG.progressSlider)elementsJG.progressSlider.value=100;if(elementsJG.currentTimeDisplay&&elementsJG.totalTimeDisplay){elementsJG.currentTimeDisplay.textContent=elementsJG.totalTimeDisplay.textContent;}handleSongEndJG();} else if(ps===YT.PlayerState.CUED){updateProgressJG();if(!appStateJG.isPlaying&&appStateJG.currentSongIndex!==-1){appStateJG.player.playVideo();}} else if(ps===-1){updateDocumentTitleJG();} }
-        function onPlayerErrorJG(event) { console.error("Player Error:", event.data); let msg=`動画再生エラー(${event.data})`; const cST=getDisplaySongInfoJG(appStateJG.songs[appStateJG.currentSongIndex]?.id).title||"この動画"; switch(event.data){case 2:msg=`「${escapeHTMLJG(cST)}」読込失敗。ID無効等`;break;case 5:msg=`「${escapeHTMLJG(cST)}」HTML5プレイヤーエラー`;break;case 100:msg=`「${escapeHTMLJG(cST)}」が見つかりません`;break;case 101:case 150:msg=`「${escapeHTMLJG(cST)}」埋込再生不可`;break;default:msg=`「${escapeHTMLJG(cST)}」不明なエラー(${event.data})`} showSnackbarJG(msg,"error",7000);appStateJG.isPlaying=false;updatePlayPauseButtonJG();updateDocumentTitleJG(); }
-        function updateLogActionButtonsJG(panelIdToUpdate){ const c=document.getElementById('log-actions-container-jg');if(!c)return;c.innerHTML='';const ctxId=appStateJG.currentViewingPlaylistId&&panelIdToUpdate==='log-paths'?'playlistSongs':panelIdToUpdate;const acts=appStateJG.buttonsForPanel[ctxId]||appStateJG.buttonsForPanel['log-library'];acts.forEach(aId=>{let b;switch(aId){case 'btn-refresh-feed-jg':b=document.createElement('button');b.innerHTML='<i class="fas fa-sync-alt"></i> Feed更新';b.addEventListener('click',()=>{showSnackbarJG("情報取得中...","info");loadInitialSongsJG();});break;case 'btn-create-playlist-jg':b=document.createElement('button');b.innerHTML='<i class="fas fa-plus-circle"></i> 新しい道';b.addEventListener('click',showCreatePlaylistModalJG);break;case 'btn-clear-queue-jg':if(appStateJG.queue.length>0){b=document.createElement('button');b.innerHTML='<i class="fas fa-trash-alt"></i> キューを空に';b.addEventListener('click',confirmClearQueueJG);}break;case 'btn-clear-history-jg':if(appStateJG.history.length>0){b=document.createElement('button');b.innerHTML='<i class="fas fa-history"></i> <i class="fas fa-trash-alt"></i> 履歴クリア';b.addEventListener('click',confirmClearHistoryJG);}break;}if(b)c.appendChild(b);});}
-        function confirmClearQueueJG(){ if(appStateJG.queue.length===0){showSnackbarJG("キューは空","info");return;}if(confirm("キューを空にしますか？"))clearQueueJG();}
-        function clearQueueJG(){ appStateJG.queue=[];appStateJG.currentQueueIndex=-1;saveToLocalStorageJG(LS_KEYS_JG.QUEUE,appStateJG.queue);updateQueueCountBadgeJG();if(appStateJG.currentPanel==='log-discoveries'&&elementsJG.queuePanel)renderSongListJG(elementsJG.queuePanel,[],'queue');showSnackbarJG("キューを空に","success");updateLogActionButtonsJG('log-discoveries');}
-        function confirmClearHistoryJG(){ if(appStateJG.history.length===0){showSnackbarJG("再生履歴は空","info");return;}if(confirm("再生履歴を全て削除しますか？"))clearHistoryJG();}
-        function clearHistoryJG(){ appStateJG.history=[];saveToLocalStorageJG(LS_KEYS_JG.HISTORY,appStateJG.history);if(appStateJG.currentPanel==='log-history'&&elementsJG.historyPanel)renderHistoryListJG();showSnackbarJG("再生履歴削除","success");updateLogActionButtonsJG('log-history');}
-        function showProfileModalJG() { if (elementsJG.profileModal) { elementsJG.profileModal.style.display = 'flex'; appStateJG.activeModalId = 'profileModalJG'; } }
-        function hideProfileModalJG() { if (elementsJG.profileModal) { elementsJG.profileModal.style.display = 'none'; appStateJG.activeModalId = null; } }
-        function setupEventListenersJG() { elementsJG.btnPlay?.addEventListener('click', togglePlayPauseJG); elementsJG.btnNext?.addEventListener('click', playNextJG); elementsJG.btnPrev?.addEventListener('click', playPrevJG); elementsJG.btnShuffle?.addEventListener('click', toggleShuffleJG); elementsJG.btnLoop?.addEventListener('click', toggleLoopJG); elementsJG.btnPlaybackRate?.addEventListener('click', cyclePlaybackRateJG); elementsJG.btnPip?.addEventListener('click', togglePictureInPictureJG); elementsJG.progressSlider?.addEventListener('input', (e) => { if(!appStateJG.player||!appStateJG.isPlayerReady||typeof appStateJG.player.getDuration!=='function')return;const d=appStateJG.player.getDuration();if(d>0){const sT=(parseFloat(e.target.value)/100)*d;if(appStateJG.player.seekTo)appStateJG.player.seekTo(sT,true);updateProgressJG();}}); elementsJG.volumeSlider?.addEventListener('input', (e) => setVolumeJG(parseInt(e.target.value))); elementsJG.volumeIconMute?.addEventListener('click', toggleMuteJG); elementsJG.volumeIconUp?.addEventListener('click', () => { if (appStateJG.isMuted) toggleMuteJG(); }); elementsJG.themeToggle?.addEventListener('click', cycleThemeJG); elementsJG.profileButton?.addEventListener('click', showProfileModalJG); elementsJG.closeProfileModalButton?.addEventListener('click', hideProfileModalJG); elementsJG.profileModal?.addEventListener('click', (e) => { if (e.target === elementsJG.profileModal) hideProfileModalJG(); }); elementsJG.logTabs?.forEach(tab => tab.addEventListener('click', () => switchLogPanelJG(tab.dataset.panel))); elementsJG.mobileNavTabs?.forEach(tab => tab.addEventListener('click', () => switchLogPanelJG(tab.dataset.panel))); elementsJG.miniPlayerPlayBtn?.addEventListener('click', togglePlayPauseJG); elementsJG.searchInput?.addEventListener('input', handleSearchJG); elementsJG.clearSearchButton?.addEventListener('click', () => { if(elementsJG.searchInput){elementsJG.searchInput.value='';elementsJG.searchInput.dispatchEvent(new Event('input'));elementsJG.searchInput.focus();}}); document.addEventListener('keydown', handleGlobalKeydownJG); elementsJG.songContextMenu?.addEventListener('click', handleContextMenuActionJG); document.addEventListener('click', hideSongContextMenuJG); elementsJG.confirmEditSongButton?.addEventListener('click', handleConfirmEditSongJG); elementsJG.cancelEditSongButton?.addEventListener('click', hideEditSongModalJG); elementsJG.editSongModal?.addEventListener('click', (e) => { if (e.target === elementsJG.editSongModal) hideEditSongModalJG(); }); if (document.pictureInPictureEnabled && elementsJG.btnPip) elementsJG.btnPip.style.display = 'inline-flex'; }
-        function cycleThemeJG() { currentThemeIndexJG = (currentThemeIndexJG + 1) % AVAILABLE_THEMES_JG.length; const newTheme = AVAILABLE_THEMES_JG[currentThemeIndexJG]; applyThemeJG(newTheme.id); saveToLocalStorageJG(LS_KEYS_JG.THEME, newTheme.id); showSnackbarJG(`テーマ: ${newTheme.name}`, "info", 1500); }
-        function applyThemeJG(themeId) { elementsJG.body.className = ''; elementsJG.body.classList.add(themeId); const themeObject = AVAILABLE_THEMES_JG.find(t => t.id === themeId); if (themeObject && themeObject.type === 'light') { elementsJG.body.classList.add('modal-light-theme-jg'); } else { elementsJG.body.classList.remove('modal-light-theme-jg'); } }
-        function switchLogPanelJG(panelId) { if (!panelId) return; if (appStateJG.currentViewingPlaylistId && panelId !== 'log-paths') { appStateJG.currentViewingPlaylistId = null; } appStateJG.currentPanel = panelId; elementsJG.logTabs?.forEach(t => t.classList.toggle('active', t.dataset.panel === panelId)); elementsJG.mobileNavTabs?.forEach(t => t.classList.toggle('active', t.dataset.panel === panelId)); elementsJG.logPanels?.forEach(p => { if (p) p.classList.toggle('active', p.id === panelId);}); switch (panelId) { case 'log-library': if (elementsJG.libraryPanel) renderSongListJG(elementsJG.libraryPanel, appStateJG.filteredSongs, 'library'); break; case 'log-discoveries': if (elementsJG.queuePanel) renderSongListJG(elementsJG.queuePanel, appStateJG.queue.map(id => findSongByIdJG(id)).filter(s => s), 'queue'); break; case 'log-trophies': if (elementsJG.favoritesPanel) renderSongListJG(elementsJG.favoritesPanel, appStateJG.favorites, 'favorites'); break; case 'log-history': if(elementsJG.historyPanel) renderHistoryListJG(); break; case 'log-paths': if(elementsJG.playlistsPanel) { if (appStateJG.currentViewingPlaylistId) renderSongsInPlaylistJG(appStateJG.currentViewingPlaylistId); else renderPlaylistsJG(); } break; } updateLogActionButtonsJG(panelId); }
-        function handleSearchJG() { if(!elementsJG.searchInput||!elementsJG.clearSearchButton)return;const sT=elementsJG.searchInput.value.toLowerCase().trim();elementsJG.clearSearchButton.style.display=sT?'inline-block':'none';if(sT===""){appStateJG.filteredSongs=[...appStateJG.songs];}else{appStateJG.filteredSongs=appStateJG.songs.filter(s=>(getDisplaySongInfoJG(s.id).title.toLowerCase().includes(sT))||(getDisplaySongInfoJG(s.id).artist.toLowerCase().includes(sT)));}if(appStateJG.currentPanel==='log-library'&&elementsJG.libraryPanel)renderSongListJG(elementsJG.libraryPanel,appStateJG.filteredSongs,'library');}
-        function toggleShuffleJG() { if(!elementsJG.btnShuffle)return;appStateJG.isShuffle=!appStateJG.isShuffle;elementsJG.btnShuffle.classList.toggle('active-control',appStateJG.isShuffle);showSnackbarJG(`シャッフル ${appStateJG.isShuffle?'ON':'OFF'}!`);}
-        function toggleLoopJG() { if (!elementsJG.btnLoop) return; if (appStateJG.loopMode === 'none') appStateJG.loopMode = 'all'; else if (appStateJG.loopMode === 'all') appStateJG.loopMode = 'one'; else appStateJG.loopMode = 'none'; elementsJG.btnLoop.classList.toggle('active-control', appStateJG.loopMode !== 'none'); let ind = elementsJG.btnLoop.querySelector('.loop-indicator-jg'); if (appStateJG.loopMode === 'one') { if (!ind) { ind = document.createElement('span'); ind.className = 'loop-indicator-jg'; elementsJG.btnLoop.appendChild(ind); } ind.textContent = '1'; } else { if (ind) ind.remove(); } let msg="リピート: "; if(appStateJG.loopMode==='none')msg+="OFF"; if(appStateJG.loopMode==='all')msg+="全体"+(appStateJG.playMode==='queue'&&appStateJG.queue.length>0?" (キュー)":""); if(appStateJG.loopMode==='one')msg+="この曲"; showSnackbarJG(msg); }
-        function setVolumeJG(volume, save = true) { appStateJG.volume=Math.max(0,Math.min(100,volume));appStateJG.isMuted=(appStateJG.volume===0);if(elementsJG.volumeSlider)elementsJG.volumeSlider.value=appStateJG.volume;if(appStateJG.player&&appStateJG.isPlayerReady&&typeof appStateJG.player.setVolume==='function'){appStateJG.player.setVolume(appStateJG.volume);if(!appStateJG.isMuted&&typeof appStateJG.player.unMute==='function'&&appStateJG.player.isMuted()){appStateJG.player.unMute();}}updateVolumeIconsJG();if(save)saveToLocalStorageJG(LS_KEYS_JG.VOLUME,appStateJG.volume);}
-        function toggleMuteJG() { if(appStateJG.isMuted){setVolumeJG(appStateJG.previousVolumeBeforeMute>0?appStateJG.previousVolumeBeforeMute:25);}else{appStateJG.previousVolumeBeforeMute=appStateJG.volume;setVolumeJG(0);}}
-        function updateVolumeIconsJG() { if(elementsJG.volumeIconMute&&elementsJG.volumeIconUp){const iEM=appStateJG.volume===0||appStateJG.isMuted;elementsJG.volumeIconMute.style.opacity=iEM?'1':'0.5';elementsJG.volumeIconMute.classList.toggle('text-jg-accent-sunburst',iEM);elementsJG.volumeIconUp.style.opacity=!iEM?'1':'0.5';elementsJG.volumeIconUp.classList.remove('text-jg-accent-sunburst');}}
-        function addToHistoryJG(song) { if(!song||!song.id)return;appStateJG.history=appStateJG.history.filter(s=>s.id!==song.id);appStateJG.history.unshift(song);if(appStateJG.history.length>MAX_HISTORY_JG)appStateJG.history.pop();saveToLocalStorageJG(LS_KEYS_JG.HISTORY,appStateJG.history);}
-        function renderHistoryListJG() { if (elementsJG.historyPanel) renderSongListJG(elementsJG.historyPanel, appStateJG.history, 'history');}
-        function toggleFavoriteJG(songId, iconElement, buttonElement) { const songIndexInFavorites = appStateJG.favorites.findIndex(s => s.id === songId); const song = findSongByIdJG(songId); if (!song) { showSnackbarJG("お気に入り操作エラー: 曲が見つかりません。", "error"); return; } const displayInfo = getDisplaySongInfoJG(songId); let isNowFavorite = false; if (songIndexInFavorites > -1) { appStateJG.favorites.splice(songIndexInFavorites, 1); showSnackbarJG(`「${escapeHTMLJG(displayInfo.title)}」をお気に入りから解除`); } else { appStateJG.favorites.push(song); isNowFavorite = true; showSnackbarJG(`「${escapeHTMLJG(displayInfo.title)}」をお気に入りに追加！`, "success"); } saveToLocalStorageJG(LS_KEYS_JG.FAVORITES, appStateJG.favorites); if (iconElement) iconElement.className = `fas ${isNowFavorite ? 'fa-heart text-jg-accent-sunburst' : 'fa-feather-alt'}`; if (buttonElement) buttonElement.setAttribute('aria-label', isNowFavorite ? 'お気に入りから削除' : 'お気に入りに追加'); if (appStateJG.currentPanel === 'log-trophies' && elementsJG.favoritesPanel) renderSongListJG(elementsJG.favoritesPanel, appStateJG.favorites, 'favorites'); document.querySelectorAll(`.log-entry-jg[data-id="${songId}"] .favorite-action-jg`).forEach(btn => { const i=btn.querySelector('i'); if(i&&i!==iconElement)i.className=`fas ${isNowFavorite?'fa-heart text-jg-accent-sunburst':'fa-feather-alt'}`; if(btn!==buttonElement)btn.setAttribute('aria-label',isNowFavorite?'お気に入りから削除':'お気に入りに追加');}); }
-        function addToQueueJG(songId) { const song = findSongByIdJG(songId); if (!song) { showSnackbarJG("曲が見つかりません。", "error"); return; } const displayInfo = getDisplaySongInfoJG(songId); appStateJG.queue.push(songId); saveToLocalStorageJG(LS_KEYS_JG.QUEUE, appStateJG.queue); updateQueueCountBadgeJG(); showSnackbarJG(`「${escapeHTMLJG(displayInfo.title)}」をキューに追加しました。`, "success"); if (appStateJG.currentPanel === 'log-discoveries' && elementsJG.queuePanel) renderSongListJG(elementsJG.queuePanel, appStateJG.queue.map(id => findSongByIdJG(id)).filter(s => s), 'queue'); updateLogActionButtonsJG('log-discoveries');  }
-        function updateQueueCountBadgeJG() { if(elementsJG.queueCountBadge){ elementsJG.queueCountBadge.textContent=appStateJG.queue.length;elementsJG.queueCountBadge.style.display=appStateJG.queue.length>0?'inline-block':'none';}}
-        function generateUniqueIdJG(){ return Date.now().toString(36)+Math.random().toString(36).substring(2);}
-        function showCreatePlaylistModalJG(){ const m=document.getElementById('createPlaylistModalJG'),i=document.getElementById('newPlaylistNameJG');if(!m||!i)return;i.value='';m.style.display='flex';appStateJG.activeModalId='createPlaylistModalJG';i.focus();const cB=document.getElementById('confirmCreatePlaylistJG'),canB=document.getElementById('cancelCreatePlaylistJG');const hC=()=>{const pN=i.value.trim();if(pN){createPlaylistJG(pN);hideCreatePlaylistModalJG();}else{showSnackbarJG("プレイリスト名を入力","warning");i.focus();}};const hCan=()=>hideCreatePlaylistModalJG();const hK=(e)=>{if(e.key==='Enter')hC();else if(e.key==='Escape')hCan();};const hBC=(e)=>{if(e.target===m)hCan();};cB._hC=hC;canB._hCan=hCan;i._hK=hK;m._hBC=hBC;cB.addEventListener('click',hC);canB.addEventListener('click',hCan);i.addEventListener('keydown',hK);m.addEventListener('click',hBC);}
-        function hideCreatePlaylistModalJG(){ const m=document.getElementById('createPlaylistModalJG');if(!m)return;m.style.display='none';appStateJG.activeModalId=null;const cB=document.getElementById('confirmCreatePlaylistJG'),canB=document.getElementById('cancelCreatePlaylistJG'),i=document.getElementById('newPlaylistNameJG');if(cB&&cB._hC)cB.removeEventListener('click',cB._hC);if(canB&&canB._hCan)canB.removeEventListener('click',canB._hCan);if(i&&i._hK)i.removeEventListener('keydown',i._hK);if(m._hBC)m.removeEventListener('click',m._hBC);}
-        function createPlaylistJG(name){ const nP={id:generateUniqueIdJG(),name:name,songs:[]};appStateJG.userPlaylists.push(nP);saveToLocalStorageJG(LS_KEYS_JG.PLAYLISTS,appStateJG.userPlaylists);showSnackbarJG(`プレイリスト「${escapeHTMLJG(name)}」作成！`,"success");if(appStateJG.currentPanel==='log-paths'&&elementsJG.playlistsPanel)renderPlaylistsJG();}
-        function renderPlaylistsJG(){ if(!elementsJG.playlistsPanel)return;elementsJG.playlistsPanel.innerHTML='';appStateJG.currentViewingPlaylistId=null;if(appStateJG.userPlaylists.length===0){showEmptyMessageInPanelJG(elementsJG.playlistsPanel,"道はまだ描かれていない","「新しい道」から作成！");updateLogActionButtonsJG('log-paths');return;}const frag=document.createDocumentFragment();appStateJG.userPlaylists.forEach(p=>{const pE=document.createElement('div');pE.className='log-entry-jg playlist-item-jg';pE.dataset.playlistId=p.id;pE.innerHTML=`<i class="fas fa-compact-disc fa-lg mr-3 text-jg-accent-waterfall" style="width:40px;text-align:center;flex-shrink:0;"></i><div><span class="title">${escapeHTMLJG(p.name)}</span><span class="artist">${p.songs.length} 曲</span></div><div class="log-entry-actions-jg"><button class="song-item-action-jg rename-playlist-action-jg" title="名前変更"><i class="fas fa-pencil-alt"></i></button><button class="song-item-action-jg delete-playlist-action-jg" title="削除"><i class="fas fa-trash-alt"></i></button></div>`;pE.addEventListener('click',(e)=>{if(e.target.closest('.song-item-action-jg'))return;renderSongsInPlaylistJG(p.id);});pE.querySelector('.rename-playlist-action-jg')?.addEventListener('click',(e)=>{e.stopPropagation();const nN=prompt(`プレイリスト「${escapeHTMLJG(p.name)}」新名称:`,p.name);if(nN&&nN.trim()!==""&&nN.trim()!==p.name)renamePlaylistJG(p.id,nN.trim());else if(nN!==null)showSnackbarJG("名称変更なし","info");});pE.querySelector('.delete-playlist-action-jg')?.addEventListener('click',(e)=>{e.stopPropagation();confirmDeletePlaylistJG(p.id,p.name);});frag.appendChild(pE);});elementsJG.playlistsPanel.appendChild(frag);updateLogActionButtonsJG('log-paths');}
-        function renamePlaylistJG(playlistId,newName){ const p=appStateJG.userPlaylists.find(pl=>pl.id===playlistId);if(p){const oN=p.name;p.name=newName;saveToLocalStorageJG(LS_KEYS_JG.PLAYLISTS,appStateJG.userPlaylists);showSnackbarJG(`プレイリスト「${escapeHTMLJG(oN)}」を「${escapeHTMLJG(newName)}」に改名`,"success");if(appStateJG.currentPanel==='log-paths'){if(appStateJG.currentViewingPlaylistId===playlistId){const hT=elementsJG.playlistsPanel?.querySelector('h4.font-display-jg');if(hT)hT.textContent=escapeHTMLJG(newName);}else renderPlaylistsJG();}}else showSnackbarJG("プレイリスト改名失敗","error");}
-        function confirmDeletePlaylistJG(playlistId,playlistName){ if(confirm(`プレイリスト「${escapeHTMLJG(playlistName)}」を削除しますか？`))deletePlaylistJG(playlistId);}
-        function deletePlaylistJG(playlistId){ appStateJG.userPlaylists=appStateJG.userPlaylists.filter(p=>p.id!==playlistId);saveToLocalStorageJG(LS_KEYS_JG.PLAYLISTS,appStateJG.userPlaylists);showSnackbarJG("プレイリスト削除","info");if(appStateJG.currentViewingPlaylistId===playlistId)appStateJG.currentViewingPlaylistId=null;if(appStateJG.currentPlayingPlaylistId===playlistId){appStateJG.currentPlayingPlaylistId=null;appStateJG.playMode='library';appStateJG.currentQueueIndex=-1;}if(appStateJG.currentPanel==='log-paths'&&elementsJG.playlistsPanel)renderPlaylistsJG();}
+        const youtubeAPI_JG = {
+            apiKey: 'AIzaSyCbzvjP9vFa5I8N1qLI5H9LUpYim0nkQS4', // Replace with your key if needed
+            channelId: 'UCYAuSEKhuk3v4ZKzm5Lqb1Q',
+            uploadsPlaylistId: null, // Will be populated
+
+            // Helper to get uploads playlist ID (can be called once)
+            async findUploadsPlaylistId() {
+                if (this.uploadsPlaylistId) return this.uploadsPlaylistId;
+                // Method 1: Guessing (Common pattern)
+                if (this.channelId && this.channelId.startsWith('UC')) {
+                     this.uploadsPlaylistId = 'UU' + this.channelId.substring(2);
+                     appStateJG.uploadsPlaylistId = this.uploadsPlaylistId; // Store in app state too
+                     return this.uploadsPlaylistId;
+                }
+                 // Method 2: API call (More reliable if guessing fails, but uses quota)
+                 if (!this.apiKey || this.apiKey === 'YOUR_YOUTUBE_API_KEY_HERE') return null;
+                 const apiUrl = `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id=${this.channelId}&key=${this.apiKey}`;
+                 try {
+                     const response = await fetch(apiUrl);
+                     if (!response.ok) throw new Error(`チャンネル情報取得エラー: ${response.status}`);
+                     const data = await response.json();
+                     const uploadsId = data.items?.[0]?.contentDetails?.relatedPlaylists?.uploads;
+                     if (uploadsId) {
+                         this.uploadsPlaylistId = uploadsId;
+                         appStateJG.uploadsPlaylistId = uploadsId;
+                         return uploadsId;
+                     } else {
+                         throw new Error("アップロード再生リストIDが見つかりません。");
+                     }
+                 } catch (error) {
+                     console.error("findUploadsPlaylistId Error:", error);
+                     showSnackbarJG(`APIエラー: ${error.message}`, "error");
+                     return null;
+                 }
+            },
+
+            // NEW: Get videos from a playlist (uploads playlist) with pagination
+            async getChannelUploads(playlistId, pageToken = null, maxResults = 50) {
+                if (!this.apiKey || this.apiKey === 'YOUR_YOUTUBE_API_KEY_HERE') return { songs: [], nextPageToken: null };
+                if (!playlistId) return { songs: [], nextPageToken: null };
+
+                let apiUrl = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${playlistId}&maxResults=${maxResults}&key=${this.apiKey}`;
+                if (pageToken) {
+                    apiUrl += `&pageToken=${pageToken}`;
+                }
+
+                try {
+                    const response = await fetch(apiUrl);
+                    if (!response.ok) {
+                        const errorText = await response.text();
+                        let errorData = null;
+                        try { errorData = JSON.parse(errorText); } catch (e) {}
+                        // Handle specific errors like "playlist not found"
+                        if (response.status === 404) {
+                            throw new Error(`再生リストが見つかりません (ID: ${playlistId})`);
+                        }
+                        throw new Error(errorData?.error?.message || `PlaylistItems APIエラー: ${response.status}`);
+                    }
+                    const data = await response.json();
+
+                    const videoItems = data.items?.filter(item => item.snippet?.resourceId?.kind === 'youtube#video') || [];
+
+                    const songs = videoItems.map(item => ({
+                        id: item.snippet.resourceId.videoId,
+                        title: item.snippet.title,
+                        artist: item.snippet.videoOwnerChannelTitle || "Rei Kikuchi", // Fallback artist
+                        thumbnail: item.snippet.thumbnails?.high?.url || item.snippet.thumbnails?.medium?.url || item.snippet.thumbnails?.default?.url,
+                        duration: "--:--" // Duration needs separate call
+                    }));
+
+                    const nextPageToken = data.nextPageToken || null;
+
+                    // Get durations for these songs
+                    const videoIds = songs.map(s => s.id);
+                    if (videoIds.length > 0) {
+                        const durations = await this.getVideoDetails(videoIds);
+                        songs.forEach(song => {
+                            song.duration = durations[song.id] || "--:--";
+                        });
+                    }
+
+                    return { songs, nextPageToken };
+
+                } catch (error) {
+                    console.error('getChannelUploads Error:', error);
+                    showSnackbarJG(`曲リスト取得エラー: ${error.message}`, "error");
+                    return { songs: [], nextPageToken: null };
+                }
+            },
+
+            // Get video details (mainly for duration) - Keep as is
+            async getVideoDetails(videoIds) { if (!videoIds || videoIds.length === 0) return {}; if (!this.apiKey || this.apiKey === 'YOUR_YOUTUBE_API_KEY_HERE' || this.apiKey.length < 30) return {}; const details = {}; for (let i = 0; i < videoIds.length; i += 50) { const chunkIds = videoIds.slice(i, i + 50); try { const response = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=${chunkIds.join(',')}&key=${this.apiKey}`); if (!response.ok) throw new Error(`Video Details API error: ${response.status}`); const data = await response.json(); data.items?.forEach(item => { details[item.id] = item.contentDetails ? this.convertDuration(item.contentDetails.duration) : "--:--"; }); } catch (error) { console.error('getVideoDetails chunk error:', error); chunkIds.forEach(id => { if (!details[id]) details[id] = "--:--"; });} } return details; },
+            convertDuration(iso) { if (!iso) return '--:--'; const m = iso.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/); if (!m) return '--:--'; const h = parseInt(m[1]||0), min = parseInt(m[2]||0), s = parseInt(m[3]||0); return h > 0 ? `${h}:${min.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}` : `${min}:${s.toString().padStart(2,'0')}`; }
+        };
+
+        // --- Song Loading Logic ---
+        async function loadInitialSongsJG() {
+            if (!elementsJG.libraryPanel) return;
+            showLoadingInPanelJG(elementsJG.libraryPanel, true);
+            updateLoadMoreButtonJG(false, true); // Hide button, indicate loading
+
+            // 1. Get Uploads Playlist ID
+            const uploadsId = await youtubeAPI_JG.findUploadsPlaylistId();
+            if (!uploadsId) {
+                showEmptyMessageInPanelJG(elementsJG.libraryPanel, "エラー", "チャンネル情報取得失敗");
+                showLoadingInPanelJG(elementsJG.libraryPanel, false);
+                updateLoadMoreButtonJG(false); // Hide button
+                return;
+            }
+
+            // 2. Get First Page of Uploads
+            const { songs, nextPageToken } = await youtubeAPI_JG.getChannelUploads(uploadsId);
+
+            // 3. Update State
+            appStateJG.songs = songs || [];
+            appStateJG.filteredSongs = [...appStateJG.songs]; // Initialize filtered list
+            appStateJG.nextPageToken = nextPageToken;
+
+            // 4. Render List and Update Button
+            showLoadingInPanelJG(elementsJG.libraryPanel, false);
+            renderSongListJG(elementsJG.libraryPanel, appStateJG.filteredSongs, 'library'); // Render initial list
+             if (appStateJG.songs.length === 0) {
+                 showEmptyMessageInPanelJG(elementsJG.libraryPanel, "曲なし", "このチャンネルには動画がないようです。");
+             }
+            updateLoadMoreButtonJG(!!nextPageToken); // Show button if nextPageToken exists
+
+            loadInitialDataJG(true); // Load favorites, history etc. based on the new full song list if needed
+        }
+
+        async function loadMoreSongsJG() {
+            if (appStateJG.isLoadingMore || !appStateJG.nextPageToken || !appStateJG.uploadsPlaylistId) {
+                return; // Prevent multiple loads or loading when no more pages
+            }
+            appStateJG.isLoadingMore = true;
+            updateLoadMoreButtonJG(true, true); // Show loading state
+
+            try {
+                 const { songs: newSongs, nextPageToken } = await youtubeAPI_JG.getChannelUploads(
+                     appStateJG.uploadsPlaylistId,
+                     appStateJG.nextPageToken
+                 );
+
+                 if (newSongs && newSongs.length > 0) {
+                     // Add new songs to the main list
+                     appStateJG.songs.push(...newSongs);
+                     // If not currently searching, add to filtered list too
+                     if (elementsJG.searchInput?.value.trim() === "") {
+                         appStateJG.filteredSongs.push(...newSongs);
+                     }
+                     // Re-render the current panel's list (append visually)
+                     // Simple approach: re-render the whole list for the current panel
+                     switchLogPanelJG(appStateJG.currentPanel);
+                 }
+
+                 appStateJG.nextPageToken = nextPageToken; // Update token
+                 updateLoadMoreButtonJG(!!nextPageToken); // Update button visibility
+
+            } catch (error) {
+                 console.error("loadMoreSongsJG Error:", error);
+                 showSnackbarJG("曲の追加読込失敗", "error");
+                 updateLoadMoreButtonJG(!!appStateJG.nextPageToken); // Restore button state
+            } finally {
+                 appStateJG.isLoadingMore = false;
+            }
+        }
+
+        function updateLoadMoreButtonJG(show, loading = false) {
+            if (!elementsJG.loadMoreContainer || !elementsJG.loadMoreButton) return;
+
+            if (show) {
+                elementsJG.loadMoreContainer.style.display = 'block';
+                elementsJG.loadMoreButton.disabled = loading;
+                if (loading) {
+                    elementsJG.loadMoreButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 読み込み中...';
+                } else {
+                    elementsJG.loadMoreButton.innerHTML = 'もっと読み込む';
+                }
+            } else {
+                elementsJG.loadMoreContainer.style.display = 'none';
+            }
+        }
+
+
+        // --- UI Update Functions (Modified for Mini Player) ---
+        function renderSongListJG(panelElement, songsToRender, context) {
+            // (Keep the core logic from the previous version)
+            // ... (forEach loop to create entries) ...
+            // Add this line at the very end, AFTER appending the fragment
+            panelElement.appendChild(fragment); // Existing line
+            updateLoadMoreButtonJG(!!appStateJG.nextPageToken && appStateJG.currentPanel === 'log-library' && elementsJG.searchInput?.value.trim() === ""); // Show only in library, not searching
+        }
+        // ... (showLoadingInPanelJG, showEmptyMessageInPanelJG remain the same) ...
+        function setupTitleMarqueeJG(titleEl, text) { /* ... (Keep as is) ... */ if (!titleEl) return; titleEl.classList.remove('enable-marquee'); const existingMarqueeSpan = titleEl.querySelector('.marquee-text-inner-jg'); if (existingMarqueeSpan) { titleEl.textContent = text; } else { titleEl.textContent = text; } requestAnimationFrame(() => { const isVisible = titleEl.offsetWidth > 0 && titleEl.offsetHeight > 0; if (isVisible && titleEl.scrollWidth > titleEl.clientWidth) { titleEl.innerHTML = `<span class="marquee-text-inner-jg">${escapeHTMLJG(text)}</span>`; titleEl.classList.add('enable-marquee'); const marqueeSpan = titleEl.querySelector('.marquee-text-inner-jg'); if (marqueeSpan) { const textWidth = marqueeSpan.offsetWidth; const containerWidth = titleEl.clientWidth; const speed = 40; const duration = (textWidth + containerWidth) / speed; marqueeSpan.style.animationDuration = `${Math.max(3, duration)}s`; marqueeSpan.style.animationPlayState = appStateJG.isPlaying ? 'running' : 'paused'; } } else { titleEl.classList.remove('enable-marquee'); titleEl.style.textAlign = 'center'; const innerSpan = titleEl.querySelector('.marquee-text-inner-jg'); if(innerSpan) { innerSpan.style.animationDuration = ''; innerSpan.style.animationPlayState = ''; } } }); }
+        function updatePlayerUIGJ(song) { /* ... (Keep as is from previous correct version) ... */ const displayInfo = song && song.id ? getDisplaySongInfoJG(song.id) : null; const defaultTitle = "Wild Rhythms"; const defaultArtist = "The Jungle Cats"; const placeholderArt = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'; const playerElement = document.querySelector('.watering-hole-player'); if (elementsJG.mainAlbumArt) { elementsJG.mainAlbumArt.src = displayInfo?.thumbnail || placeholderArt; elementsJG.mainAlbumArt.classList.toggle('album-art-placeholder', !displayInfo?.thumbnail); elementsJG.mainAlbumArt.innerHTML = !displayInfo?.thumbnail ? '<i class="fas fa-music"></i>' : ''; } if (elementsJG.songTitleDisplay) setupTitleMarqueeJG(elementsJG.songTitleDisplay, displayInfo?.title || defaultTitle); if (elementsJG.artistNameDisplay) elementsJG.artistNameDisplay.textContent = displayInfo?.artist || defaultArtist; playerElement?.classList.toggle('has-song', !!displayInfo); if(!displayInfo){ if (elementsJG.currentTimeDisplay) elementsJG.currentTimeDisplay.textContent = "0:00"; if (elementsJG.totalTimeDisplay) elementsJG.totalTimeDisplay.textContent = "0:00"; if (elementsJG.progressSlider) elementsJG.progressSlider.value = 0; } if (elementsJG.miniPlayerContainer) { if (displayInfo) { elementsJG.miniPlayerContainer.style.display = 'flex'; if(elementsJG.miniPlayerArt) { elementsJG.miniPlayerArt.src = displayInfo.thumbnail || placeholderArt; elementsJG.miniPlayerArt.classList.toggle('placeholder', !displayInfo.thumbnail); elementsJG.miniPlayerArt.innerHTML = !displayInfo.thumbnail ? '<i class="fas fa-music"></i>' : ''; } if(elementsJG.miniPlayerTitle) elementsJG.miniPlayerTitle.textContent = displayInfo.title || "Track Title"; if(elementsJG.miniPlayerArtist) elementsJG.miniPlayerArtist.textContent = displayInfo.artist || "Artist Name"; } else { elementsJG.miniPlayerContainer.style.display = 'none'; } } updatePlayPauseButtonJG(); updateActiveListItemJG(); updateDocumentTitleJG(); }
+        function updatePlayPauseButtonJG() { /* ... (Keep as is) ... */ const isPlaying = appStateJG.isPlaying; const iconClass = isPlaying ? 'fa-pause' : 'fa-play'; if (elementsJG.btnPlay) elementsJG.btnPlay.innerHTML = `<i class="fas ${iconClass}"></i>`; document.querySelector('.watering-hole-player')?.classList.toggle('is-playing', isPlaying); if (elementsJG.miniPlayerPlayBtn) elementsJG.miniPlayerPlayBtn.innerHTML = `<i class="fas ${iconClass}"></i>`; const marqueeSpan = elementsJG.songTitleDisplay?.querySelector('.marquee-text-inner-jg'); if (marqueeSpan) marqueeSpan.style.animationPlayState = isPlaying ? 'running' : 'paused'; }
+        function updateActiveListItemJG() { /* ... */ document.querySelectorAll('.log-entry-jg.active-song').forEach(el=>el.classList.remove('active-song')); if(appStateJG.currentSongIndex!==-1&&appStateJG.songs&&appStateJG.currentSongIndex<appStateJG.songs.length){const cSId=appStateJG.songs[appStateJG.currentSongIndex]?.id;if(cSId){document.querySelectorAll(`.log-entry-jg[data-id="${cSId}"]`).forEach(item=>item.classList.add('active-song'));}}}
+        function updateDocumentTitleJG() { /* ... */ if (appStateJG.currentSongIndex === -1 || !appStateJG.songs[appStateJG.currentSongIndex]) { document.title = DEFAULT_TITLE_JG; return; } const song = appStateJG.songs[appStateJG.currentSongIndex]; if (!song) { document.title = DEFAULT_TITLE_JG; return; } const displayInfo = getDisplaySongInfoJG(song.id); const prefix = appStateJG.isPlaying ? "▶ " : "❚❚ "; document.title = `${prefix}${displayInfo.title} - ${displayInfo.artist} | Jungle Groove`; }
+
+        // --- Player Control Functions ---
+        function playSongAtIndexJG(index) { /* ... */ if (index < 0 || !appStateJG.songs || index >= appStateJG.songs.length) { showSnackbarJG("無効な曲index", "error"); return; } appStateJG.currentSongIndex = index; const song = appStateJG.songs[index]; if (!song || !song.id) { showSnackbarJG("曲情報不正", "error"); updatePlayerUIGJ(null); return; } updatePlayerUIGJ(song); if (appStateJG.player && appStateJG.isPlayerReady) { try { appStateJG.player.loadVideoById(song.id); } catch (error) { console.error("loadVideoById Error:", error); showSnackbarJG("動画読込失敗", "error"); } } else { if (!appStateJG.isPlayerReady) showSnackbarJG("プレイヤー準備未了", "warning"); else if (!song.id) showSnackbarJG("曲IDなし", "error"); } addToHistoryJG(song); if (appStateJG.currentPanel === 'log-history' && elementsJG.historyPanel) renderHistoryListJG(); }
+        function togglePlayPauseJG() { /* ... */ if(!appStateJG.player||!appStateJG.isPlayerReady){showSnackbarJG("プレイヤー準備未了","warning");return;}if(appStateJG.currentSongIndex===-1&&appStateJG.songs&&appStateJG.songs.length>0){appStateJG.playMode='library';appStateJG.currentQueueIndex=-1;playSongAtIndexJG(0);return;}if(appStateJG.currentSongIndex===-1&&(!appStateJG.songs||appStateJG.songs.length===0)){showSnackbarJG("再生曲なし","info");return;}if(appStateJG.isPlaying){appStateJG.player.pauseVideo();}else{appStateJG.player.playVideo();}}
+        function playNextJG() { /* ... */ if (!appStateJG.songs || appStateJG.songs.length === 0) { showSnackbarJG("リストに曲なし", "info"); return; } let nextSongOriginalIndex = -1, currentList, nextListIndex; if (appStateJG.playMode === 'queue' && appStateJG.queue.length > 0) { currentList = appStateJG.queue.map(id => findSongByIdJG(id)).filter(s => s); nextListIndex = appStateJG.currentQueueIndex + 1; if (nextListIndex >= currentList.length) { if (appStateJG.loopMode === 'all') nextListIndex = 0; else { showSnackbarJG("キュー再生終了", "info"); appStateJG.isPlaying = false; updatePlayPauseButtonJG(); updateDocumentTitleJG(); return; } } appStateJG.currentQueueIndex = nextListIndex; const nextSongIdInQueue = appStateJG.queue[appStateJG.currentQueueIndex]; nextSongOriginalIndex = appStateJG.songs.findIndex(s => s.id === nextSongIdInQueue); } else if (appStateJG.playMode === 'playlist' && appStateJG.currentPlayingPlaylistId) { const p = appStateJG.userPlaylists.find(pl => pl.id === appStateJG.currentPlayingPlaylistId); if (p && p.songs.length > 0) { currentList = p.songs.map(id => findSongByIdJG(id)).filter(s => s); nextListIndex = appStateJG.currentQueueIndex + 1; if (nextListIndex >= currentList.length) { if (appStateJG.loopMode === 'all') nextListIndex = 0; else { showSnackbarJG(`プレイリスト「${escapeHTMLJG(p.name)}」終了`, "info"); appStateJG.isPlaying = false; updatePlayPauseButtonJG(); updateDocumentTitleJG(); return; } } appStateJG.currentQueueIndex = nextListIndex; const nextSongIdInPlaylist = p.songs[appStateJG.currentQueueIndex]; nextSongOriginalIndex = appStateJG.songs.findIndex(s => s.id === nextSongIdInPlaylist); } else { appStateJG.playMode = 'library'; appStateJG.currentPlayingPlaylistId = null; appStateJG.currentQueueIndex = -1; } } if (appStateJG.playMode === 'library' || nextSongOriginalIndex === -1) { currentList = appStateJG.isShuffle ? appStateJG.songs : appStateJG.filteredSongs; if (currentList.length === 0) currentList = appStateJG.songs; if (currentList.length === 0) return; if (appStateJG.isShuffle) { if (currentList.length <= 1) nextSongOriginalIndex = appStateJG.songs.findIndex(s => s.id === currentList[0]?.id); else { let rOI, rSId; do { rSId = currentList[Math.floor(Math.random()*currentList.length)].id; rOI = appStateJG.songs.findIndex(s => s.id === rSId); } while (rOI === appStateJG.currentSongIndex && currentList.length > 1); nextSongOriginalIndex = rOI; } } else { let cFI = -1; if (appStateJG.currentSongIndex !== -1) { const cASId = appStateJG.songs[appStateJG.currentSongIndex].id; cFI = appStateJG.filteredSongs.findIndex(s => s.id === cASId); } nextListIndex = (cFI === -1) ? 0 : cFI + 1; if (nextListIndex >= appStateJG.filteredSongs.length) { if (appStateJG.loopMode === 'all') nextListIndex = 0; else { showSnackbarJG("探検終了！", "info"); appStateJG.isPlaying = false; updatePlayPauseButtonJG(); updateDocumentTitleJG(); return; } } if (appStateJG.filteredSongs[nextListIndex]) nextSongOriginalIndex = appStateJG.songs.findIndex(s => s.id === appStateJG.filteredSongs[nextListIndex].id); } } if (nextSongOriginalIndex !== -1) playSongAtIndexJG(nextSongOriginalIndex); else { appStateJG.isPlaying = false; updatePlayPauseButtonJG(); updateDocumentTitleJG(); } }
+        function playPrevJG() { /* ... */ if (!appStateJG.songs || appStateJG.songs.length === 0) { showSnackbarJG("リストに曲なし", "info"); return; } if (appStateJG.player && appStateJG.isPlayerReady && appStateJG.player.getCurrentTime && appStateJG.player.getCurrentTime() > SEEK_STEP_JG) { appStateJG.player.seekTo(0); return; } let prevSongOriginalIndex = -1, currentList, prevListIndex; if (appStateJG.playMode === 'queue' && appStateJG.queue.length > 0) { currentList = appStateJG.queue.map(id => findSongByIdJG(id)).filter(s => s); prevListIndex = appStateJG.currentQueueIndex - 1; if (prevListIndex < 0) { if (appStateJG.loopMode === 'all' && currentList.length > 0) prevListIndex = currentList.length - 1; else { prevListIndex = 0; if (appStateJG.player && appStateJG.isPlayerReady && appStateJG.player.seekTo) appStateJG.player.seekTo(0); } } appStateJG.currentQueueIndex = prevListIndex; const prevSongIdInQueue = appStateJG.queue[appStateJG.currentQueueIndex]; prevSongOriginalIndex = appStateJG.songs.findIndex(s => s.id === prevSongIdInQueue); } else if (appStateJG.playMode === 'playlist' && appStateJG.currentPlayingPlaylistId) { const p = appStateJG.userPlaylists.find(pl => pl.id === appStateJG.currentPlayingPlaylistId); if (p && p.songs.length > 0) { currentList = p.songs.map(id => findSongByIdJG(id)).filter(s => s); prevListIndex = appStateJG.currentQueueIndex - 1; if (prevListIndex < 0) { if (appStateJG.loopMode === 'all') prevListIndex = currentList.length - 1; else { prevListIndex = 0; if (appStateJG.player && appStateJG.isPlayerReady && appStateJG.player.seekTo) appStateJG.player.seekTo(0); } } appStateJG.currentQueueIndex = prevListIndex; const prevSongIdInPlaylist = p.songs[appStateJG.currentQueueIndex]; prevSongOriginalIndex = appStateJG.songs.findIndex(s => s.id === prevSongIdInPlaylist); } else { appStateJG.playMode = 'library'; appStateJG.currentPlayingPlaylistId = null; appStateJG.currentQueueIndex = -1; } } if (appStateJG.playMode === 'library' || prevSongOriginalIndex === -1) { currentList = appStateJG.isShuffle ? appStateJG.songs : appStateJG.filteredSongs; if (currentList.length === 0) currentList = appStateJG.songs; if (currentList.length === 0) return; if (appStateJG.isShuffle) { if (currentList.length <= 1) prevSongOriginalIndex = appStateJG.songs.findIndex(s => s.id === currentList[0]?.id); else { let rOI, rSId; do { rSId = currentList[Math.floor(Math.random()*currentList.length)].id; rOI = appStateJG.songs.findIndex(s => s.id === rSId); } while (rOI === appStateJG.currentSongIndex && currentList.length > 1); prevSongOriginalIndex = rOI; } } else { let cFI = -1; if (appStateJG.currentSongIndex !== -1) { const cASId = appStateJG.songs[appStateJG.currentSongIndex].id; cFI = appStateJG.filteredSongs.findIndex(s => s.id === cASId); } prevListIndex = cFI - 1; if (prevListIndex < 0) { if (appStateJG.loopMode === 'all' && appStateJG.filteredSongs.length > 0) prevListIndex = appStateJG.filteredSongs.length - 1; else { prevListIndex = 0; if (appStateJG.player && appStateJG.isPlayerReady && appStateJG.player.seekTo) appStateJG.player.seekTo(0); } } if (appStateJG.filteredSongs[prevListIndex]) prevSongOriginalIndex = appStateJG.songs.findIndex(s => s.id === appStateJG.filteredSongs[prevListIndex].id); } } if (prevSongOriginalIndex !== -1) playSongAtIndexJG(prevSongOriginalIndex); }
+        function handleSongEndJG() { /* ... */ if (appStateJG.loopMode === 'one' && appStateJG.currentSongIndex !== -1) playSongAtIndexJG(appStateJG.currentSongIndex); else playNextJG(); }
+        function updateProgressJG() { /* ... */ if(!appStateJG.player||!appStateJG.isPlayerReady||typeof appStateJG.player.getDuration!=='function'||!elementsJG.progressSlider)return;const curTime=appStateJG.player.getCurrentTime?appStateJG.player.getCurrentTime():0;const dur=appStateJG.player.getDuration?appStateJG.player.getDuration():0;if(elementsJG.progressSlider&&elementsJG.currentTimeDisplay&&elementsJG.totalTimeDisplay){if(dur>0){elementsJG.progressSlider.value=(curTime/dur)*100;elementsJG.currentTimeDisplay.textContent=formatTimeJG(curTime);elementsJG.totalTimeDisplay.textContent=formatTimeJG(dur);const curSong=appStateJG.songs[appStateJG.currentSongIndex];if(curSong&&curSong.duration==="--:--"){curSong.duration=formatTimeJG(dur);document.querySelectorAll(`.log-entry-jg[data-id="${curSong.id}"] .duration`).forEach(el=>{el.textContent=curSong.duration;});}}else{elementsJG.progressSlider.value=0;elementsJG.currentTimeDisplay.textContent="0:00";}}}
+        function cyclePlaybackRateJG() { /* ... */ if (!appStateJG.player || !appStateJG.isPlayerReady || typeof appStateJG.player.setPlaybackRate !== 'function') { showSnackbarJG("再生速度変更不可", "warning"); return; } currentPlaybackRateIndexJG = (currentPlaybackRateIndexJG + 1) % PLAYBACK_RATES_JG.length; const newRate = PLAYBACK_RATES_JG[currentPlaybackRateIndexJG]; appStateJG.player.setPlaybackRate(newRate); if (elementsJG.btnPlaybackRate) elementsJG.btnPlaybackRate.textContent = `${newRate}x`; elementsJG.btnPlaybackRate.classList.toggle('active-control', newRate !== 1); saveToLocalStorageJG(LS_KEYS_JG.PLAYBACK_RATE, newRate); showSnackbarJG(`再生速度: ${newRate}x`, "info", 1500); }
+        function applyPlaybackRateJG(rate) { /* ... */ if (appStateJG.player && appStateJG.isPlayerReady && typeof appStateJG.player.setPlaybackRate === 'function') { const validRate = PLAYBACK_RATES_JG.includes(rate) ? rate : 1; currentPlaybackRateIndexJG = PLAYBACK_RATES_JG.indexOf(validRate); appStateJG.player.setPlaybackRate(validRate); if (elementsJG.btnPlaybackRate) elementsJG.btnPlaybackRate.textContent = `${validRate}x`; elementsJG.btnPlaybackRate.classList.toggle('active-control', validRate !== 1); } }
+        async function togglePictureInPictureJG() { /* ... */ if (!elementsJG.youtubePlayerContainer || !elementsJG.youtubePlayerContainer.firstChild) { showSnackbarJG("PiPターゲットなし", "error"); return; } const videoElement = elementsJG.youtubePlayerContainer.firstChild; if (!document.pictureInPictureEnabled) { showSnackbarJG("ブラウザPiP非対応", "warning"); elementsJG.btnPip.disabled = true; return; } try { if (document.pictureInPictureElement) { await document.exitPictureInPicture(); } else { if (videoElement.requestPictureInPicture) { await videoElement.requestPictureInPicture(); } else { showSnackbarJG("PiP開始失敗", "error"); } } } catch (error) { console.error("PiP Error:", error); showSnackbarJG(`PiPエラー: ${error.message}`, "error"); } }
+        function handleEnterPiPJG() { /* ... */ if(elementsJG.btnPip) elementsJG.btnPip.classList.add('active-control'); console.log("Entered PiP mode");}
+        function handleLeavePiPJG() { /* ... */ if(elementsJG.btnPip) elementsJG.btnPip.classList.remove('active-control'); console.log("Exited PiP mode");}
+        function onPlayerReadyJG(event) { /* ... */ appStateJG.isPlayerReady = true; if (event.target && typeof event.target.setVolume === 'function') { setVolumeJG(appStateJG.volume, false);  } const storedRate = loadFromLocalStorageJG(LS_KEYS_JG.PLAYBACK_RATE); if (storedRate !== null) applyPlaybackRateJG(parseFloat(storedRate)); loadInitialSongsJG(); /* Changed from getLatestVideos */ }
+        function onPlayerStateChangeJG(event) { /* ... */ const ps=event.data; if(ps===YT.PlayerState.PLAYING){appStateJG.isPlaying=true;if(appStateJG.progressInterval)clearInterval(appStateJG.progressInterval);appStateJG.progressInterval=setInterval(updateProgressJG,500);updatePlayerUIGJ(appStateJG.songs[appStateJG.currentSongIndex]);updateActiveListItemJG(); const cSO=appStateJG.songs[appStateJG.currentSongIndex];if(cSO){if(appStateJG.playMode==='queue'){const sIQ=appStateJG.queue[appStateJG.currentQueueIndex];if(sIQ!==cSO.id){const nQI=appStateJG.queue.findIndex(id=>id===cSO.id);if(nQI!==-1)appStateJG.currentQueueIndex=nQI;else{appStateJG.playMode='library';appStateJG.currentQueueIndex=-1;}}}else if(appStateJG.playMode==='playlist'&&appStateJG.currentPlayingPlaylistId){const p=appStateJG.userPlaylists.find(pl=>pl.id===appStateJG.currentPlayingPlaylistId);if(p){const sIP=p.songs[appStateJG.currentQueueIndex];if(sIP!==cSO.id){const nPSI=p.songs.findIndex(id=>id===cSO.id);if(nPSI!==-1)appStateJG.currentQueueIndex=nPSI;else{appStateJG.playMode='library';appStateJG.currentPlayingPlaylistId=null;appStateJG.currentQueueIndex=-1;}}}else{appStateJG.playMode='library';appStateJG.currentPlayingPlaylistId=null;appStateJG.currentQueueIndex=-1;}}}} else if(ps===YT.PlayerState.PAUSED){appStateJG.isPlaying=false;clearInterval(appStateJG.progressInterval);updatePlayPauseButtonJG();updateDocumentTitleJG();} else if(ps===YT.PlayerState.ENDED){appStateJG.isPlaying=false;clearInterval(appStateJG.progressInterval);updatePlayPauseButtonJG();updateDocumentTitleJG();if(elementsJG.progressSlider)elementsJG.progressSlider.value=100;if(elementsJG.currentTimeDisplay&&elementsJG.totalTimeDisplay){elementsJG.currentTimeDisplay.textContent=elementsJG.totalTimeDisplay.textContent;}handleSongEndJG();} else if(ps===YT.PlayerState.CUED){updateProgressJG();if(!appStateJG.isPlaying&&appStateJG.currentSongIndex!==-1){appStateJG.player.playVideo();}} else if(ps===-1){updateDocumentTitleJG();} }
+        function onPlayerErrorJG(event) { /* ... */ console.error("Player Error:", event.data); let msg=`動画再生エラー(${event.data})`; const cST=getDisplaySongInfoJG(appStateJG.songs[appStateJG.currentSongIndex]?.id).title||"この動画"; switch(event.data){case 2:msg=`「${escapeHTMLJG(cST)}」読込失敗。ID無効等`;break;case 5:msg=`「${escapeHTMLJG(cST)}」HTML5プレイヤーエラー`;break;case 100:msg=`「${escapeHTMLJG(cST)}」が見つかりません`;break;case 101:case 150:msg=`「${escapeHTMLJG(cST)}」埋込再生不可`;break;default:msg=`「${escapeHTMLJG(cST)}」不明なエラー(${event.data})`} showSnackbarJG(msg,"error",7000);appStateJG.isPlaying=false;updatePlayPauseButtonJG();updateDocumentTitleJG(); }
+
+        // --- List Management Functions ---
+        function updateLogActionButtonsJG(panelIdToUpdate){ /* ... */ const c=document.getElementById('log-actions-container-jg');if(!c)return;c.innerHTML='';const ctxId=appStateJG.currentViewingPlaylistId&&panelIdToUpdate==='log-paths'?'playlistSongs':panelIdToUpdate;const acts=appStateJG.buttonsForPanel[ctxId]||appStateJG.buttonsForPanel['log-library'];acts.forEach(aId=>{let b;switch(aId){case 'btn-refresh-feed-jg':b=document.createElement('button');b.innerHTML='<i class="fas fa-sync-alt"></i> Feed更新';b.addEventListener('click',()=>{showSnackbarJG("情報取得中...","info");loadInitialSongsJG();});break;case 'btn-create-playlist-jg':b=document.createElement('button');b.innerHTML='<i class="fas fa-plus-circle"></i> 新しい道';b.addEventListener('click',showCreatePlaylistModalJG);break;case 'btn-clear-queue-jg':if(appStateJG.queue.length>0){b=document.createElement('button');b.innerHTML='<i class="fas fa-trash-alt"></i> キューを空に';b.addEventListener('click',confirmClearQueueJG);}break;case 'btn-clear-history-jg':if(appStateJG.history.length>0){b=document.createElement('button');b.innerHTML='<i class="fas fa-history"></i> <i class="fas fa-trash-alt"></i> 履歴クリア';b.addEventListener('click',confirmClearHistoryJG);}break;}if(b)c.appendChild(b);});}
+        function confirmClearQueueJG(){ /* ... */ if(appStateJG.queue.length===0){showSnackbarJG("キューは空","info");return;}if(confirm("キューを空にしますか？"))clearQueueJG();}
+        function clearQueueJG(){ /* ... */ appStateJG.queue=[];appStateJG.currentQueueIndex=-1;saveToLocalStorageJG(LS_KEYS_JG.QUEUE,appStateJG.queue);updateQueueCountBadgeJG();if(appStateJG.currentPanel==='log-discoveries'&&elementsJG.queuePanel)renderSongListJG(elementsJG.queuePanel,[],'queue');showSnackbarJG("キューを空に","success");updateLogActionButtonsJG('log-discoveries');}
+        function confirmClearHistoryJG(){ /* ... */ if(appStateJG.history.length===0){showSnackbarJG("再生履歴は空","info");return;}if(confirm("再生履歴を全て削除しますか？"))clearHistoryJG();}
+        function clearHistoryJG(){ /* ... */ appStateJG.history=[];saveToLocalStorageJG(LS_KEYS_JG.HISTORY,appStateJG.history);if(appStateJG.currentPanel==='log-history'&&elementsJG.historyPanel)renderHistoryListJG();showSnackbarJG("再生履歴削除","success");updateLogActionButtonsJG('log-history');}
+        function toggleShuffleJG() { /* ... */ if(!elementsJG.btnShuffle)return;appStateJG.isShuffle=!appStateJG.isShuffle;elementsJG.btnShuffle.classList.toggle('active-control',appStateJG.isShuffle);showSnackbarJG(`シャッフル ${appStateJG.isShuffle?'ON':'OFF'}!`);}
+        function toggleLoopJG() { /* ... */ if (!elementsJG.btnLoop) return; if (appStateJG.loopMode === 'none') appStateJG.loopMode = 'all'; else if (appStateJG.loopMode === 'all') appStateJG.loopMode = 'one'; else appStateJG.loopMode = 'none'; elementsJG.btnLoop.classList.toggle('active-control', appStateJG.loopMode !== 'none'); let ind = elementsJG.btnLoop.querySelector('.loop-indicator-jg'); if (appStateJG.loopMode === 'one') { if (!ind) { ind = document.createElement('span'); ind.className = 'loop-indicator-jg'; elementsJG.btnLoop.appendChild(ind); } ind.textContent = '1'; } else { if (ind) ind.remove(); } let msg="リピート: "; if(appStateJG.loopMode==='none')msg+="OFF"; if(appStateJG.loopMode==='all')msg+="全体"+(appStateJG.playMode==='queue'&&appStateJG.queue.length>0?" (キュー)":""); if(appStateJG.loopMode==='one')msg+="この曲"; showSnackbarJG(msg); }
+        function setVolumeJG(volume, save = true) { /* ... */ appStateJG.volume=Math.max(0,Math.min(100,volume));appStateJG.isMuted=(appStateJG.volume===0);if(elementsJG.volumeSlider)elementsJG.volumeSlider.value=appStateJG.volume;if(appStateJG.player&&appStateJG.isPlayerReady&&typeof appStateJG.player.setVolume==='function'){appStateJG.player.setVolume(appStateJG.volume);if(!appStateJG.isMuted&&typeof appStateJG.player.unMute==='function'&&appStateJG.player.isMuted()){appStateJG.player.unMute();}}updateVolumeIconsJG();if(save)saveToLocalStorageJG(LS_KEYS_JG.VOLUME,appStateJG.volume);}
+        function toggleMuteJG() { /* ... */ if(appStateJG.isMuted){setVolumeJG(appStateJG.previousVolumeBeforeMute>0?appStateJG.previousVolumeBeforeMute:25);}else{appStateJG.previousVolumeBeforeMute=appStateJG.volume;setVolumeJG(0);}}
+        function updateVolumeIconsJG() { /* ... */ if(elementsJG.volumeIconMute&&elementsJG.volumeIconUp){const iEM=appStateJG.volume===0||appStateJG.isMuted;elementsJG.volumeIconMute.style.opacity=iEM?'1':'0.5';elementsJG.volumeIconMute.classList.toggle('text-jg-accent-sunburst',iEM);elementsJG.volumeIconUp.style.opacity=!iEM?'1':'0.5';elementsJG.volumeIconUp.classList.remove('text-jg-accent-sunburst');}}
+        function addToHistoryJG(song) { /* ... */ if(!song||!song.id)return;appStateJG.history=appStateJG.history.filter(s=>s.id!==song.id);appStateJG.history.unshift(song);if(appStateJG.history.length>MAX_HISTORY_JG)appStateJG.history.pop();saveToLocalStorageJG(LS_KEYS_JG.HISTORY,appStateJG.history);}
+        function renderHistoryListJG() { /* ... */ if (elementsJG.historyPanel) renderSongListJG(elementsJG.historyPanel, appStateJG.history, 'history');}
+        function toggleFavoriteJG(songId, iconElement, buttonElement) { /* ... */ const songIndexInFavorites = appStateJG.favorites.findIndex(s => s.id === songId); const song = findSongByIdJG(songId); if (!song) { showSnackbarJG("お気に入り操作エラー: 曲が見つかりません。", "error"); return; } const displayInfo = getDisplaySongInfoJG(songId); let isNowFavorite = false; if (songIndexInFavorites > -1) { appStateJG.favorites.splice(songIndexInFavorites, 1); showSnackbarJG(`「${escapeHTMLJG(displayInfo.title)}」をお気に入りから解除`); } else { appStateJG.favorites.push(song); isNowFavorite = true; showSnackbarJG(`「${escapeHTMLJG(displayInfo.title)}」をお気に入りに追加！`, "success"); } saveToLocalStorageJG(LS_KEYS_JG.FAVORITES, appStateJG.favorites); if (iconElement) iconElement.className = `fas ${isNowFavorite ? 'fa-heart text-jg-accent-sunburst' : 'fa-feather-alt'}`; if (buttonElement) buttonElement.setAttribute('aria-label', isNowFavorite ? 'お気に入りから削除' : 'お気に入りに追加'); if (appStateJG.currentPanel === 'log-trophies' && elementsJG.favoritesPanel) renderSongListJG(elementsJG.favoritesPanel, appStateJG.favorites, 'favorites'); document.querySelectorAll(`.log-entry-jg[data-id="${songId}"] .favorite-action-jg`).forEach(btn => { const i=btn.querySelector('i'); if(i&&i!==iconElement)i.className=`fas ${isNowFavorite?'fa-heart text-jg-accent-sunburst':'fa-feather-alt'}`; if(btn!==buttonElement)btn.setAttribute('aria-label',isNowFavorite?'お気に入りから削除':'お気に入りに追加');}); }
+        function addToQueueJG(songId) { /* ... */ const song = findSongByIdJG(songId); if (!song) { showSnackbarJG("曲が見つかりません。", "error"); return; } const displayInfo = getDisplaySongInfoJG(songId); appStateJG.queue.push(songId); saveToLocalStorageJG(LS_KEYS_JG.QUEUE, appStateJG.queue); updateQueueCountBadgeJG(); showSnackbarJG(`「${escapeHTMLJG(displayInfo.title)}」をキューに追加しました。`, "success"); if (appStateJG.currentPanel === 'log-discoveries' && elementsJG.queuePanel) renderSongListJG(elementsJG.queuePanel, appStateJG.queue.map(id => findSongByIdJG(id)).filter(s => s), 'queue'); updateLogActionButtonsJG('log-discoveries');  }
+        function updateQueueCountBadgeJG() { /* ... */ if(elementsJG.queueCountBadge){ elementsJG.queueCountBadge.textContent=appStateJG.queue.length;elementsJG.queueCountBadge.style.display=appStateJG.queue.length>0?'inline-block':'none';}}
+        function generateUniqueIdJG(){ /* ... */ return Date.now().toString(36)+Math.random().toString(36).substring(2);}
+        function showCreatePlaylistModalJG(){ /* ... */ const m=document.getElementById('createPlaylistModalJG'),i=document.getElementById('newPlaylistNameJG');if(!m||!i)return;i.value='';m.style.display='flex';appStateJG.activeModalId='createPlaylistModalJG';i.focus();const cB=document.getElementById('confirmCreatePlaylistJG'),canB=document.getElementById('cancelCreatePlaylistJG');const hC=()=>{const pN=i.value.trim();if(pN){createPlaylistJG(pN);hideCreatePlaylistModalJG();}else{showSnackbarJG("プレイリスト名を入力","warning");i.focus();}};const hCan=()=>hideCreatePlaylistModalJG();const hK=(e)=>{if(e.key==='Enter')hC();else if(e.key==='Escape')hCan();};const hBC=(e)=>{if(e.target===m)hCan();};cB._hC=hC;canB._hCan=hCan;i._hK=hK;m._hBC=hBC;cB.addEventListener('click',hC);canB.addEventListener('click',hCan);i.addEventListener('keydown',hK);m.addEventListener('click',hBC);}
+        function hideCreatePlaylistModalJG(){ /* ... */ const m=document.getElementById('createPlaylistModalJG');if(!m)return;m.style.display='none';appStateJG.activeModalId=null;const cB=document.getElementById('confirmCreatePlaylistJG'),canB=document.getElementById('cancelCreatePlaylistJG'),i=document.getElementById('newPlaylistNameJG');if(cB&&cB._hC)cB.removeEventListener('click',cB._hC);if(canB&&canB._hCan)canB.removeEventListener('click',canB._hCan);if(i&&i._hK)i.removeEventListener('keydown',i._hK);if(m._hBC)m.removeEventListener('click',m._hBC);}
+        function createPlaylistJG(name){ /* ... */ const nP={id:generateUniqueIdJG(),name:name,songs:[]};appStateJG.userPlaylists.push(nP);saveToLocalStorageJG(LS_KEYS_JG.PLAYLISTS,appStateJG.userPlaylists);showSnackbarJG(`プレイリスト「${escapeHTMLJG(name)}」作成！`,"success");if(appStateJG.currentPanel==='log-paths'&&elementsJG.playlistsPanel)renderPlaylistsJG();}
+        function renderPlaylistsJG(){ /* ... */ if(!elementsJG.playlistsPanel)return;elementsJG.playlistsPanel.innerHTML='';appStateJG.currentViewingPlaylistId=null;if(appStateJG.userPlaylists.length===0){showEmptyMessageInPanelJG(elementsJG.playlistsPanel,"道はまだ描かれていない","「新しい道」から作成！");updateLogActionButtonsJG('log-paths');return;}const frag=document.createDocumentFragment();appStateJG.userPlaylists.forEach(p=>{const pE=document.createElement('div');pE.className='log-entry-jg playlist-item-jg';pE.dataset.playlistId=p.id;pE.innerHTML=`<i class="fas fa-compact-disc fa-lg mr-3 text-jg-accent-waterfall" style="width:40px;text-align:center;flex-shrink:0;"></i><div><span class="title">${escapeHTMLJG(p.name)}</span><span class="artist">${p.songs.length} 曲</span></div><div class="log-entry-actions-jg"><button class="song-item-action-jg rename-playlist-action-jg" title="名前変更"><i class="fas fa-pencil-alt"></i></button><button class="song-item-action-jg delete-playlist-action-jg" title="削除"><i class="fas fa-trash-alt"></i></button></div>`;pE.addEventListener('click',(e)=>{if(e.target.closest('.song-item-action-jg'))return;renderSongsInPlaylistJG(p.id);});pE.querySelector('.rename-playlist-action-jg')?.addEventListener('click',(e)=>{e.stopPropagation();const nN=prompt(`プレイリスト「${escapeHTMLJG(p.name)}」新名称:`,p.name);if(nN&&nN.trim()!==""&&nN.trim()!==p.name)renamePlaylistJG(p.id,nN.trim());else if(nN!==null)showSnackbarJG("名称変更なし","info");});pE.querySelector('.delete-playlist-action-jg')?.addEventListener('click',(e)=>{e.stopPropagation();confirmDeletePlaylistJG(p.id,p.name);});frag.appendChild(pE);});elementsJG.playlistsPanel.appendChild(frag);updateLogActionButtonsJG('log-paths');}
+        function renamePlaylistJG(playlistId,newName){ /* ... */ const p=appStateJG.userPlaylists.find(pl=>pl.id===playlistId);if(p){const oN=p.name;p.name=newName;saveToLocalStorageJG(LS_KEYS_JG.PLAYLISTS,appStateJG.userPlaylists);showSnackbarJG(`プレイリスト「${escapeHTMLJG(oN)}」を「${escapeHTMLJG(newName)}」に改名`,"success");if(appStateJG.currentPanel==='log-paths'){if(appStateJG.currentViewingPlaylistId===playlistId){const hT=elementsJG.playlistsPanel?.querySelector('h4.font-display-jg');if(hT)hT.textContent=escapeHTMLJG(newName);}else renderPlaylistsJG();}}else showSnackbarJG("プレイリスト改名失敗","error");}
+        function confirmDeletePlaylistJG(playlistId,playlistName){ /* ... */ if(confirm(`プレイリスト「${escapeHTMLJG(playlistName)}」を削除しますか？`))deletePlaylistJG(playlistId);}
+        function deletePlaylistJG(playlistId){ /* ... */ appStateJG.userPlaylists=appStateJG.userPlaylists.filter(p=>p.id!==playlistId);saveToLocalStorageJG(LS_KEYS_JG.PLAYLISTS,appStateJG.userPlaylists);showSnackbarJG("プレイリスト削除","info");if(appStateJG.currentViewingPlaylistId===playlistId)appStateJG.currentViewingPlaylistId=null;if(appStateJG.currentPlayingPlaylistId===playlistId){appStateJG.currentPlayingPlaylistId=null;appStateJG.playMode='library';appStateJG.currentQueueIndex=-1;}if(appStateJG.currentPanel==='log-paths'&&elementsJG.playlistsPanel)renderPlaylistsJG();}
         let currentSongIdForPlaylistAddition=null;
-        function showAddToPlaylistModalJG(songId){ const m=document.getElementById('addToPlaylistModalJG'),pLD=document.getElementById('addToPlaylistListJG'),sTD=document.getElementById('addToPlaylistSongTitleJG');if(!m||!pLD||!sTD)return;currentSongIdForPlaylistAddition=songId;const s=findSongByIdJG(songId);if(s){const dI=getDisplaySongInfoJG(s.id);sTD.textContent=`曲: ${escapeHTMLJG(dI.title)}`;}else sTD.textContent='曲選択中...';pLD.innerHTML='';if(appStateJG.userPlaylists.length===0)pLD.innerHTML=`<p class="p-4 text-center text-jg-text-shadow">プレイリストなし。「新しい道」から作成。</p>`;else{const lF=document.createDocumentFragment();appStateJG.userPlaylists.forEach(p=>{const item=document.createElement('div');item.className='playlist-select-item-jg';item.textContent=escapeHTMLJG(p.name)+` (${p.songs.length}曲)`;item.dataset.playlistId=p.id;item.addEventListener('click',()=>{addSongToPlaylistJG(currentSongIdForPlaylistAddition,p.id);hideAddToPlaylistModalJG();});lF.appendChild(item);});pLD.appendChild(lF);}m.style.display='flex';appStateJG.activeModalId='addToPlaylistModalJG';const cB=document.getElementById('cancelAddToPlaylistJG');const hC=()=>hideAddToPlaylistModalJG();const hBC=(e)=>{if(e.target===m)hC();};m._hBC=hBC;cB._hC=hC;cB.addEventListener('click',hC);m.addEventListener('click',hBC);}
-        function hideAddToPlaylistModalJG(){ const m=document.getElementById('addToPlaylistModalJG');if(m){m.style.display='none';const cB=document.getElementById('cancelAddToPlaylistJG');if(cB&&cB._hC){cB.removeEventListener('click',cB._hC);delete cB._hC;}if(m._hBC){m.removeEventListener('click',m._hBC);delete m._hBC;}}appStateJG.activeModalId=null;currentSongIdForPlaylistAddition=null;}
-        function addSongToPlaylistJG(songId,playlistId){ if(!songId||!playlistId)return;const p=appStateJG.userPlaylists.find(pl=>pl.id===playlistId);const s=findSongByIdJG(songId);if(!p||!s){showSnackbarJG("プレイリスト/曲なし","error");return;}if(p.songs.includes(songId)){showSnackbarJG(`「${escapeHTMLJG(getDisplaySongInfoJG(s.id).title)}」は既にプレイリスト「${escapeHTMLJG(p.name)}」にあり`,"info");return;}p.songs.push(songId);saveToLocalStorageJG(LS_KEYS_JG.PLAYLISTS,appStateJG.userPlaylists);showSnackbarJG(`「${escapeHTMLJG(getDisplaySongInfoJG(s.id).title)}」をプレイリスト「${escapeHTMLJG(p.name)}」に追加`,"success");if(appStateJG.currentPanel==='log-paths'&&elementsJG.playlistsPanel){if(appStateJG.currentViewingPlaylistId===playlistId)renderSongsInPlaylistJG(playlistId);else{const pI=elementsJG.playlistsPanel.querySelector(`.playlist-item-jg[data-playlist-id="${playlistId}"] .artist`);if(pI)pI.textContent=`${p.songs.length} 曲`;}}}
-        function confirmRemoveSongFromPlaylistJG(songId,playlistId,songTitle){ const p=appStateJG.userPlaylists.find(pl=>pl.id===playlistId);if(!p)return;const dI=getDisplaySongInfoJG(songId);const eST=escapeHTMLJG(dI.title)||"この曲";const ePN=escapeHTMLJG(p.name)||"このプレイリスト";if(confirm(`曲「${eST}」をプレイリスト「${ePN}」から削除しますか？`))removeSongFromPlaylistJG(songId,playlistId);}
-        function removeSongFromPlaylistJG(songId,playlistId){ const p=appStateJG.userPlaylists.find(pl=>pl.id===playlistId);if(!p){showSnackbarJG("プレイリストなし","error");return;}const sIIP=p.songs.indexOf(songId);if(sIIP>-1){p.songs.splice(sIIP,1);saveToLocalStorageJG(LS_KEYS_JG.PLAYLISTS,appStateJG.userPlaylists);showSnackbarJG("曲をプレイリストから削除","success");if(appStateJG.currentPanel==='log-paths'&&appStateJG.currentViewingPlaylistId===playlistId)renderSongsInPlaylistJG(playlistId);}else showSnackbarJG("曲がプレイリストにない","info");}
-        function renderSongsInPlaylistJG(playlistId){ if(!elementsJG.playlistsPanel)return;appStateJG.currentViewingPlaylistId=playlistId;const p=appStateJG.userPlaylists.find(pl=>pl.id===playlistId);if(!p){elementsJG.playlistsPanel.innerHTML=`<div class="flex items-center justify-between mb-3 px-1"><h4 class="font-display-jg text-xl text-jg-text-earth">プレイリストエラー</h4><button id="backToPlaylistsViewErrorJG" class="px-3 py-1 rounded bg-jg-surface-leaf hover:bg-jg-accent-canopy text-sm transition-colors"><i class="fas fa-arrow-left mr-1"></i> 道一覧へ</button></div><div class="text-center p-4 text-jg-text-shadow">指定プレイリストなし</div>`;document.getElementById('backToPlaylistsViewErrorJG')?.addEventListener('click',()=>{appStateJG.currentViewingPlaylistId=null;renderPlaylistsJG();updateLogActionButtonsJG('log-paths');});updateLogActionButtonsJG('log-paths');return;}elementsJG.playlistsPanel.innerHTML='';const hD=document.createElement('div');hD.className='flex items-center justify-between mb-3 px-1';hD.innerHTML=`<div><h4 class="font-display-jg text-xl text-jg-text-earth">${escapeHTMLJG(p.name)}</h4><p class="text-sm text-jg-text-shadow">${p.songs.length} 曲</p></div><button id="backToPlaylistsViewJG" class="px-3 py-1 rounded bg-jg-surface-leaf hover:bg-jg-accent-canopy text-sm transition-colors"><i class="fas fa-arrow-left mr-1"></i> 道一覧へ</button>`;elementsJG.playlistsPanel.appendChild(hD);document.getElementById('backToPlaylistsViewJG').addEventListener('click',()=>{appStateJG.currentViewingPlaylistId=null;renderPlaylistsJG();});const sLC=document.createElement('div');sLC.className='playlist-songs-container-jg';elementsJG.playlistsPanel.appendChild(sLC);const sIP=p.songs.map(sId=>findSongByIdJG(sId)).filter(s=>s);if(sIP.length===0)showEmptyMessageInPanelJG(sLC,"この道はまだ静かだ...","曲を追加して冒険開始！");else renderSongListJG(sLC,sIP,'playlistSongs');updateLogActionButtonsJG('log-paths');}
-        function handleDragStartJG(event,songId,originalListIndex,context){ if(!event.target.classList.contains('log-entry-jg'))return;draggedItemJG=event.target;draggedItemOriginalIndexJG=originalListIndex;currentDragContextJG=context;event.dataTransfer.setData('text/plain',songId);event.dataTransfer.effectAllowed='move';draggedItemJG.classList.add('dragging-jg');draggedItemJG.style.cursor='grabbing';}
-        function handleDragOverJG(event){ event.preventDefault();event.dataTransfer.dropEffect='move';if(!draggedItemJG)return;const tI=event.target.closest('.log-entry-jg');const cont=draggedItemJG.parentElement;if(!dragOverPlaceholderJG){dragOverPlaceholderJG=document.createElement('div');dragOverPlaceholderJG.className='drag-over-placeholder-jg';}if(tI&&tI!==draggedItemJG){const r=tI.getBoundingClientRect();const iA=event.clientY>r.top+r.height/2;if(iA)cont.insertBefore(dragOverPlaceholderJG,tI.nextSibling);else cont.insertBefore(dragOverPlaceholderJG,tI);}else if(!tI&&cont.contains(draggedItemJG)){const lC=cont.lastElementChild;if(lC&&lC!==dragOverPlaceholderJG&&lC!==draggedItemJG){if(event.clientY>lC.getBoundingClientRect().bottom-10)cont.appendChild(dragOverPlaceholderJG);}else if(!lC||lC===draggedItemJG)cont.appendChild(dragOverPlaceholderJG);}}
-        function handleDragLeaveJG(event){ }
-        function handleDropJG(event,panelElement,context){ event.preventDefault();if(!draggedItemJG||currentDragContextJG!==context){cleanupDragStateJG();return;}const dSId=event.dataTransfer.getData('text/plain');let lTU;if(context==='queue')lTU=appStateJG.queue;else if(context==='playlistSongs'&&appStateJG.currentViewingPlaylistId){const p=appStateJG.userPlaylists.find(pl=>pl.id===appStateJG.currentViewingPlaylistId);if(p)lTU=p.songs;else{cleanupDragStateJG();return;}}else{cleanupDragStateJG();return;}const oI=lTU.indexOf(dSId);if(oI===-1){cleanupDragStateJG();return;}let nI=-1;if(dragOverPlaceholderJG&&dragOverPlaceholderJG.parentElement){const ch=Array.from(dragOverPlaceholderJG.parentElement.children);nI=ch.indexOf(dragOverPlaceholderJG);}else{const dOI=event.target.closest('.log-entry-jg');if(dOI&&dOI!==draggedItemJG){const dOId=dOI.dataset.id;nI=lTU.indexOf(dOId);const r=dOI.getBoundingClientRect();if(event.clientY>r.top+r.height/2)nI++;}else nI=lTU.length;}if(nI===-1){cleanupDragStateJG();return;}const[mSId]=lTU.splice(oI,1);if(nI>oI)nI--;lTU.splice(Math.max(0,Math.min(nI,lTU.length)),0,mSId);if(context==='queue'){appStateJG.queue=lTU;saveToLocalStorageJG(LS_KEYS_JG.QUEUE,appStateJG.queue);renderSongListJG(panelElement,appStateJG.queue.map(id=>findSongByIdJG(id)).filter(s=>s),'queue');if(appStateJG.playMode==='queue'&&appStateJG.currentSongIndex!==-1){const cPSId=appStateJG.songs[appStateJG.currentSongIndex].id;appStateJG.currentQueueIndex=appStateJG.queue.indexOf(cPSId);}}else if(context==='playlistSongs'){saveToLocalStorageJG(LS_KEYS_JG.PLAYLISTS,appStateJG.userPlaylists);renderSongsInPlaylistJG(appStateJG.currentViewingPlaylistId);if(appStateJG.playMode==='playlist'&&appStateJG.currentPlayingPlaylistId===appStateJG.currentViewingPlaylistId&&appStateJG.currentSongIndex!==-1){const cPSId=appStateJG.songs[appStateJG.currentSongIndex].id;const p=appStateJG.userPlaylists.find(pl=>pl.id===appStateJG.currentPlayingPlaylistId);if(p)appStateJG.currentQueueIndex=p.songs.indexOf(cPSId);}}cleanupDragStateJG();}
-        function handleDragEndJG(event){ if(draggedItemJG){draggedItemJG.classList.remove('dragging-jg');draggedItemJG.style.cursor='grab';}cleanupDragStateJG();}
-        function cleanupDragStateJG(){ if(dragOverPlaceholderJG&&dragOverPlaceholderJG.parentElement)dragOverPlaceholderJG.remove();dragOverPlaceholderJG=null;draggedItemJG=null;draggedItemOriginalIndexJG=-1;currentDragContextJG=null;}
-        function getDisplaySongInfoJG(songId) { const originalSong = findSongByIdJG(songId); if (!originalSong) return { id: songId, title: '不明な曲', artist: '不明なアーティスト', thumbnail: null }; const override = songMetadataOverridesJG[songId]; return { id: originalSong.id, title: override?.title || originalSong.title, artist: override?.artist || originalSong.artist, thumbnail: originalSong.thumbnail, duration: originalSong.duration }; }
-        function showEditSongModalJG(songId) { currentEditingSongIdJG = songId; const displayInfo = getDisplaySongInfoJG(songId); if (elementsJG.editSongTitleInput) elementsJG.editSongTitleInput.value = displayInfo.title; if (elementsJG.editSongArtistInput) elementsJG.editSongArtistInput.value = displayInfo.artist; if (elementsJG.editSongModal) { elementsJG.editSongModal.style.display = 'flex'; appStateJG.activeModalId = 'editSongModalJG'; elementsJG.editSongTitleInput?.focus(); } }
-        function hideEditSongModalJG() { if (elementsJG.editSongModal) elementsJG.editSongModal.style.display = 'none'; appStateJG.activeModalId = null; currentEditingSongIdJG = null; }
-        function handleConfirmEditSongJG() { if (!currentEditingSongIdJG) return; const newTitle = elementsJG.editSongTitleInput?.value.trim(); const newArtist = elementsJG.editSongArtistInput?.value.trim(); const originalSong = findSongByIdJG(currentEditingSongIdJG); if (!originalSong) { showSnackbarJG("編集対象の曲なし", "error"); hideEditSongModalJG(); return; } let changed = false; if (newTitle && newTitle !== originalSong.title) { if (!songMetadataOverridesJG[currentEditingSongIdJG]) songMetadataOverridesJG[currentEditingSongIdJG] = {}; songMetadataOverridesJG[currentEditingSongIdJG].title = newTitle; changed = true; } else if (songMetadataOverridesJG[currentEditingSongIdJG]?.title && newTitle === originalSong.title) { delete songMetadataOverridesJG[currentEditingSongIdJG].title; changed = true; } if (newArtist && newArtist !== originalSong.artist) { if (!songMetadataOverridesJG[currentEditingSongIdJG]) songMetadataOverridesJG[currentEditingSongIdJG] = {}; songMetadataOverridesJG[currentEditingSongIdJG].artist = newArtist; changed = true; } else if (songMetadataOverridesJG[currentEditingSongIdJG]?.artist && newArtist === originalSong.artist) { delete songMetadataOverridesJG[currentEditingSongIdJG].artist; changed = true; } if (songMetadataOverridesJG[currentEditingSongIdJG] && Object.keys(songMetadataOverridesJG[currentEditingSongIdJG]).length === 0) { delete songMetadataOverridesJG[currentEditingSongIdJG]; } if (changed) { saveToLocalStorageJG(LS_KEYS_JG.METADATA_OVERRIDES, songMetadataOverridesJG); showSnackbarJG("曲情報更新", "success"); switchLogPanelJG(appStateJG.currentPanel); if (appStateJG.currentSongIndex !== -1 && appStateJG.songs[appStateJG.currentSongIndex].id === currentEditingSongIdJG) { updatePlayerUIGJ(appStateJG.songs[appStateJG.currentSongIndex]); } } else { showSnackbarJG("情報変更なし", "info"); } hideEditSongModalJG(); }
-        function showSongContextMenuJG(x, y, songId) { hideSongContextMenuJG(); currentContextMenuSongIdJG = songId; if (elementsJG.songContextMenu) { elementsJG.songContextMenu.style.top = `${y}px`; elementsJG.songContextMenu.style.left = `${x}px`; elementsJG.songContextMenu.style.display = 'block'; } }
-        function hideSongContextMenuJG() { if (elementsJG.songContextMenu) elementsJG.songContextMenu.style.display = 'none'; currentContextMenuSongIdJG = null; }
-        function handleContextMenuActionJG(event) { if (!currentContextMenuSongIdJG || !event.target.dataset.action) { hideSongContextMenuJG(); return; } const action = event.target.dataset.action; switch (action) { case 'edit-song': showEditSongModalJG(currentContextMenuSongIdJG); break; } hideSongContextMenuJG(); }
-        function findSongByIdJG(songId) { if(!songId||!appStateJG.songs)return null;return appStateJG.songs.find(s=>s&&s.id===songId);}
-        function formatTimeJG(seconds) { if(isNaN(seconds)||seconds<0)return '0:00';const m=Math.floor(seconds/60);const s=Math.floor(seconds%60);return `${m}:${s.toString().padStart(2,'0')}`;}
-        function escapeHTMLJG(str) { if(typeof str!=='string'||!str)return '';const map={'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'};return str.replace(/[&<>"']/g,function(m){return map[m];});}
-        function saveToLocalStorageJG(key,data){ try{localStorage.setItem(key,JSON.stringify(data));}catch(e){console.error("LocalStorage Save Error:",key,e);showSnackbarJG("設定保存失敗","error");}}
-        function loadFromLocalStorageJG(key){ try{const d=localStorage.getItem(key);return d?JSON.parse(d):null;}catch(e){console.error("LocalStorage Load Error:",key,e);return null;}}
-        function showSnackbarJG(message,type='info',duration=3000){ const sId='snackbar-jg-dynamic';let s=document.getElementById(sId);if(!s){s=document.createElement('div');s.id=sId;Object.assign(s.style,{position:'fixed',bottom:'calc(var(--mobile-nav-height, 0px) + var(--mini-player-height, 0px) + 10px)', left:'50%',transform:'translateX(-50%) translateY(100px)',padding:'10px 20px',color:'#ecf0f1',borderRadius:'8px',boxShadow:'0 4px 15px rgba(0,0,0,0.3)',zIndex:'10001',opacity:'0',transition:'opacity 0.3s ease, transform 0.3s ease-out',fontSize:'0.85rem',fontFamily:'var(--font-body-jg,sans-serif)',textAlign:'center',minWidth:'250px',maxWidth:'90%'});document.body.appendChild(s);}s.textContent=message;let bgC='#34495e';if(type==='error')bgC='#c0392b';if(type==='success')bgC='#27ae60';if(type==='warning')bgC='#f39c12';s.style.backgroundColor=bgC;requestAnimationFrame(()=>{s.style.opacity='1';s.style.transform='translateX(-50%) translateY(0)';});if(appStateJG.snackbarTimeoutId)clearTimeout(appStateJG.snackbarTimeoutId);appStateJG.snackbarTimeoutId=setTimeout(()=>{s.style.opacity='0';s.style.transform='translateX(-50%) translateY(100px)';},duration);}
-        function handleGlobalKeydownJG(event) { const tTN = event.target.tagName.toLowerCase(); const isModalOpen = appStateJG.activeModalId !== null; if (tTN === 'input' || tTN === 'textarea' || event.target.isContentEditable) { if (event.key === 'Escape' && isModalOpen) { if (appStateJG.activeModalId === 'createPlaylistModalJG') hideCreatePlaylistModalJG(); else if (appStateJG.activeModalId === 'addToPlaylistModalJG') hideAddToPlaylistModalJG(); else if (appStateJG.activeModalId === 'editSongModalJG') hideEditSongModalJG(); else if (appStateJG.activeModalId === 'profileModalJG') hideProfileModalJG(); event.preventDefault(); } return; } let pD = true; switch (event.key) { case ' ': togglePlayPauseJG(); break; case 'm': case 'M': toggleMuteJG(); break; case 'ArrowRight': if(appStateJG.player && appStateJG.isPlayerReady && appStateJG.player.getCurrentTime){ appStateJG.player.seekTo(appStateJG.player.getCurrentTime() + SEEK_STEP_JG, true); updateProgressJG(); } break; case 'ArrowLeft': if(appStateJG.player && appStateJG.isPlayerReady && appStateJG.player.getCurrentTime){ appStateJG.player.seekTo(Math.max(0, appStateJG.player.getCurrentTime() - SEEK_STEP_JG), true); updateProgressJG(); } break; case 'ArrowUp': setVolumeJG(appStateJG.volume + VOLUME_STEP_JG); break; case 'ArrowDown': setVolumeJG(appStateJG.volume - VOLUME_STEP_JG); break; case 'n': case 'N': playNextJG(); break; case 'p': case 'P': case 'b': case 'B': playPrevJG(); break; case 's': case 'S': toggleShuffleJG(); break; case 'l': case 'L': toggleLoopJG(); break; case 'Escape': if (isModalOpen) { if (appStateJG.activeModalId === 'createPlaylistModalJG') hideCreatePlaylistModalJG(); else if (appStateJG.activeModalId === 'addToPlaylistModalJG') hideAddToPlaylistModalJG(); else if (appStateJG.activeModalId === 'editSongModalJG') hideEditSongModalJG(); else if (appStateJG.activeModalId === 'profileModalJG') hideProfileModalJG(); } else { pD = false; } break; default: pD = false; break; } if (pD) event.preventDefault(); }
+        function showAddToPlaylistModalJG(songId){ /* ... */ const m=document.getElementById('addToPlaylistModalJG'),pLD=document.getElementById('addToPlaylistListJG'),sTD=document.getElementById('addToPlaylistSongTitleJG');if(!m||!pLD||!sTD)return;currentSongIdForPlaylistAddition=songId;const s=findSongByIdJG(songId);if(s){const dI=getDisplaySongInfoJG(s.id);sTD.textContent=`曲: ${escapeHTMLJG(dI.title)}`;}else sTD.textContent='曲選択中...';pLD.innerHTML='';if(appStateJG.userPlaylists.length===0)pLD.innerHTML=`<p class="p-4 text-center text-jg-text-shadow">プレイリストなし。「新しい道」から作成。</p>`;else{const lF=document.createDocumentFragment();appStateJG.userPlaylists.forEach(p=>{const item=document.createElement('div');item.className='playlist-select-item-jg';item.textContent=escapeHTMLJG(p.name)+` (${p.songs.length}曲)`;item.dataset.playlistId=p.id;item.addEventListener('click',()=>{addSongToPlaylistJG(currentSongIdForPlaylistAddition,p.id);hideAddToPlaylistModalJG();});lF.appendChild(item);});pLD.appendChild(lF);}m.style.display='flex';appStateJG.activeModalId='addToPlaylistModalJG';const cB=document.getElementById('cancelAddToPlaylistJG');const hC=()=>hideAddToPlaylistModalJG();const hBC=(e)=>{if(e.target===m)hC();};m._hBC=hBC;cB._hC=hC;cB.addEventListener('click',hC);m.addEventListener('click',hBC);}
+        function hideAddToPlaylistModalJG(){ /* ... */ const m=document.getElementById('addToPlaylistModalJG');if(m){m.style.display='none';const cB=document.getElementById('cancelAddToPlaylistJG');if(cB&&cB._hC){cB.removeEventListener('click',cB._hC);delete cB._hC;}if(m._hBC){m.removeEventListener('click',m._hBC);delete m._hBC;}}appStateJG.activeModalId=null;currentSongIdForPlaylistAddition=null;}
+        function addSongToPlaylistJG(songId,playlistId){ /* ... */ if(!songId||!playlistId)return;const p=appStateJG.userPlaylists.find(pl=>pl.id===playlistId);const s=findSongByIdJG(songId);if(!p||!s){showSnackbarJG("プレイリスト/曲なし","error");return;}if(p.songs.includes(songId)){showSnackbarJG(`「${escapeHTMLJG(getDisplaySongInfoJG(s.id).title)}」は既にプレイリスト「${escapeHTMLJG(p.name)}」にあり`,"info");return;}p.songs.push(songId);saveToLocalStorageJG(LS_KEYS_JG.PLAYLISTS,appStateJG.userPlaylists);showSnackbarJG(`「${escapeHTMLJG(getDisplaySongInfoJG(s.id).title)}」をプレイリスト「${escapeHTMLJG(p.name)}」に追加`,"success");if(appStateJG.currentPanel==='log-paths'&&elementsJG.playlistsPanel){if(appStateJG.currentViewingPlaylistId===playlistId)renderSongsInPlaylistJG(playlistId);else{const pI=elementsJG.playlistsPanel.querySelector(`.playlist-item-jg[data-playlist-id="${playlistId}"] .artist`);if(pI)pI.textContent=`${p.songs.length} 曲`;}}}
+        function confirmRemoveSongFromPlaylistJG(songId,playlistId,songTitle){ /* ... */ const p=appStateJG.userPlaylists.find(pl=>pl.id===playlistId);if(!p)return;const dI=getDisplaySongInfoJG(songId);const eST=escapeHTMLJG(dI.title)||"この曲";const ePN=escapeHTMLJG(p.name)||"このプレイリスト";if(confirm(`曲「${eST}」をプレイリスト「${ePN}」から削除しますか？`))removeSongFromPlaylistJG(songId,playlistId);}
+        function removeSongFromPlaylistJG(songId,playlistId){ /* ... */ const p=appStateJG.userPlaylists.find(pl=>pl.id===playlistId);if(!p){showSnackbarJG("プレイリストなし","error");return;}const sIIP=p.songs.indexOf(songId);if(sIIP>-1){p.songs.splice(sIIP,1);saveToLocalStorageJG(LS_KEYS_JG.PLAYLISTS,appStateJG.userPlaylists);showSnackbarJG("曲をプレイリストから削除","success");if(appStateJG.currentPanel==='log-paths'&&appStateJG.currentViewingPlaylistId===playlistId)renderSongsInPlaylistJG(playlistId);}else showSnackbarJG("曲がプレイリストにない","info");}
+        function renderSongsInPlaylistJG(playlistId){ /* ... */ if(!elementsJG.playlistsPanel)return;appStateJG.currentViewingPlaylistId=playlistId;const p=appStateJG.userPlaylists.find(pl=>pl.id===playlistId);if(!p){elementsJG.playlistsPanel.innerHTML=`<div class="flex items-center justify-between mb-3 px-1"><h4 class="font-display-jg text-xl text-jg-text-earth">プレイリストエラー</h4><button id="backToPlaylistsViewErrorJG" class="px-3 py-1 rounded bg-jg-surface-leaf hover:bg-jg-accent-canopy text-sm transition-colors"><i class="fas fa-arrow-left mr-1"></i> 道一覧へ</button></div><div class="text-center p-4 text-jg-text-shadow">指定プレイリストなし</div>`;document.getElementById('backToPlaylistsViewErrorJG')?.addEventListener('click',()=>{appStateJG.currentViewingPlaylistId=null;renderPlaylistsJG();updateLogActionButtonsJG('log-paths');});updateLogActionButtonsJG('log-paths');return;}elementsJG.playlistsPanel.innerHTML='';const hD=document.createElement('div');hD.className='flex items-center justify-between mb-3 px-1';hD.innerHTML=`<div><h4 class="font-display-jg text-xl text-jg-text-earth">${escapeHTMLJG(p.name)}</h4><p class="text-sm text-jg-text-shadow">${p.songs.length} 曲</p></div><button id="backToPlaylistsViewJG" class="px-3 py-1 rounded bg-jg-surface-leaf hover:bg-jg-accent-canopy text-sm transition-colors"><i class="fas fa-arrow-left mr-1"></i> 道一覧へ</button>`;elementsJG.playlistsPanel.appendChild(hD);document.getElementById('backToPlaylistsViewJG').addEventListener('click',()=>{appStateJG.currentViewingPlaylistId=null;renderPlaylistsJG();});const sLC=document.createElement('div');sLC.className='playlist-songs-container-jg';elementsJG.playlistsPanel.appendChild(sLC);const sIP=p.songs.map(sId=>findSongByIdJG(sId)).filter(s=>s);if(sIP.length===0)showEmptyMessageInPanelJG(sLC,"この道はまだ静かだ...","曲を追加して冒険開始！");else renderSongListJG(sLC,sIP,'playlistSongs');updateLogActionButtonsJG('log-paths');}
+        function handleDragStartJG(event,songId,originalListIndex,context){ /* ... */ if(!event.target.classList.contains('log-entry-jg'))return;draggedItemJG=event.target;draggedItemOriginalIndexJG=originalListIndex;currentDragContextJG=context;event.dataTransfer.setData('text/plain',songId);event.dataTransfer.effectAllowed='move';draggedItemJG.classList.add('dragging-jg');draggedItemJG.style.cursor='grabbing';}
+        function handleDragOverJG(event){ /* ... */ event.preventDefault();event.dataTransfer.dropEffect='move';if(!draggedItemJG)return;const tI=event.target.closest('.log-entry-jg');const cont=draggedItemJG.parentElement;if(!dragOverPlaceholderJG){dragOverPlaceholderJG=document.createElement('div');dragOverPlaceholderJG.className='drag-over-placeholder-jg';}if(tI&&tI!==draggedItemJG){const r=tI.getBoundingClientRect();const iA=event.clientY>r.top+r.height/2;if(iA)cont.insertBefore(dragOverPlaceholderJG,tI.nextSibling);else cont.insertBefore(dragOverPlaceholderJG,tI);}else if(!tI&&cont.contains(draggedItemJG)){const lC=cont.lastElementChild;if(lC&&lC!==dragOverPlaceholderJG&&lC!==draggedItemJG){if(event.clientY>lC.getBoundingClientRect().bottom-10)cont.appendChild(dragOverPlaceholderJG);}else if(!lC||lC===draggedItemJG)cont.appendChild(dragOverPlaceholderJG);}}
+        function handleDragLeaveJG(event){ /* ... */ }
+        function handleDropJG(event,panelElement,context){ /* ... */ event.preventDefault();if(!draggedItemJG||currentDragContextJG!==context){cleanupDragStateJG();return;}const dSId=event.dataTransfer.getData('text/plain');let lTU;if(context==='queue')lTU=appStateJG.queue;else if(context==='playlistSongs'&&appStateJG.currentViewingPlaylistId){const p=appStateJG.userPlaylists.find(pl=>pl.id===appStateJG.currentViewingPlaylistId);if(p)lTU=p.songs;else{cleanupDragStateJG();return;}}else{cleanupDragStateJG();return;}const oI=lTU.indexOf(dSId);if(oI===-1){cleanupDragStateJG();return;}let nI=-1;if(dragOverPlaceholderJG&&dragOverPlaceholderJG.parentElement){const ch=Array.from(dragOverPlaceholderJG.parentElement.children);nI=ch.indexOf(dragOverPlaceholderJG);}else{const dOI=event.target.closest('.log-entry-jg');if(dOI&&dOI!==draggedItemJG){const dOId=dOI.dataset.id;nI=lTU.indexOf(dOId);const r=dOI.getBoundingClientRect();if(event.clientY>r.top+r.height/2)nI++;}else nI=lTU.length;}if(nI===-1){cleanupDragStateJG();return;}const[mSId]=lTU.splice(oI,1);if(nI>oI)nI--;lTU.splice(Math.max(0,Math.min(nI,lTU.length)),0,mSId);if(context==='queue'){appStateJG.queue=lTU;saveToLocalStorageJG(LS_KEYS_JG.QUEUE,appStateJG.queue);renderSongListJG(panelElement,appStateJG.queue.map(id=>findSongByIdJG(id)).filter(s=>s),'queue');if(appStateJG.playMode==='queue'&&appStateJG.currentSongIndex!==-1){const cPSId=appStateJG.songs[appStateJG.currentSongIndex].id;appStateJG.currentQueueIndex=appStateJG.queue.indexOf(cPSId);}}else if(context==='playlistSongs'){saveToLocalStorageJG(LS_KEYS_JG.PLAYLISTS,appStateJG.userPlaylists);renderSongsInPlaylistJG(appStateJG.currentViewingPlaylistId);if(appStateJG.playMode==='playlist'&&appStateJG.currentPlayingPlaylistId===appStateJG.currentViewingPlaylistId&&appStateJG.currentSongIndex!==-1){const cPSId=appStateJG.songs[appStateJG.currentSongIndex].id;const p=appStateJG.userPlaylists.find(pl=>pl.id===appStateJG.currentPlayingPlaylistId);if(p)appStateJG.currentQueueIndex=p.songs.indexOf(cPSId);}}cleanupDragStateJG();}
+        function handleDragEndJG(event){ /* ... */ if(draggedItemJG){draggedItemJG.classList.remove('dragging-jg');draggedItemJG.style.cursor='grab';}cleanupDragStateJG();}
+        function cleanupDragStateJG(){ /* ... */ if(dragOverPlaceholderJG&&dragOverPlaceholderJG.parentElement)dragOverPlaceholderJG.remove();dragOverPlaceholderJG=null;draggedItemJG=null;draggedItemOriginalIndexJG=-1;currentDragContextJG=null;}
+        function getDisplaySongInfoJG(songId) { /* ... */ const originalSong = findSongByIdJG(songId); if (!originalSong) return { id: songId, title: '不明な曲', artist: '不明なアーティスト', thumbnail: null }; const override = songMetadataOverridesJG[songId]; return { id: originalSong.id, title: override?.title || originalSong.title, artist: override?.artist || originalSong.artist, thumbnail: originalSong.thumbnail, duration: originalSong.duration }; }
+        function showEditSongModalJG(songId) { /* ... */ currentEditingSongIdJG = songId; const displayInfo = getDisplaySongInfoJG(songId); if (elementsJG.editSongTitleInput) elementsJG.editSongTitleInput.value = displayInfo.title; if (elementsJG.editSongArtistInput) elementsJG.editSongArtistInput.value = displayInfo.artist; if (elementsJG.editSongModal) { elementsJG.editSongModal.style.display = 'flex'; appStateJG.activeModalId = 'editSongModalJG'; elementsJG.editSongTitleInput?.focus(); } }
+        function hideEditSongModalJG() { /* ... */ if (elementsJG.editSongModal) elementsJG.editSongModal.style.display = 'none'; appStateJG.activeModalId = null; currentEditingSongIdJG = null; }
+        function handleConfirmEditSongJG() { /* ... */ if (!currentEditingSongIdJG) return; const newTitle = elementsJG.editSongTitleInput?.value.trim(); const newArtist = elementsJG.editSongArtistInput?.value.trim(); const originalSong = findSongByIdJG(currentEditingSongIdJG); if (!originalSong) { showSnackbarJG("編集対象の曲なし", "error"); hideEditSongModalJG(); return; } let changed = false; if (newTitle && newTitle !== originalSong.title) { if (!songMetadataOverridesJG[currentEditingSongIdJG]) songMetadataOverridesJG[currentEditingSongIdJG] = {}; songMetadataOverridesJG[currentEditingSongIdJG].title = newTitle; changed = true; } else if (songMetadataOverridesJG[currentEditingSongIdJG]?.title && newTitle === originalSong.title) { delete songMetadataOverridesJG[currentEditingSongIdJG].title; changed = true; } if (newArtist && newArtist !== originalSong.artist) { if (!songMetadataOverridesJG[currentEditingSongIdJG]) songMetadataOverridesJG[currentEditingSongIdJG] = {}; songMetadataOverridesJG[currentEditingSongIdJG].artist = newArtist; changed = true; } else if (songMetadataOverridesJG[currentEditingSongIdJG]?.artist && newArtist === originalSong.artist) { delete songMetadataOverridesJG[currentEditingSongIdJG].artist; changed = true; } if (songMetadataOverridesJG[currentEditingSongIdJG] && Object.keys(songMetadataOverridesJG[currentEditingSongIdJG]).length === 0) { delete songMetadataOverridesJG[currentEditingSongIdJG]; } if (changed) { saveToLocalStorageJG(LS_KEYS_JG.METADATA_OVERRIDES, songMetadataOverridesJG); showSnackbarJG("曲情報更新", "success"); switchLogPanelJG(appStateJG.currentPanel); if (appStateJG.currentSongIndex !== -1 && appStateJG.songs[appStateJG.currentSongIndex].id === currentEditingSongIdJG) { updatePlayerUIGJ(appStateJG.songs[appStateJG.currentSongIndex]); } } else { showSnackbarJG("情報変更なし", "info"); } hideEditSongModalJG(); }
+        function showSongContextMenuJG(x, y, songId) { /* ... */ hideSongContextMenuJG(); currentContextMenuSongIdJG = songId; if (elementsJG.songContextMenu) { elementsJG.songContextMenu.style.top = `${y}px`; elementsJG.songContextMenu.style.left = `${x}px`; elementsJG.songContextMenu.style.display = 'block'; } }
+        function hideSongContextMenuJG() { /* ... */ if (elementsJG.songContextMenu) elementsJG.songContextMenu.style.display = 'none'; currentContextMenuSongIdJG = null; }
+        function handleContextMenuActionJG(event) { /* ... */ if (!currentContextMenuSongIdJG || !event.target.dataset.action) { hideSongContextMenuJG(); return; } const action = event.target.dataset.action; switch (action) { case 'edit-song': showEditSongModalJG(currentContextMenuSongIdJG); break; } hideSongContextMenuJG(); }
+        function findSongByIdJG(songId) { /* ... */ if(!songId||!appStateJG.songs)return null;return appStateJG.songs.find(s=>s&&s.id===songId);}
+        function formatTimeJG(seconds) { /* ... */ if(isNaN(seconds)||seconds<0)return '0:00';const m=Math.floor(seconds/60);const s=Math.floor(seconds%60);return `${m}:${s.toString().padStart(2,'0')}`;}
+        function escapeHTMLJG(str) { /* ... */ if(typeof str!=='string'||!str)return '';const map={'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'};return str.replace(/[&<>"']/g,function(m){return map[m];});}
+        function saveToLocalStorageJG(key,data){ /* ... */ try{localStorage.setItem(key,JSON.stringify(data));}catch(e){console.error("LocalStorage Save Error:",key,e);showSnackbarJG("設定保存失敗","error");}}
+        function loadFromLocalStorageJG(key){ /* ... */ try{const d=localStorage.getItem(key);return d?JSON.parse(d):null;}catch(e){console.error("LocalStorage Load Error:",key,e);return null;}}
+        function showSnackbarJG(message,type='info',duration=3000){ /* ... (Adjusted bottom positioning) ... */ const sId='snackbar-jg-dynamic';let s=document.getElementById(sId);if(!s){s=document.createElement('div');s.id=sId;Object.assign(s.style,{position:'fixed',bottom:'calc(var(--mobile-nav-height, 0px) + var(--mini-player-height, 0px) + 10px)', left:'50%',transform:'translateX(-50%) translateY(100px)',padding:'10px 20px',color:'#ecf0f1',borderRadius:'8px',boxShadow:'0 4px 15px rgba(0,0,0,0.3)',zIndex:'10001',opacity:'0',transition:'opacity 0.3s ease, transform 0.3s ease-out',fontSize:'0.85rem',fontFamily:'var(--font-body-jg,sans-serif)',textAlign:'center',minWidth:'250px',maxWidth:'90%'});document.body.appendChild(s);}s.textContent=message;let bgC='#34495e';if(type==='error')bgC='#c0392b';if(type==='success')bgC='#27ae60';if(type==='warning')bgC='#f39c12';s.style.backgroundColor=bgC;requestAnimationFrame(()=>{s.style.opacity='1';s.style.transform='translateX(-50%) translateY(0)';});if(appStateJG.snackbarTimeoutId)clearTimeout(appStateJG.snackbarTimeoutId);appStateJG.snackbarTimeoutId=setTimeout(()=>{s.style.opacity='0';s.style.transform='translateX(-50%) translateY(100px)';},duration);}
+        function handleGlobalKeydownJG(event) { /* ... (Keep as is) ... */ const tTN = event.target.tagName.toLowerCase(); const isModalOpen = appStateJG.activeModalId !== null; if (tTN === 'input' || tTN === 'textarea' || event.target.isContentEditable) { if (event.key === 'Escape' && isModalOpen) { if (appStateJG.activeModalId === 'createPlaylistModalJG') hideCreatePlaylistModalJG(); else if (appStateJG.activeModalId === 'addToPlaylistModalJG') hideAddToPlaylistModalJG(); else if (appStateJG.activeModalId === 'editSongModalJG') hideEditSongModalJG(); else if (appStateJG.activeModalId === 'profileModalJG') hideProfileModalJG(); event.preventDefault(); } return; } let pD = true; switch (event.key) { case ' ': togglePlayPauseJG(); break; case 'm': case 'M': toggleMuteJG(); break; case 'ArrowRight': if(appStateJG.player && appStateJG.isPlayerReady && appStateJG.player.getCurrentTime){ appStateJG.player.seekTo(appStateJG.player.getCurrentTime() + SEEK_STEP_JG, true); updateProgressJG(); } break; case 'ArrowLeft': if(appStateJG.player && appStateJG.isPlayerReady && appStateJG.player.getCurrentTime){ appStateJG.player.seekTo(Math.max(0, appStateJG.player.getCurrentTime() - SEEK_STEP_JG), true); updateProgressJG(); } break; case 'ArrowUp': setVolumeJG(appStateJG.volume + VOLUME_STEP_JG); break; case 'ArrowDown': setVolumeJG(appStateJG.volume - VOLUME_STEP_JG); break; case 'n': case 'N': playNextJG(); break; case 'p': case 'P': case 'b': case 'B': playPrevJG(); break; case 's': case 'S': toggleShuffleJG(); break; case 'l': case 'L': toggleLoopJG(); break; case 'Escape': if (isModalOpen) { if (appStateJG.activeModalId === 'createPlaylistModalJG') hideCreatePlaylistModalJG(); else if (appStateJG.activeModalId === 'addToPlaylistModalJG') hideAddToPlaylistModalJG(); else if (appStateJG.activeModalId === 'editSongModalJG') hideEditSongModalJG(); else if (appStateJG.activeModalId === 'profileModalJG') hideProfileModalJG(); } else { pD = false; } break; default: pD = false; break; } if (pD) event.preventDefault(); }
 
-        function loadInitialDataJG(isSongDataReload = false) { if (!isSongDataReload) { const storedThemeId = loadFromLocalStorageJG(LS_KEYS_JG.THEME) || AVAILABLE_THEMES_JG[0].id; const foundThemeIndex = AVAILABLE_THEMES_JG.findIndex(t => t.id === storedThemeId); currentThemeIndexJG = (foundThemeIndex !== -1) ? foundThemeIndex : 0; applyThemeJG(AVAILABLE_THEMES_JG[currentThemeIndexJG].id); const storedVolume = loadFromLocalStorageJG(LS_KEYS_JG.VOLUME); if (storedVolume !== null) { appStateJG.volume=parseInt(storedVolume,10);appStateJG.isMuted=(appStateJG.volume===0);appStateJG.previousVolumeBeforeMute=appStateJG.volume>0?appStateJG.volume:75;} if(elementsJG.volumeSlider) elementsJG.volumeSlider.value = appStateJG.volume; updateVolumeIconsJG(); const storedRate = loadFromLocalStorageJG(LS_KEYS_JG.PLAYBACK_RATE); if (storedRate !== null) { const rate = parseFloat(storedRate); if (PLAYBACK_RATES_JG.includes(rate)) { currentPlaybackRateIndexJG = PLAYBACK_RATES_JG.indexOf(rate); if (elementsJG.btnPlaybackRate) elementsJG.btnPlaybackRate.textContent = `${rate}x`; elementsJG.btnPlaybackRate?.classList.toggle('active-control', rate !== 1); } } songMetadataOverridesJG = loadFromLocalStorageJG(LS_KEYS_JG.METADATA_OVERRIDES) || {}; } appStateJG.history = (loadFromLocalStorageJG(LS_KEYS_JG.HISTORY) || []).map(hS => findSongByIdJG(hS.id) || hS).filter(s => s && s.id); appStateJG.favorites = (loadFromLocalStorageJG(LS_KEYS_JG.FAVORITES) || []).map(fS => findSongByIdJG(fS.id) || fS).filter(s => s && s.id); appStateJG.queue = (loadFromLocalStorageJG(LS_KEYS_JG.QUEUE) || []).filter(id => findSongByIdJG(id)); appStateJG.userPlaylists = (loadFromLocalStorageJG(LS_KEYS_JG.PLAYLISTS) || []).map(p => ({ ...p, songs: (p.songs || []).filter(id => findSongByIdJG(id)) })); saveToLocalStorageJG(LS_KEYS_JG.HISTORY, appStateJG.history); saveToLocalStorageJG(LS_KEYS_JG.FAVORITES, appStateJG.favorites); saveToLocalStorageJG(LS_KEYS_JG.QUEUE, appStateJG.queue); saveToLocalStorageJG(LS_KEYS_JG.PLAYLISTS, appStateJG.userPlaylists); if (elementsJG.favoritesPanel && (appStateJG.currentPanel === 'log-trophies' || isSongDataReload)) renderSongListJG(elementsJG.favoritesPanel, appStateJG.favorites, 'favorites'); if (elementsJG.historyPanel && (appStateJG.currentPanel === 'log-history' || isSongDataReload)) renderHistoryListJG(); if (elementsJG.queuePanel && (appStateJG.currentPanel === 'log-discoveries' || isSongDataReload)) renderSongListJG(elementsJG.queuePanel, appStateJG.queue.map(id => findSongByIdJG(id)).filter(s => s), 'queue'); if (elementsJG.playlistsPanel && (appStateJG.currentPanel === 'log-paths' || isSongDataReload)) { if (appStateJG.currentViewingPlaylistId) renderSongsInPlaylistJG(appStateJG.currentViewingPlaylistId); else renderPlaylistsJG(); } updateQueueCountBadgeJG(); }
+        // --- Initialization & Theme ---
+        function loadInitialDataJG(isSongDataReload = false) { /* ... */ if (!isSongDataReload) { const storedThemeId = loadFromLocalStorageJG(LS_KEYS_JG.THEME) || AVAILABLE_THEMES_JG[0].id; const foundThemeIndex = AVAILABLE_THEMES_JG.findIndex(t => t.id === storedThemeId); currentThemeIndexJG = (foundThemeIndex !== -1) ? foundThemeIndex : 0; applyThemeJG(AVAILABLE_THEMES_JG[currentThemeIndexJG].id); const storedVolume = loadFromLocalStorageJG(LS_KEYS_JG.VOLUME); if (storedVolume !== null) { appStateJG.volume=parseInt(storedVolume,10);appStateJG.isMuted=(appStateJG.volume===0);appStateJG.previousVolumeBeforeMute=appStateJG.volume>0?appStateJG.volume:75;} if(elementsJG.volumeSlider) elementsJG.volumeSlider.value = appStateJG.volume; updateVolumeIconsJG(); const storedRate = loadFromLocalStorageJG(LS_KEYS_JG.PLAYBACK_RATE); if (storedRate !== null) { const rate = parseFloat(storedRate); if (PLAYBACK_RATES_JG.includes(rate)) { currentPlaybackRateIndexJG = PLAYBACK_RATES_JG.indexOf(rate); if (elementsJG.btnPlaybackRate) elementsJG.btnPlaybackRate.textContent = `${rate}x`; elementsJG.btnPlaybackRate?.classList.toggle('active-control', rate !== 1); } } songMetadataOverridesJG = loadFromLocalStorageJG(LS_KEYS_JG.METADATA_OVERRIDES) || {}; } appStateJG.history = (loadFromLocalStorageJG(LS_KEYS_JG.HISTORY) || []).map(hS => findSongByIdJG(hS.id) || hS).filter(s => s && s.id); appStateJG.favorites = (loadFromLocalStorageJG(LS_KEYS_JG.FAVORITES) || []).map(fS => findSongByIdJG(fS.id) || fS).filter(s => s && s.id); appStateJG.queue = (loadFromLocalStorageJG(LS_KEYS_JG.QUEUE) || []).filter(id => findSongByIdJG(id)); appStateJG.userPlaylists = (loadFromLocalStorageJG(LS_KEYS_JG.PLAYLISTS) || []).map(p => ({ ...p, songs: (p.songs || []).filter(id => findSongByIdJG(id)) })); saveToLocalStorageJG(LS_KEYS_JG.HISTORY, appStateJG.history); saveToLocalStorageJG(LS_KEYS_JG.FAVORITES, appStateJG.favorites); saveToLocalStorageJG(LS_KEYS_JG.QUEUE, appStateJG.queue); saveToLocalStorageJG(LS_KEYS_JG.PLAYLISTS, appStateJG.userPlaylists); if (elementsJG.favoritesPanel && (appStateJG.currentPanel === 'log-trophies' || isSongDataReload)) renderSongListJG(elementsJG.favoritesPanel, appStateJG.favorites, 'favorites'); if (elementsJG.historyPanel && (appStateJG.currentPanel === 'log-history' || isSongDataReload)) renderHistoryListJG(); if (elementsJG.queuePanel && (appStateJG.currentPanel === 'log-discoveries' || isSongDataReload)) renderSongListJG(elementsJG.queuePanel, appStateJG.queue.map(id => findSongByIdJG(id)).filter(s => s), 'queue'); if (elementsJG.playlistsPanel && (appStateJG.currentPanel === 'log-paths' || isSongDataReload)) { if (appStateJG.currentViewingPlaylistId) renderSongsInPlaylistJG(appStateJG.currentViewingPlaylistId); else renderPlaylistsJG(); } updateQueueCountBadgeJG(); }
+        function cycleThemeJG() { /* ... */ currentThemeIndexJG = (currentThemeIndexJG + 1) % AVAILABLE_THEMES_JG.length; const newTheme = AVAILABLE_THEMES_JG[currentThemeIndexJG]; applyThemeJG(newTheme.id); saveToLocalStorageJG(LS_KEYS_JG.THEME, newTheme.id); showSnackbarJG(`テーマ: ${newTheme.name}`, "info", 1500); }
+        function applyThemeJG(themeId) { /* ... */ elementsJG.body.className = ''; elementsJG.body.classList.add(themeId); const themeObject = AVAILABLE_THEMES_JG.find(t => t.id === themeId); if (themeObject && themeObject.type === 'light') { elementsJG.body.classList.add('modal-light-theme-jg'); } else { elementsJG.body.classList.remove('modal-light-theme-jg'); } }
 
+        // --- Panel Switching ---
+        function switchLogPanelJG(panelId) { /* ... (Keep as is from previous version) ... */ if (!panelId) return; if (appStateJG.currentViewingPlaylistId && panelId !== 'log-paths') { appStateJG.currentViewingPlaylistId = null; } appStateJG.currentPanel = panelId; elementsJG.logTabs?.forEach(t => t.classList.toggle('active', t.dataset.panel === panelId)); elementsJG.mobileNavTabs?.forEach(t => t.classList.toggle('active', t.dataset.panel === panelId)); elementsJG.logPanels?.forEach(p => { if (p) p.classList.toggle('active', p.id === panelId);}); switch (panelId) { case 'log-library': if (elementsJG.libraryPanel) renderSongListJG(elementsJG.libraryPanel, appStateJG.filteredSongs, 'library'); break; case 'log-discoveries': if (elementsJG.queuePanel) renderSongListJG(elementsJG.queuePanel, appStateJG.queue.map(id => findSongByIdJG(id)).filter(s => s), 'queue'); break; case 'log-trophies': if (elementsJG.favoritesPanel) renderSongListJG(elementsJG.favoritesPanel, appStateJG.favorites, 'favorites'); break; case 'log-history': if(elementsJG.historyPanel) renderHistoryListJG(); break; case 'log-paths': if(elementsJG.playlistsPanel) { if (appStateJG.currentViewingPlaylistId) renderSongsInPlaylistJG(appStateJG.currentViewingPlaylistId); else renderPlaylistsJG(); } break; } updateLogActionButtonsJG(panelId); }
+
+        // --- Modal & Profile Functions ---
+        function showProfileModalJG() { /* ... */ if (elementsJG.profileModal) { elementsJG.profileModal.style.display = 'flex'; appStateJG.activeModalId = 'profileModalJG'; } }
+        function hideProfileModalJG() { /* ... */ if (elementsJG.profileModal) { elementsJG.profileModal.style.display = 'none'; appStateJG.activeModalId = null; } }
+
+        // --- Event Listeners Setup ---
+        function setupEventListenersJG() {
+            // PC Player Controls
+            elementsJG.btnPlay?.addEventListener('click', togglePlayPauseJG);
+            elementsJG.btnNext?.addEventListener('click', playNextJG);
+            elementsJG.btnPrev?.addEventListener('click', playPrevJG);
+            elementsJG.btnShuffle?.addEventListener('click', toggleShuffleJG);
+            elementsJG.btnLoop?.addEventListener('click', toggleLoopJG);
+            elementsJG.btnPlaybackRate?.addEventListener('click', cyclePlaybackRateJG);
+            elementsJG.btnPip?.addEventListener('click', togglePictureInPictureJG);
+            elementsJG.progressSlider?.addEventListener('input', (e) => { if(!appStateJG.player||!appStateJG.isPlayerReady||typeof appStateJG.player.getDuration!=='function')return;const d=appStateJG.player.getDuration();if(d>0){const sT=(parseFloat(e.target.value)/100)*d;if(appStateJG.player.seekTo)appStateJG.player.seekTo(sT,true);updateProgressJG();}});
+            elementsJG.volumeSlider?.addEventListener('input', (e) => setVolumeJG(parseInt(e.target.value)));
+            elementsJG.volumeIconMute?.addEventListener('click', toggleMuteJG);
+            elementsJG.volumeIconUp?.addEventListener('click', () => { if (appStateJG.isMuted) toggleMuteJG(); });
+
+            // Theme and Profile
+            elementsJG.themeToggle?.addEventListener('click', cycleThemeJG);
+            elementsJG.profileButton?.addEventListener('click', showProfileModalJG);
+            elementsJG.closeProfileModalButton?.addEventListener('click', hideProfileModalJG);
+            elementsJG.profileModal?.addEventListener('click', (e) => { if (e.target === elementsJG.profileModal) hideProfileModalJG(); });
+
+            // PC Navigation
+            elementsJG.logTabs?.forEach(tab => tab.addEventListener('click', () => switchLogPanelJG(tab.dataset.panel)));
+
+            // Mobile Navigation
+            elementsJG.mobileNavTabs?.forEach(tab => tab.addEventListener('click', () => switchLogPanelJG(tab.dataset.panel)));
+
+            // Mobile Mini Player Control
+            elementsJG.miniPlayerPlayBtn?.addEventListener('click', togglePlayPauseJG);
+
+            // Search
+            elementsJG.searchInput?.addEventListener('input', handleSearchJG);
+            elementsJG.clearSearchButton?.addEventListener('click', () => { if(elementsJG.searchInput){elementsJG.searchInput.value=''; appStateJG.filteredSongs = [...appStateJG.songs]; /* Reset filter on clear */ switchLogPanelJG(appStateJG.currentPanel); elementsJG.searchInput.focus();}}); // Modified clear search
+
+            // Load More Button
+            elementsJG.loadMoreButton?.addEventListener('click', loadMoreSongsJG);
+
+            // Global / Modals / Context Menu
+            document.addEventListener('keydown', handleGlobalKeydownJG);
+            elementsJG.songContextMenu?.addEventListener('click', handleContextMenuActionJG);
+            document.addEventListener('click', hideSongContextMenuJG);
+            elementsJG.confirmEditSongButton?.addEventListener('click', handleConfirmEditSongJG);
+            elementsJG.cancelEditSongButton?.addEventListener('click', hideEditSongModalJG);
+            elementsJG.editSongModal?.addEventListener('click', (e) => { if (e.target === elementsJG.editSongModal) hideEditSongModalJG(); });
+            elementsJG.confirmCreatePlaylistJG?.addEventListener('click', ()=>{/* Logic moved to showCreate... */}); // Remove direct logic if handled in showCreate...
+            elementsJG.cancelCreatePlaylistJG?.addEventListener('click', hideCreatePlaylistModalJG); // Keep hide logic
+            elementsJG.cancelAddToPlaylistJG?.addEventListener('click', hideAddToPlaylistModalJG); // Keep hide logic
+
+            // Initialize PiP button visibility
+            if (document.pictureInPictureEnabled && elementsJG.btnPip) elementsJG.btnPip.style.display = 'inline-flex';
+        }
+
+        // --- Initialization ---
         document.addEventListener('DOMContentLoaded', () => {
             initializeElementsJG();
-            loadInitialDataJG(false);
-            setupEventListenersJG(); // This should now work
-            updatePlayerUIGJ(null);
+            loadInitialDataJG(false); // Load theme, volume etc first
+            // Call setupEventListenersJG *after* elements are initialized
+            setupEventListenersJG();
+            // loadInitialSongsJG() is called within onPlayerReadyJG after YT API loads
+            updatePlayerUIGJ(null); // Initial UI state
             if (elementsJG.btnShuffle) elementsJG.btnShuffle.classList.toggle('active-control', appStateJG.isShuffle);
             if (elementsJG.btnLoop) {  elementsJG.btnLoop.classList.toggle('active-control',appStateJG.loopMode!=='none');let lI=elementsJG.btnLoop.querySelector('.loop-indicator-jg');if(appStateJG.loopMode==='one'){if(!lI){lI=document.createElement('span');lI.className='loop-indicator-jg';elementsJG.btnLoop.appendChild(lI);}lI.textContent='1';}else if(lI)lI.remove();}
             if (elementsJG.searchInput && elementsJG.clearSearchButton) elementsJG.clearSearchButton.style.display = elementsJG.searchInput.value ? 'inline-block' : 'none';
-            switchLogPanelJG(appStateJG.currentPanel || 'log-library');
+            switchLogPanelJG(appStateJG.currentPanel || 'log-library'); // Set initial panel
             console.log("Jungle Groove Ready!");
         });
     </script>
