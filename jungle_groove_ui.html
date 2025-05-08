@@ -36,14 +36,16 @@
 
             --jg-placeholder-bg: var(--jg-surface-bark);
         }
-
+        html {
+            height: 100%; /* Ensure html takes full height for 100vh body */
+        }
         body { /* Generic body, theme classes will override */
             font-family: var(--font-body-jg);
             background-color: var(--jg-bg-deep-jungle);
             color: var(--jg-text-light);
             margin: 0;
-            height: 100vh;
-            overflow: hidden;
+            height: 100%; /* Changed from 100vh to work better with full-height app-safari-hut */
+            overflow: hidden; /* Keep this to prevent body scrollbars */
             position: relative;
             transition: background-color 0.3s, color 0.3s;
         }
@@ -58,22 +60,49 @@
         .layer-3 { opacity: 0.6; transform: scale(1.1); }
 
         .app-safari-hut {
-            width: 95vw; height: 90vh; max-width: 1500px; max-height: 850px;
-            margin: 2.5vh auto;
+            /* Mobile-first styles */
+            width: 100%; 
+            height: 100%; /* Full height of the body */
+            margin: 0;
             background-color: rgba(40, 30, 20, 0.65); /* Fallback, theme will override */
             backdrop-filter: blur(15px) saturate(120%);
             -webkit-backdrop-filter: blur(15px) saturate(120%);
-            border: 3px solid var(--jg-surface-bark);
-            border-radius: 25px;
-            box-shadow: 0 10px 40px var(--jg-shadow-heavy);
+            border: none; 
+            border-radius: 0; 
+            box-shadow: none; 
             display: flex; flex-direction: column;
             overflow: hidden; position: relative;
             transition: background-color 0.3s, border-color 0.3s;
         }
 
+        /* Apply desktop styles using md breakpoint (768px) */
+        @media (min-width: 768px) {
+            .app-safari-hut {
+                width: 95vw; height: 90vh; max-width: 1500px; max-height: 850px;
+                margin: 2.5vh auto;
+                border-width: 3px;
+                border-style: solid;
+                border-color: var(--jg-border-vine); /* Default, themes will override this var or specific rule */
+                border-radius: 25px;
+                box-shadow: 0 10px 40px var(--jg-shadow-heavy);
+            }
+            /* Theme-specific border/shadow overrides for desktop */
+            body.theme-dark-jg .app-safari-hut { border-color: var(--jg-border-vine); } /* Already default */
+            body.theme-light-jg .app-safari-hut { border-color: var(--jg-border-vine); }
+            body.theme-ocean-breeze-jg .app-safari-hut { border-color: var(--jg-border-vine); }
+            body.theme-forest-dawn-jg .app-safari-hut { border-color: var(--jg-border-vine); }
+            body.theme-neon-noir-jg .app-safari-hut {
+                border: 3px solid var(--jg-accent-canopy);
+                box-shadow: 0 0 25px rgba(var(--jg-accent-canopy-rgb), 0.5), 0 0 40px rgba(var(--jg-accent-sunburst-rgb), 0.3);
+            }
+        }
+
+
         .safari-map-bar {
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 1rem 1.5rem;
+            display: flex; /* Will be overridden by Tailwind for responsiveness */
+            align-items: center; 
+            justify-content: space-between;
+            padding: 1rem 1.5rem; /* Will be overridden by Tailwind for responsiveness */
             background-color: rgba(var(--jg-surface-bark-rgb), 0.85);
             border-bottom: 2px solid var(--jg-border-vine);
             box-shadow: 0 4px 10px var(--jg-shadow-light);
@@ -94,7 +123,7 @@
         .search-outpost i.fa-binoculars { color: var(--jg-text-shadow); margin-right: 0.7rem; }
         #animal-tracker {
             background: transparent; border: none; outline: none;
-            color: var(--jg-text-light); font-size: 0.9rem; width: 250px;
+            color: var(--jg-text-light); font-size: 0.9rem; width: 250px; /* md:w-[250px] in HTML */
             padding-right: 25px; 
         }
         #animal-tracker::placeholder { color: var(--jg-text-shadow); opacity: 0.8; }
@@ -123,19 +152,19 @@
             background-color: var(--jg-text-shadow); 
         }
 
-        .safari-zone { flex-grow: 1; display: flex; padding: 1.5rem; gap: 1.5rem; overflow: hidden; }
+        .safari-zone { flex-grow: 1; display: flex; /* overridden by Tailwind */ padding: 1.5rem; gap: 1.5rem; /* overridden by Tailwind */ overflow: hidden; }
 
         .watering-hole-player {
-            flex: 3;
+            /* flex: 3; overridden by Tailwind */
             background: linear-gradient(135deg, rgba(var(--jg-surface-leaf-rgb),0.7), rgba(var(--jg-surface-bark-rgb),0.5));
-            border-radius: 20px; padding: 2rem;
+            border-radius: 20px; padding: 2rem; /* overridden by Tailwind */
             display: flex; flex-direction: column; align-items: center;
             box-shadow: inset 0 0 15px var(--jg-shadow-light);
             border: 2px solid var(--jg-border-vine);
             transition: background 0.3s, border-color 0.3s;
         }
         .album-canopy {
-            width: 280px; height: 280px; border-radius: 15px; margin-bottom: 1.5rem;
+            width: 280px; height: 280px; /* overridden by Tailwind */ border-radius: 15px; margin-bottom: 1.5rem; /* overridden by Tailwind */
             position: relative; box-shadow: 0 8px 25px var(--jg-shadow-heavy);
             overflow: hidden; background-color: var(--jg-bg-forest-floor);
             transition: background-color 0.3s;
@@ -148,11 +177,11 @@
             transition: border-color 0.3s, background-color 0.3s, color 0.3s;
         }
         .leaf-overlay { position: absolute; inset: 0; opacity: 0.1; pointer-events: none; }
-        .track-details-jg { text-align: center; margin-bottom: 1.5rem; }
-        #song-title-jg { font-family: var(--font-display-jg); font-size: 2.5rem; font-weight: 700; color: var(--jg-text-light); margin-bottom: 0.25rem; min-height: 1.2em; }
-        #artist-name-jg { font-size: 1.1rem; color: var(--jg-text-earth); min-height: 1.2em; }
+        .track-details-jg { text-align: center; margin-bottom: 1.5rem; /* overridden by Tailwind */ }
+        #song-title-jg { font-family: var(--font-display-jg); font-size: 2.5rem; /* overridden by Tailwind */ font-weight: 700; color: var(--jg-text-light); margin-bottom: 0.25rem; min-height: 1.2em; }
+        #artist-name-jg { font-size: 1.1rem; /* overridden by Tailwind */ color: var(--jg-text-earth); min-height: 1.2em; }
 
-        .player-controls-jg { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+        .player-controls-jg { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; /* overridden by Tailwind */ }
         .control-rock {
             background-color: var(--jg-surface-bark); border: 2px solid #5C4033; /* Default dark border */
             color: var(--jg-text-earth); border-radius: 50%;
@@ -182,7 +211,7 @@
         }
 
 
-        .progress-liana-jg { display: flex; align-items: center; gap: 0.75rem; width: 100%; max-width: 400px; margin-bottom: 1rem; }
+        .progress-liana-jg { display: flex; align-items: center; gap: 0.75rem; width: 100%; max-width: 400px; /* overridden by Tailwind */ margin-bottom: 1rem; /* overridden by Tailwind */ }
         .progress-liana-jg span { font-size: 0.8rem; color: var(--jg-text-shadow); }
         .liana-slider {
             -webkit-appearance: none; appearance: none; flex-grow: 1; height: 8px;
@@ -199,7 +228,7 @@
 
         .volume-and-extra-controls-jg {
             display: flex; align-items: center; justify-content: space-between; 
-            width: 100%; max-width: 400px;
+            width: 100%; max-width: 400px; /* overridden by Tailwind */
         }
         .volume-fruit-jg { display: flex; align-items: center; gap: 0.5rem; }
         .animal-icon { font-size: 1.2rem; color: var(--jg-text-shadow); }
@@ -217,7 +246,7 @@
         #btn-pip-jg {
             background-color: transparent; border: 1px solid var(--jg-text-shadow);
             color: var(--jg-text-shadow); width: 36px; height: 36px;
-            border-radius: 50%; font-size: 0.9rem; margin-left: 1rem; 
+            border-radius: 50%; font-size: 0.9rem; margin-left: 1rem; /* overridden by Tailwind for mobile */
             transition: all 0.2s ease;
         }
         #btn-pip-jg:hover { border-color: var(--jg-accent-waterfall); color: var(--jg-accent-waterfall); transform: scale(1.1); }
@@ -225,14 +254,14 @@
 
 
         .explorers-log {
-            flex: 2; background-color: rgba(var(--jg-surface-bark-rgb), 0.65);
+            /* flex: 2; overridden by Tailwind */ background-color: rgba(var(--jg-surface-bark-rgb), 0.65);
             border-radius: 15px; border: 2px solid var(--jg-border-vine);
-            padding: 1rem; display: flex; flex-direction: column; overflow: hidden;
+            padding: 1rem; /* overridden by Tailwind */ display: flex; flex-direction: column; overflow: hidden;
             transition: background-color 0.3s, border-color 0.3s;
         }
-        .log-tabs-jg { display: flex; border-bottom: 2px solid var(--jg-border-vine); margin-bottom: 1rem; transition: border-color 0.3s;}
+        .log-tabs-jg { display: flex; border-bottom: 2px solid var(--jg-border-vine); margin-bottom: 1rem; /* overridden by Tailwind */ transition: border-color 0.3s;}
         .log-tab-jg {
-            flex-grow: 1; padding: 0.75rem 0.5rem; font-family: var(--font-display-jg); font-size: 1.1rem;
+            flex-grow: 1; /* overridden by Tailwind */ padding: 0.75rem 0.5rem; /* overridden by Tailwind */ font-family: var(--font-display-jg); font-size: 1.1rem; /* overridden by Tailwind */
             color: var(--jg-text-earth); border: none; background: transparent;
             position: relative; opacity: 0.7; transition: opacity 0.2s, color 0.2s;
             cursor: pointer; 
@@ -307,7 +336,7 @@
         .log-entry-jg:hover > i.fa-feather-alt { color: var(--jg-accent-sunburst); }
 
         .log-actions-jg {
-            padding-top: 1rem; border-top: 1px solid var(--jg-border-vine);
+            padding-top: 1rem; /* overridden by Tailwind */ border-top: 1px solid var(--jg-border-vine);
             display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; 
             transition: border-color 0.3s;
         }
@@ -341,16 +370,19 @@
         #song-context-menu-jg li { padding: 0.5rem 1rem; color: var(--jg-text-light); cursor: pointer; font-size: 0.9rem; }
         #song-context-menu-jg li:hover { background-color: var(--jg-surface-leaf); }
 
-        @media (max-width: 1024px) { /* ... (Responsive styles - no major theme-specific changes here) ... */ }
-        @media (max-width: 767px) { /* ... (Responsive styles - player controls wrap, PiP button placement) ... */
-            .player-controls-jg { flex-wrap: wrap; justify-content: center;}
-            .volume-and-extra-controls-jg { max-width: 100%; flex-direction: column; gap: 0.5rem; }
-            #btn-pip-jg { margin-left: 0; margin-top: 0.5rem; }
+        /* @media (max-width: 1024px) { ... (Responsive styles - no major theme-specific changes here) ... } */
+        /* @media (max-width: 767px) - Styles from this block are largely replaced by Tailwind's mobile-first + md: prefixes */
+        /*
+        @media (max-width: 767px) { 
+            .player-controls-jg { flex-wrap: wrap; justify-content: center;} // Handled by Tailwind
+            .volume-and-extra-controls-jg { max-width: 100%; flex-direction: column; gap: 0.5rem; } // Handled by Tailwind
+            #btn-pip-jg { margin-left: 0; margin-top: 0.5rem; } // Handled by Tailwind
         }
+        */
 
         /* --- THEME DEFINITIONS --- */
         /* Default Dark Theme (Applied by :root and body.theme-dark-jg) */
-        body.theme-dark-jg .app-safari-hut { background-color: rgba(26, 42, 42, 0.75); border-color: var(--jg-border-vine); }
+        body.theme-dark-jg .app-safari-hut { background-color: rgba(26, 42, 42, 0.75); /* border-color set by media query or default */ }
         body.theme-dark-jg #animal-tracker { color: var(--jg-text-light); }
         body.theme-dark-jg #animal-tracker::placeholder { color: var(--jg-text-shadow); }
         body.theme-dark-jg .control-rock { border-color: #5C4033; } /* Specific dark border for rocks */
@@ -434,8 +466,7 @@
         }
         body.theme-neon-noir-jg .app-safari-hut {
             background-color: rgba(10, 10, 10, 0.85);
-            border: 3px solid var(--jg-accent-canopy); 
-            box-shadow: 0 0 25px rgba(var(--jg-accent-canopy-rgb), 0.5), 0 0 40px rgba(var(--jg-accent-sunburst-rgb), 0.3);
+            /* border and box-shadow set by media query for desktop */
         }
         body.theme-neon-noir-jg .safari-map-bar { background-color: rgba(var(--jg-surface-bark-rgb), 0.9); border-bottom: 2px solid var(--jg-accent-sunburst); }
         body.theme-neon-noir-jg .compass-logo i { color: var(--jg-accent-canopy); }
@@ -551,17 +582,17 @@
 
     <div class="app-safari-hut">
 
-        <header class="safari-map-bar">
-            <div class="compass-logo">
+        <header class="safari-map-bar flex-col md:flex-row items-stretch md:items-center md:justify-between gap-2 p-3 md:p-4 md:px-6">
+            <div class="compass-logo self-center md:self-auto">
                 <i class="fas fa-compass"></i>
                 <span>Jungle<span class="text-accent-jg">Groove</span></span>
             </div>
-            <div class="search-outpost">
+            <div class="search-outpost w-full md:w-auto order-last md:order-none">
                 <i class="fas fa-binoculars"></i>
-                <input type="text" id="animal-tracker" placeholder="Track your tunes...">
+                <input type="text" id="animal-tracker" placeholder="Track your tunes..." class="flex-grow md:w-[250px]">
                 <button id="clear-search-btn-jg" style="display:none;" title="クリア"><i class="fas fa-times"></i></button>
             </div>
-            <div class="safari-tools">
+            <div class="safari-tools self-center md:self-auto">
                 <button id="weather-toggle" class="tool-btn-jg" title="テーマ切替"><i class="fas fa-palette"></i></button>
                 <button id="profile-ranger" class="tool-btn-jg profile">
                     <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Ranger Profile" class="img-placeholder profile-avatar-placeholder">
@@ -569,17 +600,17 @@
             </div>
         </header>
 
-        <main class="safari-zone">
-            <section class="watering-hole-player">
-                <div class="album-canopy">
+        <main class="safari-zone flex-col md:flex-row p-2 md:p-[1.5rem] gap-2 md:gap-[1.5rem]">
+            <section class="watering-hole-player md:flex-[3] p-3 md:p-[2rem] min-h-0">
+                <div class="album-canopy w-40 h-40 sm:w-48 sm:h-48 md:w-[280px] md:h-[280px] mb-3 md:mb-[1.5rem]">
                     <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Album Art" id="main-album-art-jg" class="img-placeholder album-art-placeholder">
                     <div class="leaf-overlay"></div>
                 </div>
-                <div class="track-details-jg">
-                    <h2 id="song-title-jg">Wild Rhythms</h2>
-                    <p id="artist-name-jg">The Jungle Cats</p>
+                <div class="track-details-jg mb-3 md:mb-[1.5rem]">
+                    <h2 id="song-title-jg" class="text-xl sm:text-2xl md:text-[2.5rem]">Wild Rhythms</h2>
+                    <p id="artist-name-jg" class="text-sm sm:text-base md:text-[1.1rem]">The Jungle Cats</p>
                 </div>
-                <div class="player-controls-jg">
+                <div class="player-controls-jg flex items-center gap-2 md:gap-4 mb-3 md:mb-[1.5rem] flex-wrap justify-center md:flex-nowrap">
                     <button class="control-rock small" id="btn-shuffle-jg" title="Shuffle (S)"><i class="fas fa-random"></i></button>
                     <button class="control-rock" id="btn-prev-jg" title="Previous (P)"><i class="fas fa-step-backward"></i></button>
                     <button class="control-rock play" id="btn-play-jg" title="Play/Pause (Space)"><i class="fas fa-play"></i></button>
@@ -587,30 +618,30 @@
                     <button class="control-rock small" id="btn-loop-jg" title="Loop (L)"><i class="fas fa-redo-alt"></i></button>
                     <button class="control-rock small" id="btn-playback-rate-jg" title="再生速度">1x</button> 
                 </div>
-                <div class="progress-liana-jg">
+                <div class="progress-liana-jg w-full max-w-sm md:max-w-[400px] mb-2 md:mb-4">
                     <span id="current-time-jg">0:00</span>
                     <input type="range" id="progress-slider-jg" class="liana-slider" value="0" title="Seek (←/→)">
                     <span id="total-time-jg">0:00</span>
                 </div>
-                <div class="volume-and-extra-controls-jg">
+                <div class="volume-and-extra-controls-jg w-full max-w-sm md:max-w-[400px] flex flex-col md:flex-row items-center md:justify-between gap-2 md:gap-0">
                     <div class="volume-fruit-jg">
                         <i class="fas fa-volume-mute animal-icon monkey" title="Mute/Unmute (M)"></i>
                         <input type="range" id="volume-slider-jg" class="fruit-slider" value="75" min="0" max="100" title="Volume (↑/↓)">
                         <i class="fas fa-volume-up animal-icon parrot" title="Volume"></i>
                     </div>
-                    <button id="btn-pip-jg" class="tool-btn-jg" title="ミニプレイヤー" style="display: none;"> 
-                        <i class="fas fa-photo-video"></i> <!-- Changed icon for PiP -->
+                    <button id="btn-pip-jg" class="tool-btn-jg ml-0 mt-2 md:mt-0 md:ml-4" title="ミニプレイヤー" style="display: none;"> 
+                        <i class="fas fa-photo-video"></i>
                     </button>
                 </div>
             </section>
 
-            <aside class="explorers-log">
-                <div class="log-tabs-jg">
-                    <button class="log-tab-jg active" data-panel="log-library"><i class="fas fa-tree"></i> Library</button>
-                    <button class="log-tab-jg" data-panel="log-paths"><i class="fas fa-map-signs"></i> Playlists</button>
-                    <button class="log-tab-jg" data-panel="log-discoveries"><i class="fas fa-paw"></i> Queue <span id="queue-count-jg">0</span></button>
-                    <button class="log-tab-jg" data-panel="log-trophies"><i class="fas fa-gem"></i> Favorites</button>
-                    <button class="log-tab-jg" data-panel="log-history"><i class="fas fa-history"></i> History</button>
+            <aside class="explorers-log md:flex-[2] p-2 md:p-[1rem] min-h-0">
+                <div class="log-tabs-jg flex border-b-2 [border-color:var(--jg-border-vine)] mb-2 md:mb-[1rem] overflow-x-auto whitespace-nowrap pb-px">
+                    <button class="log-tab-jg active flex-shrink-0 px-2 py-2 text-sm md:text-[1.1rem] md:px-2 md:py-3 md:flex-grow" data-panel="log-library"><i class="fas fa-tree"></i> Library</button>
+                    <button class="log-tab-jg flex-shrink-0 px-2 py-2 text-sm md:text-[1.1rem] md:px-2 md:py-3 md:flex-grow" data-panel="log-paths"><i class="fas fa-map-signs"></i> Playlists</button>
+                    <button class="log-tab-jg flex-shrink-0 px-2 py-2 text-sm md:text-[1.1rem] md:px-2 md:py-3 md:flex-grow" data-panel="log-discoveries"><i class="fas fa-paw"></i> Queue <span id="queue-count-jg">0</span></button>
+                    <button class="log-tab-jg flex-shrink-0 px-2 py-2 text-sm md:text-[1.1rem] md:px-2 md:py-3 md:flex-grow" data-panel="log-trophies"><i class="fas fa-gem"></i> Favorites</button>
+                    <button class="log-tab-jg flex-shrink-0 px-2 py-2 text-sm md:text-[1.1rem] md:px-2 md:py-3 md:flex-grow" data-panel="log-history"><i class="fas fa-history"></i> History</button>
                 </div>
                 <div class="log-content-jg">
                     <div id="log-library" class="log-panel-jg active"></div>
@@ -619,7 +650,7 @@
                     <div id="log-trophies" class="log-panel-jg"></div>
                     <div id="log-history" class="log-panel-jg"></div>
                 </div>
-                 <div id="log-actions-container-jg" class="log-actions-jg"></div>
+                 <div id="log-actions-container-jg" class="log-actions-jg pt-2 md:pt-[1rem]"></div>
             </aside>
         </main>
     </div>
@@ -679,6 +710,7 @@
     
     <script>
         // jungle_groove_script.js
+        // (No changes to JavaScript were requested or made for this responsive UI update)
         console.log("Jungle Groove Initializing...");
 
         let elementsJG = {}; 
