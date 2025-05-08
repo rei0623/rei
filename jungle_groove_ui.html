@@ -35,11 +35,15 @@
             --jg-accent-sunburst-rgb: 255, 183, 67;
 
             --jg-placeholder-bg: var(--jg-surface-bark);
+
+            /* Mobile Nav Height */
+            --mobile-nav-height: 60px;
+            --mini-player-height: 65px;
         }
 
         html {
-             height: 100%; /* Ensure html takes full height */
-             overflow: hidden; /* Prevent default html scroll */
+             height: 100%;
+             overflow: hidden;
         }
 
         body {
@@ -47,12 +51,12 @@
             background-color: var(--jg-bg-deep-jungle);
             color: var(--jg-text-light);
             margin: 0;
-            height: 100%; /* Changed from 100vh to 100% to work with html */
-            overflow: hidden; /* Prevent body scroll, handle scroll in app-safari-hut or children */
+            height: 100%;
+            overflow: hidden;
             position: relative;
             transition: background-color 0.3s, color 0.3s;
-            display: flex; /* Use flex to manage app-safari-hut height */
-            flex-direction: column; /* Stack elements vertically */
+            display: flex;
+            flex-direction: column;
         }
 
         .jungle-background-layers { position: fixed; inset: 0; z-index: -1; }
@@ -64,9 +68,10 @@
         .layer-2 { background-color: rgba(var(--jg-surface-leaf-rgb), 0.15); opacity: 0.4; transform: scale(1.05); }
         .layer-3 { opacity: 0.6; transform: scale(1.1); }
 
+        /* Default PC Styles */
         .app-safari-hut {
             width: 95vw; height: 90vh; max-width: 1500px; max-height: 850px;
-            margin: auto; /* Center horizontally and vertically */
+            margin: auto;
             background-color: rgba(40, 30, 20, 0.65);
             backdrop-filter: blur(15px) saturate(120%);
             -webkit-backdrop-filter: blur(15px) saturate(120%);
@@ -85,7 +90,7 @@
             border-bottom: 2px solid var(--jg-border-vine);
             box-shadow: 0 4px 10px var(--jg-shadow-light);
             transition: background-color 0.3s, border-color 0.3s;
-            flex-shrink: 0; /* Prevent header from shrinking */
+            flex-shrink: 0;
         }
         .compass-logo { font-family: var(--font-display-jg); font-size: 1.6rem; font-weight: 700; color: var(--jg-text-light); flex-shrink: 0; }
         .compass-logo i { color: var(--jg-accent-sunburst); margin-right: 0.5rem; transform: rotate(-15deg); }
@@ -98,14 +103,14 @@
             border: 1px solid var(--jg-border-vine);
             position: relative;
             transition: background-color 0.3s, border-color 0.3s;
-            flex-grow: 1; /* Allow search to grow */
-            margin: 0 1rem; /* Add some margin */
-            min-width: 150px; /* Prevent shrinking too much */
+            flex-grow: 1;
+            margin: 0 1rem;
+            min-width: 150px;
         }
         .search-outpost i.fa-binoculars { color: var(--jg-text-shadow); margin-right: 0.7rem; }
         #animal-tracker {
             background: transparent; border: none; outline: none;
-            color: var(--jg-text-light); font-size: 0.9rem; width: 100%; /* Take full width */
+            color: var(--jg-text-light); font-size: 0.9rem; width: 100%;
             padding-right: 25px;
         }
         #animal-tracker::placeholder { color: var(--jg-text-shadow); opacity: 0.8; }
@@ -139,17 +144,18 @@
             display: block;
         }
 
+        /* PC 3-Column Layout */
         .safari-zone {
-            flex-grow: 1; /* Take remaining vertical space */
+            flex-grow: 1;
             display: flex;
             padding: 1.5rem;
             gap: 1.5rem;
-            overflow: hidden; /* Prevent this zone from scrolling itself */
+            overflow: hidden;
         }
 
         .safari-navigation-tabs-jg {
             flex: 0 0 200px;
-            display: flex;
+            display: flex; /* Display by default for PC */
             flex-direction: column;
             background-color: rgba(var(--jg-bg-forest-floor-rgb), 0.55);
             border-radius: 15px;
@@ -217,9 +223,11 @@
 
         .watering-hole-player {
             flex: 3;
+            display: flex; /* Display by default for PC */
+            flex-direction: column;
+            align-items: center;
             background: linear-gradient(135deg, rgba(var(--jg-surface-leaf-rgb),0.7), rgba(var(--jg-surface-bark-rgb),0.5));
             border-radius: 20px; padding: 2rem;
-            display: flex; flex-direction: column; align-items: center;
             box-shadow: inset 0 0 15px var(--jg-shadow-light);
             border: 2px solid var(--jg-border-vine);
             transition: background 0.3s, border-color 0.3s;
@@ -230,7 +238,7 @@
             position: relative; box-shadow: 0 8px 25px var(--jg-shadow-heavy);
             overflow: hidden; background-color: var(--jg-bg-forest-floor);
             transition: background-color 0.3s;
-            flex-shrink: 0; /* Prevent shrinking */
+            flex-shrink: 0;
         }
 
         #main-album-art-jg {
@@ -263,7 +271,7 @@
             white-space: nowrap;
             position: relative;
             width: 100%;
-            max-width: 90%; /* Ensure some padding within the player */
+            max-width: 90%;
         }
         #song-title-jg.enable-marquee .marquee-text-inner-jg {
             display: inline-block;
@@ -275,7 +283,6 @@
             animation-iteration-count: infinite;
             white-space: nowrap;
             will-change: transform;
-            /* animation-duration will be set by JS */
         }
         @keyframes marquee-scroll-jg {
             0%   { transform: translateX(101%); }
@@ -359,10 +366,12 @@
 
 
         .explorers-log-content-area-jg {
-            flex: 2; /* Takes space in 3-col layout */
+            flex: 2; /* PC: Takes space */
+            display: flex; /* PC: Display by default */
+            flex-direction: column;
             background-color: rgba(var(--jg-surface-bark-rgb), 0.65);
             border-radius: 15px; border: 2px solid var(--jg-border-vine);
-            padding: 1rem; display: flex; flex-direction: column; overflow: hidden;
+            padding: 1rem; overflow: hidden;
             transition: background-color 0.3s, border-color 0.3s;
         }
         #queue-count-jg {
@@ -372,7 +381,7 @@
         }
 
         .log-content-jg { flex-grow: 1; overflow-y: auto; }
-        .log-panel-jg { display: none; padding-top: 0.5rem; height: 100%; /* Ensure panel takes height for scroll */ }
+        .log-panel-jg { display: none; padding-top: 0.5rem; height: 100%; }
         .log-panel-jg.active { display: block; animation: revealPanel 0.4s ease-in-out; }
         @keyframes revealPanel { from { opacity:0; transform:scale(0.98); } to { opacity:1; transform:scale(1); } }
 
@@ -430,7 +439,7 @@
             padding-top: 1rem; border-top: 1px solid var(--jg-border-vine);
             display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;
             transition: border-color 0.3s;
-            flex-shrink: 0; /* Prevent shrinking */
+            flex-shrink: 0;
         }
         .log-actions-jg button {
             background-color: var(--jg-surface-leaf); color: var(--jg-text-light);
@@ -482,169 +491,196 @@
              text-align: center;
         }
 
-        /* --- Responsive Styles --- */
-
-        /* Medium Screens (Tablets, smaller laptops) */
-        @media (max-width: 1024px) {
-             /* Keep 3-column layout but adjust sizes or stack if needed */
-             /* Example: Make side columns narrower */
-             .safari-navigation-tabs-jg { flex-basis: 160px; }
-             .explorers-log-content-area-jg { flex-basis: 300px; }
-
-             /* Alternatively, stack at 1024px if preferred */
-             /*
-             .safari-zone { flex-direction: column; }
-             .safari-navigation-tabs-jg,
-             .watering-hole-player,
-             .explorers-log-content-area-jg { flex-basis: auto; width: 100%; }
-             .safari-navigation-tabs-jg { height: auto; overflow-y: visible; margin-bottom: 1rem; }
-             .safari-navigation-tabs-jg .log-tabs-jg { flex-direction: row; overflow-x: auto; padding-bottom: 5px; }
-             .safari-navigation-tabs-jg .log-tab-jg { flex-grow: 1; min-width: 100px; text-align: center; }
-             .safari-navigation-tabs-jg .log-tab-jg.active::after { top: auto; bottom: -2px; left: 10%; width: 80%; height: 3px; border-radius: 1.5px; }
-             .safari-navigation-tabs-jg .log-tab-jg #queue-count-jg { position: relative; top: auto; right: auto; transform: none; margin-left: 0.3rem; display: inline-block;}
-             .album-canopy { width: 200px; height: 200px; }
-             */
+        /* Mobile Player & Nav - Hidden by default */
+        #mini-player-jg, #mobile-nav-bar-jg {
+             display: none;
         }
 
-        /* Small Screens (Mobile Phones) */
+        /* --- Responsive Styles --- */
+
+        /* Medium Screens (Tablets, smaller laptops) - Keeping 3-col for now */
+        @media (max-width: 1024px) {
+             .safari-navigation-tabs-jg { flex-basis: 160px; }
+             .explorers-log-content-area-jg { flex-basis: 300px; }
+        }
+
+        /* Small Screens (Mobile Phones) - New Layout */
         @media (max-width: 767px) {
-            body {
-                height: 100vh; /* Use vh for mobile body */
-                overflow: hidden; /* Still prevent body scroll */
+            html, body {
+                height: 100%; /* Ensure full height */
+                overflow: hidden; /* Prevent unwanted scroll */
             }
             .app-safari-hut {
-                width: 100vw; height: 100%; /* Full viewport */
+                width: 100%; height: 100%; /* Full viewport */
                 max-width: none; max-height: none;
                 margin: 0;
                 border-radius: 0;
                 border: none;
                 box-shadow: none;
+                /* Ensure vertical flex layout */
+                display: flex;
+                flex-direction: column;
             }
-             .safari-map-bar {
-                 padding: 0.75rem 1rem; /* Reduce header padding */
-             }
-             .compass-logo { font-size: 1.4rem; }
-             .search-outpost { padding: 0.4rem 0.8rem; margin: 0 0.5rem; }
-             #animal-tracker { font-size: 0.85rem; }
-             .tool-btn-jg { width: 36px; height: 36px; font-size: 1rem; }
-             .profile-avatar-jg { width: 28px; height: 28px; }
+            .safari-map-bar {
+                 padding: 0.75rem 1rem;
+                 order: 1; /* Header first */
+            }
+            .compass-logo { font-size: 1.4rem; }
+            .search-outpost { padding: 0.4rem 0.8rem; margin: 0 0.5rem; flex-grow: 1; min-width: 100px; }
+            #animal-tracker { font-size: 0.85rem; }
+            .tool-btn-jg { width: 36px; height: 36px; font-size: 1rem; }
+            .profile-avatar-jg { width: 28px; height: 28px; }
 
+            /* Hide PC layout elements */
+            .safari-navigation-tabs-jg, .watering-hole-player {
+                display: none;
+            }
 
+            /* Configure Main Content Area */
             .safari-zone {
-                flex-direction: column; /* Stack elements vertically */
-                padding: 0.75rem; /* Reduce padding */
-                gap: 0.75rem; /* Reduce gap */
-                overflow: hidden; /* Prevent this area scrolling */
-                flex-grow: 1; /* Take remaining height */
+                order: 2; /* Content below header */
+                flex-direction: column;
+                padding: 0; /* Remove padding, handled by child */
+                gap: 0; /* Remove gap */
+                overflow: hidden; /* Prevent scroll */
+                flex-grow: 1; /* Take remaining space */
+                display: flex; /* Needed for flex child */
             }
 
-            /* Tab Bar Styling for Mobile */
-            .safari-navigation-tabs-jg {
-                order: 1; /* Place tabs below header */
-                flex: 0 0 auto; /* Don't grow or shrink vertically */
-                width: 100%;
-                height: auto;
-                overflow-y: visible;
-                margin-bottom: 0.75rem;
-                padding: 0.5rem;
-                border: none; /* Remove border */
-                border-radius: 15px; /* Keep some rounding */
-                background-color: rgba(var(--jg-surface-bark-rgb), 0.75); /* Consistent background */
-            }
-             .safari-navigation-tabs-jg .log-tabs-jg {
-                flex-direction: row; /* Horizontal tabs */
-                overflow-x: auto; /* Enable horizontal scroll */
-                gap: 0.25rem;
-                padding-bottom: 5px; /* Space for scrollbar and active indicator */
-                -webkit-overflow-scrolling: touch; /* Smoother scroll on iOS */
-                scrollbar-width: none; /* Hide scrollbar on Firefox */
-            }
-             .safari-navigation-tabs-jg .log-tabs-jg::-webkit-scrollbar {
-                 display: none; /* Hide scrollbar on Chrome/Safari */
-             }
-            .safari-navigation-tabs-jg .log-tab-jg {
-                flex: 0 0 auto; /* Don't shrink, size based on content */
-                min-width: 90px; /* Ensure tabs have minimum width */
-                padding: 0.6rem 0.5rem;
-                text-align: center;
-                white-space: nowrap; /* Prevent text wrapping */
-            }
-            .safari-navigation-tabs-jg .log-tab-jg.active::after { /* Bottom indicator for mobile */
-                left: 10%; width: 80%; height: 3px;
-                top: auto; bottom: -2px;
-                border-radius: 1.5px;
-            }
-            .safari-navigation-tabs-jg .log-tab-jg i {
-                margin-right: 0.25rem;
-            }
-            .safari-navigation-tabs-jg .log-tab-jg #queue-count-jg {
-                 position: relative;
-                 top: auto; right: auto; transform: none;
-                 margin-left: 0.3rem;
-                 display: inline-block;
-            }
-
-            /* Player Styling for Mobile */
-            .watering-hole-player {
-                order: 2; /* Place player below tabs */
-                flex-shrink: 0; /* Don't shrink vertically */
-                width: 100%;
-                padding: 1rem;
-                border-radius: 15px; /* Keep some rounding */
-            }
-            .album-canopy {
-                width: 150px; height: 150px; /* Smaller album art */
-                margin-bottom: 1rem;
-            }
-            #main-album-art-jg { border-radius: 10px; } /* Match smaller container */
-             #song-title-jg { font-size: 1.8rem; max-width: 100%; } /* Adjust font size, allow full width */
-             #artist-name-jg { font-size: 1rem; }
-
-            .player-controls-jg {
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 0.75rem;
-                margin-bottom: 1rem;
-            }
-            .control-rock { width: 50px; height: 50px; font-size: 1.1rem; }
-            .control-rock.play { width: 65px; height: 65px; font-size: 1.8rem; }
-            .control-rock.small { width: 40px; height: 40px; font-size: 0.9rem; }
-             #btn-playback-rate-jg { width: 50px; height: 36px; font-size: 0.85rem; }
-
-            .progress-liana-jg { max-width: 100%; }
-            .volume-and-extra-controls-jg {
-                max-width: 100%;
-                flex-direction: row; /* Keep row layout if space allows */
-                justify-content: space-around; /* Better spacing */
-                gap: 1rem; /* Add gap */
-            }
-            .fruit-slider { width: 100px; }
-            #btn-pip-jg { margin-left: 0; }
-
-            /* Content Area Styling for Mobile */
             .explorers-log-content-area-jg {
-                order: 3; /* Place below player */
-                flex: 1 1 auto; /* Take remaining space and allow shrinking/growing */
+                display: flex; /* Ensure it's displayed */
+                flex-direction: column;
+                flex-grow: 1; /* Take available space */
                 overflow-y: auto; /* Enable vertical scroll */
-                width: 100%;
-                padding: 0.75rem;
-                border-radius: 15px; /* Keep some rounding */
-                background-color: rgba(var(--jg-surface-bark-rgb), 0.75); /* Consistent background */
+                padding: 1rem;
+                border-radius: 0;
+                border: none;
+                background: transparent; /* Background handled by body or layers */
                 -webkit-overflow-scrolling: touch; /* Smoother scroll on iOS */
             }
              .log-content-jg {
-                /* Height is handled by the parent */
+                flex-grow: 1; /* Allow list to take space */
+                height: auto; /* Height determined by flex */
              }
              .log-actions-jg {
-                 padding: 0.75rem 0; /* Adjust padding */
+                 padding: 0.75rem 0;
+                 flex-shrink: 0; /* Prevent shrinking */
+                 border-top: 1px solid var(--jg-border-vine);
              }
              .log-entry-jg .title { font-size: 0.95rem; }
              .log-entry-jg .artist { font-size: 0.8rem; }
              .log-entry-jg .duration { font-size: 0.8rem; }
              .log-entry-jg .song-item-action-jg i { font-size: 0.9rem; }
+
+            /* Mini Player Styles */
+            #mini-player-jg {
+                order: 3; /* Below content */
+                display: flex;
+                align-items: center;
+                padding: 0.5rem 1rem;
+                height: var(--mini-player-height);
+                background-color: rgba(var(--jg-surface-bark-rgb), 0.9);
+                border-top: 1px solid var(--jg-border-vine);
+                flex-shrink: 0; /* Prevent shrinking */
+                gap: 0.75rem;
+            }
+            #mini-player-art-jg {
+                width: 45px;
+                height: 45px;
+                border-radius: 6px;
+                object-fit: cover;
+                flex-shrink: 0;
+            }
+             #mini-player-art-jg.placeholder {
+                 background-color: var(--jg-text-shadow);
+                 display: flex;
+                 align-items: center;
+                 justify-content: center;
+                 color: var(--jg-bg-deep-jungle);
+            }
+            #mini-player-info-jg {
+                flex-grow: 1;
+                overflow: hidden;
+                min-width: 0;
+            }
+            #mini-player-title-jg {
+                display: block;
+                font-weight: 600;
+                font-size: 0.9rem;
+                color: var(--jg-text-light);
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            #mini-player-artist-jg {
+                display: block;
+                font-size: 0.75rem;
+                color: var(--jg-text-earth);
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            #mini-player-play-btn-jg {
+                background: none;
+                border: none;
+                color: var(--jg-text-light);
+                font-size: 1.8rem; /* Larger play icon */
+                padding: 0.25rem;
+                cursor: pointer;
+                flex-shrink: 0;
+                width: 40px; /* Fixed width for button */
+                text-align: center;
+            }
+
+            /* Mobile Navigation Bar Styles */
+            #mobile-nav-bar-jg {
+                order: 4; /* Last element */
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                height: var(--mobile-nav-height);
+                background-color: rgba(var(--jg-bg-forest-floor-rgb), 0.95);
+                border-top: 1px solid var(--jg-border-vine);
+                box-shadow: 0 -2px 10px var(--jg-shadow-light);
+                flex-shrink: 0; /* Prevent shrinking */
+            }
+            .mobile-tab-btn-jg {
+                background: none;
+                border: none;
+                color: var(--jg-text-shadow);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                font-size: 0.65rem; /* Smaller text */
+                padding: 0.25rem 0;
+                flex-grow: 1;
+                cursor: pointer;
+                transition: color 0.2s;
+                 position: relative; /* For potential active indicator */
+            }
+            .mobile-tab-btn-jg i {
+                font-size: 1.4rem; /* Icon size */
+                margin-bottom: 2px;
+            }
+             .mobile-tab-btn-jg.active {
+                 color: var(--jg-accent-sunburst); /* Active color */
+             }
+             /* Optional: Add a top border as active indicator */
+             /* .mobile-tab-btn-jg.active::before {
+                 content: '';
+                 position: absolute;
+                 top: 0;
+                 left: 15%;
+                 width: 70%;
+                 height: 3px;
+                 background-color: var(--jg-accent-sunburst);
+                 border-radius: 0 0 1.5px 1.5px;
+             } */
+
         }
 
-        /* --- THEME DEFINITIONS --- */
+        /* --- THEME DEFINITIONS (Keep as is) --- */
         body.theme-dark-jg .app-safari-hut { background-color: rgba(26, 42, 42, 0.75); border-color: var(--jg-border-vine); }
         body.theme-dark-jg #animal-tracker { color: var(--jg-text-light); }
         body.theme-dark-jg #animal-tracker::placeholder { color: var(--jg-text-shadow); }
@@ -679,131 +715,38 @@
             background-color: rgba(var(--jg-accent-canopy-rgb), 0.15);
         }
         body.theme-light-jg .explorers-log-content-area-jg {
-            background-color: rgba(var(--jg-bg-forest-floor-rgb), 0.7);
+            /* Keep background transparent for mobile, rely on body */
+            /* background-color: rgba(var(--jg-bg-forest-floor-rgb), 0.7); */
         }
+        body.theme-light-jg #mini-player-jg { background-color: rgba(var(--jg-surface-bark-rgb), 0.9); border-top-color: var(--jg-border-vine); }
+        body.theme-light-jg #mobile-nav-bar-jg { background-color: rgba(var(--jg-bg-forest-floor-rgb), 0.95); border-top-color: var(--jg-border-vine); }
+        body.theme-light-jg .mobile-tab-btn-jg { color: var(--jg-text-shadow); }
+        body.theme-light-jg .mobile-tab-btn-jg.active { color: var(--jg-accent-canopy); } /* Use canopy instead of sunburst */
+        body.theme-light-jg #mini-player-title-jg { color: var(--jg-text-light); }
+        body.theme-light-jg #mini-player-artist-jg { color: var(--jg-text-earth); }
+        body.theme-light-jg #mini-player-play-btn-jg { color: var(--jg-text-light); }
+
+        /* ... (Ocean Breeze, Forest Dawn, Neon Noir theme adjustments for mobile nav/player if needed) ... */
+        body.theme-ocean-breeze-jg #mini-player-jg { background-color: rgba(var(--jg-surface-bark-rgb), 0.9); border-top-color: var(--jg-border-vine); }
+        body.theme-ocean-breeze-jg #mobile-nav-bar-jg { background-color: rgba(var(--jg-bg-forest-floor-rgb), 0.95); border-top-color: var(--jg-border-vine); }
+        body.theme-ocean-breeze-jg .mobile-tab-btn-jg { color: var(--jg-text-shadow); }
+        body.theme-ocean-breeze-jg .mobile-tab-btn-jg.active { color: var(--jg-accent-canopy); }
+
+        body.theme-forest-dawn-jg #mini-player-jg { background-color: rgba(var(--jg-surface-bark-rgb), 0.9); border-top-color: var(--jg-border-vine); }
+        body.theme-forest-dawn-jg #mobile-nav-bar-jg { background-color: rgba(var(--jg-bg-forest-floor-rgb), 0.95); border-top-color: var(--jg-border-vine); }
+        body.theme-forest-dawn-jg .mobile-tab-btn-jg { color: var(--jg-text-shadow); }
+        body.theme-forest-dawn-jg .mobile-tab-btn-jg.active { color: var(--jg-accent-canopy); } /* Use brighter canopy */
+
+        body.theme-neon-noir-jg #mini-player-jg { background-color: rgba(var(--jg-surface-bark-rgb), 0.9); border-top-color: var(--jg-border-vine); }
+        body.theme-neon-noir-jg #mobile-nav-bar-jg { background-color: rgba(var(--jg-bg-forest-floor-rgb), 0.95); border-top-color: var(--jg-border-vine); }
+        body.theme-neon-noir-jg .mobile-tab-btn-jg { color: var(--jg-text-shadow); }
+        body.theme-neon-noir-jg .mobile-tab-btn-jg.active { color: var(--jg-accent-canopy); }
 
 
-        body.theme-ocean-breeze-jg {
-            --jg-bg-deep-jungle: #E1F5FE; --jg-bg-forest-floor: #FFFFFF;
-            --jg-surface-bark: #B0BEC5; --jg-surface-leaf: #80CBC4;
-            --jg-accent-sunburst: #FFC107; --jg-accent-canopy: #00796B;
-            --jg-accent-waterfall: #03A9F4; --jg-text-light: #263238;
-            --jg-text-earth: #455A64; --jg-text-shadow: #78909C;
-            --jg-border-vine: #90A4AE;
-
-            --jg-surface-bark-rgb: 176, 190, 197; --jg-surface-leaf-rgb: 128, 203, 196;
-            --jg-bg-forest-floor-rgb: 255, 255, 255; --jg-accent-canopy-rgb: 0, 121, 107;
-            --jg-accent-sunburst-rgb: 255, 193, 7;
-        }
-        body.theme-ocean-breeze-jg .app-safari-hut { background-color: rgba(225, 245, 254, 0.85); }
-        body.theme-ocean-breeze-jg #animal-tracker { color: var(--jg-text-light); }
-        body.theme-ocean-breeze-jg #animal-tracker::placeholder { color: var(--jg-text-shadow); }
-        body.theme-ocean-breeze-jg .control-rock { border-color: var(--jg-border-vine); }
-        body.theme-ocean-breeze-jg .control-rock.play { color: #FFFFFF; }
-        body.theme-ocean-breeze-jg .log-entry-jg .title { color: var(--jg-text-light); }
-        body.theme-ocean-breeze-jg .log-entry-jg .artist { color: var(--jg-text-earth); }
-        body.theme-ocean-breeze-jg .safari-navigation-tabs-jg {
-            background-color: rgba(var(--jg-bg-forest-floor-rgb), 0.8);
-            border-color: var(--jg-border-vine);
-        }
-        body.theme-ocean-breeze-jg .safari-navigation-tabs-jg .log-tab-jg.active {
-            background-color: rgba(var(--jg-accent-canopy-rgb), 0.15);
-        }
-        body.theme-ocean-breeze-jg .explorers-log-content-area-jg {
-            background-color: rgba(var(--jg-bg-forest-floor-rgb), 0.7);
-        }
-
-
-        body.theme-forest-dawn-jg {
-            --jg-bg-deep-jungle: #1B262C; --jg-bg-forest-floor: #39322E;
-            --jg-surface-bark: #5D4037; --jg-surface-leaf: #689F38;
-            --jg-accent-sunburst: #FFA000; --jg-accent-canopy: #9CCC65;
-            --jg-accent-waterfall: #29B6F6; --jg-text-light: #F5F5F5;
-            --jg-text-earth: #BCAAA4; --jg-text-shadow: #90A4AE;
-            --jg-border-vine: #4E342E;
-
-            --jg-surface-bark-rgb: 93, 64, 55; --jg-surface-leaf-rgb: 104, 159, 56;
-            --jg-bg-forest-floor-rgb: 57, 50, 46; --jg-accent-canopy-rgb: 156, 204, 101;
-            --jg-accent-sunburst-rgb: 255, 160, 0;
-        }
-        body.theme-forest-dawn-jg .app-safari-hut { background-color: rgba(40, 53, 59, 0.8); }
-        body.theme-forest-dawn-jg .control-rock { border-color: var(--jg-border-vine); }
-        body.theme-forest-dawn-jg .control-rock.play { color: var(--jg-text-light); }
-        body.theme-forest-dawn-jg .safari-navigation-tabs-jg {
-            background-color: rgba(var(--jg-bg-forest-floor-rgb), 0.7);
-        }
-        body.theme-forest-dawn-jg .safari-navigation-tabs-jg .log-tab-jg.active {
-             background-color: rgba(var(--jg-accent-canopy-rgb), 0.25);
-        }
-        body.theme-forest-dawn-jg .explorers-log-content-area-jg {
-            background-color: rgba(var(--jg-surface-bark-rgb), 0.75);
-        }
-
-
-        body.theme-neon-noir-jg {
-            --jg-bg-deep-jungle: #0D0D0D; --jg-bg-forest-floor: #1A1A1A;
-            --jg-surface-bark: #2C2C2C; --jg-surface-leaf: #3C3C3C;
-            --jg-accent-sunburst: #F000B8; --jg-accent-canopy: #00F0E0;
-            --jg-accent-waterfall: #30A0FF; --jg-text-light: #E0E0E0;
-            --jg-text-earth: #A0A0A0; --jg-text-shadow: #606060;
-            --jg-border-vine: #4A4A4A;
-
-            --jg-surface-bark-rgb: 44, 44, 44; --jg-surface-leaf-rgb: 60, 60, 60;
-            --jg-bg-forest-floor-rgb: 26, 26, 26; --jg-accent-canopy-rgb: 0, 240, 224;
-            --jg-accent-sunburst-rgb: 240, 0, 184;
-        }
-        body.theme-neon-noir-jg .app-safari-hut {
-            background-color: rgba(10, 10, 10, 0.85);
-            border: 3px solid var(--jg-accent-canopy);
-            box-shadow: 0 0 25px rgba(var(--jg-accent-canopy-rgb), 0.5), 0 0 40px rgba(var(--jg-accent-sunburst-rgb), 0.3);
-        }
-        body.theme-neon-noir-jg .safari-map-bar { background-color: rgba(var(--jg-surface-bark-rgb), 0.9); border-bottom: 2px solid var(--jg-accent-sunburst); }
-        body.theme-neon-noir-jg .compass-logo i { color: var(--jg-accent-canopy); }
-        body.theme-neon-noir-jg .text-accent-jg { color: var(--jg-accent-sunburst); }
-        body.theme-neon-noir-jg #animal-tracker { color: var(--jg-text-light); border: 1px solid var(--jg-text-shadow); }
-        body.theme-neon-noir-jg #animal-tracker::placeholder { color: var(--jg-text-shadow); }
-        body.theme-neon-noir-jg .tool-btn-jg { background-color: var(--jg-surface-leaf); border: 1px solid var(--jg-accent-waterfall); color: var(--jg-accent-waterfall); }
-        body.theme-neon-noir-jg .tool-btn-jg:hover { background-color: var(--jg-accent-waterfall); color: var(--jg-bg-deep-jungle); }
-
-        body.theme-neon-noir-jg .safari-navigation-tabs-jg {
-            background-color: rgba(var(--jg-bg-forest-floor-rgb), 0.85);
-            border-color: var(--jg-accent-waterfall);
-        }
-        body.theme-neon-noir-jg .safari-navigation-tabs-jg .log-tab-jg:hover {
-            color: var(--jg-accent-canopy);
-        }
-        body.theme-neon-noir-jg .safari-navigation-tabs-jg .log-tab-jg.active {
-            background-color: rgba(var(--jg-accent-canopy-rgb), 0.2);
-            color: var(--jg-accent-canopy);
-        }
-        body.theme-neon-noir-jg .safari-navigation-tabs-jg .log-tab-jg.active::after {
-            background-color: var(--jg-accent-canopy);
-        }
-
-        body.theme-neon-noir-jg .watering-hole-player { border: 2px solid var(--jg-accent-sunburst); }
-        body.theme-neon-noir-jg #main-album-art-jg.album-art-placeholder { border: 4px solid var(--jg-accent-canopy); background-color: var(--jg-surface-bark); color: var(--jg-accent-canopy); }
-        body.theme-neon-noir-jg .control-rock { background-color: var(--jg-surface-bark); border: 2px solid var(--jg-accent-waterfall); color: var(--jg-accent-waterfall); }
-        body.theme-neon-noir-jg .control-rock.play { background-color: var(--jg-accent-sunburst); border-color: var(--jg-accent-sunburst); color: var(--jg-bg-deep-jungle); }
-        body.theme-neon-noir-jg .control-rock.active-control, body.theme-neon-noir-jg #btn-playback-rate-jg.active-control { color: var(--jg-accent-canopy) !important; border-color: var(--jg-accent-canopy) !important; box-shadow: 0 0 10px var(--jg-accent-canopy); }
-        body.theme-neon-noir-jg .liana-slider::-webkit-slider-thumb { background-color: var(--jg-accent-canopy); }
-        body.theme-neon-noir-jg .fruit-slider::-webkit-slider-thumb { background: var(--jg-accent-sunburst); border-color: var(--jg-accent-sunburst); }
-
-        body.theme-neon-noir-jg .explorers-log-content-area-jg {
-            background-color: rgba(var(--jg-surface-bark-rgb), 0.75);
-            border: 2px solid var(--jg-accent-waterfall);
-        }
-        body.theme-neon-noir-jg .log-entry-jg { background-color: rgba(var(--jg-bg-forest-floor-rgb), 0.8); }
-        body.theme-neon-noir-jg .log-entry-jg:hover { background-color: rgba(var(--jg-surface-leaf-rgb),0.7); border-color: var(--jg-accent-sunburst); }
-        body.theme-neon-noir-jg .log-entry-jg.active-song { background-color: rgba(var(--jg-accent-canopy-rgb),0.4); border-left-color: var(--jg-accent-canopy); }
-        body.theme-neon-noir-jg .log-actions-jg button { background-color: var(--jg-surface-leaf); color: var(--jg-accent-canopy); border: 1px solid var(--jg-accent-canopy); }
-        body.theme-neon-noir-jg .log-actions-jg button:hover { background-color: var(--jg-accent-canopy); color: var(--jg-bg-deep-jungle); }
-
-
-        /* Modal Styling based on theme type */
+        /* Modal Styling (Keep as is) */
         .modal-dialog-jg { }
         .modal-input-jg { }
 
-        /* Light Themes Modals */
         body.modal-light-theme-jg #createPlaylistModalJG .modal-dialog-jg,
         body.modal-light-theme-jg #addToPlaylistModalJG .modal-dialog-jg,
         body.modal-light-theme-jg #editSongModalJG .modal-dialog-jg,
@@ -814,7 +757,7 @@
         body.modal-light-theme-jg #createPlaylistModalJG .text-jg-accent-sunburst,
         body.modal-light-theme-jg #addToPlaylistModalJG .text-jg-accent-sunburst,
         body.modal-light-theme-jg #editSongModalJG .text-jg-accent-sunburst,
-        body.modal-light-theme-jg #profileModalJG .text-jg-accent-sunburst { /* Header */
+        body.modal-light-theme-jg #profileModalJG .text-jg-accent-sunburst {
              color: var(--jg-accent-canopy) !important;
         }
         body.modal-light-theme-jg #newPlaylistNameJG,
@@ -855,9 +798,7 @@
         body.modal-light-theme-jg #song-context-menu-jg li { color: var(--jg-text-light); }
         body.modal-light-theme-jg #song-context-menu-jg li:hover { background-color: var(--jg-surface-leaf); }
 
-        /* Dark Themes Modals (default, forest-dawn, neon-noir if not overridden) */
 
-        /* Specific for Neon Noir modals */
         body.theme-neon-noir-jg #createPlaylistModalJG .modal-dialog-jg,
         body.theme-neon-noir-jg #addToPlaylistModalJG .modal-dialog-jg,
         body.theme-neon-noir-jg #editSongModalJG .modal-dialog-jg,
@@ -868,7 +809,7 @@
         body.theme-neon-noir-jg #createPlaylistModalJG .text-jg-accent-sunburst,
         body.theme-neon-noir-jg #addToPlaylistModalJG .text-jg-accent-sunburst,
         body.theme-neon-noir-jg #editSongModalJG .text-jg-accent-sunburst,
-        body.theme-neon-noir-jg #profileModalJG .text-jg-accent-sunburst { /* Header */
+        body.theme-neon-noir-jg #profileModalJG .text-jg-accent-sunburst {
              color: var(--jg-accent-canopy) !important;
         }
         body.theme-neon-noir-jg #newPlaylistNameJG,
@@ -902,10 +843,9 @@
         body.theme-neon-noir-jg #song-context-menu-jg { background-color: var(--jg-bg-forest-floor); border: 1px solid var(--jg-accent-canopy); }
         body.theme-neon-noir-jg #song-context-menu-jg li:hover { background-color: var(--jg-accent-sunburst); color: var(--jg-bg-deep-jungle); }
 
-
     </style>
 </head>
-<body class="theme-dark-jg"> <!-- Default theme applied here -->
+<body class="theme-dark-jg">
 
     <div class="jungle-background-layers">
         <div class="layer layer-1"></div>
@@ -933,10 +873,11 @@
             </div>
         </header>
 
+        <!-- Main content area for both PC and Mobile -->
         <main class="safari-zone">
-            <!-- Desktop: Left Nav Column -->
+            <!-- PC: Left Nav Column -->
             <nav class="safari-navigation-tabs-jg">
-                <div class="log-tabs-jg"> <!-- Container for tabs -->
+                <div class="log-tabs-jg">
                     <button class="log-tab-jg active" data-panel="log-library"><i class="fas fa-tree"></i> Library</button>
                     <button class="log-tab-jg" data-panel="log-paths"><i class="fas fa-map-signs"></i> Playlists</button>
                     <button class="log-tab-jg" data-panel="log-discoveries"><i class="fas fa-paw"></i> Queue <span id="queue-count-jg">0</span></button>
@@ -945,7 +886,7 @@
                 </div>
             </nav>
 
-            <!-- Desktop: Middle Player Column / Mobile: Player Section -->
+            <!-- PC: Middle Player Column -->
             <section class="watering-hole-player">
                 <div class="album-canopy">
                     <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Album Art" id="main-album-art-jg" class="img-placeholder album-art-placeholder">
@@ -980,21 +921,58 @@
                 </div>
             </section>
 
-            <!-- Desktop: Right Content Column / Mobile: Content Section -->
+            <!-- PC: Right Content Column / Mobile: Main Content Area -->
             <aside class="explorers-log-content-area-jg">
-                <div class="log-content-jg"> <!-- This div will scroll on mobile -->
+                <div class="log-content-jg">
                     <div id="log-library" class="log-panel-jg active"></div>
                     <div id="log-paths" class="log-panel-jg"></div>
                     <div id="log-discoveries" class="log-panel-jg"></div>
                     <div id="log-trophies" class="log-panel-jg"></div>
                     <div id="log-history" class="log-panel-jg"></div>
                 </div>
-                 <div id="log-actions-container-jg" class="log-actions-jg"></div> <!-- Buttons at the bottom -->
+                 <div id="log-actions-container-jg" class="log-actions-jg"></div>
             </aside>
         </main>
-    </div>
 
-    <!-- Create Playlist Modal -->
+        <!-- Mobile: Mini Player -->
+        <div id="mini-player-jg">
+            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Album Art" id="mini-player-art-jg" class="placeholder">
+            <div id="mini-player-info-jg">
+                <span id="mini-player-title-jg">Track Title</span>
+                <span id="mini-player-artist-jg">Artist Name</span>
+            </div>
+            <button id="mini-player-play-btn-jg" title="Play/Pause">
+                <i class="fas fa-play"></i>
+            </button>
+        </div>
+
+        <!-- Mobile: Bottom Navigation Bar -->
+        <nav id="mobile-nav-bar-jg">
+             <button class="mobile-tab-btn-jg active" data-panel="log-library" title="Library">
+                 <i class="fas fa-tree"></i>
+                 <span>Library</span>
+             </button>
+             <button class="mobile-tab-btn-jg" data-panel="log-paths" title="Playlists">
+                 <i class="fas fa-map-signs"></i>
+                 <span>Playlists</span>
+             </button>
+             <button class="mobile-tab-btn-jg" data-panel="log-discoveries" title="Queue">
+                 <i class="fas fa-paw"></i>
+                 <span>Queue</span>
+             </button>
+             <button class="mobile-tab-btn-jg" data-panel="log-trophies" title="Favorites">
+                  <i class="fas fa-gem"></i>
+                 <span>Favorites</span>
+             </button>
+              <button class="mobile-tab-btn-jg" data-panel="log-history" title="History">
+                  <i class="fas fa-history"></i>
+                 <span>History</span>
+             </button>
+        </nav>
+
+    </div> <!-- End .app-safari-hut -->
+
+    <!-- Modals (Keep outside main structure) -->
     <div id="createPlaylistModalJG" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50" style="display: none;">
         <div class="modal-dialog-jg bg-jg-surface-bark p-6 rounded-lg shadow-xl w-full max-w-md text-jg-text-light">
             <h3 class="font-display-jg text-2xl mb-4 text-jg-accent-sunburst">新しい道 (プレイリスト) を作成</h3>
@@ -1006,13 +984,12 @@
         </div>
     </div>
 
-    <!-- Add to Playlist Modal -->
     <div id="addToPlaylistModalJG" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50" style="display: none;">
         <div class="modal-dialog-jg bg-jg-surface-bark p-6 rounded-lg shadow-xl w-full max-w-md text-jg-text-light">
             <h3 class="font-display-jg text-2xl mb-1 text-jg-accent-sunburst">プレイリストに追加</h3>
             <p class="text-sm text-jg-text-earth mb-4" id="addToPlaylistSongTitleJG">曲名...</p>
             <div id="addToPlaylistListJG" class="max-h-60 overflow-y-auto mb-4 border border-jg-border-vine rounded">
-                 <style> /* Simple style for playlist items in modal */
+                 <style>
                     .playlist-select-item-jg { padding: 0.5rem 0.75rem; cursor: pointer; border-bottom: 1px solid var(--jg-border-vine); }
                     .playlist-select-item-jg:last-child { border-bottom: none; }
                     .playlist-select-item-jg:hover { background-color: rgba(var(--jg-surface-leaf-rgb), 0.4); }
@@ -1024,7 +1001,6 @@
         </div>
     </div>
 
-    <!-- Edit Song Info Modal -->
     <div id="editSongModalJG" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50" style="display: none;">
         <div class="modal-dialog-jg bg-jg-surface-bark p-6 rounded-lg shadow-xl w-full max-w-md text-jg-text-light">
             <h3 class="font-display-jg text-2xl mb-4 text-jg-accent-sunburst">曲情報を編集</h3>
@@ -1043,8 +1019,7 @@
         </div>
     </div>
 
-     <!-- Profile Modal -->
-    <div id="profileModalJG" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50" style="display: none;">
+     <div id="profileModalJG" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50" style="display: none;">
         <div class="modal-dialog-jg bg-jg-surface-bark p-6 rounded-lg shadow-xl w-full max-w-md text-jg-text-light">
             <h3 class="font-display-jg text-2xl mb-4 text-jg-accent-sunburst">Ranger Profile</h3>
             <div id="profileLinksContainerJG" class="space-y-3 mb-6">
@@ -1063,7 +1038,6 @@
         </div>
     </div>
 
-    <!-- Custom Context Menu (initially hidden) -->
     <div id="song-context-menu-jg" style="display: none;">
         <ul>
             <li data-action="edit-song">情報を編集...</li>
@@ -1075,7 +1049,6 @@
 
     <script>
         // jungle_groove_script.js
-        // (JavaScript code remains the same as the previous version - no changes needed for this layout update)
         console.log("Jungle Groove Initializing...");
 
         let elementsJG = {};
@@ -1133,10 +1106,12 @@
         function initializeElementsJG() {
             elementsJG = {
                 body: document.body,
+                appHut: document.querySelector('.app-safari-hut'), // Needed for mobile height adjustment
                 searchInput: document.getElementById('animal-tracker'),
                 clearSearchButton: document.getElementById('clear-search-btn-jg'),
                 themeToggle: document.getElementById('weather-toggle'),
                 profileButton: document.getElementById('profile-ranger'),
+                // PC Player Elements (might be hidden on mobile)
                 mainAlbumArt: document.getElementById('main-album-art-jg'),
                 songTitleDisplay: document.getElementById('song-title-jg'),
                 artistNameDisplay: document.getElementById('artist-name-jg'),
@@ -1153,15 +1128,26 @@
                 volumeSlider: document.getElementById('volume-slider-jg'),
                 volumeIconMute: document.querySelector('.volume-fruit-jg .fa-volume-mute'),
                 volumeIconUp: document.querySelector('.volume-fruit-jg .fa-volume-up'),
+                // PC Navigation Elements
                 logTabsContainer: document.querySelector('.safari-navigation-tabs-jg .log-tabs-jg'),
                 logTabs: document.querySelectorAll('.safari-navigation-tabs-jg .log-tab-jg'),
+                // Content Panels (used by both)
                 logPanels: document.querySelectorAll('.log-panel-jg'),
                 libraryPanel: document.getElementById('log-library'),
                 queuePanel: document.getElementById('log-discoveries'),
                 favoritesPanel: document.getElementById('log-trophies'),
                 historyPanel: document.getElementById('log-history'),
                 playlistsPanel: document.getElementById('log-paths'),
-                queueCountBadge: document.getElementById('queue-count-jg'),
+                queueCountBadge: document.getElementById('queue-count-jg'), // Used in PC nav only now
+                // Mobile Specific Elements
+                miniPlayerContainer: document.getElementById('mini-player-jg'),
+                miniPlayerArt: document.getElementById('mini-player-art-jg'),
+                miniPlayerTitle: document.getElementById('mini-player-title-jg'),
+                miniPlayerArtist: document.getElementById('mini-player-artist-jg'),
+                miniPlayerPlayBtn: document.getElementById('mini-player-play-btn-jg'),
+                mobileNavBar: document.getElementById('mobile-nav-bar-jg'),
+                mobileNavTabs: document.querySelectorAll('#mobile-nav-bar-jg .mobile-tab-btn-jg'),
+                // Other elements
                 youtubePlayerContainer: null,
                 editSongModal: document.getElementById('editSongModalJG'),
                 editSongTitleInput: document.getElementById('editSongTitleJG'),
@@ -1195,7 +1181,7 @@
         }
 
         const youtubeAPI_JG = {
-            apiKey: 'AIzaSyCbzvjP9vFa5I8N1qLI5H9LUpYim0nkQS4',
+            apiKey: 'AIzaSyCbzvjP9vFa5I8N1qLI5H9LUpYim0nkQS4', // Replace with your key if needed
             channelId: 'UCYAuSEKhuk3v4ZKzm5Lqb1Q',
             async getLatestVideos(maxResults = 15) { if (!this.apiKey || this.apiKey === 'YOUR_YOUTUBE_API_KEY_HERE' || this.apiKey.length < 30) { showSnackbarJG("YouTube APIキーが設定されていません。", "error", 10000); return []; } const apiUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${this.channelId}&maxResults=${maxResults}&order=date&type=video&key=${this.apiKey}`; try { const response = await fetch(apiUrl); if (!response.ok) { const errorText = await response.text(); let errorData = null; try { errorData = JSON.parse(errorText); } catch (e) {} throw new Error(errorData?.error?.message || `YouTube APIエラー: ${response.status}`); } const data = await response.json(); return data.items?.map(item => ({ id: item.id.videoId, title: item.snippet.title, artist: item.snippet.channelTitle, thumbnail: item.snippet.thumbnails.high?.url || item.snippet.thumbnails.medium?.url || item.snippet.thumbnails.default?.url, duration: "--:--" })) || []; } catch (error) { console.error('getLatestVideos Error:', error); showSnackbarJG(`曲読込エラー: ${error.message}`, "error"); return []; } },
             async getVideoDetails(videoIds) { if (!videoIds || videoIds.length === 0) return {}; if (!this.apiKey || this.apiKey === 'YOUR_YOUTUBE_API_KEY_HERE' || this.apiKey.length < 30) return {}; const details = {}; for (let i = 0; i < videoIds.length; i += 50) { const chunkIds = videoIds.slice(i, i + 50); try { const response = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=${chunkIds.join(',')}&key=${this.apiKey}`); if (!response.ok) throw new Error(`Video Details API error: ${response.status}`); const data = await response.json(); data.items?.forEach(item => { details[item.id] = item.contentDetails ? this.convertDuration(item.contentDetails.duration) : "--:--"; }); } catch (error) { console.error('getVideoDetails chunk error:', error); chunkIds.forEach(id => { if (!details[id]) details[id] = "--:--"; });} } return details; },
@@ -1209,27 +1195,21 @@
 
         function setupTitleMarqueeJG(titleEl, text) {
             if (!titleEl) return;
-
             titleEl.classList.remove('enable-marquee');
             const existingMarqueeSpan = titleEl.querySelector('.marquee-text-inner-jg');
-            if (existingMarqueeSpan) {
-                titleEl.textContent = text;
-            } else {
-                 titleEl.textContent = text;
-            }
+            if (existingMarqueeSpan) { titleEl.textContent = text; }
+            else { titleEl.textContent = text; }
 
             requestAnimationFrame(() => {
                 const isVisible = titleEl.offsetWidth > 0 && titleEl.offsetHeight > 0;
                 if (isVisible && titleEl.scrollWidth > titleEl.clientWidth) {
                     titleEl.innerHTML = `<span class="marquee-text-inner-jg">${escapeHTMLJG(text)}</span>`;
                     titleEl.classList.add('enable-marquee');
-
                     const marqueeSpan = titleEl.querySelector('.marquee-text-inner-jg');
                     if (marqueeSpan) {
                         const textWidth = marqueeSpan.offsetWidth;
                         const containerWidth = titleEl.clientWidth;
-                        const speed = 40; // pixels per second
-
+                        const speed = 40;
                         const duration = (textWidth + containerWidth) / speed;
                         marqueeSpan.style.animationDuration = `${Math.max(3, duration)}s`;
                         marqueeSpan.style.animationPlayState = appStateJG.isPlaying ? 'running' : 'paused';
@@ -1246,49 +1226,88 @@
             });
         }
 
-
         function updatePlayerUIGJ(song) {
+            // --- Update Full Player (PC) ---
             const playerElement = document.querySelector('.watering-hole-player');
             if (song && song.id) {
                 const displayInfo = getDisplaySongInfoJG(song.id);
-                elementsJG.mainAlbumArt.src = displayInfo.thumbnail || 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
-                if (!displayInfo.thumbnail) {
+                if (elementsJG.mainAlbumArt) {
+                    elementsJG.mainAlbumArt.src = displayInfo.thumbnail || 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+                    if (!displayInfo.thumbnail) {
+                        elementsJG.mainAlbumArt.classList.add('album-art-placeholder');
+                        elementsJG.mainAlbumArt.innerHTML = '<i class="fas fa-music"></i>';
+                    } else {
+                        elementsJG.mainAlbumArt.classList.remove('album-art-placeholder');
+                        elementsJG.mainAlbumArt.innerHTML = '';
+                    }
+                }
+                if (elementsJG.songTitleDisplay) setupTitleMarqueeJG(elementsJG.songTitleDisplay, displayInfo.title || "Wild Rhythms");
+                if (elementsJG.artistNameDisplay) elementsJG.artistNameDisplay.textContent = displayInfo.artist || "The Jungle Cats";
+                playerElement?.classList.add('has-song');
+
+                // --- Update Mini Player (Mobile) ---
+                if(elementsJG.miniPlayerContainer) elementsJG.miniPlayerContainer.style.display = 'flex'; // Show mini player
+                if(elementsJG.miniPlayerArt) {
+                    elementsJG.miniPlayerArt.src = displayInfo.thumbnail || 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+                    elementsJG.miniPlayerArt.classList.toggle('placeholder', !displayInfo.thumbnail);
+                    if(!displayInfo.thumbnail) elementsJG.miniPlayerArt.innerHTML = '<i class="fas fa-music"></i>';
+                    else elementsJG.miniPlayerArt.innerHTML = '';
+                }
+                if(elementsJG.miniPlayerTitle) elementsJG.miniPlayerTitle.textContent = displayInfo.title || "Track Title";
+                if(elementsJG.miniPlayerArtist) elementsJG.miniPlayerArtist.textContent = displayInfo.artist || "Artist Name";
+
+            } else {
+                // --- Reset Full Player (PC) ---
+                 if (elementsJG.mainAlbumArt) {
+                    elementsJG.mainAlbumArt.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
                     elementsJG.mainAlbumArt.classList.add('album-art-placeholder');
                     elementsJG.mainAlbumArt.innerHTML = '<i class="fas fa-music"></i>';
-                } else {
-                    elementsJG.mainAlbumArt.classList.remove('album-art-placeholder');
-                    elementsJG.mainAlbumArt.innerHTML = '';
-                }
-                setupTitleMarqueeJG(elementsJG.songTitleDisplay, displayInfo.title || "Wild Rhythms");
-                elementsJG.artistNameDisplay.textContent = displayInfo.artist || "The Jungle Cats";
-                playerElement?.classList.add('has-song');
-            } else {
-                elementsJG.mainAlbumArt.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
-                elementsJG.mainAlbumArt.classList.add('album-art-placeholder');
-                elementsJG.mainAlbumArt.innerHTML = '<i class="fas fa-music"></i>';
-                setupTitleMarqueeJG(elementsJG.songTitleDisplay, "Wild Rhythms");
-                elementsJG.artistNameDisplay.textContent = "The Jungle Cats";
-                elementsJG.currentTimeDisplay.textContent = "0:00";
-                elementsJG.totalTimeDisplay.textContent = "0:00";
-                elementsJG.progressSlider.value = 0;
+                 }
+                if (elementsJG.songTitleDisplay) setupTitleMarqueeJG(elementsJG.songTitleDisplay, "Wild Rhythms");
+                if (elementsJG.artistNameDisplay) elementsJG.artistNameDisplay.textContent = "The Jungle Cats";
+                if (elementsJG.currentTimeDisplay) elementsJG.currentTimeDisplay.textContent = "0:00";
+                if (elementsJG.totalTimeDisplay) elementsJG.totalTimeDisplay.textContent = "0:00";
+                if (elementsJG.progressSlider) elementsJG.progressSlider.value = 0;
                 playerElement?.classList.remove('has-song');
+
+                 // --- Hide/Reset Mini Player (Mobile) ---
+                 if(elementsJG.miniPlayerContainer) elementsJG.miniPlayerContainer.style.display = 'none'; // Hide if no song
+                 // Optionally reset text/art
+                 if(elementsJG.miniPlayerArt) {
+                     elementsJG.miniPlayerArt.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+                     elementsJG.miniPlayerArt.classList.add('placeholder');
+                     elementsJG.miniPlayerArt.innerHTML = '';
+                 }
+                 if(elementsJG.miniPlayerTitle) elementsJG.miniPlayerTitle.textContent = "Track Title";
+                 if(elementsJG.miniPlayerArtist) elementsJG.miniPlayerArtist.textContent = "Artist Name";
             }
-            updatePlayPauseButtonJG();
+            updatePlayPauseButtonJG(); // Update both buttons
             updateActiveListItemJG();
             updateDocumentTitleJG();
         }
 
         function updatePlayPauseButtonJG() {
-            if (!elementsJG.btnPlay) return;
-            const i = appStateJG.isPlaying ? 'fa-pause':'fa-play';
-            elementsJG.btnPlay.innerHTML = `<i class="fas ${i}"></i>`;
-            document.querySelector('.watering-hole-player')?.classList.toggle('is-playing', appStateJG.isPlaying);
+            const isPlaying = appStateJG.isPlaying;
+            const iconClass = isPlaying ? 'fa-pause' : 'fa-play';
 
+            // Update Full Player Button
+            if (elementsJG.btnPlay) {
+                elementsJG.btnPlay.innerHTML = `<i class="fas ${iconClass}"></i>`;
+            }
+            document.querySelector('.watering-hole-player')?.classList.toggle('is-playing', isPlaying);
+
+            // Update Mini Player Button
+            if (elementsJG.miniPlayerPlayBtn) {
+                 elementsJG.miniPlayerPlayBtn.innerHTML = `<i class="fas ${iconClass}"></i>`;
+            }
+
+            // Update Marquee Animation State
             const marqueeSpan = elementsJG.songTitleDisplay?.querySelector('.marquee-text-inner-jg');
             if (marqueeSpan) {
-                marqueeSpan.style.animationPlayState = appStateJG.isPlaying ? 'running' : 'paused';
+                marqueeSpan.style.animationPlayState = isPlaying ? 'running' : 'paused';
             }
         }
+
 
         function updateActiveListItemJG() { document.querySelectorAll('.log-entry-jg.active-song').forEach(el=>el.classList.remove('active-song')); if(appStateJG.currentSongIndex!==-1&&appStateJG.songs&&appStateJG.currentSongIndex<appStateJG.songs.length){const cSId=appStateJG.songs[appStateJG.currentSongIndex]?.id;if(cSId){document.querySelectorAll(`.log-entry-jg[data-id="${cSId}"]`).forEach(item=>item.classList.add('active-song'));}}}
         function updateDocumentTitleJG() { if (appStateJG.currentSongIndex === -1 || !appStateJG.songs[appStateJG.currentSongIndex]) { document.title = DEFAULT_TITLE_JG; return; } const song = appStateJG.songs[appStateJG.currentSongIndex]; if (!song) { document.title = DEFAULT_TITLE_JG; return; } const displayInfo = getDisplaySongInfoJG(song.id); const prefix = appStateJG.isPlaying ? "▶ " : "❚❚ "; document.title = `${prefix}${displayInfo.title} - ${displayInfo.artist} | Jungle Groove`; }
@@ -1313,7 +1332,6 @@
         function confirmClearHistoryJG(){ if(appStateJG.history.length===0){showSnackbarJG("再生履歴は空","info");return;}if(confirm("再生履歴を全て削除しますか？"))clearHistoryJG();}
         function clearHistoryJG(){ appStateJG.history=[];saveToLocalStorageJG(LS_KEYS_JG.HISTORY,appStateJG.history);if(appStateJG.currentPanel==='log-history'&&elementsJG.historyPanel)renderHistoryListJG();showSnackbarJG("再生履歴削除","success");updateLogActionButtonsJG('log-history');}
 
-        // Profile Modal Functions
         function showProfileModalJG() {
             if (elementsJG.profileModal) {
                 elementsJG.profileModal.style.display = 'flex';
@@ -1328,6 +1346,7 @@
         }
 
         function setupEventListenersJG() {
+            // PC Player Controls
             elementsJG.btnPlay?.addEventListener('click', togglePlayPauseJG);
             elementsJG.btnNext?.addEventListener('click', playNextJG);
             elementsJG.btnPrev?.addEventListener('click', playPrevJG);
@@ -1339,40 +1358,57 @@
             elementsJG.volumeSlider?.addEventListener('input', (e) => setVolumeJG(parseInt(e.target.value)));
             elementsJG.volumeIconMute?.addEventListener('click', toggleMuteJG);
             elementsJG.volumeIconUp?.addEventListener('click', () => { if (appStateJG.isMuted) toggleMuteJG(); });
-            elementsJG.themeToggle?.addEventListener('click', cycleThemeJG);
 
-            // Profile Modal Listeners
+            // Theme and Profile
+            elementsJG.themeToggle?.addEventListener('click', cycleThemeJG);
             elementsJG.profileButton?.addEventListener('click', showProfileModalJG);
             elementsJG.closeProfileModalButton?.addEventListener('click', hideProfileModalJG);
-            elementsJG.profileModal?.addEventListener('click', (e) => {
-                if (e.target === elementsJG.profileModal) { // Click on backdrop
-                    hideProfileModalJG();
-                }
-            });
+            elementsJG.profileModal?.addEventListener('click', (e) => { if (e.target === elementsJG.profileModal) hideProfileModalJG(); });
 
-            elementsJG.logTabs = document.querySelectorAll('.safari-navigation-tabs-jg .log-tab-jg');
-            elementsJG.logTabs.forEach(tab => tab.addEventListener('click', () => switchLogPanelJG(tab.dataset.panel)));
+            // PC Navigation
+            elementsJG.logTabs?.forEach(tab => tab.addEventListener('click', () => switchLogPanelJG(tab.dataset.panel)));
+
+            // Mobile Navigation
+            elementsJG.mobileNavTabs?.forEach(tab => tab.addEventListener('click', () => switchLogPanelJG(tab.dataset.panel)));
+
+            // Mobile Mini Player Control
+            elementsJG.miniPlayerPlayBtn?.addEventListener('click', togglePlayPauseJG);
+
+            // Search
             elementsJG.searchInput?.addEventListener('input', handleSearchJG);
             elementsJG.clearSearchButton?.addEventListener('click', () => { if(elementsJG.searchInput){elementsJG.searchInput.value='';elementsJG.searchInput.dispatchEvent(new Event('input'));elementsJG.searchInput.focus();}});
+
+            // Global / Modals
             document.addEventListener('keydown', handleGlobalKeydownJG);
             elementsJG.songContextMenu?.addEventListener('click', handleContextMenuActionJG);
             document.addEventListener('click', hideSongContextMenuJG);
             elementsJG.confirmEditSongButton?.addEventListener('click', handleConfirmEditSongJG);
             elementsJG.cancelEditSongButton?.addEventListener('click', hideEditSongModalJG);
             elementsJG.editSongModal?.addEventListener('click', (e) => { if (e.target === elementsJG.editSongModal) hideEditSongModalJG(); });
+
+            // Initialize PiP button visibility
             if (document.pictureInPictureEnabled && elementsJG.btnPip) elementsJG.btnPip.style.display = 'inline-flex';
         }
 
         function cycleThemeJG() { currentThemeIndexJG = (currentThemeIndexJG + 1) % AVAILABLE_THEMES_JG.length; const newTheme = AVAILABLE_THEMES_JG[currentThemeIndexJG]; applyThemeJG(newTheme.id); saveToLocalStorageJG(LS_KEYS_JG.THEME, newTheme.id); showSnackbarJG(`テーマ: ${newTheme.name}`, "info", 1500); }
         function applyThemeJG(themeId) { elementsJG.body.className = ''; elementsJG.body.classList.add(themeId); const themeObject = AVAILABLE_THEMES_JG.find(t => t.id === themeId); if (themeObject && themeObject.type === 'light') { elementsJG.body.classList.add('modal-light-theme-jg'); } else { elementsJG.body.classList.remove('modal-light-theme-jg'); } }
+
         function switchLogPanelJG(panelId) {
             if (!panelId) return;
             if (appStateJG.currentViewingPlaylistId && panelId !== 'log-paths') {
                 appStateJG.currentViewingPlaylistId = null;
             }
             appStateJG.currentPanel = panelId;
-            elementsJG.logTabs.forEach(t => t.classList.toggle('active', t.dataset.panel === panelId));
-            elementsJG.logPanels.forEach(p => { if (p) p.classList.toggle('active', p.id === panelId);});
+
+            // Update PC Tabs
+            elementsJG.logTabs?.forEach(t => t.classList.toggle('active', t.dataset.panel === panelId));
+            // Update Mobile Tabs
+            elementsJG.mobileNavTabs?.forEach(t => t.classList.toggle('active', t.dataset.panel === panelId));
+
+            // Activate correct panel
+            elementsJG.logPanels?.forEach(p => { if (p) p.classList.toggle('active', p.id === panelId);});
+
+            // Render content for the active panel
             switch (panelId) {
                 case 'log-library': if (elementsJG.libraryPanel) renderSongListJG(elementsJG.libraryPanel, appStateJG.filteredSongs, 'library'); break;
                 case 'log-discoveries': if (elementsJG.queuePanel) renderSongListJG(elementsJG.queuePanel, appStateJG.queue.map(id => findSongByIdJG(id)).filter(s => s), 'queue'); break;
@@ -1390,6 +1426,7 @@
             }
             updateLogActionButtonsJG(panelId);
         }
+
         function handleSearchJG() { if(!elementsJG.searchInput||!elementsJG.clearSearchButton)return;const sT=elementsJG.searchInput.value.toLowerCase().trim();elementsJG.clearSearchButton.style.display=sT?'inline-block':'none';if(sT===""){appStateJG.filteredSongs=[...appStateJG.songs];}else{appStateJG.filteredSongs=appStateJG.songs.filter(s=>(getDisplaySongInfoJG(s.id).title.toLowerCase().includes(sT))||(getDisplaySongInfoJG(s.id).artist.toLowerCase().includes(sT)));}if(appStateJG.currentPanel==='log-library'&&elementsJG.libraryPanel)renderSongListJG(elementsJG.libraryPanel,appStateJG.filteredSongs,'library');}
         function toggleShuffleJG() { if(!elementsJG.btnShuffle)return;appStateJG.isShuffle=!appStateJG.isShuffle;elementsJG.btnShuffle.classList.toggle('active-control',appStateJG.isShuffle);showSnackbarJG(`シャッフル ${appStateJG.isShuffle?'ON':'OFF'}!`);}
         function toggleLoopJG() { if (!elementsJG.btnLoop) return; if (appStateJG.loopMode === 'none') appStateJG.loopMode = 'all'; else if (appStateJG.loopMode === 'all') appStateJG.loopMode = 'one'; else appStateJG.loopMode = 'none'; elementsJG.btnLoop.classList.toggle('active-control', appStateJG.loopMode !== 'none'); let ind = elementsJG.btnLoop.querySelector('.loop-indicator-jg'); if (appStateJG.loopMode === 'one') { if (!ind) { ind = document.createElement('span'); ind.className = 'loop-indicator-jg'; elementsJG.btnLoop.appendChild(ind); } ind.textContent = '1'; } else { if (ind) ind.remove(); } let msg="リピート: "; if(appStateJG.loopMode==='none')msg+="OFF"; if(appStateJG.loopMode==='all')msg+="全体"+(appStateJG.playMode==='queue'&&appStateJG.queue.length>0?" (キュー)":""); if(appStateJG.loopMode==='one')msg+="この曲"; showSnackbarJG(msg); }
@@ -1400,7 +1437,7 @@
         function renderHistoryListJG() { if (elementsJG.historyPanel) renderSongListJG(elementsJG.historyPanel, appStateJG.history, 'history');}
         function toggleFavoriteJG(songId, iconElement, buttonElement) { const songIndexInFavorites = appStateJG.favorites.findIndex(s => s.id === songId); const song = findSongByIdJG(songId); if (!song) { showSnackbarJG("お気に入り操作エラー: 曲が見つかりません。", "error"); return; } const displayInfo = getDisplaySongInfoJG(songId); let isNowFavorite = false; if (songIndexInFavorites > -1) { appStateJG.favorites.splice(songIndexInFavorites, 1); showSnackbarJG(`「${escapeHTMLJG(displayInfo.title)}」をお気に入りから解除`); } else { appStateJG.favorites.push(song); isNowFavorite = true; showSnackbarJG(`「${escapeHTMLJG(displayInfo.title)}」をお気に入りに追加！`, "success"); } saveToLocalStorageJG(LS_KEYS_JG.FAVORITES, appStateJG.favorites); if (iconElement) iconElement.className = `fas ${isNowFavorite ? 'fa-heart text-jg-accent-sunburst' : 'fa-feather-alt'}`; if (buttonElement) buttonElement.setAttribute('aria-label', isNowFavorite ? 'お気に入りから削除' : 'お気に入りに追加'); if (appStateJG.currentPanel === 'log-trophies' && elementsJG.favoritesPanel) renderSongListJG(elementsJG.favoritesPanel, appStateJG.favorites, 'favorites'); document.querySelectorAll(`.log-entry-jg[data-id="${songId}"] .favorite-action-jg`).forEach(btn => { const i=btn.querySelector('i'); if(i&&i!==iconElement)i.className=`fas ${isNowFavorite?'fa-heart text-jg-accent-sunburst':'fa-feather-alt'}`; if(btn!==buttonElement)btn.setAttribute('aria-label',isNowFavorite?'お気に入りから削除':'お気に入りに追加');}); }
         function addToQueueJG(songId) { const song = findSongByIdJG(songId); if (!song) { showSnackbarJG("曲が見つかりません。", "error"); return; } const displayInfo = getDisplaySongInfoJG(songId); appStateJG.queue.push(songId); saveToLocalStorageJG(LS_KEYS_JG.QUEUE, appStateJG.queue); updateQueueCountBadgeJG(); showSnackbarJG(`「${escapeHTMLJG(displayInfo.title)}」をキューに追加しました。`, "success"); if (appStateJG.currentPanel === 'log-discoveries' && elementsJG.queuePanel) renderSongListJG(elementsJG.queuePanel, appStateJG.queue.map(id => findSongByIdJG(id)).filter(s => s), 'queue'); updateLogActionButtonsJG('log-discoveries');  }
-        function updateQueueCountBadgeJG() { if(elementsJG.queueCountBadge){elementsJG.queueCountBadge.textContent=appStateJG.queue.length;elementsJG.queueCountBadge.style.display=appStateJG.queue.length>0?'inline-block':'none';}}
+        function updateQueueCountBadgeJG() { if(elementsJG.queueCountBadge){ /* This badge is only on PC nav now */ elementsJG.queueCountBadge.textContent=appStateJG.queue.length;elementsJG.queueCountBadge.style.display=appStateJG.queue.length>0?'inline-block':'none';}}
         function generateUniqueIdJG(){ return Date.now().toString(36)+Math.random().toString(36).substring(2);}
         function showCreatePlaylistModalJG(){ const m=document.getElementById('createPlaylistModalJG'),i=document.getElementById('newPlaylistNameJG');if(!m||!i)return;i.value='';m.style.display='flex';appStateJG.activeModalId='createPlaylistModalJG';i.focus();const cB=document.getElementById('confirmCreatePlaylistJG'),canB=document.getElementById('cancelCreatePlaylistJG');const hC=()=>{const pN=i.value.trim();if(pN){createPlaylistJG(pN);hideCreatePlaylistModalJG();}else{showSnackbarJG("プレイリスト名を入力","warning");i.focus();}};const hCan=()=>hideCreatePlaylistModalJG();const hK=(e)=>{if(e.key==='Enter')hC();else if(e.key==='Escape')hCan();};const hBC=(e)=>{if(e.target===m)hCan();};cB._hC=hC;canB._hCan=hCan;i._hK=hK;m._hBC=hBC;cB.addEventListener('click',hC);canB.addEventListener('click',hCan);i.addEventListener('keydown',hK);m.addEventListener('click',hBC);}
         function hideCreatePlaylistModalJG(){ const m=document.getElementById('createPlaylistModalJG');if(!m)return;m.style.display='none';appStateJG.activeModalId=null;const cB=document.getElementById('confirmCreatePlaylistJG'),canB=document.getElementById('cancelCreatePlaylistJG'),i=document.getElementById('newPlaylistNameJG');if(cB&&cB._hC)cB.removeEventListener('click',cB._hC);if(canB&&canB._hCan)canB.removeEventListener('click',canB._hCan);if(i&&i._hK)i.removeEventListener('keydown',i._hK);if(m._hBC)m.removeEventListener('click',m._hBC);}
@@ -1434,7 +1471,7 @@
         function escapeHTMLJG(str) { if(typeof str!=='string'||!str)return '';const map={'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'};return str.replace(/[&<>"']/g,function(m){return map[m];});}
         function saveToLocalStorageJG(key,data){ try{localStorage.setItem(key,JSON.stringify(data));}catch(e){console.error("LocalStorage Save Error:",key,e);showSnackbarJG("設定保存失敗","error");}}
         function loadFromLocalStorageJG(key){ try{const d=localStorage.getItem(key);return d?JSON.parse(d):null;}catch(e){console.error("LocalStorage Load Error:",key,e);return null;}}
-        function showSnackbarJG(message,type='info',duration=3000){ const sId='snackbar-jg-dynamic';let s=document.getElementById(sId);if(!s){s=document.createElement('div');s.id=sId;Object.assign(s.style,{position:'fixed',bottom:'20px',left:'50%',transform:'translateX(-50%) translateY(100px)',padding:'12px 25px',color:'#ecf0f1',borderRadius:'8px',boxShadow:'0 4px 15px rgba(0,0,0,0.3)',zIndex:'10001',opacity:'0',transition:'opacity 0.3s ease, transform 0.3s ease-out',fontSize:'0.9rem',fontFamily:'var(--font-body-jg,sans-serif)',textAlign:'center',minWidth:'280px',maxWidth:'90%'});document.body.appendChild(s);}s.textContent=message;let bgC='#34495e';if(type==='error')bgC='#c0392b';if(type==='success')bgC='#27ae60';if(type==='warning')bgC='#f39c12';s.style.backgroundColor=bgC;requestAnimationFrame(()=>{s.style.opacity='1';s.style.transform='translateX(-50%) translateY(0)';});if(appStateJG.snackbarTimeoutId)clearTimeout(appStateJG.snackbarTimeoutId);appStateJG.snackbarTimeoutId=setTimeout(()=>{s.style.opacity='0';s.style.transform='translateX(-50%) translateY(100px)';},duration);}
+        function showSnackbarJG(message,type='info',duration=3000){ const sId='snackbar-jg-dynamic';let s=document.getElementById(sId);if(!s){s=document.createElement('div');s.id=sId;Object.assign(s.style,{position:'fixed',bottom:'calc(var(--mobile-nav-height, 0px) + 10px)', /* Position above mobile nav */ left:'50%',transform:'translateX(-50%) translateY(100px)',padding:'10px 20px',color:'#ecf0f1',borderRadius:'8px',boxShadow:'0 4px 15px rgba(0,0,0,0.3)',zIndex:'10001',opacity:'0',transition:'opacity 0.3s ease, transform 0.3s ease-out',fontSize:'0.85rem',fontFamily:'var(--font-body-jg,sans-serif)',textAlign:'center',minWidth:'250px',maxWidth:'90%'});document.body.appendChild(s);}s.textContent=message;let bgC='#34495e';if(type==='error')bgC='#c0392b';if(type==='success')bgC='#27ae60';if(type==='warning')bgC='#f39c12';s.style.backgroundColor=bgC;requestAnimationFrame(()=>{s.style.opacity='1';s.style.transform='translateX(-50%) translateY(0)';});if(appStateJG.snackbarTimeoutId)clearTimeout(appStateJG.snackbarTimeoutId);appStateJG.snackbarTimeoutId=setTimeout(()=>{s.style.opacity='0';s.style.transform='translateX(-50%) translateY(100px)';},duration);}
 
         function handleGlobalKeydownJG(event) {
             const tTN = event.target.tagName.toLowerCase();
@@ -1485,7 +1522,7 @@
             initializeElementsJG();
             loadInitialDataJG(false);
             setupEventListenersJG();
-            updatePlayerUIGJ(null);
+            updatePlayerUIGJ(null); // Initially hide mini player if no song
             if (elementsJG.btnShuffle) elementsJG.btnShuffle.classList.toggle('active-control', appStateJG.isShuffle);
             if (elementsJG.btnLoop) {  elementsJG.btnLoop.classList.toggle('active-control',appStateJG.loopMode!=='none');let lI=elementsJG.btnLoop.querySelector('.loop-indicator-jg');if(appStateJG.loopMode==='one'){if(!lI){lI=document.createElement('span');lI.className='loop-indicator-jg';elementsJG.btnLoop.appendChild(lI);}lI.textContent='1';}else if(lI)lI.remove();}
             if (elementsJG.searchInput && elementsJG.clearSearchButton) elementsJG.clearSearchButton.style.display = elementsJG.searchInput.value ? 'inline-block' : 'none';
