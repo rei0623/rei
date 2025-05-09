@@ -202,14 +202,13 @@
 
         /* Modal Styling */
         .modal-dialog-jg {} .modal-input-jg {}
-        .modal-input-jg::placeholder { /* Added this new rule */
+        .modal-input-jg::placeholder {
             color: var(--jg-text-earth);
             opacity: 0.75;
         }
         body.modal-light-theme-jg #createPlaylistModalJG .modal-dialog-jg, body.modal-light-theme-jg #addToPlaylistModalJG .modal-dialog-jg, body.modal-light-theme-jg #editSongModalJG .modal-dialog-jg, body.modal-light-theme-jg #profileModalJG .modal-dialog-jg { background-color: var(--jg-bg-forest-floor) !important; color: var(--jg-text-light) !important; }
         body.modal-light-theme-jg #createPlaylistModalJG .text-jg-accent-sunburst, body.modal-light-theme-jg #addToPlaylistModalJG .text-jg-accent-sunburst, body.modal-light-theme-jg #editSongModalJG .text-jg-accent-sunburst, body.modal-light-theme-jg #profileModalJG .text-jg-accent-sunburst { color: var(--jg-accent-canopy) !important; }
         body.modal-light-theme-jg #newPlaylistNameJG, body.modal-light-theme-jg #editSongTitleJG, body.modal-light-theme-jg #editSongArtistJG { background-color: var(--jg-surface-bark) !important; border-color: var(--jg-border-vine) !important; color: var(--jg-text-light) !important; }
-        /* Removed: body.modal-light-theme-jg #newPlaylistNameJG::placeholder, body.modal-light-theme-jg #editSongTitleJG::placeholder, body.modal-light-theme-jg #editSongArtistJG::placeholder { color: var(--jg-text-shadow) !important; } */
         body.modal-light-theme-jg #cancelCreatePlaylistJG, body.modal-light-theme-jg #cancelAddToPlaylistJG, body.modal-light-theme-jg #cancelEditSongJG, body.modal-light-theme-jg #closeProfileModalJG { background-color: var(--jg-text-shadow) !important; color: var(--jg-bg-deep-jungle) !important; }
         body.modal-light-theme-jg #confirmCreatePlaylistJG, body.modal-light-theme-jg #confirmEditSongJG { background-color: var(--jg-accent-canopy) !important; color: #FFFFFF !important; }
         body.modal-light-theme-jg #addToPlaylistListJG .playlist-select-item-jg:hover { background-color: rgba(var(--jg-surface-leaf-rgb), 0.4) !important; }
@@ -230,6 +229,15 @@
         body.theme-neon-noir-jg #song-context-menu-jg { background-color: var(--jg-bg-forest-floor); border: 1px solid var(--jg-accent-canopy); }
         body.theme-neon-noir-jg #song-context-menu-jg li:hover { background-color: var(--jg-accent-sunburst); color: var(--jg-bg-deep-jungle); }
 
+        /* Override text color for specific inputs in 'theme-dark-jg' and 'theme-forest-dawn-jg' */
+        body.theme-dark-jg #newPlaylistNameJG,
+        body.theme-dark-jg #editSongTitleJG,
+        body.theme-dark-jg #editSongArtistJG,
+        body.theme-forest-dawn-jg #newPlaylistNameJG,
+        body.theme-forest-dawn-jg #editSongTitleJG,
+        body.theme-forest-dawn-jg #editSongArtistJG {
+            color: #000000; /* 黒色の文字 */
+        }
     </style>
 </head>
 <body class="theme-dark-jg">
