@@ -384,7 +384,116 @@
         function cycleThemeJG() { currentThemeIndexJG = (currentThemeIndexJG + 1) % AVAILABLE_THEMES_JG.length; const newTheme = AVAILABLE_THEMES_JG[currentThemeIndexJG]; applyThemeJG(newTheme.id); saveToLocalStorageJG(LS_KEYS_JG.THEME, newTheme.id); showSnackbarJG(`テーマ: ${newTheme.name}`, "info", 1500); }
         function applyThemeJG(themeId) { elementsJG.body.className = ''; elementsJG.body.classList.add(themeId); const themeObject = AVAILABLE_THEMES_JG.find(t => t.id === themeId); if (themeObject && themeObject.type === 'light') { elementsJG.body.classList.add('modal-light-theme-jg'); } else { elementsJG.body.classList.remove('modal-light-theme-jg'); } }
         function switchLogPanelJG(panelId) { if (!panelId) return; if (appStateJG.currentViewingPlaylistId && panelId !== 'log-paths') { appStateJG.currentViewingPlaylistId = null; } appStateJG.currentPanel = panelId; elementsJG.logTabs?.forEach(t => t.classList.toggle('active', t.dataset.panel === panelId)); elementsJG.mobileNavTabs?.forEach(t => t.classList.toggle('active', t.dataset.panel === panelId)); elementsJG.logPanels?.forEach(p => { if (p) p.classList.toggle('active', p.id === panelId);}); switch (panelId) { case 'log-library': if (elementsJG.libraryPanel) renderSongListJG(elementsJG.libraryPanel, appStateJG.filteredSongs, 'library'); break; case 'log-discoveries': if (elementsJG.queuePanel) renderSongListJG(elementsJG.queuePanel, appStateJG.queue.map(id => findSongByIdJG(id)).filter(s => s), 'queue'); break; case 'log-trophies': if (elementsJG.favoritesPanel) renderSongListJG(elementsJG.favoritesPanel, appStateJG.favorites, 'favorites'); break; case 'log-history': if(elementsJG.historyPanel) renderHistoryListJG(); break; case 'log-paths': if(elementsJG.playlistsPanel) { if (appStateJG.currentViewingPlaylistId) renderSongsInPlaylistJG(appStateJG.currentViewingPlaylistId); else renderPlaylistsJG(); } break; } updateLogActionButtonsJG(panelId); /* Show/hide load more button is handled within renderSongListJG */ }
-        function loadInitialDataJG(isSongDataReload = false) { if (!isSongDataReload) { const storedThemeId = loadFromLocalStorageJG(LS_KEYS_JG.THEME) || AVAILABLE_THEMES_JG[0].id; const foundThemeIndex = AVAILABLE_THEMES_JG.findIndex(t => t.id === storedThemeId); currentThemeIndexJG = (foundThemeIndex !== -1) ? foundThemeIndex : 0; applyThemeJG(AVAILABLE_THEMES_JG[currentThemeIndexJG].id); const storedVolume = loadFromLocalStorageJG(LS_KEYS_JG.VOLUME); if (storedVolume !== null) { appStateJG.volume=parseInt(storedVolume,10);appStateJG.isMuted=(appStateJG.volume===0);appStateJG.previousVolumeBeforeMute=appStateJG.volume>0?appStateJG.volume:75;} if(elementsJG.volumeSlider) elementsJG.volumeSlider.value = appStateJG.volume; updateVolumeIconsJG(); const storedRate = loadFromLocalStorageJG(LS_KEYS_JG.PLAYBACK_RATE); if (storedRate !== null) { const rate = parseFloat(storedRate); if (PLAYBACK_RATES_JG.includes(rate)) { currentPlaybackRateIndexJG = PLAYBACK_RATES_JG.indexOf(rate); if (elementsJG.btnPlaybackRate) elementsJG.btnPlaybackRate.textContent = `${rate}x`; elementsJG.btnPlaybackRate?.classList.toggle('active-control', rate !== 1); } } songMetadataOverridesJG = loadFromLocalStorageJG(LS_KEYS_JG.METADATA_OVERRIDES) || {}; } appStateJG.history = (loadFromLocalStorageJG(LS_KEYS_JG.HISTORY) || []).map(hS => findSongByIdJG(hS.id) || hS).filter(s => s && s.id); appStateJG.favorites = (loadFromLocalStorageJG(LS_KEYS_JG.FAVORITES) || []).map(fS => findSongByIdJG(fS.id) || fS).filter(s => s && s.id); appStateJG.queue = (loadFromLocalStorageJG(LS_KEYS_JG.QUEUE) || []).filter(id => findSongByIdJG(id)); appStateJG.userPlaylists = (loadFromLocalStorageJG(LS_KEYS_JG.PLAYLISTS) || []).map(p => ({ ...p, songs: (p.songs || []).filter(id => findSongByIdJG(id)) })); saveToLocalStorageJG(LS_KEYS_JG.HISTORY, appStateJG.history); saveToLocalStorageJG(LS_KEYS_JG.FAVORITES, appStateJG.favorites); saveToLocalStorageJG(LS_KEYS_JG.QUEUE, appStateJG.queue); saveToLocalStorageJG(LS_KEYS_JG.PLAYLISTS, appStateJG.userPlaylists); if (elementsJG.favoritesPanel && (appStateJG.currentPanel === 'log-trophies' || isSongDataReload)) renderSongListJG(elementsJG.favoritesPanel, appStateJG.favorites, 'favorites'); if (elementsJG.historyPanel && (appStateJG.currentPanel === 'log-history' || isSongDataReload)) renderHistoryListJG(); if (elementsJG.queuePanel && (appStateJG.currentPanel === 'log-discoveries' || isSongDataReload)) renderSongListJG(elementsJG.queuePanel, appStateJG.queue.map(id => findSongByIdJG(id)).filter(s => s), 'queue'); if (elementsJG.playlistsPanel && (appStateJG.currentPanel === 'log-paths' || isSongDataReload)) { if (appStateJG.currentViewingPlaylistId) renderSongsInPlaylistJG(appStateJG.currentViewingPlaylistId); else renderPlaylistsJG(); } updateQueueCountBadgeJG(); }
+        function loadInitialDataJG(isSongDataReload = false) {
+            if (!isSongDataReload) { // Initial setup independent of song data (theme, volume, etc.)
+                const storedThemeId = loadFromLocalStorageJG(LS_KEYS_JG.THEME) || AVAILABLE_THEMES_JG[0].id;
+                const foundThemeIndex = AVAILABLE_THEMES_JG.findIndex(t => t.id === storedThemeId);
+                currentThemeIndexJG = (foundThemeIndex !== -1) ? foundThemeIndex : 0;
+                applyThemeJG(AVAILABLE_THEMES_JG[currentThemeIndexJG].id);
+
+                const storedVolume = loadFromLocalStorageJG(LS_KEYS_JG.VOLUME);
+                if (storedVolume !== null) {
+                    appStateJG.volume = parseInt(storedVolume, 10);
+                    appStateJG.isMuted = (appStateJG.volume === 0);
+                    appStateJG.previousVolumeBeforeMute = appStateJG.volume > 0 ? appStateJG.volume : 75;
+                }
+                if (elementsJG.volumeSlider) elementsJG.volumeSlider.value = appStateJG.volume;
+                updateVolumeIconsJG();
+
+                const storedRate = loadFromLocalStorageJG(LS_KEYS_JG.PLAYBACK_RATE);
+                if (storedRate !== null) {
+                    const rate = parseFloat(storedRate);
+                    if (PLAYBACK_RATES_JG.includes(rate)) {
+                        currentPlaybackRateIndexJG = PLAYBACK_RATES_JG.indexOf(rate);
+                        if (elementsJG.btnPlaybackRate) elementsJG.btnPlaybackRate.textContent = `${rate}x`;
+                        elementsJG.btnPlaybackRate?.classList.toggle('active-control', rate !== 1);
+                    }
+                }
+                songMetadataOverridesJG = loadFromLocalStorageJG(LS_KEYS_JG.METADATA_OVERRIDES) || {};
+            }
+
+            // Load raw data from localStorage
+            const rawPlaylists = loadFromLocalStorageJG(LS_KEYS_JG.PLAYLISTS) || [];
+            const rawHistory = loadFromLocalStorageJG(LS_KEYS_JG.HISTORY) || []; // History items are song objects
+            const rawFavorites = loadFromLocalStorageJG(LS_KEYS_JG.FAVORITES) || []; // Favorite items are song objects
+            const rawQueue = loadFromLocalStorageJG(LS_KEYS_JG.QUEUE) || []; // Queue items are song IDs
+
+            if (isSongDataReload && appStateJG.songs && appStateJG.songs.length > 0) {
+                // Song data is now available, so hydrate and save the lists
+                appStateJG.userPlaylists = rawPlaylists.map(p => ({
+                    ...p,
+                    songs: (p.songs || []).filter(id => findSongByIdJG(id)) // Keep only existing song IDs
+                }));
+                saveToLocalStorageJG(LS_KEYS_JG.PLAYLISTS, appStateJG.userPlaylists);
+
+                appStateJG.history = rawHistory
+                    .map(historySongFromStorage => {
+                        const currentSongVersion = findSongByIdJG(historySongFromStorage.id);
+                        return currentSongVersion ? currentSongVersion : null; // Use current song object if it exists
+                    })
+                    .filter(s => s); // Remove nulls (songs that no longer exist)
+                saveToLocalStorageJG(LS_KEYS_JG.HISTORY, appStateJG.history);
+
+                appStateJG.favorites = rawFavorites
+                    .map(favSongFromStorage => {
+                        const currentSongVersion = findSongByIdJG(favSongFromStorage.id);
+                        return currentSongVersion ? currentSongVersion : null;
+                    })
+                    .filter(s => s);
+                saveToLocalStorageJG(LS_KEYS_JG.FAVORITES, appStateJG.favorites);
+
+                appStateJG.queue = rawQueue.filter(id => findSongByIdJG(id));
+                saveToLocalStorageJG(LS_KEYS_JG.QUEUE, appStateJG.queue);
+
+            } else if (!isSongDataReload) {
+                // Initial load, songs not yet ready.
+                // Populate appState with raw data from localStorage. DO NOT filter against songs yet, and DO NOT save back.
+                appStateJG.userPlaylists = rawPlaylists;
+                appStateJG.history = rawHistory;
+                appStateJG.favorites = rawFavorites;
+                appStateJG.queue = rawQueue;
+            } else {
+                 // isSongDataReload is true, but appStateJG.songs is empty (e.g. API error)
+                 // In this case, we effectively clear the local storage for these items,
+                 // as there are no songs to validate against.
+                appStateJG.userPlaylists = [];
+                saveToLocalStorageJG(LS_KEYS_JG.PLAYLISTS, appStateJG.userPlaylists);
+                appStateJG.history = [];
+                saveToLocalStorageJG(LS_KEYS_JG.HISTORY, appStateJG.history);
+                appStateJG.favorites = [];
+                saveToLocalStorageJG(LS_KEYS_JG.FAVORITES, appStateJG.favorites);
+                appStateJG.queue = [];
+                saveToLocalStorageJG(LS_KEYS_JG.QUEUE, appStateJG.queue);
+            }
+
+            // Update UI. Render functions use findSongByIdJG, so they will correctly
+            // display available data or empty states if songs aren't loaded yet or items are filtered out.
+            if (elementsJG.favoritesPanel) {
+                 const favSongsToRender = appStateJG.favorites.map(fav => findSongByIdJG(fav.id)).filter(s => s);
+                 renderSongListJG(elementsJG.favoritesPanel, favSongsToRender, 'favorites');
+            }
+            if (elementsJG.historyPanel) {
+                renderHistoryListJG(); // Relies on appStateJG.history, which is now correctly hydrated or raw
+            }
+            if (elementsJG.queuePanel) {
+                const queueSongsToRender = appStateJG.queue.map(id => findSongByIdJG(id)).filter(s => s);
+                renderSongListJG(elementsJG.queuePanel, queueSongsToRender, 'queue');
+            }
+            if (elementsJG.playlistsPanel) {
+                if (appStateJG.currentViewingPlaylistId) {
+                    const currentPlaylist = appStateJG.userPlaylists.find(p => p.id === appStateJG.currentViewingPlaylistId);
+                    if (currentPlaylist) {
+                        renderSongsInPlaylistJG(appStateJG.currentViewingPlaylistId);
+                    } else {
+                        appStateJG.currentViewingPlaylistId = null; // Playlist no longer exists
+                        renderPlaylistsJG();
+                    }
+                } else {
+                    renderPlaylistsJG();
+                }
+            }
+            updateQueueCountBadgeJG();
+        }
 
         // --- Event Listener Setup ---
         function setupEventListenersJG() {
