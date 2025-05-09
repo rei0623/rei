@@ -242,6 +242,14 @@
 </head>
 <body class="theme-dark-jg">
 
+    <div id="splash-screen-jg" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--jg-bg-deep-jungle); z-index: 99999; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 1; transition: opacity 0.5s ease-out;">
+        <img src="jungle_groove_hero_banner3.JPEG" alt="Jungle Groove Loading..." style="max-width: 90%; max-height: 70vh; object-fit: contain; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.3); margin-bottom: 20px;">
+        <p style="color: var(--jg-text-light); font-family: var(--font-display-jg); font-size: 1.8rem; margin-top: 10px; text-shadow: 1px 1px 2px var(--jg-shadow-heavy);">now loading...</p>
+        <div id="loading-bar-container-jg" style="width: 60%; max-width: 300px; height: 10px; background-color: var(--jg-surface-bark); border-radius: 5px; margin-top: 15px; overflow: hidden; box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);">
+            <div id="loading-bar-progress-jg" style="width: 0%; height: 100%; background-color: var(--jg-accent-sunburst); border-radius: 5px; transition: width 2.5s ease-out;"></div>
+        </div>
+    </div>
+
     <div class="jungle-background-layers">
         <div class="layer layer-1"></div>
         <div class="layer layer-2"></div>
@@ -544,6 +552,26 @@
 
         // --- Initialization ---
         document.addEventListener('DOMContentLoaded', () => {
+            const splashScreen = document.getElementById('splash-screen-jg');
+            const loadingProgressBar = document.getElementById('loading-bar-progress-jg');
+
+            if (splashScreen && loadingProgressBar) {
+                // Ensure the bar starts at 0% then animates to 100%
+                loadingProgressBar.style.width = '0%';
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => { // Double requestAnimationFrame for some browsers to catch transition
+                        loadingProgressBar.style.width = '100%';
+                    });
+                });
+
+                setTimeout(() => {
+                    splashScreen.style.opacity = '0';
+                    setTimeout(() => {
+                        splashScreen.style.display = 'none';
+                    }, 500); // Match opacity transition duration
+                }, 3000);
+            }
+
             initializeElementsJG();
             loadInitialDataJG(false);
             setupEventListenersJG(); // Call setup *after* all functions are defined
