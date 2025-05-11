@@ -712,16 +712,22 @@
             }
             currentPlaybackRateIndexJG = (currentPlaybackRateIndexJG + 1) % PLAYBACK_RATES_JG.length;
             const newRate = PLAYBACK_RATES_JG[currentPlaybackRateIndexJG];
-            appStateJG.player.setPlaybackRate(newRate);
             
-            if (elementsJG.btnPlaybackRate) {
-                elementsJG.btnPlaybackRate.textContent = `${newRate}x`;
-                elementsJG.btnPlaybackRate.classList.toggle('active-control', newRate !== 1);
+            if (appStateJG.player && typeof appStateJG.player.setPlaybackRate === 'function') {
+                 appStateJG.player.setPlaybackRate(newRate);
             }
-            if (elementsJG.fullPlayerModalBtnPlaybackRate) {
-                elementsJG.fullPlayerModalBtnPlaybackRate.textContent = `${newRate}x`;
-                elementsJG.fullPlayerModalBtnPlaybackRate.classList.toggle('active-control', newRate !== 1);
-            }
+
+            requestAnimationFrame(() => {
+                if (elementsJG.btnPlaybackRate) {
+                    elementsJG.btnPlaybackRate.textContent = `${newRate}x`;
+                    elementsJG.btnPlaybackRate.classList.toggle('active-control', newRate !== 1);
+                }
+                if (elementsJG.fullPlayerModalBtnPlaybackRate) {
+                    elementsJG.fullPlayerModalBtnPlaybackRate.textContent = `${newRate}x`;
+                    elementsJG.fullPlayerModalBtnPlaybackRate.classList.toggle('active-control', newRate !== 1);
+                }
+            });
+            
             saveToLocalStorageJG(LS_KEYS_JG.PLAYBACK_RATE, newRate);
             showSnackbarJG(`再生速度: ${newRate}x`, "info", 1500);
         }
@@ -729,15 +735,21 @@
             if (appStateJG.player && appStateJG.isPlayerReady && typeof appStateJG.player.setPlaybackRate === 'function') {
                 const validRate = PLAYBACK_RATES_JG.includes(rate) ? rate : 1;
                 currentPlaybackRateIndexJG = PLAYBACK_RATES_JG.indexOf(validRate);
-                appStateJG.player.setPlaybackRate(validRate);
-                if (elementsJG.btnPlaybackRate) {
-                    elementsJG.btnPlaybackRate.textContent = `${validRate}x`;
-                    elementsJG.btnPlaybackRate.classList.toggle('active-control', validRate !== 1);
+                
+                if (appStateJG.player && typeof appStateJG.player.setPlaybackRate === 'function') {
+                    appStateJG.player.setPlaybackRate(validRate);
                 }
-                if (elementsJG.fullPlayerModalBtnPlaybackRate) {
-                    elementsJG.fullPlayerModalBtnPlaybackRate.textContent = `${validRate}x`;
-                    elementsJG.fullPlayerModalBtnPlaybackRate.classList.toggle('active-control', validRate !== 1);
-                }
+
+                requestAnimationFrame(() => {
+                    if (elementsJG.btnPlaybackRate) {
+                        elementsJG.btnPlaybackRate.textContent = `${validRate}x`;
+                        elementsJG.btnPlaybackRate.classList.toggle('active-control', validRate !== 1);
+                    }
+                    if (elementsJG.fullPlayerModalBtnPlaybackRate) {
+                        elementsJG.fullPlayerModalBtnPlaybackRate.textContent = `${validRate}x`;
+                        elementsJG.fullPlayerModalBtnPlaybackRate.classList.toggle('active-control', validRate !== 1);
+                    }
+                });
             }
         }
         async function togglePictureInPictureJG() { if (!elementsJG.youtubePlayerContainer || !elementsJG.youtubePlayerContainer.firstChild) { showSnackbarJG("PiPターゲットなし", "error"); return; } const videoElement = elementsJG.youtubePlayerContainer.firstChild; if (!document.pictureInPictureEnabled) { showSnackbarJG("ブラウザPiP非対応", "warning"); elementsJG.btnPip.disabled = true; if(elementsJG.fullPlayerModalBtnPip) elementsJG.fullPlayerModalBtnPip.disabled = true; return; } try { if (document.pictureInPictureElement) { await document.exitPictureInPicture(); } else { if (videoElement.requestPictureInPicture) { await videoElement.requestPictureInPicture(); } else { showSnackbarJG("PiP開始失敗", "error"); } } } catch (error) { console.error("PiP Error:", error); showSnackbarJG(`PiPエラー: ${error.message}`, "error"); } }
