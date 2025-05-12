@@ -80,17 +80,13 @@
             #splash-image-jg {
                 object-position: top center; /* Align top for PC */
             }
-            /* Optional: Adjust overlay position if needed for PC */
-            /* #splash-content-overlay-jg {
-                bottom: 15vh; 
-            } */
             #splash-text-jg {
                 color: var(--jg-text-light);
-                background-color: rgba(0, 0, 0, 0.65); /* Semi-transparent dark background for readability */
+                background-color: rgba(0, 0, 0, 0.65); 
                 padding: 10px 20px;
                 border-radius: 8px;
-                display: inline-block; /* Background only covers text block */
-                text-shadow: none; /* Remove old shadow if background is sufficient */
+                display: inline-block; 
+                text-shadow: none; 
                 box-shadow: 0 2px 8px rgba(0,0,0,0.3);
             }
             #loading-bar-container-jg {
@@ -522,8 +518,8 @@
                 totalTimeDisplay: document.getElementById('total-time-jg'),
                 progressSlider: document.getElementById('progress-slider-jg'),
                 volumeSlider: document.getElementById('volume-slider-jg'),
-                volumeIconMute: document.querySelector('.watering-hole-player .volume-fruit-jg .fa-volume-mute'), // More specific selector
-                volumeIconUp: document.querySelector('.watering-hole-player .volume-fruit-jg .fa-volume-up'),     // More specific selector
+                volumeIconMute: document.querySelector('.watering-hole-player .volume-fruit-jg .fa-volume-mute'), 
+                volumeIconUp: document.querySelector('.watering-hole-player .volume-fruit-jg .fa-volume-up'),     
                 logTabsContainer: document.querySelector('.safari-navigation-tabs-jg .log-tabs-jg'),
                 logTabs: document.querySelectorAll('.safari-navigation-tabs-jg .log-tab-jg'),
                 logPanels: document.querySelectorAll('.log-panel-jg'),
@@ -551,8 +547,6 @@
                 songContextMenu: document.getElementById('song-context-menu-jg'),
                 profileModal: document.getElementById('profileModalJG'),
                 closeProfileModalButton: document.getElementById('closeProfileModalJG'),
-
-                // Mobile Full Player Modal Elements
                 mobileFullPlayerModal: document.getElementById('mobile-full-player-modal-jg'),
                 closeFullPlayerModalBtn: document.getElementById('close-full-player-modal-btn-jg'),
                 fullPlayerModalAlbumArt: document.getElementById('full-player-modal-album-art-jg'),
@@ -592,7 +586,7 @@
         function updateLoadMoreButtonJG(show, loading = false) { if (!elementsJG.loadMoreContainer || !elementsJG.loadMoreButton) return; const shouldShow = show && appStateJG.currentPanel === 'log-library' && elementsJG.searchInput?.value.trim() === ""; if (shouldShow) { elementsJG.loadMoreContainer.style.display = 'block'; elementsJG.loadMoreButton.disabled = loading; elementsJG.loadMoreButton.innerHTML = loading ? '<i class="fas fa-spinner fa-spin"></i> 読み込み中...' : 'もっと読み込む'; } else { elementsJG.loadMoreContainer.style.display = 'none'; } }
 
         // --- UI Update Functions ---
-        function renderSongListJG(panelElement, songsToRender, context) { if (!panelElement) return; const isDraggableContext = (context === 'queue' || context === 'playlistSongs'); // Clear only existing entries, keep load more container if present
+        function renderSongListJG(panelElement, songsToRender, context) { if (!panelElement) return; const isDraggableContext = (context === 'queue' || context === 'playlistSongs'); 
         let currentLoadMoreContainer = panelElement.querySelector('#load-more-container-jg'); if (currentLoadMoreContainer) currentLoadMoreContainer.remove(); panelElement.innerHTML = ''; if (isDraggableContext) { panelElement.removeEventListener('dragover', handleDragOverJG); panelElement.removeEventListener('drop', handleDropJG); panelElement.removeEventListener('dragleave', handleDragLeaveJG); panelElement.addEventListener('dragover', handleDragOverJG); panelElement.addEventListener('drop', (event) => handleDropJG(event, panelElement, context)); panelElement.addEventListener('dragleave', handleDragLeaveJG); } if (!songsToRender || songsToRender.length === 0) { let emptyTitle = "何も見つからない..."; let emptyMessage = "このエリアにはまだ何もないようだ。"; if (context === 'library' && elementsJG.searchInput?.value) { emptyTitle = "検索結果なし"; emptyMessage = `「${escapeHTMLJG(elementsJG.searchInput.value)}」一致なし...`; } else if (context === 'queue') { emptyTitle = "キューは空っぽ"; emptyMessage = "ライブラリから曲を追加！"; } else if (context === 'favorites') { emptyTitle = "お気に入りの宝物なし"; emptyMessage = "曲の羽アイコンをクリック！"; } else if (context === 'history') { emptyTitle = "足跡なし"; emptyMessage = "まだ探検していないようだ。"; } showEmptyMessageInPanelJG(panelElement, emptyTitle, emptyMessage); } else {const fragment = document.createDocumentFragment(); songsToRender.forEach((songData, listIndex) => { if (!songData || !songData.id) return; const displayInfo = getDisplaySongInfoJG(songData.id); const originalSongIndex = appStateJG.songs.findIndex(s => s.id === songData.id); const currentPlayingSong = appStateJG.songs[appStateJG.currentSongIndex]; const isActive = currentPlayingSong && currentPlayingSong.id === songData.id; const isFavorited = appStateJG.favorites.some(fav => fav.id === songData.id); const isEdited = songMetadataOverridesJG[songData.id] ? '<i class="fas fa-edit edited-indicator-jg" title="情報編集済み"></i>' : ''; const entry = document.createElement('div'); entry.className = `log-entry-jg ${isActive ? 'active-song' : ''}`; entry.dataset.id = songData.id; entry.dataset.originalIndex = originalSongIndex; entry.dataset.listIndex = listIndex; if (isDraggableContext) { entry.draggable = true; entry.style.cursor = 'grab'; entry.addEventListener('dragstart', (event) => handleDragStartJG(event, songData.id, listIndex, context)); entry.addEventListener('dragend', handleDragEndJG); } else { entry.style.cursor = 'pointer'; } entry.addEventListener('contextmenu', (e) => { e.preventDefault(); showSongContextMenuJG(e.clientX, e.clientY, songData.id); }); let actionButtonsHTML = ''; if (context !== 'queue') { actionButtonsHTML += `<button class="song-item-action-jg add-to-queue-action-jg" title="キューに追加"><i class="fas fa-stream"></i></button>`; } if (context !== 'queue') { actionButtonsHTML += `<button class="song-item-action-jg add-to-playlist-action-jg" title="プレイリストに追加"><i class="fas fa-folder-plus"></i></button>`; } actionButtonsHTML += `<button class="song-item-action-jg favorite-action-jg" title="${isFavorited ? 'お気に入りから削除' : 'お気に入りに追加'}"><i class="fas ${isFavorited ? 'fa-heart text-jg-accent-sunburst' : 'fa-feather-alt'}"></i></button>`; if (context === 'playlistSongs' && appStateJG.currentViewingPlaylistId) { actionButtonsHTML += `<button class="song-item-action-jg remove-from-playlist-action-jg" title="このプレイリストから削除"><i class="fas fa-minus-circle text-red-500 hover:text-red-400"></i></button>`;} entry.innerHTML = ` <img src="${displayInfo.thumbnail || 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'}" alt="${escapeHTMLJG(displayInfo.title || '')}" class="${!displayInfo.thumbnail ? 'img-placeholder list-thumb-placeholder' : ''}"> <div> <span class="title">${escapeHTMLJG(displayInfo.title || '不明なタイトル')} ${isEdited}</span> <span class="artist">${escapeHTMLJG(displayInfo.artist || '不明なアーティスト')}</span> </div> <span class="duration">${songData.duration || '--:--'}</span> <div class="log-entry-actions-jg">${actionButtonsHTML}</div>`; entry.querySelector('.favorite-action-jg')?.addEventListener('click', (e) => { e.stopPropagation(); toggleFavoriteJG(songData.id, e.currentTarget.querySelector('i'), e.currentTarget); }); entry.querySelector('.add-to-queue-action-jg')?.addEventListener('click', (e) => { e.stopPropagation(); addToQueueJG(songData.id); }); entry.querySelector('.add-to-playlist-action-jg')?.addEventListener('click', (e) => { e.stopPropagation(); showAddToPlaylistModalJG(songData.id); }); entry.querySelector('.remove-from-playlist-action-jg')?.addEventListener('click', (e) => { e.stopPropagation(); if (appStateJG.currentViewingPlaylistId) confirmRemoveSongFromPlaylistJG(songData.id, appStateJG.currentViewingPlaylistId, displayInfo.title); });
         entry.addEventListener('click', (e) => {
             if (e.target.closest('.song-item-action-jg') || entry.classList.contains('dragging-jg')) return;
@@ -640,7 +634,7 @@
                     appStateJG.shuffledPlaylistSongIds = [];
                     appStateJG.shuffledPlaylistCurrentIndex = -1;
                 }
-            } else { // Library mode
+            } else { 
                 appStateJG.playMode = 'library';
                 appStateJG.currentQueueIndex = -1;
                 appStateJG.currentPlayingPlaylistId = null;
@@ -660,7 +654,6 @@
             const placeholderArt = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
             const playerElement = document.querySelector('.watering-hole-player');
 
-            // PC Player
             if (elementsJG.mainAlbumArt) {
                 elementsJG.mainAlbumArt.src = displayInfo?.thumbnail || placeholderArt;
                 elementsJG.mainAlbumArt.classList.toggle('album-art-placeholder', !displayInfo?.thumbnail);
@@ -676,7 +669,6 @@
                 if (elementsJG.progressSlider) elementsJG.progressSlider.value = 0;
             }
 
-            // Mini Player
             if (elementsJG.miniPlayerContainer) {
                 if (displayInfo) {
                     elementsJG.miniPlayerContainer.style.display = 'flex';
@@ -687,12 +679,9 @@
                     }
                     if(elementsJG.miniPlayerTitle) elementsJG.miniPlayerTitle.textContent = displayInfo.title || "Track Title";
                     if(elementsJG.miniPlayerArtist) elementsJG.miniPlayerArtist.textContent = displayInfo.artist || "Artist Name";
-                } else {
-                    // elementsJG.miniPlayerContainer.style.display = 'none'; // Keep mini player visible but empty, or hide
                 }
             }
             
-            // Mobile Full Screen Player Modal
             if (elementsJG.fullPlayerModalAlbumArt) {
                 elementsJG.fullPlayerModalAlbumArt.src = displayInfo?.thumbnail || placeholderArt;
                 elementsJG.fullPlayerModalAlbumArt.classList.toggle('album-art-placeholder', !displayInfo?.thumbnail);
@@ -701,7 +690,7 @@
             if (elementsJG.fullPlayerModalTitle) elementsJG.fullPlayerModalTitle.textContent = displayInfo?.title || defaultTitle;
             if (elementsJG.fullPlayerModalArtist) elementsJG.fullPlayerModalArtist.textContent = displayInfo?.artist || defaultArtist;
             
-            if(!displayInfo && elementsJG.mobileFullPlayerModal?.style.display === 'flex'){ // If modal is open and no song
+            if(!displayInfo && elementsJG.mobileFullPlayerModal?.style.display === 'flex'){ 
                 if (elementsJG.fullPlayerModalCurrentTime) elementsJG.fullPlayerModalCurrentTime.textContent = "0:00";
                 if (elementsJG.fullPlayerModalTotalTime) elementsJG.fullPlayerModalTotalTime.textContent = "0:00";
                 if (elementsJG.fullPlayerModalProgressSlider) elementsJG.fullPlayerModalProgressSlider.value = 0;
@@ -714,12 +703,9 @@
         function updatePlayPauseButtonJG() {
             const isPlaying = appStateJG.isPlaying;
             const iconClass = isPlaying ? 'fa-pause' : 'fa-play';
-            // PC Player
             if (elementsJG.btnPlay) elementsJG.btnPlay.innerHTML = `<i class="fas ${iconClass}"></i>`;
             document.querySelector('.watering-hole-player')?.classList.toggle('is-playing', isPlaying);
-            // Mini Player
             if (elementsJG.miniPlayerPlayBtn) elementsJG.miniPlayerPlayBtn.innerHTML = `<i class="fas ${iconClass}"></i>`;
-            // Mobile Full Screen Player Modal
             if (elementsJG.fullPlayerModalBtnPlay) elementsJG.fullPlayerModalBtnPlay.innerHTML = `<i class="fas ${iconClass}"></i>`;
             
             const marqueeSpan = elementsJG.songTitleDisplay?.querySelector('.marquee-text-inner-jg');
@@ -731,6 +717,7 @@
         // --- Player Control Functions ---
         function playSongAtIndexJG(index) { if (index < 0 || !appStateJG.songs || index >= appStateJG.songs.length) { showSnackbarJG("無効な曲index", "error"); return; } appStateJG.currentSongIndex = index; const song = appStateJG.songs[index]; if (!song || !song.id) { showSnackbarJG("曲情報不正", "error"); updatePlayerUIGJ(null); return; } updatePlayerUIGJ(song); if (appStateJG.player && appStateJG.isPlayerReady) { try { appStateJG.player.loadVideoById(song.id); } catch (error) { console.error("loadVideoById Error:", error); showSnackbarJG("動画読込失敗", "error"); } } else { if (!appStateJG.isPlayerReady) showSnackbarJG("プレイヤー準備未了", "warning"); else if (!song.id) showSnackbarJG("曲IDなし", "error"); } addToHistoryJG(song); if (appStateJG.currentPanel === 'log-history' && elementsJG.historyPanel) renderHistoryListJG(); }
         function togglePlayPauseJG() { if(!appStateJG.player||!appStateJG.isPlayerReady){showSnackbarJG("プレイヤー準備未了","warning");return;}if(appStateJG.currentSongIndex===-1&&appStateJG.songs&&appStateJG.songs.length>0){appStateJG.playMode='library';appStateJG.currentQueueIndex=-1;playSongAtIndexJG(0);return;}if(appStateJG.currentSongIndex===-1&&(!appStateJG.songs||appStateJG.songs.length===0)){showSnackbarJG("再生曲なし","info");return;}if(appStateJG.isPlaying){appStateJG.player.pauseVideo();}else{appStateJG.player.playVideo();}}
+        
         function playNextJG() {
             if (!appStateJG.songs || appStateJG.songs.length === 0) {
                 showSnackbarJG("リストに曲なし", "info");
@@ -738,22 +725,31 @@
             }
             let nextSongOriginalIndex = -1;
 
-            if (appStateJG.playMode === 'queue' && appStateJG.queue.length > 0) {
-                let currentList = appStateJG.queue.map(id => findSongByIdJG(id)).filter(s => s);
-                let nextListIndex = appStateJG.currentQueueIndex + 1;
-                if (nextListIndex >= currentList.length) {
-                    if (appStateJG.loopMode === 'all') {
-                        nextListIndex = 0;
-                    } else {
-                        showSnackbarJG("キュー再生終了", "info");
-                        appStateJG.isPlaying = false; updatePlayPauseButtonJG(); updateDocumentTitleJG(); return;
+            if (appStateJG.playMode === 'queue') {
+                if (appStateJG.queue.length > 0) {
+                    let currentList = appStateJG.queue.map(id => findSongByIdJG(id)).filter(s => s);
+                    let nextListIndex = appStateJG.currentQueueIndex + 1;
+                    if (nextListIndex >= currentList.length) {
+                        if (appStateJG.loopMode === 'all') {
+                            nextListIndex = 0;
+                        } else {
+                            showSnackbarJG("キュー再生終了", "info");
+                            appStateJG.isPlaying = false; updatePlayPauseButtonJG(); updateDocumentTitleJG(); return;
+                        }
                     }
+                    appStateJG.currentQueueIndex = nextListIndex;
+                    if (currentList[appStateJG.currentQueueIndex]) { 
+                        const nextSongIdInQueue = currentList[appStateJG.currentQueueIndex].id;
+                        nextSongOriginalIndex = appStateJG.songs.findIndex(s => s.id === nextSongIdInQueue);
+                    } else { 
+                        appStateJG.playMode = 'library'; 
+                    }
+                } else {
+                     appStateJG.playMode = 'library'; 
                 }
-                appStateJG.currentQueueIndex = nextListIndex;
-                const nextSongIdInQueue = appStateJG.queue[appStateJG.currentQueueIndex];
-                nextSongOriginalIndex = appStateJG.songs.findIndex(s => s.id === nextSongIdInQueue);
+            }
 
-            } else if (appStateJG.playMode === 'playlist' && appStateJG.currentPlayingPlaylistId) {
+            if (appStateJG.playMode === 'playlist') {
                 const playlist = appStateJG.userPlaylists.find(pl => pl.id === appStateJG.currentPlayingPlaylistId);
                 if (playlist && playlist.songs.length > 0) {
                     if (appStateJG.isShuffle && appStateJG.shuffledPlaylistSongIds.length > 0) {
@@ -782,15 +778,15 @@
                         const nextSongIdInPlaylist = playlist.songs[appStateJG.currentQueueIndex];
                         nextSongOriginalIndex = appStateJG.songs.findIndex(s => s.id === nextSongIdInPlaylist);
                     } else { 
-                        appStateJG.playMode = 'library'; 
+                        appStateJG.playMode = 'library';
                     }
-                } else { 
-                    appStateJG.playMode = 'library'; 
+                } else {
+                    appStateJG.playMode = 'library';
                 }
             }
 
-            if (nextSongOriginalIndex === -1 && appStateJG.playMode === 'library') {
-                if (appStateJG.isShuffle) { 
+            if (appStateJG.playMode === 'library') { 
+                if (appStateJG.isShuffle) {
                     if (appStateJG.songs.length === 0) { showSnackbarJG("リストに曲なし", "info"); return; }
                     if (appStateJG.songs.length === 1) {
                         nextSongOriginalIndex = 0;
@@ -809,7 +805,7 @@
                         showSnackbarJG(appStateJG.songs.length > 0 ? "現在のフィルターで再生できる曲なし" : "探検終了！", "info");
                         appStateJG.isPlaying = false; updatePlayPauseButtonJG(); updateDocumentTitleJG(); return;
                     }
-                    let cFI = -1; 
+                    let cFI = -1;
                     if (appStateJG.currentSongIndex !== -1 && appStateJG.songs[appStateJG.currentSongIndex]) {
                         const cASId = appStateJG.songs[appStateJG.currentSongIndex].id;
                         cFI = appStateJG.filteredSongs.findIndex(s => s.id === cASId);
@@ -826,17 +822,21 @@
                     }
                     if (appStateJG.filteredSongs[nextFilteredIndex]) {
                         nextSongOriginalIndex = appStateJG.songs.findIndex(s => s.id === appStateJG.filteredSongs[nextFilteredIndex].id);
+                    } else {
+                        showSnackbarJG("次の曲が見つかりません (フィルター結果)", "error");
+                        return;
                     }
                 }
             }
 
             if (nextSongOriginalIndex !== -1) {
                 playSongAtIndexJG(nextSongOriginalIndex);
-            } else if (appStateJG.playMode !== 'library' && nextSongOriginalIndex === -1) {
-                showSnackbarJG("再生できる曲がありません", "info");
+            } else {
+                showSnackbarJG("再生できる次の曲が見つかりません", "info");
                 appStateJG.isPlaying = false; updatePlayPauseButtonJG(); updateDocumentTitleJG();
             }
         }
+
         function playPrevJG() {
             if (!appStateJG.songs || appStateJG.songs.length === 0) {
                 showSnackbarJG("リストに曲なし", "info");
@@ -850,22 +850,31 @@
 
             let prevSongOriginalIndex = -1;
 
-            if (appStateJG.playMode === 'queue' && appStateJG.queue.length > 0) {
-                let currentList = appStateJG.queue.map(id => findSongByIdJG(id)).filter(s => s);
-                let prevListIndex = appStateJG.currentQueueIndex - 1;
-                if (prevListIndex < 0) {
-                    if (appStateJG.loopMode === 'all' && currentList.length > 0) {
-                        prevListIndex = currentList.length - 1;
-                    } else { 
-                        prevListIndex = 0;
-                        if (appStateJG.player && appStateJG.isPlayerReady && appStateJG.player.seekTo) appStateJG.player.seekTo(0);
+            if (appStateJG.playMode === 'queue') {
+                if (appStateJG.queue.length > 0) {
+                    let currentList = appStateJG.queue.map(id => findSongByIdJG(id)).filter(s => s);
+                    let prevListIndex = appStateJG.currentQueueIndex - 1;
+                    if (prevListIndex < 0) {
+                        if (appStateJG.loopMode === 'all' && currentList.length > 0) {
+                            prevListIndex = currentList.length - 1;
+                        } else {
+                            prevListIndex = 0;
+                            if (appStateJG.player && appStateJG.isPlayerReady && appStateJG.player.seekTo) appStateJG.player.seekTo(0);
+                        }
                     }
+                    appStateJG.currentQueueIndex = prevListIndex;
+                     if (currentList[appStateJG.currentQueueIndex]) { 
+                        const prevSongIdInQueue = currentList[appStateJG.currentQueueIndex].id;
+                        prevSongOriginalIndex = appStateJG.songs.findIndex(s => s.id === prevSongIdInQueue);
+                    } else {
+                        appStateJG.playMode = 'library'; 
+                    }
+                } else {
+                    appStateJG.playMode = 'library'; 
                 }
-                appStateJG.currentQueueIndex = prevListIndex;
-                const prevSongIdInQueue = appStateJG.queue[appStateJG.currentQueueIndex];
-                prevSongOriginalIndex = appStateJG.songs.findIndex(s => s.id === prevSongIdInQueue);
+            }
 
-            } else if (appStateJG.playMode === 'playlist' && appStateJG.currentPlayingPlaylistId) {
+            if (appStateJG.playMode === 'playlist') { 
                 const playlist = appStateJG.userPlaylists.find(pl => pl.id === appStateJG.currentPlayingPlaylistId);
                 if (playlist && playlist.songs.length > 0) {
                     if (appStateJG.isShuffle && appStateJG.shuffledPlaylistSongIds.length > 0) {
@@ -873,7 +882,7 @@
                         if (appStateJG.shuffledPlaylistCurrentIndex < 0) {
                             if (appStateJG.loopMode === 'all') {
                                 appStateJG.shuffledPlaylistCurrentIndex = appStateJG.shuffledPlaylistSongIds.length - 1;
-                            } else { 
+                            } else {
                                 appStateJG.shuffledPlaylistCurrentIndex = 0;
                                 if (appStateJG.player && appStateJG.isPlayerReady && appStateJG.player.seekTo) appStateJG.player.seekTo(0);
                             }
@@ -901,7 +910,7 @@
                 }
             }
 
-            if (prevSongOriginalIndex === -1 && appStateJG.playMode === 'library') {
+            if (appStateJG.playMode === 'library') { 
                 if (appStateJG.isShuffle) {
                     if (appStateJG.songs.length === 0) { showSnackbarJG("リストに曲なし", "info"); return; }
                     if (appStateJG.songs.length === 1) {
@@ -916,7 +925,7 @@
                         } while (randomSongData.id === currentSongId && appStateJG.songs.length > 1 && attempts < appStateJG.songs.length * 2);
                         prevSongOriginalIndex = appStateJG.songs.findIndex(s => s.id === randomSongData.id);
                     }
-                } else {
+                } else { 
                     if (appStateJG.filteredSongs.length === 0) {
                         showSnackbarJG(appStateJG.songs.length > 0 ? "現在のフィルターで再生できる曲なし" : "再生できる曲なし", "info");
                         if (appStateJG.player && appStateJG.isPlayerReady && appStateJG.player.seekTo) appStateJG.player.seekTo(0); return;
@@ -938,24 +947,27 @@
                     }
                     if (appStateJG.filteredSongs[prevFilteredIndex]) {
                         prevSongOriginalIndex = appStateJG.songs.findIndex(s => s.id === appStateJG.filteredSongs[prevFilteredIndex].id);
+                    } else {
+                        showSnackbarJG("前の曲が見つかりません (フィルター結果)", "error");
+                        return;
                     }
                 }
             }
 
             if (prevSongOriginalIndex !== -1) {
                 playSongAtIndexJG(prevSongOriginalIndex);
-            } else if (appStateJG.playMode !== 'library' && prevSongOriginalIndex === -1) {
-                showSnackbarJG("再生できる曲がありません", "info");
+            } else {
+                showSnackbarJG("再生できる前の曲が見つかりません", "info");
                 if (appStateJG.player && appStateJG.isPlayerReady && appStateJG.player.seekTo) appStateJG.player.seekTo(0);
             }
         }
+
         function handleSongEndJG() { if (appStateJG.loopMode === 'one' && appStateJG.currentSongIndex !== -1) playSongAtIndexJG(appStateJG.currentSongIndex); else playNextJG(); }
         function updateProgressJG() {
             if(!appStateJG.player||!appStateJG.isPlayerReady||typeof appStateJG.player.getDuration!=='function')return;
             const curTime=appStateJG.player.getCurrentTime?appStateJG.player.getCurrentTime():0;
             const dur=appStateJG.player.getDuration?appStateJG.player.getDuration():0;
 
-            // PC Player
             if(elementsJG.progressSlider&&elementsJG.currentTimeDisplay&&elementsJG.totalTimeDisplay){
                 if(dur>0){
                     elementsJG.progressSlider.value=(curTime/dur)*100;
@@ -972,7 +984,6 @@
                     elementsJG.totalTimeDisplay.textContent="0:00";
                 }
             }
-            // Mobile Full Screen Player
             if(elementsJG.fullPlayerModalProgressSlider && elementsJG.fullPlayerModalCurrentTime && elementsJG.fullPlayerModalTotalTime){
                 if(dur > 0){
                     elementsJG.fullPlayerModalProgressSlider.value = (curTime / dur) * 100;
@@ -1039,8 +1050,8 @@
         function onPlayerErrorJG(event) { console.error("Player Error:", event.data); let msg=`動画再生エラー(${event.data})`; const cST=getDisplaySongInfoJG(appStateJG.songs[appStateJG.currentSongIndex]?.id).title||"この動画"; switch(event.data){case 2:msg=`「${escapeHTMLJG(cST)}」読込失敗。ID無効等`;break;case 5:msg=`「${escapeHTMLJG(cST)}」HTML5プレイヤーエラー`;break;case 100:msg=`「${escapeHTMLJG(cST)}」が見つかりません`;break;case 101:case 150:msg=`「${escapeHTMLJG(cST)}」埋込再生不可`;break;default:msg=`「${escapeHTMLJG(cST)}」不明なエラー(${event.data})`} showSnackbarJG(msg,"error",7000);appStateJG.isPlaying=false;updatePlayPauseButtonJG();updateDocumentTitleJG(); }
 
         // --- List Management & UI Interaction ---
-        function handleSearchJG() { if(!elementsJG.searchInput||!elementsJG.clearSearchButton)return;const sT=elementsJG.searchInput.value.toLowerCase().trim();elementsJG.clearSearchButton.style.display=sT?'inline-block':'none';if(sT===""){appStateJG.filteredSongs=[...appStateJG.songs];}else{appStateJG.filteredSongs=appStateJG.songs.filter(s=>(getDisplaySongInfoJG(s.id).title.toLowerCase().includes(sT))||(getDisplaySongInfoJG(s.id).artist.toLowerCase().includes(sT)));} switchLogPanelJG(appStateJG.currentPanel); /* Re-render with filter */ updateLoadMoreButtonJG(!!appStateJG.nextPageToken && appStateJG.currentPanel === 'log-library' && sT === ""); /* Show load more only if not searching */ }
-        function updateLogActionButtonsJG(panelIdToUpdate){ const c=document.getElementById('log-actions-container-jg');if(!c)return;c.innerHTML=''; const ctxId=appStateJG.currentViewingPlaylistId&&panelIdToUpdate==='log-paths'?'playlistSongs':panelIdToUpdate; const acts=appStateJG.buttonsForPanel[ctxId]||appStateJG.buttonsForPanel['log-library']; acts.forEach(aId=>{let b;switch(aId){/* case 'btn-refresh-feed-jg': b=document.createElement('button');b.innerHTML='<i class="fas fa-sync-alt"></i> Feed更新';b.addEventListener('click',()=>{showSnackbarJG("情報取得中...","info");loadInitialSongsJG();});break; */ /* Refresh removed as we load all now */ case 'btn-create-playlist-jg':b=document.createElement('button');b.innerHTML='<i class="fas fa-plus-circle"></i> 新しい道';b.addEventListener('click',showCreatePlaylistModalJG);break;case 'btn-clear-queue-jg':if(appStateJG.queue.length>0){b=document.createElement('button');b.innerHTML='<i class="fas fa-trash-alt"></i> キューを空に';b.addEventListener('click',confirmClearQueueJG);}break;case 'btn-clear-history-jg':if(appStateJG.history.length>0){b=document.createElement('button');b.innerHTML='<i class="fas fa-history"></i> <i class="fas fa-trash-alt"></i> 履歴クリア';b.addEventListener('click',confirmClearHistoryJG);}break;}if(b)c.appendChild(b);});}
+        function handleSearchJG() { if(!elementsJG.searchInput||!elementsJG.clearSearchButton)return;const sT=elementsJG.searchInput.value.toLowerCase().trim();elementsJG.clearSearchButton.style.display=sT?'inline-block':'none';if(sT===""){appStateJG.filteredSongs=[...appStateJG.songs];}else{appStateJG.filteredSongs=appStateJG.songs.filter(s=>(getDisplaySongInfoJG(s.id).title.toLowerCase().includes(sT))||(getDisplaySongInfoJG(s.id).artist.toLowerCase().includes(sT)));} switchLogPanelJG(appStateJG.currentPanel); updateLoadMoreButtonJG(!!appStateJG.nextPageToken && appStateJG.currentPanel === 'log-library' && sT === ""); }
+        function updateLogActionButtonsJG(panelIdToUpdate){ const c=document.getElementById('log-actions-container-jg');if(!c)return;c.innerHTML=''; const ctxId=appStateJG.currentViewingPlaylistId&&panelIdToUpdate==='log-paths'?'playlistSongs':panelIdToUpdate; const acts=appStateJG.buttonsForPanel[ctxId]||appStateJG.buttonsForPanel['log-library']; acts.forEach(aId=>{let b;switch(aId){ case 'btn-create-playlist-jg':b=document.createElement('button');b.innerHTML='<i class="fas fa-plus-circle"></i> 新しい道';b.addEventListener('click',showCreatePlaylistModalJG);break;case 'btn-clear-queue-jg':if(appStateJG.queue.length>0){b=document.createElement('button');b.innerHTML='<i class="fas fa-trash-alt"></i> キューを空に';b.addEventListener('click',confirmClearQueueJG);}break;case 'btn-clear-history-jg':if(appStateJG.history.length>0){b=document.createElement('button');b.innerHTML='<i class="fas fa-history"></i> <i class="fas fa-trash-alt"></i> 履歴クリア';b.addEventListener('click',confirmClearHistoryJG);}break;}if(b)c.appendChild(b);});}
         function confirmClearQueueJG(){ if(appStateJG.queue.length===0){showSnackbarJG("キューは空","info");return;}if(confirm("キューを空にしますか？"))clearQueueJG();}
         function clearQueueJG(){ appStateJG.queue=[];appStateJG.currentQueueIndex=-1;saveToLocalStorageJG(LS_KEYS_JG.QUEUE,appStateJG.queue);updateQueueCountBadgeJG();if(appStateJG.currentPanel==='log-discoveries'&&elementsJG.queuePanel)renderSongListJG(elementsJG.queuePanel,[],'queue');showSnackbarJG("キューを空に","success");updateLogActionButtonsJG('log-discoveries');}
         function confirmClearHistoryJG(){ if(appStateJG.history.length===0){showSnackbarJG("再生履歴は空","info");return;}if(confirm("再生履歴を全て削除しますか？"))clearHistoryJG();}
@@ -1090,7 +1101,6 @@
             else if (appStateJG.loopMode === 'all') appStateJG.loopMode = 'one';
             else appStateJG.loopMode = 'none';
 
-            // PC Player Button
             elementsJG.btnLoop.classList.toggle('active-control', appStateJG.loopMode !== 'none');
             let ind = elementsJG.btnLoop.querySelector('.loop-indicator-jg');
             if (appStateJG.loopMode === 'one') {
@@ -1098,7 +1108,6 @@
                 ind.textContent = '1';
             } else { if (ind) ind.remove(); }
 
-            // Mobile Full Screen Player Button
             if (elementsJG.fullPlayerModalBtnLoop) {
                 elementsJG.fullPlayerModalBtnLoop.classList.toggle('active-control', appStateJG.loopMode !== 'none');
                 let modalInd = elementsJG.fullPlayerModalBtnLoop.querySelector('.loop-indicator-jg');
@@ -1112,7 +1121,6 @@
         function setVolumeJG(volume, save = true) { appStateJG.volume=Math.max(0,Math.min(100,volume));appStateJG.isMuted=(appStateJG.volume===0);if(elementsJG.volumeSlider)elementsJG.volumeSlider.value=appStateJG.volume;if(elementsJG.fullPlayerModalVolumeSlider) elementsJG.fullPlayerModalVolumeSlider.value = appStateJG.volume; if(appStateJG.player&&appStateJG.isPlayerReady&&typeof appStateJG.player.setVolume==='function'){appStateJG.player.setVolume(appStateJG.volume);if(!appStateJG.isMuted&&typeof appStateJG.player.unMute==='function'&&appStateJG.player.isMuted()){appStateJG.player.unMute();}}updateVolumeIconsJG();if(save)saveToLocalStorageJG(LS_KEYS_JG.VOLUME,appStateJG.volume);}
         function toggleMuteJG() { if(appStateJG.isMuted){setVolumeJG(appStateJG.previousVolumeBeforeMute>0?appStateJG.previousVolumeBeforeMute:25);}else{appStateJG.previousVolumeBeforeMute=appStateJG.volume;setVolumeJG(0);}}
         function updateVolumeIconsJG() {
-            // PC Player Icons
             if(elementsJG.volumeIconMute && elementsJG.volumeIconUp){
                 const isEffectivelyMutedPC = appStateJG.volume === 0 || appStateJG.isMuted;
                 elementsJG.volumeIconMute.style.opacity = isEffectivelyMutedPC ? '1' : '0.5';
@@ -1120,11 +1128,10 @@
                 elementsJG.volumeIconUp.style.opacity = !isEffectivelyMutedPC ? '1' : '0.5';
                 elementsJG.volumeIconUp.classList.remove('text-jg-accent-sunburst');
             }
-            // Mobile Full Screen Player Icons
             if(elementsJG.fullPlayerModalVolumeMuteIcon && elementsJG.fullPlayerModalVolumeUpIcon){
                 const isEffectivelyMutedModal = appStateJG.volume === 0 || appStateJG.isMuted;
                 elementsJG.fullPlayerModalVolumeMuteIcon.style.opacity = isEffectivelyMutedModal ? '1' : '0.5';
-                elementsJG.fullPlayerModalVolumeMuteIcon.classList.toggle('text-jg-accent-sunburst', isEffectivelyMutedModal); // Assuming same accent for mute
+                elementsJG.fullPlayerModalVolumeMuteIcon.classList.toggle('text-jg-accent-sunburst', isEffectivelyMutedModal); 
                 elementsJG.fullPlayerModalVolumeUpIcon.style.opacity = !isEffectivelyMutedModal ? '1' : '0.5';
                 elementsJG.fullPlayerModalVolumeUpIcon.classList.remove('text-jg-accent-sunburst');
             }
@@ -1173,9 +1180,9 @@
         function hideProfileModalJG() { if (elementsJG.profileModal) { elementsJG.profileModal.style.display = 'none'; appStateJG.activeModalId = null; } }
         function cycleThemeJG() { currentThemeIndexJG = (currentThemeIndexJG + 1) % AVAILABLE_THEMES_JG.length; const newTheme = AVAILABLE_THEMES_JG[currentThemeIndexJG]; applyThemeJG(newTheme.id); saveToLocalStorageJG(LS_KEYS_JG.THEME, newTheme.id); showSnackbarJG(`テーマ: ${newTheme.name}`, "info", 1500); }
         function applyThemeJG(themeId) { elementsJG.body.className = ''; elementsJG.body.classList.add(themeId); const themeObject = AVAILABLE_THEMES_JG.find(t => t.id === themeId); if (themeObject && themeObject.type === 'light') { elementsJG.body.classList.add('modal-light-theme-jg'); } else { elementsJG.body.classList.remove('modal-light-theme-jg'); } }
-        function switchLogPanelJG(panelId) { if (!panelId) return; if (appStateJG.currentViewingPlaylistId && panelId !== 'log-paths') { appStateJG.currentViewingPlaylistId = null; } appStateJG.currentPanel = panelId; elementsJG.logTabs?.forEach(t => t.classList.toggle('active', t.dataset.panel === panelId)); elementsJG.mobileNavTabs?.forEach(t => t.classList.toggle('active', t.dataset.panel === panelId)); elementsJG.logPanels?.forEach(p => { if (p) p.classList.toggle('active', p.id === panelId);}); switch (panelId) { case 'log-library': if (elementsJG.libraryPanel) renderSongListJG(elementsJG.libraryPanel, appStateJG.filteredSongs, 'library'); break; case 'log-discoveries': if (elementsJG.queuePanel) renderSongListJG(elementsJG.queuePanel, appStateJG.queue.map(id => findSongByIdJG(id)).filter(s => s), 'queue'); break; case 'log-trophies': if (elementsJG.favoritesPanel) renderSongListJG(elementsJG.favoritesPanel, appStateJG.favorites, 'favorites'); break; case 'log-history': if(elementsJG.historyPanel) renderHistoryListJG(); break; case 'log-paths': if(elementsJG.playlistsPanel) { if (appStateJG.currentViewingPlaylistId) renderSongsInPlaylistJG(appStateJG.currentViewingPlaylistId); else renderPlaylistsJG(); } break; } updateLogActionButtonsJG(panelId); /* Show/hide load more button is handled within renderSongListJG */ }
+        function switchLogPanelJG(panelId) { if (!panelId) return; if (appStateJG.currentViewingPlaylistId && panelId !== 'log-paths') { appStateJG.currentViewingPlaylistId = null; } appStateJG.currentPanel = panelId; elementsJG.logTabs?.forEach(t => t.classList.toggle('active', t.dataset.panel === panelId)); elementsJG.mobileNavTabs?.forEach(t => t.classList.toggle('active', t.dataset.panel === panelId)); elementsJG.logPanels?.forEach(p => { if (p) p.classList.toggle('active', p.id === panelId);}); switch (panelId) { case 'log-library': if (elementsJG.libraryPanel) renderSongListJG(elementsJG.libraryPanel, appStateJG.filteredSongs, 'library'); break; case 'log-discoveries': if (elementsJG.queuePanel) renderSongListJG(elementsJG.queuePanel, appStateJG.queue.map(id => findSongByIdJG(id)).filter(s => s), 'queue'); break; case 'log-trophies': if (elementsJG.favoritesPanel) renderSongListJG(elementsJG.favoritesPanel, appStateJG.favorites, 'favorites'); break; case 'log-history': if(elementsJG.historyPanel) renderHistoryListJG(); break; case 'log-paths': if(elementsJG.playlistsPanel) { if (appStateJG.currentViewingPlaylistId) renderSongsInPlaylistJG(appStateJG.currentViewingPlaylistId); else renderPlaylistsJG(); } break; } updateLogActionButtonsJG(panelId); }
         function loadInitialDataJG(isSongDataReload = false) {
-            if (!isSongDataReload) { // Initial setup independent of song data (theme, volume, etc.)
+            if (!isSongDataReload) { 
                 const storedThemeId = loadFromLocalStorageJG(LS_KEYS_JG.THEME) || AVAILABLE_THEMES_JG[0].id;
                 const foundThemeIndex = AVAILABLE_THEMES_JG.findIndex(t => t.id === storedThemeId);
                 currentThemeIndexJG = (foundThemeIndex !== -1) ? foundThemeIndex : 0;
@@ -1188,7 +1195,7 @@
                     appStateJG.previousVolumeBeforeMute = appStateJG.volume > 0 ? appStateJG.volume : 75;
                 }
                 if (elementsJG.volumeSlider) elementsJG.volumeSlider.value = appStateJG.volume;
-                if (elementsJG.fullPlayerModalVolumeSlider) elementsJG.fullPlayerModalVolumeSlider.value = appStateJG.volume; // Also for modal
+                if (elementsJG.fullPlayerModalVolumeSlider) elementsJG.fullPlayerModalVolumeSlider.value = appStateJG.volume; 
                 updateVolumeIconsJG();
 
                 const storedRate = loadFromLocalStorageJG(LS_KEYS_JG.PLAYBACK_RATE);
@@ -1196,32 +1203,30 @@
                     const rate = parseFloat(storedRate);
                     if (PLAYBACK_RATES_JG.includes(rate)) {
                         currentPlaybackRateIndexJG = PLAYBACK_RATES_JG.indexOf(rate);
-                         applyPlaybackRateJG(rate); // This will update both buttons
+                         applyPlaybackRateJG(rate); 
                     }
                 }
                 songMetadataOverridesJG = loadFromLocalStorageJG(LS_KEYS_JG.METADATA_OVERRIDES) || {};
             }
 
-            // Load raw data from localStorage
             const rawPlaylists = loadFromLocalStorageJG(LS_KEYS_JG.PLAYLISTS) || [];
-            const rawHistory = loadFromLocalStorageJG(LS_KEYS_JG.HISTORY) || []; // History items are song objects
-            const rawFavorites = loadFromLocalStorageJG(LS_KEYS_JG.FAVORITES) || []; // Favorite items are song objects
-            const rawQueue = loadFromLocalStorageJG(LS_KEYS_JG.QUEUE) || []; // Queue items are song IDs
+            const rawHistory = loadFromLocalStorageJG(LS_KEYS_JG.HISTORY) || []; 
+            const rawFavorites = loadFromLocalStorageJG(LS_KEYS_JG.FAVORITES) || []; 
+            const rawQueue = loadFromLocalStorageJG(LS_KEYS_JG.QUEUE) || []; 
 
             if (isSongDataReload && appStateJG.songs && appStateJG.songs.length > 0) {
-                // Song data is now available, so hydrate and save the lists
                 appStateJG.userPlaylists = rawPlaylists.map(p => ({
                     ...p,
-                    songs: (p.songs || []).filter(id => findSongByIdJG(id)) // Keep only existing song IDs
+                    songs: (p.songs || []).filter(id => findSongByIdJG(id)) 
                 }));
                 saveToLocalStorageJG(LS_KEYS_JG.PLAYLISTS, appStateJG.userPlaylists);
 
                 appStateJG.history = rawHistory
                     .map(historySongFromStorage => {
                         const currentSongVersion = findSongByIdJG(historySongFromStorage.id);
-                        return currentSongVersion ? currentSongVersion : null; // Use current song object if it exists
+                        return currentSongVersion ? currentSongVersion : null; 
                     })
-                    .filter(s => s); // Remove nulls (songs that no longer exist)
+                    .filter(s => s); 
                 saveToLocalStorageJG(LS_KEYS_JG.HISTORY, appStateJG.history);
 
                 appStateJG.favorites = rawFavorites
@@ -1236,16 +1241,11 @@
                 saveToLocalStorageJG(LS_KEYS_JG.QUEUE, appStateJG.queue);
 
             } else if (!isSongDataReload) {
-                // Initial load, songs not yet ready.
-                // Populate appState with raw data from localStorage. DO NOT filter against songs yet, and DO NOT save back.
                 appStateJG.userPlaylists = rawPlaylists;
                 appStateJG.history = rawHistory;
                 appStateJG.favorites = rawFavorites;
                 appStateJG.queue = rawQueue;
             } else {
-                 // isSongDataReload is true, but appStateJG.songs is empty (e.g. API error)
-                 // In this case, we effectively clear the local storage for these items,
-                 // as there are no songs to validate against.
                 appStateJG.userPlaylists = [];
                 saveToLocalStorageJG(LS_KEYS_JG.PLAYLISTS, appStateJG.userPlaylists);
                 appStateJG.history = [];
@@ -1256,14 +1256,12 @@
                 saveToLocalStorageJG(LS_KEYS_JG.QUEUE, appStateJG.queue);
             }
 
-            // Update UI. Render functions use findSongByIdJG, so they will correctly
-            // display available data or empty states if songs aren't loaded yet or items are filtered out.
             if (elementsJG.favoritesPanel) {
                  const favSongsToRender = appStateJG.favorites.map(fav => findSongByIdJG(fav.id)).filter(s => s);
                  renderSongListJG(elementsJG.favoritesPanel, favSongsToRender, 'favorites');
             }
             if (elementsJG.historyPanel) {
-                renderHistoryListJG(); // Relies on appStateJG.history, which is now correctly hydrated or raw
+                renderHistoryListJG(); 
             }
             if (elementsJG.queuePanel) {
                 const queueSongsToRender = appStateJG.queue.map(id => findSongByIdJG(id)).filter(s => s);
@@ -1275,7 +1273,7 @@
                     if (currentPlaylist) {
                         renderSongsInPlaylistJG(appStateJG.currentViewingPlaylistId);
                     } else {
-                        appStateJG.currentViewingPlaylistId = null; // Playlist no longer exists
+                        appStateJG.currentViewingPlaylistId = null; 
                         renderPlaylistsJG();
                     }
                 } else {
@@ -1285,14 +1283,12 @@
             updateQueueCountBadgeJG();
         }
         
-        // Mobile Full Player Modal Controls
         function showMobileFullPlayerModalJG() {
             if (elementsJG.mobileFullPlayerModal) {
                 elementsJG.mobileFullPlayerModal.style.display = 'flex';
-                updatePlayerUIGJ(appStateJG.songs[appStateJG.currentSongIndex]); // Refresh UI with current song
-                updateProgressJG(); // Refresh progress
-                updateVolumeIconsJG(); // Refresh volume icons
-                // Refresh shuffle, loop, playback rate buttons state
+                updatePlayerUIGJ(appStateJG.songs[appStateJG.currentSongIndex]); 
+                updateProgressJG(); 
+                updateVolumeIconsJG(); 
                 if (elementsJG.fullPlayerModalBtnShuffle) elementsJG.fullPlayerModalBtnShuffle.classList.toggle('active-control', appStateJG.isShuffle);
                 if (elementsJG.fullPlayerModalBtnLoop) {
                      elementsJG.fullPlayerModalBtnLoop.classList.toggle('active-control', appStateJG.loopMode !== 'none');
@@ -1321,7 +1317,6 @@
             }
         }
 
-
         // --- Event Listener Setup ---
         function setupEventListenersJG() {
             elementsJG.btnPlay?.addEventListener('click', togglePlayPauseJG);
@@ -1341,22 +1336,20 @@
             elementsJG.profileModal?.addEventListener('click', (e) => { if (e.target === elementsJG.profileModal) hideProfileModalJG(); });
             elementsJG.logTabs?.forEach(tab => tab.addEventListener('click', () => switchLogPanelJG(tab.dataset.panel)));
             elementsJG.mobileNavTabs?.forEach(tab => tab.addEventListener('click', () => switchLogPanelJG(tab.dataset.panel)));
-            elementsJG.miniPlayerPlayBtn?.addEventListener('click', (e) => { e.stopPropagation(); togglePlayPauseJG();}); // Added stopPropagation
-            elementsJG.searchInput?.addEventListener('input', handleSearchJG); // handleSearchJG is now defined before this
+            elementsJG.miniPlayerPlayBtn?.addEventListener('click', (e) => { e.stopPropagation(); togglePlayPauseJG();}); 
+            elementsJG.searchInput?.addEventListener('input', handleSearchJG); 
             elementsJG.clearSearchButton?.addEventListener('click', () => { if(elementsJG.searchInput){ elementsJG.searchInput.value=''; appStateJG.filteredSongs = [...appStateJG.songs]; switchLogPanelJG(appStateJG.currentPanel); elementsJG.searchInput.focus(); updateLoadMoreButtonJG(!!appStateJG.nextPageToken && appStateJG.currentPanel === 'log-library'); } });
             elementsJG.loadMoreButton?.addEventListener('click', loadMoreSongsJG);
             document.addEventListener('keydown', handleGlobalKeydownJG);
             elementsJG.songContextMenu?.addEventListener('click', handleContextMenuActionJG);
-            document.addEventListener('click', (e) => { if (!elementsJG.songContextMenu?.contains(e.target)) hideSongContextMenuJG(); }); // Hide if click outside
+            document.addEventListener('click', (e) => { if (!elementsJG.songContextMenu?.contains(e.target)) hideSongContextMenuJG(); }); 
             elementsJG.confirmEditSongButton?.addEventListener('click', handleConfirmEditSongJG);
             elementsJG.cancelEditSongButton?.addEventListener('click', hideEditSongModalJG);
             elementsJG.editSongModal?.addEventListener('click', (e) => { if (e.target === elementsJG.editSongModal) hideEditSongModalJG(); });
             elementsJG.cancelCreatePlaylistJG?.addEventListener('click', hideCreatePlaylistModalJG);
             elementsJG.cancelAddToPlaylistJG?.addEventListener('click', hideAddToPlaylistModalJG);
 
-            // Mobile Full Player Modal Listeners
             elementsJG.miniPlayerContainer?.addEventListener('click', (e) => {
-                 // Do not open modal if the play button itself was clicked (it has its own action)
                 if (elementsJG.miniPlayerPlayBtn && elementsJG.miniPlayerPlayBtn.contains(e.target)) {
                     return;
                 }
@@ -1379,8 +1372,6 @@
             elementsJG.fullPlayerModalVolumeMuteIcon?.addEventListener('click', toggleMuteJG);
             elementsJG.fullPlayerModalVolumeUpIcon?.addEventListener('click', () => { if (appStateJG.isMuted) toggleMuteJG(); });
 
-
-            // PiP Button display logic
             if (document.pictureInPictureEnabled) {
                 if(elementsJG.btnPip) elementsJG.btnPip.style.display = 'inline-flex';
                 if(elementsJG.fullPlayerModalBtnPip) elementsJG.fullPlayerModalBtnPip.style.display = 'inline-flex';
@@ -1389,7 +1380,6 @@
                 if(elementsJG.fullPlayerModalBtnPip) elementsJG.fullPlayerModalBtnPip.style.display = 'none';
             }
             
-            // Listen for PiP events to update button state
             if (elementsJG.youtubePlayerContainer && elementsJG.youtubePlayerContainer.firstChild) {
                 elementsJG.youtubePlayerContainer.firstChild.addEventListener?.('enterpictureinpicture', handleEnterPiPJG);
                 elementsJG.youtubePlayerContainer.firstChild.addEventListener?.('leavepictureinpicture', handleLeavePiPJG);
@@ -1398,14 +1388,18 @@
 
         // --- Initialization ---
         document.addEventListener('DOMContentLoaded', () => {
+            console.log("DOMContentLoaded event fired.");
+
             const splashScreen = document.getElementById('splash-screen-jg');
             const loadingProgressBar = document.getElementById('loading-bar-progress-jg');
+            
+            console.log("Splash screen element:", splashScreen);
+            console.log("Loading progress bar element:", loadingProgressBar);
 
             if (splashScreen && loadingProgressBar) {
-                // Ensure the bar starts at 0% then animates to 100%
                 loadingProgressBar.style.width = '0%';
                 requestAnimationFrame(() => {
-                    requestAnimationFrame(() => { // Double requestAnimationFrame for some browsers to catch transition
+                    requestAnimationFrame(() => { 
                         loadingProgressBar.style.width = '100%';
                     });
                 });
@@ -1414,26 +1408,41 @@
                     splashScreen.style.opacity = '0';
                     setTimeout(() => {
                         splashScreen.style.display = 'none';
-                    }, 500); // Match opacity transition duration
+                    }, 500); 
                 }, 3000);
+            } else {
+                 console.error("Splash screen or loading bar not found!");
             }
-
-            initializeElementsJG();
-            loadInitialDataJG(false);
-            setupEventListenersJG(); // Call setup *after* all functions are defined
-            updatePlayerUIGJ(null);
-            if (elementsJG.btnShuffle) elementsJG.btnShuffle.classList.toggle('active-control', appStateJG.isShuffle);
-            if (elementsJG.fullPlayerModalBtnShuffle) elementsJG.fullPlayerModalBtnShuffle.classList.toggle('active-control', appStateJG.isShuffle); // Also for modal
-            if (elementsJG.btnLoop) {  elementsJG.btnLoop.classList.toggle('active-control',appStateJG.loopMode!=='none');let lI=elementsJG.btnLoop.querySelector('.loop-indicator-jg');if(appStateJG.loopMode==='one'){if(!lI){lI=document.createElement('span');lI.className='loop-indicator-jg';elementsJG.btnLoop.appendChild(lI);}lI.textContent='1';}else if(lI)lI.remove();}
-            if (elementsJG.fullPlayerModalBtnLoop) { // Also for modal
-                elementsJG.fullPlayerModalBtnLoop.classList.toggle('active-control',appStateJG.loopMode!=='none');
-                let lI=elementsJG.fullPlayerModalBtnLoop.querySelector('.loop-indicator-jg');
-                if(appStateJG.loopMode==='one'){if(!lI){lI=document.createElement('span');lI.className='loop-indicator-jg';elementsJG.fullPlayerModalBtnLoop.appendChild(lI);}lI.textContent='1';}
-                else if(lI)lI.remove();
+            
+            try {
+                initializeElementsJG();
+                console.log("initializeElementsJG completed.");
+                loadInitialDataJG(false);
+                console.log("loadInitialDataJG completed.");
+                setupEventListenersJG();
+                console.log("setupEventListenersJG completed.");
+                updatePlayerUIGJ(null);
+                if (elementsJG.btnShuffle) elementsJG.btnShuffle.classList.toggle('active-control', appStateJG.isShuffle);
+                if (elementsJG.fullPlayerModalBtnShuffle) elementsJG.fullPlayerModalBtnShuffle.classList.toggle('active-control', appStateJG.isShuffle);
+                if (elementsJG.btnLoop) {  elementsJG.btnLoop.classList.toggle('active-control',appStateJG.loopMode!=='none');let lI=elementsJG.btnLoop.querySelector('.loop-indicator-jg');if(appStateJG.loopMode==='one'){if(!lI){lI=document.createElement('span');lI.className='loop-indicator-jg';elementsJG.btnLoop.appendChild(lI);}lI.textContent='1';}else if(lI)lI.remove();}
+                if (elementsJG.fullPlayerModalBtnLoop) { 
+                    elementsJG.fullPlayerModalBtnLoop.classList.toggle('active-control',appStateJG.loopMode!=='none');
+                    let lI=elementsJG.fullPlayerModalBtnLoop.querySelector('.loop-indicator-jg');
+                    if(appStateJG.loopMode==='one'){if(!lI){lI=document.createElement('span');lI.className='loop-indicator-jg';elementsJG.fullPlayerModalBtnLoop.appendChild(lI);}lI.textContent='1';}
+                    else if(lI)lI.remove();
+                }
+                if (elementsJG.searchInput && elementsJG.clearSearchButton) elementsJG.clearSearchButton.style.display = elementsJG.searchInput.value ? 'inline-block' : 'none';
+                switchLogPanelJG(appStateJG.currentPanel || 'log-library');
+                console.log("Jungle Groove Ready!");
+            } catch (error) {
+                console.error("Error during DOMContentLoaded initialization:", error);
+                if (splashScreen) { 
+                    splashScreen.style.opacity = '0';
+                    setTimeout(() => {
+                        splashScreen.style.display = 'none';
+                    }, 500);
+                }
             }
-            if (elementsJG.searchInput && elementsJG.clearSearchButton) elementsJG.clearSearchButton.style.display = elementsJG.searchInput.value ? 'inline-block' : 'none';
-            switchLogPanelJG(appStateJG.currentPanel || 'log-library');
-            console.log("Jungle Groove Ready!");
         });
     </script>
 </body>
