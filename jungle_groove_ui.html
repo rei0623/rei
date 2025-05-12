@@ -665,10 +665,170 @@
         function updateActiveListItemJG() { document.querySelectorAll('.log-entry-jg.active-song').forEach(el=>el.classList.remove('active-song')); if(appStateJG.currentSongIndex!==-1&&appStateJG.songs&&appStateJG.currentSongIndex<appStateJG.songs.length){const cSId=appStateJG.songs[appStateJG.currentSongIndex]?.id;if(cSId){document.querySelectorAll(`.log-entry-jg[data-id="${cSId}"]`).forEach(item=>item.classList.add('active-song'));}}}
         function updateDocumentTitleJG() { if (appStateJG.currentSongIndex === -1 || !appStateJG.songs[appStateJG.currentSongIndex]) { document.title = DEFAULT_TITLE_JG; return; } const song = appStateJG.songs[appStateJG.currentSongIndex]; if (!song) { document.title = DEFAULT_TITLE_JG; return; } const displayInfo = getDisplaySongInfoJG(song.id); const prefix = appStateJG.isPlaying ? "▶ " : "❚❚ "; document.title = `${prefix}${displayInfo.title} - ${displayInfo.artist} | Jungle Groove`; }
 
+        // --- Helper function for shuffle ---
+        function getRandomNextSongIndex(sourceIdList, globalSongsList, currentGlobalIndex) {
+            // sourceIdList: array of song IDs for the current context (e.g., playlist.songs)
+            // globalSongsList: appStateJG.songs (array of song objects)
+            // currentGlobalIndex: index in globalSongsList of the currently playing song
+            
+            if (!sourceIdList || sourceIdList.length === 0) return -1;
+            
+            const validSourceSongIds = sourceIdList.filter(id => globalSongsList.some(s => s && s.id === id));
+            if (validSourceSongIds.length === 0) return -1;
+
+            const currentPlayingSongId = (currentGlobalIndex !== -1 && globalSongsList[currentGlobalIndex]) ? globalSongsList[currentGlobalIndex].id : null;
+
+            if (validSourceSongIds.length === 1) {
+                const songId = validSourceSongIds[0];
+                return globalSongsList.findIndex(s => s && s.id === songId);
+            }
+
+            let randomSongId;
+            let nextGlobalIndex = -1;
+            let attempts = 0;
+            const maxAttempts = validSourceSongIds.length * 2 + 5; // Heuristic
+
+            do {
+                randomSongId = validSourceSongIds[Math.floor(Math.random() * validSourceSongIds.length)];
+                nextGlobalIndex = globalSongsList.findIndex(s => s && s.id === randomSongId);
+                attempts++;
+            } while (
+                currentPlayingSongId &&
+                randomSongId === currentPlayingSongId &&
+                validSourceSongIds.length > 1 &&
+                nextGlobalIndex !== -1 && // Ensure the randomly picked ID has a valid global index
+                attempts < maxAttempts
+            );
+            
+            // If loop exhausted trying to find a *different* song, but randomSongId is valid.
+            if (attempts >= maxAttempts && randomSongId === currentPlayingSongId && nextGlobalIndex !== -1) {
+                // It's stuck on the current song, but it's a valid choice.
+                // This is fine, it means it will play the same song again if it's the only one or got unlucky.
+                // Or, if we strictly want a *different* song and failed:
+                const alternativeId = validSourceSongIds.find(id => id !== currentPlayingSongId);
+                if (alternativeId) {
+                    return globalSongsList.findIndex(s => s && s.id === alternativeId);
+                }
+                // If no alternative, returning current is acceptable if nextGlobalIndex is valid for it.
+            }
+            
+            return nextGlobalIndex; // Will be -1 if findIndex fails for randomSongId
+        }
+
         // --- Player Control Functions ---
         function playSongAtIndexJG(index) { if (index < 0 || !appStateJG.songs || index >= appStateJG.songs.length) { showSnackbarJG("無効な曲index", "error"); return; } appStateJG.currentSongIndex = index; const song = appStateJG.songs[index]; if (!song || !song.id) { showSnackbarJG("曲情報不正", "error"); updatePlayerUIGJ(null); return; } updatePlayerUIGJ(song); if (appStateJG.player && appStateJG.isPlayerReady) { try { appStateJG.player.loadVideoById(song.id); } catch (error) { console.error("loadVideoById Error:", error); showSnackbarJG("動画読込失敗", "error"); } } else { if (!appStateJG.isPlayerReady) showSnackbarJG("プレイヤー準備未了", "warning"); else if (!song.id) showSnackbarJG("曲IDなし", "error"); } addToHistoryJG(song); if (appStateJG.currentPanel === 'log-history' && elementsJG.historyPanel) renderHistoryListJG(); }
         function togglePlayPauseJG() { if(!appStateJG.player||!appStateJG.isPlayerReady){showSnackbarJG("プレイヤー準備未了","warning");return;}if(appStateJG.currentSongIndex===-1&&appStateJG.songs&&appStateJG.songs.length>0){appStateJG.playMode='library';appStateJG.currentQueueIndex=-1;playSongAtIndexJG(0);return;}if(appStateJG.currentSongIndex===-1&&(!appStateJG.songs||appStateJG.songs.length===0)){showSnackbarJG("再生曲なし","info");return;}if(appStateJG.isPlaying){appStateJG.player.pauseVideo();}else{appStateJG.player.playVideo();}}
-        function playNextJG() { if (!appStateJG.songs || appStateJG.songs.length === 0) { showSnackbarJG("リストに曲なし", "info"); return; } let nextSongOriginalIndex = -1, currentList, nextListIndex; if (appStateJG.playMode === 'queue' && appStateJG.queue.length > 0) { currentList = appStateJG.queue.map(id => findSongByIdJG(id)).filter(s => s); nextListIndex = appStateJG.currentQueueIndex + 1; if (nextListIndex >= currentList.length) { if (appStateJG.loopMode === 'all') nextListIndex = 0; else { showSnackbarJG("キュー再生終了", "info"); appStateJG.isPlaying = false; updatePlayPauseButtonJG(); updateDocumentTitleJG(); return; } } appStateJG.currentQueueIndex = nextListIndex; const nextSongIdInQueue = appStateJG.queue[appStateJG.currentQueueIndex]; nextSongOriginalIndex = appStateJG.songs.findIndex(s => s.id === nextSongIdInQueue); } else if (appStateJG.playMode === 'playlist' && appStateJG.currentPlayingPlaylistId) { const p = appStateJG.userPlaylists.find(pl => pl.id === appStateJG.currentPlayingPlaylistId); if (p && p.songs.length > 0) { currentList = p.songs.map(id => findSongByIdJG(id)).filter(s => s); nextListIndex = appStateJG.currentQueueIndex + 1; if (nextListIndex >= currentList.length) { if (appStateJG.loopMode === 'all') nextListIndex = 0; else { showSnackbarJG(`プレイリスト「${escapeHTMLJG(p.name)}」終了`, "info"); appStateJG.isPlaying = false; updatePlayPauseButtonJG(); updateDocumentTitleJG(); return; } } appStateJG.currentQueueIndex = nextListIndex; const nextSongIdInPlaylist = p.songs[appStateJG.currentQueueIndex]; nextSongOriginalIndex = appStateJG.songs.findIndex(s => s.id === nextSongIdInPlaylist); } else { appStateJG.playMode = 'library'; appStateJG.currentPlayingPlaylistId = null; appStateJG.currentQueueIndex = -1; } } if (appStateJG.playMode === 'library' || nextSongOriginalIndex === -1) { currentList = appStateJG.isShuffle ? appStateJG.songs : appStateJG.filteredSongs; if (currentList.length === 0) currentList = appStateJG.songs; if (currentList.length === 0) return; if (appStateJG.isShuffle) { if (currentList.length <= 1) nextSongOriginalIndex = appStateJG.songs.findIndex(s => s.id === currentList[0]?.id); else { let rOI, rSId; do { rSId = currentList[Math.floor(Math.random()*currentList.length)].id; rOI = appStateJG.songs.findIndex(s => s.id === rSId); } while (rOI === appStateJG.currentSongIndex && currentList.length > 1); nextSongOriginalIndex = rOI; } } else { let cFI = -1; if (appStateJG.currentSongIndex !== -1) { const cASId = appStateJG.songs[appStateJG.currentSongIndex].id; cFI = appStateJG.filteredSongs.findIndex(s => s.id === cASId); } nextListIndex = (cFI === -1) ? 0 : cFI + 1; if (nextListIndex >= appStateJG.filteredSongs.length) { if (appStateJG.loopMode === 'all') nextListIndex = 0; else { showSnackbarJG("探検終了！", "info"); appStateJG.isPlaying = false; updatePlayPauseButtonJG(); updateDocumentTitleJG(); return; } } if (appStateJG.filteredSongs[nextListIndex]) nextSongOriginalIndex = appStateJG.songs.findIndex(s => s.id === appStateJG.filteredSongs[nextListIndex].id); } } if (nextSongOriginalIndex !== -1) playSongAtIndexJG(nextSongOriginalIndex); else { appStateJG.isPlaying = false; updatePlayPauseButtonJG(); updateDocumentTitleJG(); } }
+        function playNextJG() {
+            if (!appStateJG.songs || appStateJG.songs.length === 0) {
+                showSnackbarJG("リストに曲なし", "info");
+                return;
+            }
+
+            let nextSongOriginalIndex = -1; // Index within appStateJG.songs
+
+            if (appStateJG.isShuffle && appStateJG.playMode !== 'queue') { // Shuffle ON, but not for Queue
+                let songIdListForShuffle = null;
+                let sourceDescription = "ライブラリ";
+
+                if (appStateJG.playMode === 'playlist' && appStateJG.currentPlayingPlaylistId) {
+                    const playlist = appStateJG.userPlaylists.find(pl => pl.id === appStateJG.currentPlayingPlaylistId);
+                    if (playlist && playlist.songs.length > 0) {
+                        songIdListForShuffle = playlist.songs;
+                        sourceDescription = `プレイリスト「${escapeHTMLJG(playlist.name)}」`;
+                    } else { 
+                        appStateJG.playMode = 'library'; // Fallback
+                        sourceDescription = "ライブラリ (プレイリストフォールバック)";
+                    }
+                }
+
+                if (appStateJG.playMode === 'library') { // Initial library mode or fallback
+                    const baseList = appStateJG.filteredSongs.length > 0 ? appStateJG.filteredSongs : appStateJG.songs;
+                    songIdListForShuffle = baseList.map(s => s.id);
+                    sourceDescription = "ライブラリ";
+                }
+                
+                if (songIdListForShuffle && songIdListForShuffle.length > 0) {
+                    nextSongOriginalIndex = getRandomNextSongIndex(songIdListForShuffle, appStateJG.songs, appStateJG.currentSongIndex);
+                    if (nextSongOriginalIndex === -1) {
+                         // This implies an issue like all songs in sourceIdListForShuffle are not in appStateJG.songs, or list was effectively empty.
+                        showSnackbarJG(`${sourceDescription}からシャッフル再生できる曲が見つかりません。`, "warning");
+                    }
+                } else { 
+                    showSnackbarJG(`${sourceDescription}にシャッフル再生できる曲がありません。`, "info");
+                }
+
+            } else { // Shuffle OFF, or Shuffle ON but playMode is 'queue' (queue is not shuffled by this button)
+                let currentSequentialListSource; // Will be an array of song IDs or song objects
+                let nextSequentialListIndex;
+                let endOfListMessage = "";
+                
+                if (appStateJG.playMode === 'queue' && appStateJG.queue.length > 0) {
+                    currentSequentialListSource = appStateJG.queue; // List of IDs
+                    nextSequentialListIndex = appStateJG.currentQueueIndex + 1;
+                    endOfListMessage = "キュー再生終了";
+
+                    if (nextSequentialListIndex >= currentSequentialListSource.length) {
+                        if (appStateJG.loopMode === 'all') nextSequentialListIndex = 0;
+                        else { showSnackbarJG(endOfListMessage, "info"); appStateJG.isPlaying = false; updatePlayPauseButtonJG(); updateDocumentTitleJG(); return; }
+                    }
+                    appStateJG.currentQueueIndex = nextSequentialListIndex;
+                    const nextSongId = currentSequentialListSource[appStateJG.currentQueueIndex];
+                    nextSongOriginalIndex = appStateJG.songs.findIndex(s => s && s.id === nextSongId);
+
+                } else if (appStateJG.playMode === 'playlist' && appStateJG.currentPlayingPlaylistId) {
+                    const p = appStateJG.userPlaylists.find(pl => pl.id === appStateJG.currentPlayingPlaylistId);
+                    if (p && p.songs.length > 0) {
+                        currentSequentialListSource = p.songs; // List of IDs
+                        nextSequentialListIndex = appStateJG.currentQueueIndex + 1; // currentQueueIndex is playlist index for this mode
+                        endOfListMessage = `プレイリスト「${escapeHTMLJG(p.name)}」終了`;
+
+                        if (nextSequentialListIndex >= currentSequentialListSource.length) {
+                            if (appStateJG.loopMode === 'all') nextSequentialListIndex = 0;
+                            else { showSnackbarJG(endOfListMessage, "info"); appStateJG.isPlaying = false; updatePlayPauseButtonJG(); updateDocumentTitleJG(); return; }
+                        }
+                        appStateJG.currentQueueIndex = nextSequentialListIndex;
+                        const nextSongId = currentSequentialListSource[appStateJG.currentQueueIndex];
+                        nextSongOriginalIndex = appStateJG.songs.findIndex(s => s && s.id === nextSongId);
+                    } else {
+                        // Playlist became empty or invalid, fallback to library sequential
+                        appStateJG.playMode = 'library';
+                        appStateJG.currentPlayingPlaylistId = null;
+                        appStateJG.currentQueueIndex = -1; 
+                        // Fall through to library logic below
+                    }
+                } 
+                
+                if (appStateJG.playMode === 'library' || nextSongOriginalIndex === -1 && !appStateJG.isShuffle) { // Library mode, or fallback from invalid playlist in sequential
+                    currentSequentialListSource = appStateJG.filteredSongs.length > 0 ? appStateJG.filteredSongs : appStateJG.songs; // List of song objects
+                    let currentFilteredListIndex = -1;
+                    if(appStateJG.currentSongIndex !== -1 && appStateJG.songs[appStateJG.currentSongIndex]){
+                        currentFilteredListIndex = currentSequentialListSource.findIndex(s => s && s.id === appStateJG.songs[appStateJG.currentSongIndex].id);
+                    }
+                    
+                    nextSequentialListIndex = (currentFilteredListIndex === -1) ? 0 : currentFilteredListIndex + 1;
+                    endOfListMessage = "探検終了！";
+
+                    if (nextSequentialListIndex >= currentSequentialListSource.length) {
+                        if (appStateJG.loopMode === 'all') nextSequentialListIndex = 0;
+                        else { showSnackbarJG(endOfListMessage, "info"); appStateJG.isPlaying = false; updatePlayPauseButtonJG(); updateDocumentTitleJG(); return; }
+                    }
+                    if (currentSequentialListSource[nextSequentialListIndex]) {
+                        const nextSongId = currentSequentialListSource[nextSequentialListIndex].id;
+                        nextSongOriginalIndex = appStateJG.songs.findIndex(s => s && s.id === nextSongId);
+                    }
+                }
+            }
+
+            if (nextSongOriginalIndex !== -1) {
+                playSongAtIndexJG(nextSongOriginalIndex);
+            } else {
+                // If we couldn't determine a next song (e.g. shuffle failed, list empty etc.)
+                appStateJG.isPlaying = false;
+                updatePlayPauseButtonJG();
+                updateDocumentTitleJG();
+                // showSnackbarJG("次の曲が見つかりません。", "info"); // Optional, could be too noisy
+            }
+        }
         function playPrevJG() { if (!appStateJG.songs || appStateJG.songs.length === 0) { showSnackbarJG("リストに曲なし", "info"); return; } if (appStateJG.player && appStateJG.isPlayerReady && appStateJG.player.getCurrentTime && appStateJG.player.getCurrentTime() > SEEK_STEP_JG) { appStateJG.player.seekTo(0); return; } let prevSongOriginalIndex = -1, currentList, prevListIndex; if (appStateJG.playMode === 'queue' && appStateJG.queue.length > 0) { currentList = appStateJG.queue.map(id => findSongByIdJG(id)).filter(s => s); prevListIndex = appStateJG.currentQueueIndex - 1; if (prevListIndex < 0) { if (appStateJG.loopMode === 'all' && currentList.length > 0) prevListIndex = currentList.length - 1; else { prevListIndex = 0; if (appStateJG.player && appStateJG.isPlayerReady && appStateJG.player.seekTo) appStateJG.player.seekTo(0); } } appStateJG.currentQueueIndex = prevListIndex; const prevSongIdInQueue = appStateJG.queue[appStateJG.currentQueueIndex]; prevSongOriginalIndex = appStateJG.songs.findIndex(s => s.id === prevSongIdInQueue); } else if (appStateJG.playMode === 'playlist' && appStateJG.currentPlayingPlaylistId) { const p = appStateJG.userPlaylists.find(pl => pl.id === appStateJG.currentPlayingPlaylistId); if (p && p.songs.length > 0) { currentList = p.songs.map(id => findSongByIdJG(id)).filter(s => s); prevListIndex = appStateJG.currentQueueIndex - 1; if (prevListIndex < 0) { if (appStateJG.loopMode === 'all') prevListIndex = currentList.length - 1; else { prevListIndex = 0; if (appStateJG.player && appStateJG.isPlayerReady && appStateJG.player.seekTo) appStateJG.player.seekTo(0); } } appStateJG.currentQueueIndex = prevListIndex; const prevSongIdInPlaylist = p.songs[appStateJG.currentQueueIndex]; prevSongOriginalIndex = appStateJG.songs.findIndex(s => s.id === prevSongIdInPlaylist); } else { appStateJG.playMode = 'library'; appStateJG.currentPlayingPlaylistId = null; appStateJG.currentQueueIndex = -1; } } if (appStateJG.playMode === 'library' || prevSongOriginalIndex === -1) { currentList = appStateJG.isShuffle ? appStateJG.songs : appStateJG.filteredSongs; if (currentList.length === 0) currentList = appStateJG.songs; if (currentList.length === 0) return; if (appStateJG.isShuffle) { if (currentList.length <= 1) prevSongOriginalIndex = appStateJG.songs.findIndex(s => s.id === currentList[0]?.id); else { let rOI, rSId; do { rSId = currentList[Math.floor(Math.random()*currentList.length)].id; rOI = appStateJG.songs.findIndex(s => s.id === rSId); } while (rOI === appStateJG.currentSongIndex && currentList.length > 1); prevSongOriginalIndex = rOI; } } else { let cFI = -1; if (appStateJG.currentSongIndex !== -1) { const cASId = appStateJG.songs[appStateJG.currentSongIndex].id; cFI = appStateJG.filteredSongs.findIndex(s => s.id === cASId); } prevListIndex = cFI - 1; if (prevListIndex < 0) { if (appStateJG.loopMode === 'all' && appStateJG.filteredSongs.length > 0) prevListIndex = appStateJG.filteredSongs.length - 1; else { prevListIndex = 0; if (appStateJG.player && appStateJG.isPlayerReady && appStateJG.player.seekTo) appStateJG.player.seekTo(0); } } if (appStateJG.filteredSongs[prevListIndex]) prevSongOriginalIndex = appStateJG.songs.findIndex(s => s.id === appStateJG.filteredSongs[prevListIndex].id); } } if (prevSongOriginalIndex !== -1) playSongAtIndexJG(prevSongOriginalIndex); }
         function handleSongEndJG() { if (appStateJG.loopMode === 'one' && appStateJG.currentSongIndex !== -1) playSongAtIndexJG(appStateJG.currentSongIndex); else playNextJG(); }
         function updateProgressJG() {
