@@ -490,7 +490,15 @@
         let songMetadataOverridesJG = {}; let currentEditingSongIdJG = null; let currentContextMenuSongIdJG = null;
         const MAX_HISTORY_JG = 20; const VOLUME_STEP_JG = 5; const SEEK_STEP_JG = 5; const DEFAULT_TITLE_JG = "Jungle Groove - Wild Music Safari";
         const LS_KEYS_JG = { HISTORY: 'jungleGrooveHistory', FAVORITES: 'jungleGrooveFavorites', PLAYLISTS: 'jungleGroovePlaylists', THEME: 'jungleGrooveThemeId', QUEUE: 'jungleGrooveQueue', VOLUME: 'jungleGrooveVolume', PLAYBACK_RATE: 'jungleGroovePlaybackRate', METADATA_OVERRIDES: 'jungleGrooveMetadataOverrides' };
-        appStateJG = { player: null, songs: [], filteredSongs: [], currentSongIndex: -1, isPlaying: false, isShuffle: false, loopMode: 'none', currentPanel: 'log-library', volume: 75, previousVolumeBeforeMute: 75, isMuted: false, progressInterval: null, history: [], favorites: [], userPlaylists: [], queue: [], currentQueueIndex: -1, playMode: 'library', isPlayerReady: false, snackbarTimeoutId: null, activeModalId: null, buttonsForPanel: { 'log-library': ['btn-create-playlist-jg'], 'log-paths': ['btn-create-playlist-jg'], 'playlistSongs': ['btn-create-playlist-jg'], 'log-discoveries': ['btn-clear-queue-jg', 'btn-create-playlist-jg'], 'log-trophies': ['btn-create-playlist-jg'], 'log-history': ['btn-clear-history-jg', 'btn-create-playlist-jg'] }, currentViewingPlaylistId: null, currentPlayingPlaylistId: null, uploadsPlaylistId: null, nextPageToken: null, isLoadingMore: false };
+        const END_OFFSET_SECONDS_JG = 13.5; // <<< NEW CONSTANT
+        appStateJG = {
+            player: null, songs: [], filteredSongs: [], currentSongIndex: -1, isPlaying: false, isShuffle: false, loopMode: 'none', currentPanel: 'log-library',
+            volume: 75, previousVolumeBeforeMute: 75, isMuted: false, progressInterval: null, history: [], favorites: [], userPlaylists: [], queue: [],
+            currentQueueIndex: -1, playMode: 'library', isPlayerReady: false, snackbarTimeoutId: null, activeModalId: null,
+            buttonsForPanel: { 'log-library': ['btn-create-playlist-jg'], 'log-paths': ['btn-create-playlist-jg'], 'playlistSongs': ['btn-create-playlist-jg'], 'log-discoveries': ['btn-clear-queue-jg', 'btn-create-playlist-jg'], 'log-trophies': ['btn-create-playlist-jg'], 'log-history': ['btn-clear-history-jg', 'btn-create-playlist-jg'] },
+            currentViewingPlaylistId: null, currentPlayingPlaylistId: null, uploadsPlaylistId: null, nextPageToken: null, isLoadingMore: false,
+            songEndedEarly: false // <<< NEW STATE PROPERTY
+        };
 
         // --- Element Initialization ---
         function initializeElementsJG() {
@@ -833,37 +841,76 @@
         function handleSongEndJG() { if (appStateJG.loopMode === 'one' && appStateJG.currentSongIndex !== -1) playSongAtIndexJG(appStateJG.currentSongIndex); else playNextJG(); }
         function updateProgressJG() {
             if(!appStateJG.player||!appStateJG.isPlayerReady||typeof appStateJG.player.getDuration!=='function')return;
-            const curTime=appStateJG.player.getCurrentTime?appStateJG.player.getCurrentTime():0;
-            const dur=appStateJG.player.getDuration?appStateJG.player.getDuration():0;
+            
+            let curTime = appStateJG.player.getCurrentTime ? appStateJG.player.getCurrentTime() : 0;
+            let trueDuration = appStateJG.player.getDuration ? appStateJG.player.getDuration() : 0;
+
+            if (trueDuration <= 0) { // No song or duration not yet available
+                if(elementsJG.progressSlider) elementsJG.progressSlider.value = 0;
+                if(elementsJG.currentTimeDisplay) elementsJG.currentTimeDisplay.textContent = "0:00";
+                if(elementsJG.totalTimeDisplay) elementsJG.totalTimeDisplay.textContent = "0:00";
+                if(elementsJG.fullPlayerModalProgressSlider) elementsJG.fullPlayerModalProgressSlider.value = 0;
+                if(elementsJG.fullPlayerModalCurrentTime) elementsJG.fullPlayerModalCurrentTime.textContent = "0:00";
+                if(elementsJG.fullPlayerModalTotalTime) elementsJG.fullPlayerModalTotalTime.textContent = "0:00";
+                return;
+            }
+
+            let effectiveDuration = Math.max(0, trueDuration - END_OFFSET_SECONDS_JG);
+
+            // Check if we should end the song early
+            // Only trigger early end if there's a positive effective duration to play through
+            if (effectiveDuration > 0 && curTime >= effectiveDuration) {
+                curTime = effectiveDuration; // Cap current time at effective duration for display
+
+                // Update UI to 100% based on effective duration
+                if (elementsJG.progressSlider) elementsJG.progressSlider.value = 100;
+                if (elementsJG.currentTimeDisplay) elementsJG.currentTimeDisplay.textContent = formatTimeJG(curTime);
+                if (elementsJG.totalTimeDisplay) elementsJG.totalTimeDisplay.textContent = formatTimeJG(effectiveDuration);
+
+                if (elementsJG.fullPlayerModalProgressSlider) elementsJG.fullPlayerModalProgressSlider.value = 100;
+                if (elementsJG.fullPlayerModalCurrentTime) elementsJG.fullPlayerModalCurrentTime.textContent = formatTimeJG(curTime);
+                if (elementsJG.fullPlayerModalTotalTime) elementsJG.fullPlayerModalTotalTime.textContent = formatTimeJG(effectiveDuration);
+                
+                // Clear interval *before* calling handleSongEndJG
+                if (appStateJG.progressInterval) clearInterval(appStateJG.progressInterval);
+                appStateJG.progressInterval = null;
+
+                appStateJG.isPlaying = false; 
+                updatePlayPauseButtonJG();
+                updateDocumentTitleJG();
+                
+                appStateJG.songEndedEarly = true; // Set flag
+                handleSongEndJG(); 
+                return; // Exit after handling early end
+            }
+
+            // Normal progress update or song is too short (effectiveDuration is 0)
+            const displayCurrentTime = Math.min(curTime, effectiveDuration); // Current time cannot exceed effective duration for display
+            const displayTotalTime = effectiveDuration;
+            const progressPercent = (effectiveDuration > 0) ? (displayCurrentTime / effectiveDuration) * 100 : 100; 
+                                       // If effectiveDuration is 0, it's "fully progressed" from the start
 
             // PC Player
-            if(elementsJG.progressSlider&&elementsJG.currentTimeDisplay&&elementsJG.totalTimeDisplay){
-                if(dur>0){
-                    elementsJG.progressSlider.value=(curTime/dur)*100;
-                    elementsJG.currentTimeDisplay.textContent=formatTimeJG(curTime);
-                    elementsJG.totalTimeDisplay.textContent=formatTimeJG(dur);
-                    const curSong=appStateJG.songs[appStateJG.currentSongIndex];
-                    if(curSong&&curSong.duration==="--:--"){
-                        curSong.duration=formatTimeJG(dur);
-                        document.querySelectorAll(`.log-entry-jg[data-id="${curSong.id}"] .duration`).forEach(el=>{el.textContent=curSong.duration;});
-                    }
-                }else{
-                    elementsJG.progressSlider.value=0;
-                    elementsJG.currentTimeDisplay.textContent="0:00";
-                    elementsJG.totalTimeDisplay.textContent="0:00";
+            if (elementsJG.progressSlider && elementsJG.currentTimeDisplay && elementsJG.totalTimeDisplay) {
+                elementsJG.progressSlider.value = progressPercent;
+                elementsJG.currentTimeDisplay.textContent = formatTimeJG(displayCurrentTime);
+                elementsJG.totalTimeDisplay.textContent = formatTimeJG(displayTotalTime);
+                
+                const curSong = appStateJG.songs[appStateJG.currentSongIndex];
+                // Update song's stored duration in the list if it was a placeholder ("--:--")
+                if (curSong && curSong.duration === "--:--") {
+                    curSong.duration = formatTimeJG(displayTotalTime); // Store the effective duration
+                    document.querySelectorAll(`.log-entry-jg[data-id="${curSong.id}"] .duration`).forEach(el => {
+                        el.textContent = curSong.duration;
+                    });
                 }
             }
+            
             // Mobile Full Screen Player
-            if(elementsJG.fullPlayerModalProgressSlider && elementsJG.fullPlayerModalCurrentTime && elementsJG.fullPlayerModalTotalTime){
-                if(dur > 0){
-                    elementsJG.fullPlayerModalProgressSlider.value = (curTime / dur) * 100;
-                    elementsJG.fullPlayerModalCurrentTime.textContent = formatTimeJG(curTime);
-                    elementsJG.fullPlayerModalTotalTime.textContent = formatTimeJG(dur);
-                } else {
-                    elementsJG.fullPlayerModalProgressSlider.value = 0;
-                    elementsJG.fullPlayerModalCurrentTime.textContent = "0:00";
-                    elementsJG.fullPlayerModalTotalTime.textContent = "0:00";
-                }
+            if (elementsJG.fullPlayerModalProgressSlider && elementsJG.fullPlayerModalCurrentTime && elementsJG.fullPlayerModalTotalTime) {
+                elementsJG.fullPlayerModalProgressSlider.value = progressPercent;
+                elementsJG.fullPlayerModalCurrentTime.textContent = formatTimeJG(displayCurrentTime);
+                elementsJG.fullPlayerModalTotalTime.textContent = formatTimeJG(displayTotalTime);
             }
         }
         function cyclePlaybackRateJG() {
@@ -915,8 +962,94 @@
         async function togglePictureInPictureJG() { if (!elementsJG.youtubePlayerContainer || !elementsJG.youtubePlayerContainer.firstChild) { showSnackbarJG("PiPターゲットなし", "error"); return; } const videoElement = elementsJG.youtubePlayerContainer.firstChild; if (!document.pictureInPictureEnabled) { showSnackbarJG("ブラウザPiP非対応", "warning"); elementsJG.btnPip.disabled = true; if(elementsJG.fullPlayerModalBtnPip) elementsJG.fullPlayerModalBtnPip.disabled = true; return; } try { if (document.pictureInPictureElement) { await document.exitPictureInPicture(); } else { if (videoElement.requestPictureInPicture) { await videoElement.requestPictureInPicture(); } else { showSnackbarJG("PiP開始失敗", "error"); } } } catch (error) { console.error("PiP Error:", error); showSnackbarJG(`PiPエラー: ${error.message}`, "error"); } }
         function handleEnterPiPJG() { if(elementsJG.btnPip) elementsJG.btnPip.classList.add('active-control'); if(elementsJG.fullPlayerModalBtnPip) elementsJG.fullPlayerModalBtnPip.classList.add('active-control'); console.log("Entered PiP mode");}
         function handleLeavePiPJG() { if(elementsJG.btnPip) elementsJG.btnPip.classList.remove('active-control'); if(elementsJG.fullPlayerModalBtnPip) elementsJG.fullPlayerModalBtnPip.classList.remove('active-control'); console.log("Exited PiP mode");}
-        function onPlayerReadyJG(event) { appStateJG.isPlayerReady = true; if (event.target && typeof event.target.setVolume === 'function') { setVolumeJG(appStateJG.volume, false);  } const storedRate = loadFromLocalStorageJG(LS_KEYS_JG.PLAYBACK_RATE); if (storedRate !== null) applyPlaybackRateJG(parseFloat(storedRate)); loadInitialSongsJG(); }
-        function onPlayerStateChangeJG(event) { const ps=event.data; if(ps===YT.PlayerState.PLAYING){appStateJG.isPlaying=true;if(appStateJG.progressInterval)clearInterval(appStateJG.progressInterval);appStateJG.progressInterval=setInterval(updateProgressJG,500);updatePlayerUIGJ(appStateJG.songs[appStateJG.currentSongIndex]);updateActiveListItemJG(); const cSO=appStateJG.songs[appStateJG.currentSongIndex];if(cSO){if(appStateJG.playMode==='queue'){const sIQ=appStateJG.queue[appStateJG.currentQueueIndex];if(sIQ!==cSO.id){const nQI=appStateJG.queue.findIndex(id=>id===cSO.id);if(nQI!==-1)appStateJG.currentQueueIndex=nQI;else{appStateJG.playMode='library';appStateJG.currentQueueIndex=-1;}}}else if(appStateJG.playMode==='playlist'&&appStateJG.currentPlayingPlaylistId){const p=appStateJG.userPlaylists.find(pl=>pl.id===appStateJG.currentPlayingPlaylistId);if(p){const sIP=p.songs[appStateJG.currentQueueIndex];if(sIP!==cSO.id){const nPSI=p.songs.findIndex(id=>id===cSO.id);if(nPSI!==-1)appStateJG.currentQueueIndex=nPSI;else{appStateJG.playMode='library';appStateJG.currentPlayingPlaylistId=null;appStateJG.currentQueueIndex=-1;}}}else{appStateJG.playMode='library';appStateJG.currentPlayingPlaylistId=null;appStateJG.currentQueueIndex=-1;}}}} else if(ps===YT.PlayerState.PAUSED){appStateJG.isPlaying=false;clearInterval(appStateJG.progressInterval);updatePlayPauseButtonJG();updateDocumentTitleJG();} else if(ps===YT.PlayerState.ENDED){appStateJG.isPlaying=false;clearInterval(appStateJG.progressInterval);updatePlayPauseButtonJG();updateDocumentTitleJG();if(elementsJG.progressSlider)elementsJG.progressSlider.value=100;if(elementsJG.fullPlayerModalProgressSlider)elementsJG.fullPlayerModalProgressSlider.value=100;if(elementsJG.currentTimeDisplay&&elementsJG.totalTimeDisplay){elementsJG.currentTimeDisplay.textContent=elementsJG.totalTimeDisplay.textContent;}if(elementsJG.fullPlayerModalCurrentTime&&elementsJG.fullPlayerModalTotalTime){elementsJG.fullPlayerModalCurrentTime.textContent=elementsJG.fullPlayerModalTotalTime.textContent;}handleSongEndJG();} else if(ps===YT.PlayerState.CUED){updateProgressJG();if(!appStateJG.isPlaying&&appStateJG.currentSongIndex!==-1){appStateJG.player.playVideo();}} else if(ps===-1){updateDocumentTitleJG();} }
+        function onPlayerReadyJG(event) {
+            appStateJG.isPlayerReady = true;
+            if (event.target && typeof event.target.setVolume === 'function') {
+                setVolumeJG(appStateJG.volume, false); 
+            }
+            const storedRate = loadFromLocalStorageJG(LS_KEYS_JG.PLAYBACK_RATE);
+            if (storedRate !== null) applyPlaybackRateJG(parseFloat(storedRate));
+            loadInitialSongsJG(); // This will eventually call loadInitialDataJG(true)
+        }
+        function onPlayerStateChangeJG(event) {
+            const ps=event.data;
+            if(ps===YT.PlayerState.PLAYING){
+                appStateJG.isPlaying=true;
+                appStateJG.songEndedEarly = false; // <<< RESET FLAG
+                if(appStateJG.progressInterval)clearInterval(appStateJG.progressInterval);
+                appStateJG.progressInterval=setInterval(updateProgressJG,250); // Check more frequently for smoother early end
+                updatePlayerUIGJ(appStateJG.songs[appStateJG.currentSongIndex]);
+                updateActiveListItemJG();
+                const cSO=appStateJG.songs[appStateJG.currentSongIndex];
+                if(cSO){
+                    if(appStateJG.playMode==='queue'){
+                        const sIQ=appStateJG.queue[appStateJG.currentQueueIndex];
+                        if(sIQ!==cSO.id){
+                            const nQI=appStateJG.queue.findIndex(id=>id===cSO.id);
+                            if(nQI!==-1)appStateJG.currentQueueIndex=nQI;
+                            else{appStateJG.playMode='library';appStateJG.currentQueueIndex=-1;}
+                        }
+                    } else if(appStateJG.playMode==='playlist'&&appStateJG.currentPlayingPlaylistId){
+                        const p=appStateJG.userPlaylists.find(pl=>pl.id===appStateJG.currentPlayingPlaylistId);
+                        if(p){
+                            const sIP=p.songs[appStateJG.currentQueueIndex];
+                            if(sIP!==cSO.id){
+                                const nPSI=p.songs.findIndex(id=>id===cSO.id);
+                                if(nPSI!==-1)appStateJG.currentQueueIndex=nPSI;
+                                else{appStateJG.playMode='library';appStateJG.currentPlayingPlaylistId=null;appStateJG.currentQueueIndex=-1;}
+                            }
+                        }else{
+                            appStateJG.playMode='library';appStateJG.currentPlayingPlaylistId=null;appStateJG.currentQueueIndex=-1;
+                        }
+                    }
+                }
+            } else if(ps===YT.PlayerState.PAUSED){
+                appStateJG.isPlaying=false;
+                if(appStateJG.progressInterval) clearInterval(appStateJG.progressInterval); // Clear interval on pause
+                appStateJG.progressInterval = null;
+                updatePlayPauseButtonJG();
+                updateDocumentTitleJG();
+            } else if(ps===YT.PlayerState.ENDED){
+                if (appStateJG.songEndedEarly) {
+                    appStateJG.songEndedEarly = false; // Reset for next song
+                    if(appStateJG.progressInterval) clearInterval(appStateJG.progressInterval);
+                    appStateJG.progressInterval = null;
+                    // UI updates (isPlaying, button, title) are handled by updateProgressJG's early end
+                    return; // Already handled
+                }
+
+                // Natural song end (not an early cutoff by our logic)
+                appStateJG.isPlaying=false;
+                if(appStateJG.progressInterval) clearInterval(appStateJG.progressInterval);
+                appStateJG.progressInterval = null;
+
+                updatePlayPauseButtonJG();
+                updateDocumentTitleJG();
+
+                // Ensure UI reflects 100% progress based on effective duration for natural end
+                const trueDur = (appStateJG.player && appStateJG.player.getDuration) ? appStateJG.player.getDuration() : 0;
+                const effectiveDur = Math.max(0, trueDur - END_OFFSET_SECONDS_JG);
+
+                if(elementsJG.progressSlider) elementsJG.progressSlider.value=100;
+                if(elementsJG.currentTimeDisplay) elementsJG.currentTimeDisplay.textContent = formatTimeJG(effectiveDur);
+                if(elementsJG.totalTimeDisplay) elementsJG.totalTimeDisplay.textContent = formatTimeJG(effectiveDur);
+
+                if(elementsJG.fullPlayerModalProgressSlider) elementsJG.fullPlayerModalProgressSlider.value=100;
+                if(elementsJG.fullPlayerModalCurrentTime) elementsJG.fullPlayerModalCurrentTime.textContent = formatTimeJG(effectiveDur);
+                if(elementsJG.fullPlayerModalTotalTime) elementsJG.fullPlayerModalTotalTime.textContent = formatTimeJG(effectiveDur);
+
+                handleSongEndJG();
+            } else if(ps===YT.PlayerState.CUED){
+                appStateJG.songEndedEarly = false; // <<< RESET FLAG
+                updateProgressJG(); // Update UI with initial (effective) duration
+                if(!appStateJG.isPlaying&&appStateJG.currentSongIndex!==-1){
+                    appStateJG.player.playVideo();
+                }
+            } else if(ps===-1){ // unstarted
+                appStateJG.songEndedEarly = false; // <<< RESET FLAG
+                updateDocumentTitleJG();
+            } 
+        }
         function onPlayerErrorJG(event) { console.error("Player Error:", event.data); let msg=`動画再生エラー(${event.data})`; const cST=getDisplaySongInfoJG(appStateJG.songs[appStateJG.currentSongIndex]?.id).title||"この動画"; switch(event.data){case 2:msg=`「${escapeHTMLJG(cST)}」読込失敗。ID無効等`;break;case 5:msg=`「${escapeHTMLJG(cST)}」HTML5プレイヤーエラー`;break;case 100:msg=`「${escapeHTMLJG(cST)}」が見つかりません`;break;case 101:case 150:msg=`「${escapeHTMLJG(cST)}」埋込再生不可`;break;default:msg=`「${escapeHTMLJG(cST)}」不明なエラー(${event.data})`} showSnackbarJG(msg,"error",7000);appStateJG.isPlaying=false;updatePlayPauseButtonJG();updateDocumentTitleJG(); }
 
         // --- List Management & UI Interaction ---
